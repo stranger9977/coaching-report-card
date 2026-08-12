@@ -176,14 +176,24 @@ qb_stats_raw <- load_player_stats(seq(FIRST_SEASON - 1, LAST_SEASON)) %>%
   filter(season_type == "REG", position == "QB") %>%
   mutate(team = clean_team_abbrs(team), dropbacks = attempts + sacks_suffered)
 
+# NOTE: group by player_id ONLY, not player_id + player_name. The same
+# gsis_id occasionally carries two different player_name spellings within
+# one season in this table (a known nflverse data glitch: e.g. gsis_id
+# 00-0022942, the real Philip Rivers who retired after 2020, has some 2025
+# Indianapolis QB dropbacks misattributed to his ID -- see header comment).
+# Grouping on player_name too would silently split one player's season into
+# two rows and duplicate downstream joins.
+qb_names <- load_players() %>% filter(!is.na(gsis_id)) %>% distinct(gsis_id, .keep_all = TRUE) %>%
+  select(gsis_id, display_name)
+
 qb_player_season <- qb_stats_raw %>%
-  group_by(season, player_id, player_name) %>%
+  group_by(season, player_id) %>%
   summarise(dropbacks = sum(dropbacks), passing_epa = sum(passing_epa, na.rm = TRUE),
             .groups = "drop") %>%
   mutate(epa_per_dropback = passing_epa / dropbacks)
 
 starters <- qb_stats_raw %>%
-  group_by(season, team, player_id, player_name) %>%
+  group_by(season, team, player_id) %>%
   summarise(dropbacks = sum(dropbacks), .groups = "drop") %>%
   group_by(season, team) %>%
   slice_max(dropbacks, n = 1, with_ties = FALSE) %>%
@@ -196,8 +206,9 @@ prior_epa <- qb_player_season %>%
 starters <- starters %>%
   left_join(prior_epa, by = c("season", "player_id")) %>%
   left_join(player_draft_lookup, by = c("player_id" = "gsis_id")) %>%
+  left_join(qb_names, by = c("player_id" = "gsis_id")) %>%
   mutate(qb_value = draft_value(draft_number_final)) %>%
-  select(season, team, qb_name = player_name, qb_id = player_id, qb_dropbacks = dropbacks,
+  select(season, team, qb_name = display_name, qb_id = player_id, qb_dropbacks = dropbacks,
          qb_draft_pick = draft_number_final, qb_value, qb_prior_epa_per_db)
 
 n_missing_prior_epa <- sum(is.na(starters$qb_prior_epa_per_db))
@@ -301,12 +312,12 @@ p_board <- ggplot(board, aes(x = wins_per_season, y = head_coach, fill = active_
   ) +
   theme_coach(grid = "y") +
   theme(axis.text.y = element_text(size = rel(0.85))) +
-  labs(caption = fig_caption(
+  labs(caption = paste(strwrap(fig_caption(
     "games.csv (nflverse schedules) and nflreadr::load_rosters/load_players/load_player_stats, 2003-2025",
     sprintf("Head coaches with >= %d seasons in the window (n=%d of %d coaches). Coach assigned to whoever coached the most games in a season; %d team-seasons had more than one coach.",
             MIN_SEASONS_COACHED, nrow(leaderboard_pool), nrow(coach_table), n_multi_coach_seasons),
     "Roster and QB draft value from the Jimmy Johnson trade chart; QB measure is his own draft value, not in-season play."
-  ))
+  ), width = 130), collapse = "\n"))
 
 save_fig("docs/figures/coach_vs_roster.png", p_board, w = 12, h = 8.5)
 

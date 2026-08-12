@@ -115,7 +115,7 @@
     <div class="card">
       <div class="card-head"><span class="t">The bit of magic, measured</span><span class="pill ship">He is right</span></div>
       <p class="row"><span class="lab">Michael:</span> "I'm super biased. But there is a bit of magic to what the Hawks accomplished last year. Won without an elite qb…and seemingly without a lot of elite players. Very strange"</p>
-      <p class="row found"><span class="lab">Found:</span> the magic shows up in the numbers, and it is not small. The market, which knows the roster, the schedule, and the injuries, priced the 2025 Seahawks at 10.8 wins. They won 14. Only two teams in football beat their expectation by more last season, Liam Coen's Jaguars and Vrabel's Patriots. Whatever you felt watching them, the betting market felt it too, all year, and kept underpricing it.</p>
+      <p class="row found"><span class="lab">Found:</span> the magic shows up in the numbers, and it is not small. The market, which knows the roster, the schedule, and the injuries, priced the 2025 Seahawks at 10.8 wins. They won 14. Only two teams in football beat their expectation by more last season, Liam Coen's Jaguars and Vrabel's Patriots. Whatever you felt watching them, the betting market felt it too, all year, and kept underpricing it. The roster version agrees: price every roster by its draft pedigree and Seattle sat 19th of 32, with the league's largest gap between what the talent predicted and what the team did.</p>
       <figure>
         <img src="figures/market_2025.png" alt="Scatter of all 32 teams' 2025 actual wins against market-expected wins from closing spreads, with Seattle highlighted about three wins above its expectation.">
         <figcaption>Actual 2025 wins against what closing spreads implied, all 32 teams. Seattle won 3.2 more games than the market expected, third most in football. nflverse schedules and closing spread lines, 1999 to 2025. Built by R/02.</figcaption>
@@ -135,7 +135,27 @@
       <p class="xref">Macdonald career so far: +4.7 wins above expectation in 34 games, third best rate among eligible coaches, and outside the cone. Two seasons. The persistence null is the reason not to crown him yet, and saying so out loud is what makes the Seattle segment credible.</p>
     </div>
 
-    <!-- PENDING: builder-talent card (coach_vs_roster.png + seahawks_2025.png) goes here -->
+    <div class="card">
+      <div class="card-head"><span class="t">The roster could not explain it either</span><span class="pill ship">Answered, with a twist</span></div>
+      <p class="row"><span class="lab">Michael:</span> "…like how much is a team overachiving based on their player talent"</p>
+      <p class="row found"><span class="lab">Found:</span> we valued every roster since 2003 by its draft pedigree, every player priced at his draft slot on the Jimmy Johnson chart. Seattle's 2025 roster ranked 19th of 32, middle of the pack, so "seemingly without a lot of elite players" reads about right by pedigree. Then they outscored opponents by 11.2 points a game, the largest gap between what a roster's pedigree predicts and what the team actually did of any team in the league. The twist that changes the whole framing: draft pedigree explains essentially nothing about team performance leaguewide (r = 0.00 across 736 team-seasons). Whatever separates good teams from bad ones, it is not the pedigree of the players on the roster, and that is its own finding.</p>
+      <figure>
+        <img src="figures/seahawks_2025.png" alt="Scatter of 2025 teams' roster draft value against point differential per game with a nearly flat fit line and Seattle as the largest positive outlier.">
+        <figcaption>2025 roster draft value against point differential per game. The fit line is nearly flat, and Seattle sits farthest above it. nflverse rosters and draft data, Jimmy Johnson value chart. Built by R/01.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> pedigree prices the pick, not the player. A star who went undrafted counts as zero and a top-five bust counts as a top-five pick, and the "recent drafts only" version of the measure actually runs negative because losing teams get the high picks. Sam Darnold also had a bounce-back year Seattle does not get credit for separating from coaching. Say all of that in the script; it is what makes the flat line believable instead of suspicious.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Wins above roster talent, the career view</span><span class="pill ship">The leaderboard passes the smell test</span></div>
+      <p class="row"><span class="lab">The ask:</span> the WAR-style number, one value per coach.</p>
+      <p class="row found"><span class="lab">Found:</span> a mixed model over 736 team-seasons (2003 to 2025), performance against roster and QB pedigree, one effect per coach. The top of the list is Belichick at 4.2 wins per season above what his rosters predicted, then Dungy, John Harbaugh, Payton, McDermott, with Reid and Tomlin close behind. The bottom is Gus Bradley, Adam Gase, and Robert Saleh. Nobody fed the model a reputation and it recovered the consensus anyway, which is the face-validity check you want before trusting it on anyone surprising. Macdonald lands at about 1.5 wins per season above talent, on two seasons, below the four-season bar the chart enforces. Preliminary by design.</p>
+      <figure>
+        <img src="figures/coach_vs_roster.png" alt="Leaderboard of head coaches by wins per season above what roster draft value predicts, minimum four seasons, Belichick on top at about 4 wins and Gus Bradley at the bottom around minus 2.">
+        <figcaption>Wins per season above roster pedigree, coaches with at least four seasons since 2003, active coaches marked. Built by R/01.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> because pedigree barely predicts performance, this "talent control" controls for less than the name suggests. Read it as wins above a league baseline with a QB nudge, not wins above a true talent measure. It also credits a whole season to whoever coached most of it (38 of 736 seasons had a midseason change). The next talent measure to try is on the ideas list: actual performance data, not draft slots.</p>
+    </div>
 
     <!-- PENDING: builder-madden card (madden_scatter.png + madden_coaches.png) goes here -->
 
@@ -352,7 +372,7 @@
       <div class="card-head"><span class="t">1 &nbsp;The Seahawks question as the spine</span><span class="pill work">The new build</span></div>
       <p class="row found"><span class="lab">The idea:</span> open on the 2025 Seahawks, ask what the market missed, and let the answer walk through the whole report card: talent models, playcalling, game management, and the luck cones that keep everyone honest.</p>
       <p class="row"><span class="lab">Why it is best:</span> it is your own hook, it is current, and every segment on this board plugs into it.</p>
-      <p class="xref">Have: market model, playcalling suite, game management suite. Need: the roster-talent model on this board to land, and a decision on how hard to lean on a two-season coach.</p>
+      <p class="xref">Have: market model, roster model, playcalling suite, game management suite. Need: a decision on how hard to lean on a two-season coach, and ideally the talent meter upgrade below.</p>
     </div>
 
     <div class="card">
@@ -388,7 +408,13 @@
     </div>
 
     <div class="card">
-      <div class="card-head"><span class="t">6 &nbsp;Draft pedigree goes stale by Week 4</span><span class="pill data">Built, different video</span></div>
+      <div class="card-head"><span class="t">6 &nbsp;A talent meter better than pedigree</span><span class="pill open">The methodological upgrade</span></div>
+      <p class="row found"><span class="lab">The idea:</span> draft capital measures what teams paid, not what players became, and it explains nothing. The upgrades, in rough order of effort: snap-weighted approximate value, contract market value from OverTheCap (what the league currently pays the roster), or PFF grades. Rerun the coach model on one of those and the "above talent" claim gets real teeth.</p>
+      <p class="xref">Have: the whole model pipeline, swap one input. Need: a day with the AV or contracts data, and a check that the leaderboard stays face-valid.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">7 &nbsp;Draft pedigree goes stale by Week 4</span><span class="pill data">Built, different video</span></div>
       <p class="row found"><span class="lab">The idea:</span> rookie usage beats draft slot as a predictor within two months. It is a roster-building story, not a coaching story, and it slots into the "building a team around a QB" preview idea you floated on Aug 3.</p>
     </div>
 
@@ -397,7 +423,7 @@
     </div>
 
     <div class="card">
-      <div class="card-head"><span class="t">7 &nbsp;A fourth-down go-for-it model</span><span class="pill block">Known ground</span></div>
+      <div class="card-head"><span class="t">8 &nbsp;A fourth-down go-for-it model</span><span class="pill block">Known ground</span></div>
       <p class="row found"><span class="lab">Why not:</span> Ben Baldwin's fourth-down model is public, famous, and already the default reference. We would be re-deriving someone else's headline. Use it as an input to the decision GPA and credit it; do not present it as a discovery.</p>
     </div>
 

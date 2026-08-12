@@ -37,9 +37,11 @@ the new work.
 | Motion vs man coverage | +0.03 EPA, CI crosses zero; no deterrence effect |
 | Halftime adjustments repeat | split-half r = 0.48, 44 of 159 coaches outside the noise cone (~8 expected) |
 | But they are mostly team quality | adjustment score correlates 0.81 with plain point margin |
+| Draft pedigree explains ~nothing | roster draft value vs point diff: r = -0.005 across 736 team-seasons |
+| Wins above roster talent | Belichick +4.2/season on top; Gase, Bradley, Saleh at the bottom |
+| Seattle 2025 vs its pedigree | roster 19th of 32 by draft value, biggest positive outlier in the league |
 
-(New-build rows for roster talent and Madden get added when those scripts
-land.)
+(The Madden row gets added when that script lands.)
 
 ## Scripts
 
@@ -48,7 +50,7 @@ figures and derived CSVs.
 
 | Script | Builds |
 |---|---|
-| `R/01_roster_talent.R` | coach_vs_roster.png, seahawks_2025.png (in progress) |
+| `R/01_roster_talent.R` | coach_vs_roster.png, seahawks_2025.png |
 | `R/02_market_expectation.R` | market_funnel.png, market_2025.png |
 | `R/03_madden.R` | madden_scatter.png, madden_coaches.png (in progress) |
 | `R/04_halftime_adjustments.R` | halftime_cone.png, halftime_persistence.png (in progress) |
@@ -85,8 +87,16 @@ board:
 
 ## Open problems
 
-- Roster-talent baseline: draft capital misses UDFA stars and aging; the model
-  ships with that caveat until a better talent measure lands.
+- Roster-talent baseline: draft capital turned out to explain ~0% of team
+  performance (and the recent-drafts variant runs negative, since losing earns
+  high picks). The coach model ships with that stated plainly; the upgrade is
+  a performance-based talent meter (snap-weighted AV, OTC contract value, or
+  PFF grades).
+- nflreadr data gotchas hit during the build: load_rosters() game_type is
+  unreliable for REG filtering (use distinct players per season roster);
+  draft_number has a 2016-2019 missing-data spike (backfill from
+  load_players()); the 2025 schedules/player-stats data misattributes ~97 IND
+  dropbacks to Philip Rivers's gsis_id.
 - Halftime adjustments: repeatability test in progress; the audience belief is
   strong and the data may not support it.
 - "Adjustments" beyond halftime (in-series, week-to-week) is unmeasured.
