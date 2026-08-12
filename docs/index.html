@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Coaching Report Card</title>
+<style>
+  :root {
+    --bg: #fbfbfa; --ink: #1e2126; --ink-2: #4a5058; --ink-3: #778089;
+    --accent: #2B8CBE; --accent-deep: #045A8D; --card: #ffffff;
+    --line: #e3e5e8; --tile-bg: #f1f4f7; --draft: #b26a00; --draft-bg: #fdf3e3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c; --ink: #e8eaed; --ink-2: #b3b9c0; --ink-3: #848b94;
+      --accent: #62aed4; --accent-deep: #8fc6e2; --card: #1e2126;
+      --line: #2e3238; --tile-bg: #23262c; --draft: #e0a458; --draft-bg: #2a2114;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.68; font-size: 18px;
+  }
+  main { max-width: 1060px; margin: 0 auto; padding: 0 20px 90px; }
+  .prose { max-width: 700px; margin-left: auto; margin-right: auto; }
+  .draftbar {
+    background: var(--draft-bg); color: var(--draft); border-bottom: 1px solid var(--line);
+    font-size: 13.5px; text-align: center; padding: 9px 16px; letter-spacing: 0.01em;
+  }
+  .draftbar a { color: var(--draft); }
+  header { padding: 66px 0 8px; text-align: center; }
+  .kicker { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  h1 { font-size: clamp(32px, 6vw, 54px); line-height: 1.1; margin: 14px auto 16px; max-width: 820px; letter-spacing: -0.02em; }
+  .dek { font-size: clamp(18px, 2.3vw, 22px); color: var(--ink-2); max-width: 680px; margin: 0 auto 8px; }
+  .byline { font-size: 14px; color: var(--ink-3); margin-top: 16px; }
+  .actnum { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-top: 12px; }
+  h2 { font-size: clamp(26px, 3.6vw, 34px); margin: 6px 0 16px; letter-spacing: -0.01em; line-height: 1.15; }
+  h3 { font-size: 21px; margin: 40px 0 10px; }
+  p { margin: 0 0 20px; color: var(--ink-2); }
+  p strong, h1, h2, h3, .lede { color: var(--ink); }
+  .lede { font-size: 21px; line-height: 1.6; }
+  a { color: var(--accent); }
+  .actdivider { border: none; border-top: 1px solid var(--line); margin: 72px auto 40px; max-width: 700px; }
+  .actintro { text-align: center; max-width: 720px; margin: 0 auto; }
+  figure { margin: 34px 0 20px; background: #ffffff; border: 1px solid var(--line); border-radius: 12px; padding: 10px; overflow: hidden; }
+  figure img { width: 100%; height: auto; display: block; border-radius: 6px; }
+  figcaption { font-size: 13.5px; color: var(--ink-3); padding: 12px 8px 4px; line-height: 1.5; }
+  footer { border-top: 1px solid var(--line); margin-top: 70px; padding-top: 22px; font-size: 14px; color: var(--ink-3); line-height: 1.7; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+  /* Brainstorm board */
+  .board { max-width: 880px; margin: 0 auto; }
+  .tgroup { margin: 38px 0 6px; }
+  .tgroup > h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.11em; color: var(--accent); border-bottom: 1px solid var(--line); padding-bottom: 8px; margin: 0; }
+  .grouphint { font-size: 14px; color: var(--ink-3); margin: 8px 0 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 13px 16px 14px; margin: 0 0 11px; }
+  .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 7px; }
+  .card-head .t { font-size: 16px; font-weight: 650; color: var(--ink); line-height: 1.3; }
+  .pill { font-size: 10px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
+  .pill.ship  { background:#e0f2e7; color:#1c7a43; }
+  .pill.data  { background:#e1eef8; color:#1c6fa8; }
+  .pill.work  { background:#fbecd6; color:#a5620a; }
+  .pill.block { background:#f7e0e0; color:#b23a3a; }
+  .pill.open  { background:#ece1f6; color:#6b46a8; }
+  .card .row { font-size: 14px; line-height: 1.55; margin: 3px 0; color: var(--ink-2); }
+  .card .row .lab { font-weight: 700; color: var(--ink); }
+  .card .row.found .lab { color: var(--accent); }
+  .card figure { margin: 12px 0 4px; background: #ffffff; border: 1px solid var(--line); border-radius: 8px; padding: 6px; overflow: hidden; }
+  .card figure img { width: 100%; height: auto; display: block; border-radius: 4px; }
+  .card figcaption { font-size: 12px; color: var(--ink-3); padding: 8px 4px 2px; line-height: 1.5; }
+  .card .xref { font-size: 12.5px; color: var(--ink-3); margin-top: 8px; }
+  .card .xref a { color: var(--ink-3); text-decoration: underline; text-underline-offset: 2px; }
+  @media (prefers-color-scheme: dark) {
+    .pill.ship  { background:#153021; color:#6fce97; }
+    .pill.data  { background:#13293a; color:#78b8e2; }
+    .pill.work  { background:#2f2410; color:#e0a458; }
+    .pill.block { background:#331717; color:#e08a8a; }
+    .pill.open  { background:#241833; color:#b58ce0; }
+  }
+</style>
+</head>
+<body>
+<div class="draftbar">Working notes, not published. Every chart here is built from public play-by-play and charting data and is real. The open questions are marked as open.</div>
+<main>
+  <header>
+    <div class="kicker">Working board for the next video</div>
+    <h1>The Coaching Report Card</h1>
+    <p class="dek">Michael's question: "Coaching is a tough one like how do teams grade that?" Here is what the data can and cannot grade so far.</p>
+    <p class="byline">Nick Gurol &amp; Michael MacKelvie · August 2026</p>
+  </header>
+
+  <div class="prose">
+    <p class="lede">You asked how anyone grades coaching. It turns out I had been quietly building the answer since July, and none of it has made it into a text until now.</p>
+    <p>The short version: the parts of coaching everyone argues about are mostly measurable, and the measurements keep disagreeing with the arguments. The finding I would build the video around is that the best play-callers are more predictable, not less. Control for situation and the correlation between predictability and offensive quality flips sign. Andy Reid gets his calls guessed about three more times per hundred plays than an average caller and has run the best offense in football. The "genius" everyone imagines, the caller nobody can pin down, mostly does not exist. Ben Johnson is the one real exception, which makes him more interesting, not less.</p>
+    <p>Your Seahawks hunch also survives its first contact with data. Vegas expected 10.8 wins from the 2025 roster and schedule. They won 14. That was the second biggest overperformance in football last year, and Mike Macdonald's two-year career sits outside the range luck alone should produce. The same analysis carries a warning label, though: across 654 coach-season pairs since 1999, beating the market one season says nothing about beating it the next. The market null is real, and it is exactly why the roster-talent version of this question on the board below is the better long-term measure.</p>
+    <p>And the audience's most confident belief fails loudest. Andy Reid, the coach every fan calls a clock-management disaster, has the best large-sample record in football at not dying with timeouts in his pocket: 4 games out of 61 close losses, against a league rate of 15 percent. The actual sinners are the ones nobody jokes about. Norv Turner died holding timeouts in 11 of his 31 close losses. Mike Martz burned double the league's timeout rate every season of his career.</p>
+    <p>Honesty rule carried over from the ghost town board: when a hypothesis dies, it goes on the board with the evidence. Icing the kicker shaves about three points off make probability but 26 seasons of data cannot prove it is real. Pete Carroll looked like the one coach who cracked it, and he turns out to be exactly the fluke you expect when you screen 21 coaches. "Establish the run" fails in every metric we threw at it, including the three strongest arguments for it.</p>
+    <p>Everything below is one board. Each card is a line from our texts, then what the data says, then the chart that answers that exact question sitting under it. Open questions say so and name the next move.</p>
+  </div>
+
+  <hr class="actdivider">
+  <div class="actintro">
+    <div class="actnum">Working board</div>
+    <h2>Every question, and what answers it</h2>
+  </div>
+
+  <div class="board">
+
+    <div class="tgroup">
+      <h3>1 &nbsp;The Seahawks question</h3>
+      <p class="grouphint">Your third bullet, and the reason for the video: how much is a team overachieving based on its player talent?</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">The bit of magic, measured</span><span class="pill ship">He is right</span></div>
+      <p class="row"><span class="lab">Michael:</span> "I'm super biased. But there is a bit of magic to what the Hawks accomplished last year. Won without an elite qb…and seemingly without a lot of elite players. Very strange"</p>
+      <p class="row found"><span class="lab">Found:</span> the magic shows up in the numbers, and it is not small. The market, which knows the roster, the schedule, and the injuries, priced the 2025 Seahawks at 10.8 wins. They won 14. Only New England beat its expectation by more last season. Whatever you felt watching them, the betting market felt it too, all year, and kept underpricing it.</p>
+      <figure>
+        <img src="figures/market_2025.png" alt="Scatter of all 32 teams' 2025 actual wins against market-expected wins from closing spreads, with Seattle highlighted about three wins above its expectation.">
+        <figcaption>Actual 2025 wins against what closing spreads implied, all 32 teams. Seattle won 3.2 more games than the market expected. nflverse schedules and closing spread lines, 1999 to 2025. Built by R/02.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> "beat the market" and "well coached" are not the same sentence. The spread already prices the coach, so this measures surprise, not skill. The two cards below try to separate those.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Can any coach beat the market for a living?</span><span class="pill ship">Mostly no, and that is the finding</span></div>
+      <p class="row"><span class="lab">Michael:</span> "Coaching is a tough one like how do teams grade that?"</p>
+      <p class="row found"><span class="lab">Found:</span> one honest way is to ask who wins more than the closing spread says they should, career after career. Answer: almost nobody. Of 157 coaches with at least a season of games since 1999, ten sit outside the 95 percent luck cone, and screening 157 people at that threshold hands about eight to luck all by itself. Worse for the genius theory: across 654 coach-seasons, beating the market one year has zero correlation with beating it the next (r = -0.03). The names above the cone are the ones you would guess, Belichick with 23 extra wins across 387 games, Tomlin, Dungy, and now Macdonald, but the population-level result is that the market already knows.</p>
+      <figure>
+        <img src="figures/market_funnel.png" alt="Funnel plot of 157 coach careers: games coached against wins above market expectation per 17 games, with a 95 percent luck cone. Belichick, Tomlin, Dungy, McDermott, Vrabel and Macdonald sit above the cone; Norv Turner and Hue Jackson below.">
+        <figcaption>Career wins above market expectation per 17 games, against career length, with the range luck alone produces shaded. Ten of 157 coaches fall outside it; chance alone would put about eight there. nflverse schedules, closing spreads, 1999 to 2025, regular season. Built by R/02.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> a coach exactly as good as his reputation shows up at zero here by construction. This is a lower bound on coaching skill, not a measure of it. It is on the board because it kills the lazy version of the ranking and forces the roster-talent version below.</p>
+      <p class="xref">Macdonald career so far: +4.7 wins above expectation in 34 games, third best rate among eligible coaches, and outside the cone. Two seasons. The persistence null is the reason not to crown him yet, and saying so out loud is what makes the Seattle segment credible.</p>
+    </div>
+
+    <!-- PENDING: builder-talent card (coach_vs_roster.png + seahawks_2025.png) goes here -->
+
+    <!-- PENDING: builder-madden card (madden_scatter.png + madden_coaches.png) goes here -->
+
+    <div class="tgroup">
+      <h3>2 &nbsp;Playcalling</h3>
+      <p class="grouphint">"For this, idk if you have ever looked into or thought about how to grade play callers." Play callers attributed per team-game, 1999 to 2025, offensive and defensive, via the samhoppen public dataset.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">The best play-callers are more predictable</span><span class="pill ship">The counterintuitive hook</span></div>
+      <p class="row"><span class="lab">Michael:</span> "Topic 1 - Ranking Coaches and play callers in some way… - Playcalling"</p>
+      <p class="row found"><span class="lab">Found:</span> rank 80 play-caller careers by how guessable their calls are and the naive version tells the story everyone believes: unpredictable callers run better offenses (r = +0.33). That is an illusion of game script. Losing teams have to pass, which makes them predictable and bad at the same time. Control for the situation, down, distance, field zone, score, and half, across 305,827 called plays, and the sign flips: the more predictable caller runs the better offense (r = -0.37). Andy Reid gives away about three extra correct guesses per hundred plays and has the best offense of the era. Great callers are not hiding the play. They are running plays that work when you know they are coming.</p>
+      <figure>
+        <img src="figures/predictability_vs_epa_scatter.png" alt="Scatter of 80 play-caller careers, situation-adjusted predictability against career EPA per play, showing a positive relationship between being guessable and running a good offense.">
+        <figcaption>Situation-adjusted predictability against career offensive EPA per play, 80 careers with at least 1,000 called plays. Built by nfl-analysis, predictability scripts.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/predictability_leaderboard.png" alt="Leaderboard of the ten most and ten least predictable play-caller careers, colored by offense quality.">
+        <figcaption>Most and least predictable careers, colored by how good the offense was. Ben Johnson is the one elite caller who is genuinely hard to read. Built by nfl-analysis, predictability scripts.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> this is a correlation across careers, not a play-level causal claim, and "predictable" here means guessable within a situation relative to league habits, not "runs on every first down."</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Is it the caller or the quarterback?</span><span class="pill ship">Survives the control</span></div>
+      <p class="row"><span class="lab">The obvious objection:</span> predictable callers might only look good because they have Mahomes.</p>
+      <p class="row found"><span class="lab">Found:</span> the link survives controlling for quarterback accuracy at about two thirds of its strength, and it remains significant. Predictability is also a stable trait of the caller: it carries season to season (r = 0.48), and it carries almost as well when the caller changes quarterbacks as when he keeps one. It is his signature, not his QB's.</p>
+      <figure>
+        <img src="figures/caller-vs-qb.png" alt="Chart showing play-caller predictability persists across seasons and across quarterback changes, and the predictability-to-offense link survives controlling for QB quality.">
+        <figcaption>Predictability follows the caller across seasons and across quarterback changes. Built by nfl-analysis, caller-vs-qb.R.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">The disguise excuse</span><span class="pill block">Tested. It busts.</span></div>
+      <p class="row"><span class="lab">The comfortable theory:</span> good callers can afford predictable calls because they disguise them pre-snap.</p>
+      <p class="row found"><span class="lab">Found:</span> the formation data (2016 to 2023) says no. The corner of the chart the theory needs, callers who are predictable in their calls but hard to read from formation, is empty. The apparent disguise effect collapses once quarterback quality enters the model. The honest conclusion stays the uncomfortable one: the plays are simply good.</p>
+      <figure>
+        <img src="figures/presnap-tip-disguise.png" alt="Chart testing whether pre-snap disguise explains why predictable play-callers succeed; the predictable but low-tip region is empty and the effect is not significant after QB control.">
+        <figcaption>Does pre-snap disguise rescue the mystery? No. Formation data 2016 to 2023. Built by nfl-analysis, presnap-tip-disguise.R.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Every caller's tells, on one card</span><span class="pill data">Great video material</span></div>
+      <p class="row"><span class="lab">Why it is here:</span> the fingerprint grids are the animation-ready version of the predictability story, one panel per famous caller, showing exactly where each one becomes guessable, plus the 2025 callers ranked so the video can be current.</p>
+      <figure>
+        <img src="figures/tendency-fingerprints.png" alt="Grid of down and distance panels for six famous play-callers showing where each one is most guessable relative to league habits.">
+        <figcaption>Down-and-distance fingerprints for six marquee callers: Reid, McVay, Shanahan, LaFleur, Ben Johnson, Gase. Built by nfl-analysis, predictability-examples.R.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/predictability-current.png" alt="Ranking of 2025 primary offensive play-callers by situation-adjusted predictability.">
+        <figcaption>The 2025 primary callers, ranked. Built by nfl-analysis, predictability-current.R.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">"Establish the run is bs"</span><span class="pill ship">Confirmed, in every metric</span></div>
+      <p class="row"><span class="lab">Nick, back in July:</span> "Was just looking into some coaching stuff. Establish the run is bs"</p>
+      <p class="row found"><span class="lab">Found:</span> running early sets up nothing. A pass after a run on first-and-10 gains 0.015 EPA less than a pass without the setup, which is zero. Running a lot early does not open up late passing, and running well early does not either: the correlation with second-half value lands on zero whether you score it in EPA, success rate, or win probability. Meanwhile the map of actual game states shows passing beats running nearly everywhere the league still runs, by up to 0.22 EPA per play in late, close, first-down spots. The run matters in short yardage and almost nowhere else.</p>
+      <figure>
+        <img src="figures/run-sets-up-nothing.png" alt="Chart showing next-play value after a run is no better than without it, at fixed down and distance.">
+        <figcaption>The setup effect, measured at fixed down and distance. There is not one. Built by nfl-analysis, pass-run-equilibrium.R.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/equilibrium_map.png" alt="Map of game states showing the pass-minus-run EPA gap and league pass rates in each state; passing wins nearly everywhere outside short yardage.">
+        <figcaption>Where passing beats running and by how much, state by state. Confounded cells drawn hollow. Built by nfl-analysis, equilibrium_map.R.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The asset:</span> QUOTES.md in the repo has 18 verbatim, dated, sourced coach quotes preaching the establish-the-run gospel, with a documented exclusion list for the famous quotes that could not be verified. Ready-made for the cold open of that segment.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Steelman: the strongest case for the run game</span><span class="pill ship">Two of three die. One survives.</span></div>
+      <p class="row"><span class="lab">Michael's standard, from the birthday video:</span> "Not calling that out makes the argument less fair."</p>
+      <p class="row found"><span class="lab">Found:</span> we tested the three best arguments run-first coaches actually make. Light boxes: real, but backwards. Runs do work against light boxes, and light boxes are earned by passing more, not by running more. Wearing the defense down: does not happen. Late-game runs succeed at the same rate as first-quarter runs. Cold weather: the one kernel of truth. December football shifts things toward the run, modestly.</p>
+      <figure>
+        <img src="figures/steelman-pass-sets-run.png" alt="Bar chart of early-down run success by defenders in the box, with the note that heavier passing correlates with lighter boxes faced.">
+        <figcaption>The pass sets up the run, not the other way around. Runs work into light boxes, and passing is what earns them. nflverse participation charting 2016 to 2023. Built by nfl-analysis, establish-run-steelman.R.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> the box-count data only exists 2016 to 2023, and success rate is the metric there, not EPA. The direction is consistent across both.</p>
+    </div>
+
+    <div class="tgroup">
+      <h3>3 &nbsp;Adjustments</h3>
+      <p class="grouphint">Your first bullet, verbatim: "- Adjustments". Everyone believes some coaches own halftime. Nobody had checked whether that is a repeatable skill.</p>
+    </div>
+
+    <!-- PENDING: builder-adjust card (halftime_cone.png + halftime_persistence.png) goes here -->
+
+    <div class="tgroup">
+      <h3>4 &nbsp;Game management</h3>
+      <p class="grouphint">"- whatever else you think." The decisions coaches make with the game on the line, which is where the audience thinks coaching lives.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Timeout discipline, and the Andy Reid problem</span><span class="pill ship">Argues with the audience</span></div>
+      <p class="row"><span class="lab">Why it is here:</span> every fan believes Andy Reid is a clock-management disaster. This is the card that picks that fight on purpose.</p>
+      <p class="row found"><span class="lab">Found:</span> there are two timeout sins, and they belong to different coaches. Burning them early: Mike Martz is the all-time champion, one extra burned timeout per game over his era, double the league rate every season of his career. Dying with them unused in a close loss: Norv Turner did it in 11 of his 31 close fourth-quarter losses, 35 percent against a league rate of 15. And Reid? Four games out of 61. The best large-sample record in football at the thing he is famous for being bad at. Mike Shanahan is the only coach in the worst eight of both sins. The current-coach view puts Jim Harbaugh, LaFleur, McVay, and Payton on the burn list.</p>
+      <figure>
+        <img src="figures/timeout_discipline.png" alt="Two-panel leaderboard of coaches by early timeout burn rate versus era and by rate of losing close games with timeouts unused, 2000 to 2025.">
+        <figcaption>The two timeout sins, 2000 to 2025, 14,030 team-games. Built by nfl-analysis, timeout_discipline.R.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/timeout-current.png" alt="The same two timeout metrics restricted to head coaches active in 2025.">
+        <figcaption>Coaches active in 2025, career rates. Built by nfl-analysis, timeout-current.R.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">What a burned timeout actually costs</span><span class="pill work">Small, and not proven</span></div>
+      <p class="row"><span class="lab">The follow-up question:</span> fine, but does any of it matter on the scoreboard?</p>
+      <p class="row found"><span class="lab">Found:</span> less than the yelling suggests. Teams entering the two-minute drill with all three timeouts score 0.7 more points than teams with none, but most of that gap is clock selection, not the timeouts. Control for when they get the ball and the gap drops to about a quarter point across all three timeouts, which does not clear statistical significance. The honest line for the script: the sin is dying with them, not the price of one.</p>
+      <figure>
+        <img src="figures/burned_timeout_price.png" alt="Chart showing raw and controlled point value of entering the two-minute drill with more timeouts; the controlled effect is small.">
+        <figcaption>The raw staircase and what survives the controls. Built by nfl-analysis, burned_timeout_price.R.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Icing the kicker</span><span class="pill ship">26 seasons cannot prove it works</span></div>
+      <p class="row"><span class="lab">The belief:</span> every broadcast treats the icing timeout as free psychology.</p>
+      <p class="row found"><span class="lab">Found:</span> across 2,221 pressure field goals since 2000, icing shaves about 2.9 points of make probability off the kick, and the confidence interval still crosses zero (minus 7.0 to plus 1.2). A quarter century of football cannot tell you it does anything. And no coach has cracked it: 20 of the 21 coaches with enough icing calls to evaluate sit inside the pure-luck cone. Matt LaFleur ices the most, two thirds of his opportunities, for an effect nobody can distinguish from nothing.</p>
+      <figure>
+        <img src="figures/icing-the-kicker.png" alt="Effect of icing on field goal make probability with confidence interval crossing zero, 2000 to 2025.">
+        <figcaption>The adjusted icing effect, with everything that should be controlled controlled: distance, weather, era, kicker quality, situation. Built by nfl-analysis, icing-the-kicker.R.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/icing-coach-funnel.png" alt="Funnel plot of 21 coaches' icing effects against a luck cone; 20 of 21 sit inside it.">
+        <figcaption>Per-coach icing effects against the luck cone. One outlier out of 21. Built by nfl-analysis, icing-the-kicker.R.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Pete Carroll, the exception that isn't</span><span class="pill block">The fluke you should expect</span></div>
+      <p class="row"><span class="lab">Why it matters:</span> Carroll is the one coach outside the icing luck cone, and he is a Seahawk, so the video will want him to be a genius.</p>
+      <p class="row found"><span class="lab">Found:</span> he is the fluke the math predicts. Simulate worlds where icing does nothing and screen 21 coaches in each one: the luckiest coach in the screen beats expectation by about Carroll's margin roughly once a decade. His edge rests on eight kicks. This card exists so the video does not build a segment on a coincidence, and because "we checked our own guy and he is luck" is exactly the credibility the Seattle segment needs.</p>
+      <figure>
+        <img src="figures/icing-carroll.png" alt="Simulation showing the best of 21 coaches beats icing expectation by Carroll's margin about once a decade under pure luck, on a sample of eight kicks.">
+        <figcaption>Pete Carroll didn't crack icing. Screening 21 coaches did. Built by nfl-analysis, icing-carroll.R.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Wind savvy is a decision skill, not a leg skill</span><span class="pill ship">Answered</span></div>
+      <p class="row"><span class="lab">Why it is here:</span> the quietest game-management edge we found, and nobody talks about it.</p>
+      <p class="row found"><span class="lab">Found:</span> on long field goals outdoors, attempt rates fall from 50 percent in calm air to 34 percent in an 11 to 15 mph wind, and that drop is the skill. The kicks coaches do attempt in wind go in at roughly the same rate as ever. The smart coaches are not employing better kickers. They are declining worse kicks.</p>
+      <figure>
+        <img src="figures/wind_savvy_coaches.png" alt="Attempt rate on 48 to 58 yard outdoor field goals falling with wind speed while make rate on attempted kicks stays flat.">
+        <figcaption>Attempt rate falls with wind; make rate on attempts does not. 48 to 58 yard outdoor kicks. Built by nfl-analysis, wind_savvy_coaches.R.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Defensive coordinators blitz on autopilot</span><span class="pill ship">The defensive side of the card</span></div>
+      <p class="row"><span class="lab">Michael:</span> "Ranking Coaches and play callers in some way" includes the defensive callers, who are in the attribution data too.</p>
+      <p class="row found"><span class="lab">Found:</span> pressure is what matters, and pressure pays the same whether it comes from a blitz or a four-man rush (minus 0.31 vs minus 0.29 EPA). A blitz that fails costs more than a rush that fails (plus 0.30 vs plus 0.22 allowed). So blitz rate should track opponent vulnerability. It does not: across coordinators, blitz rate is uncorrelated with the payoff (r = 0.06). Coordinators blitz who they are, not who they play.</p>
+      <figure>
+        <img src="figures/blitz-autopilot.png" alt="Chart showing blitzed and non-blitzed pressure produce the same EPA while failed blitzes cost more, and coordinator blitz rates are uncorrelated with payoff.">
+        <figcaption>The blitz pays when it lands, costs more when it misses, and is dialed by habit. Built by nfl-analysis, blitz-autopilot.R.</figcaption>
+      </figure>
+    </div>
+
+    <div class="tgroup">
+      <h3>5 &nbsp;Topic 2, Deception. Parked, not dead</h3>
+      <p class="grouphint">"Topic 2 - Deception." Separate video. Our tracking-data access ends around 2022, so this one needs creative work off play-by-play and charting data. What already exists is below.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Motion does not scare man coverage</span><span class="pill ship">A deception myth, already dead</span></div>
+      <p class="row"><span class="lab">The belief:</span> pre-snap motion "reveals the coverage" and punishes man.</p>
+      <p class="row found"><span class="lab">Found:</span> across 31,468 charted dropbacks in 2022 and 2023, motion against man coverage adds 0.03 EPA per play, indistinguishable from zero. The deterrence story fails too: defenses play man 35.8 percent of the time when the offense motions and 35.4 when it does not. They are not scared.</p>
+      <figure>
+        <img src="figures/motion-man-tax.png" alt="Diff-in-diff of motion against man coverage showing an effect near zero and no change in man coverage rates against motion.">
+        <figcaption>The motion-against-man effect and the deterrence check, both flat. FTN charting 2022 to 2023. Built by nfl-analysis, motion-man-tax.R.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">Where this goes:</span> a first honest brick for the deception video, and a warning that its intuitive claims will need the same treatment as establish-the-run got.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">What the deception video would need</span><span class="pill open">Future board</span></div>
+      <p class="row"><span class="lab">Michael:</span> "Topic 2 - Deception"</p>
+      <p class="row found"><span class="lab">Where it stands:</span> we have FTN charting for 2022 to 2024 (play action, screens, motion), the pre-snap disguise machinery already built, and no player tracking after 2022. The playbook: play-action value over time, whether disguise shows up anywhere as a measurable edge, and the fake-out plays that live in play-by-play text (flea flickers, reverses, philly specials). Parked until the coaching video ships.</p>
+    </div>
+
+  </div>
+
+  <hr class="actdivider">
+  <div class="actintro">
+    <div class="actnum">Where this could go</div>
+    <h2>Ranked, with what exists and what it would take</h2>
+  </div>
+
+  <div class="board">
+
+    <div class="tgroup">
+      <h3>Build the video on one of these</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">1 &nbsp;The Seahawks question as the spine</span><span class="pill work">The new build</span></div>
+      <p class="row found"><span class="lab">The idea:</span> open on the 2025 Seahawks, ask what the market missed, and let the answer walk through the whole report card: talent models, playcalling, game management, and the luck cones that keep everyone honest.</p>
+      <p class="row"><span class="lab">Why it is best:</span> it is your own hook, it is current, and every segment on this board plugs into it.</p>
+      <p class="xref">Have: market model, playcalling suite, game management suite. Need: the roster-talent model on this board to land, and a decision on how hard to lean on a two-season coach.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">2 &nbsp;"Against the Book": the myth-autopsy structure</span><span class="pill data">Mostly already produced</span></div>
+      <p class="row found"><span class="lab">The idea:</span> the alternative spine. Four beliefs everyone holds about coaching (establish the run, icing, the unpredictable genius, the halftime adjuster), each dies on camera, and what survives is the actual report card.</p>
+      <p class="row"><span class="lab">What exists that you have never seen:</span> four finished long-read drafts and two rendered motion-graphics videos already sit in the July repo, including a combined piece titled "Against the Book". They are drafts of exactly this structure.</p>
+      <p class="xref">Have: the four segments, written and charted. Need: your read on whether myth-autopsy or Seahawks-first is the stronger frame.</p>
+    </div>
+
+    <div class="tgroup">
+      <h3>Strong segments inside a bigger video</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">3 &nbsp;The 2025 report card proper</span><span class="pill work">A day of work</span></div>
+      <p class="row found"><span class="lab">The idea:</span> one table, every active head coach graded on the dimensions this board measures: market performance, talent-adjusted performance, timeout discipline, icing discipline, wind savvy, and their callers' predictability. The literal thumbnail.</p>
+      <p class="xref">Have: every input on this board. Need: a composite design that does not pretend false precision, and a decision on weights, which is a video beat in itself.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">4 &nbsp;The in-game decision GPA</span><span class="pill work">Buildable from parts</span></div>
+      <p class="row found"><span class="lab">The idea:</span> Nick's original "In game decision making" text as its own segment: timeouts, icing, wind, and fourth downs in one grade per coach.</p>
+      <p class="xref">Have: three of the four components. Need: the fourth-down piece, which is deliberately absent below.</p>
+    </div>
+
+    <div class="tgroup">
+      <h3>Worth keeping in the back pocket</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">5 &nbsp;Deception, the sequel</span><span class="pill open">Topic 2</span></div>
+      <p class="row found"><span class="lab">The idea:</span> parked on the main board above with its inventory. The motion and disguise results carry over as its first two segments.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">6 &nbsp;Draft pedigree goes stale by Week 4</span><span class="pill data">Built, different video</span></div>
+      <p class="row found"><span class="lab">The idea:</span> rookie usage beats draft slot as a predictor within two months. It is a roster-building story, not a coaching story, and it slots into the "building a team around a QB" preview idea you floated on Aug 3.</p>
+    </div>
+
+    <div class="tgroup">
+      <h3>What I would not build</h3>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">7 &nbsp;A fourth-down go-for-it model</span><span class="pill block">Known ground</span></div>
+      <p class="row found"><span class="lab">Why not:</span> Ben Baldwin's fourth-down model is public, famous, and already the default reference. We would be re-deriving someone else's headline. Use it as an input to the decision GPA and credit it; do not present it as a discovery.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Sources: nflverse play-by-play and schedules (1999 to 2025), FTN charting (2022 to 2024), NGS participation data (2016 to 2023), play-caller attribution from the samhoppen NFL_public dataset. Charts marked "Built by nfl-analysis" come from the July research repo; numbered R scripts are in this one. Every number on this page was checked against script output before it went up.</p>
+  </footer>
+</main>
+</body>
+</html>
