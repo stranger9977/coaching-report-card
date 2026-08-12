@@ -35,9 +35,11 @@ the new work.
 | Wind savvy | long-FG attempt rate 50% calm to 34% at 11-15 mph; make rate on attempts flat |
 | Blitz autopilot | blitz rate uncorrelated with blitz payoff across coordinators (r = 0.06) |
 | Motion vs man coverage | +0.03 EPA, CI crosses zero; no deterrence effect |
+| Halftime adjustments repeat | split-half r = 0.48, 44 of 159 coaches outside the noise cone (~8 expected) |
+| But they are mostly team quality | adjustment score correlates 0.81 with plain point margin |
 
-(New-build rows for roster talent, Madden, and halftime adjustments get added
-when those scripts land.)
+(New-build rows for roster talent and Madden get added when those scripts
+land.)
 
 ## Scripts
 

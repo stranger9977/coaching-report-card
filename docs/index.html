@@ -95,7 +95,7 @@
     <p>The short version: the parts of coaching everyone argues about are mostly measurable, and the measurements keep disagreeing with the arguments. The finding I would build the video around is that the best play-callers are more predictable, not less. Control for situation and the correlation between predictability and offensive quality flips sign. Andy Reid gets his calls guessed about three more times per hundred plays than an average caller and has run the best offense in football. The "genius" everyone imagines, the caller nobody can pin down, mostly does not exist. Ben Johnson is the one real exception, which makes him more interesting, not less.</p>
     <p>Your Seahawks hunch also survives its first contact with data. Vegas expected 10.8 wins from the 2025 roster and schedule. They won 14. Only Jacksonville and New England beat their expectations by more last year, and Mike Macdonald's two-year career sits outside the range luck alone should produce. The same analysis carries a warning label, though: across 654 coach-season pairs since 1999, beating the market one season says nothing about beating it the next. The market null is real, and it is exactly why the roster-talent version of this question on the board below is the better long-term measure.</p>
     <p>And the audience's most confident belief fails loudest. Andy Reid, the coach every fan calls a clock-management disaster, has the best large-sample record in football at not dying with timeouts in his pocket: 4 games out of 61 close losses, against a league rate of 15 percent. The actual sinners are the ones nobody jokes about. Norv Turner died holding timeouts in 11 of his 31 close losses. Mike Martz burned double the league's timeout rate every season of his career.</p>
-    <p>Honesty rule carried over from the ghost town board: when a hypothesis dies, it goes on the board with the evidence. Icing the kicker shaves about three points off make probability but 26 seasons of data cannot prove it is real. Pete Carroll looked like the one coach who cracked it, and he turns out to be exactly the fluke you expect when you screen 21 coaches. "Establish the run" fails in every metric we threw at it, including the three strongest arguments for it.</p>
+    <p>Honesty rule carried over from the ghost town board: when a hypothesis dies, it goes on the board with the evidence. Icing the kicker shaves about three points off make probability but 26 seasons of data cannot prove it is real. Pete Carroll looked like the one coach who cracked it, and he turns out to be exactly the fluke you expect when you screen 21 coaches. "Establish the run" fails in every metric we threw at it, including the three strongest arguments for it. And the halftime-adjustment genius mostly dissolves on contact: second-half improvement does repeat, but it correlates 0.81 with simply having the better team.</p>
     <p>Everything below is one board. Each card is a line from our texts, then what the data says, then the chart that answers that exact question sitting under it. Open questions say so and name the next move.</p>
   </div>
 
@@ -223,7 +223,21 @@
       <p class="grouphint">Your first bullet, verbatim: "- Adjustments". Everyone believes some coaches own halftime. Nobody had checked whether that is a repeatable skill.</p>
     </div>
 
-    <!-- PENDING: builder-adjust card (halftime_cone.png + halftime_persistence.png) goes here -->
+    <div class="card">
+      <div class="card-head"><span class="t">Halftime adjustments</span><span class="pill work">Repeats, but it is mostly team quality</span></div>
+      <p class="row"><span class="lab">Michael:</span> "- Adjustments"</p>
+      <p class="row found"><span class="lab">Found:</span> the halftime adjuster half exists. Take every game since 2000, strip out mean reversion and garbage time, and ask whether a coach's second-half edge repeats across his career. It does: odd games predict even games at r = 0.48, and 44 of 159 coaches sit outside the noise cone where chance would put eight. Then look at who is on the leaderboard: McDermott, Dungy, Payton, Belichick, Cowher. That is not a list of adjusters, it is a list of good coaches, and the numbers agree: the "adjustment" score correlates 0.81 with plain point margin. Whatever this measures, it is mostly having the better team.</p>
+      <figure>
+        <img src="figures/halftime_cone.png" alt="Funnel plot of 159 coach careers: games coached against mean second-half adjustment residual, with a noise cone. 44 coaches sit outside the cone, far more than chance predicts, and the outliers are mostly famous good and bad coaches.">
+        <figcaption>Career second-half edge after controlling for first-half margin and halftime score, against the range noise alone produces. Real signal, wrong label. nflverse play-by-play 2000 to 2025, 13,434 team-games. Built by R/04.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/halftime_persistence.png" alt="Scatter of coach-season second-half adjustment scores in consecutive seasons showing a modest positive correlation of 0.26 across 633 season pairs.">
+        <figcaption>Season-to-season repeatability of the second-half edge, r = 0.26 across 633 coach-season pairs. Built by R/04.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> this test cannot separate "adjusts well at halftime" from "good team that also wins second halves." Isolating a true adjustment skill, if one exists, needs opponent and talent controls this measure does not have. And a single half is nearly all noise (the league model explains 1.4 percent of any one game); the repeatable part only appears after averaging dozens of games.</p>
+      <p class="xref">Seattle angle: Macdonald sits 46th of 170 with 34 games, inside the cone, too early to say anything. Carroll is 26th over 244 games and outside the cone, which under the confound above most likely reads "his teams were good," not "he owned halftime."</p>
+    </div>
 
     <div class="tgroup">
       <h3>4 &nbsp;Game management</h3>
