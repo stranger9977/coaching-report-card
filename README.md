@@ -20,7 +20,7 @@ the new work.
 
 | Finding | Number |
 |---|---|
-| 2025 Seahawks beat the market | 14 wins vs 10.8 expected, 2nd-biggest overperformance of 2025 |
+| 2025 Seahawks beat the market | 14 wins vs 10.8 expected, 3rd-biggest overperformance of 2025 |
 | Beating the spread is not a repeatable coach skill | r = -0.03 season-to-season, n = 654 coach-season pairs |
 | Coaches outside the market luck cone | 10 of 157, vs ~8 expected by chance |
 | Best play-callers are MORE predictable | naive r = +0.33 flips to r = -0.37 situation-controlled |
