@@ -168,6 +168,20 @@
     </div>
 
     <div class="card">
+      <div class="card-head"><span class="t">"So Josh Allen blows against the blitz? And Kyle Murray is solid?"</span><span class="pill block">You read it right. The chart was wrong.</span></div>
+      <p class="row"><span class="lab">Michael:</span> "So Josh Allen blows against the blitz?" ... "And Kyle Murray is solid?"</p>
+      <p class="row found"><span class="lab">Your reading was correct, which is how we found the bug.</span> Far right on that chart meant blitzing this quarterback pays, and Allen was the furthest right in football at +58 points. He was so far out that the old chart had to squish him to +30 to keep the axis usable. A point that has to be capped to be drawn is not a finding, it is a warning.</p>
+      <p class="row found"><span class="lab">Where it came from:</span> the break-even divides by the gap between a quarterback's EPA under pressure and his EPA on a blitz that never got home. For Allen in 2022-23 that gap was -0.23, the closest to zero of any starter, so the ratio blew up. Rebuild it on four seasons instead of two and his gap settles to -0.50 and his payoff falls from <strong>+58 to +14</strong>, right next to Lamar Jackson and Jalen Hurts. Ordinary. The whole league range narrows from -7..+58 down to -16..+17, and the two-season estimates correlate with the four-season ones at only 0.33.</p>
+      <p class="row found"><span class="lab">Kyler Murray moves too,</span> from -7.5 to +1.4. He is not blitz-proof, he is neutral. Neither of the two names you picked out survives the refresh, which is a good argument for having picked them out.</p>
+      <p class="row"><span class="lab">And the card's headline died with them.</span> "Defensive coordinators blitz on autopilot" rested on blitz rate being unrelated to blitz payoff, r = 0.06 with p = 0.71, a flat line. On 2022-2025 it is <strong>r = 0.32, p = 0.02</strong>. Coordinators do blitz the quarterbacks it pays to blitz. Weakly, but really. The old claim is retired.</p>
+      <figure>
+        <img src="figures/blitz_2025.png" alt="Scatter of how often defenses blitz each quarterback against whether blitzing him pays, 2022 to 2025. The fitted line slopes upward with r of 0.32; Josh Allen now sits in the ordinary right-hand group alongside Lamar Jackson and Jalen Hurts rather than as an extreme outlier.">
+        <figcaption>Rebuilt on 2022 to 2025, 71,930 dropbacks. The slope that was flat on two seasons is real on four. Built by R/11.</figcaption>
+      </figure>
+      <p class="xref">Worth saying plainly: this is the second finding on this board that the data refresh killed, and both were ours. That is the cost of running on a stale cache, and it is why the freshness note above matters more than it looks.</p>
+    </div>
+
+    <div class="card">
       <div class="card-head"><span class="t">"Did you not have 2025?"</span><span class="pill ship">Fair hit. Fixed.</span></div>
       <p class="row"><span class="lab">Michael:</span> "Also I noticed a lot of them were 2022-2023 data, did you not have 2025?"</p>
       <p class="row found"><span class="lab">He was right and the cause was on our end.</span> The formation charts stopped in 2023 and the charting-based ones in 2024 because our local copy of the data stopped there, not because the league does. nflverse now publishes participation through 2025 and FTN charting through 2025. Both are downloaded and the pre-snap work is rebuilt on 2016 to 2025, which is 276,834 formation-coded plays instead of the old window.</p>
@@ -461,13 +475,14 @@
     </div>
 
     <div class="card">
-      <div class="card-head"><span class="t">Defensive coordinators blitz on autopilot</span><span class="pill ship">The defensive side of the card</span></div>
+      <div class="card-head"><span class="t">Defensive coordinators blitz on autopilot</span><span class="pill block">Retired. See the 2025 rebuild.</span></div>
       <p class="row"><span class="lab">Michael:</span> "Ranking Coaches and play callers in some way" includes the defensive callers, who are in the attribution data too.</p>
       <p class="row found"><span class="lab">Found:</span> pressure is what matters, and pressure pays the same whether it comes from a blitz or a four-man rush (minus 0.31 vs minus 0.29 EPA). A blitz that fails costs more than a rush that fails (plus 0.30 vs plus 0.22 allowed). So blitz rate should track opponent vulnerability. It does not: across coordinators, blitz rate is uncorrelated with the payoff (r = 0.06). Coordinators blitz who they are, not who they play.</p>
       <figure>
         <img src="figures/blitz-autopilot.png" alt="Chart showing blitzed and non-blitzed pressure produce the same EPA while failed blitzes cost more, and coordinator blitz rates are uncorrelated with payoff.">
         <figcaption>The blitz pays when it lands, costs more when it misses, and is dialed by habit. Built by nfl-analysis, blitz-autopilot.R.</figcaption>
       </figure>
+      <p class="xref">Superseded. This ran on 2022-23 only. Rebuilt on 2022-2025 the relationship is r = 0.32 (p = 0.02), not a flat line, so the autopilot claim does not hold. See "So Josh Allen blows against the blitz?" near the top of this board.</p>
     </div>
 
     <div class="tgroup">
