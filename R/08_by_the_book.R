@@ -153,28 +153,42 @@ save_fig("docs/figures/book_leaderboard.png", p1, w = 12.5, h = 7.2)
 byv <- d[, .(obey = 100*mean(correct), n = .N), by = verdict]
 cat("\n--- obedience by direction ---\n"); print(byv)
 
+# A scatter is the wrong shape for this: kick-correctness barely varies (every
+# coach sits between 96% and 100%), so the horizontal axis does no work and all
+# the points pile into one corner. The finding is the GAP between a coach's two
+# obedience rates, so draw the gap itself: one row per coach, two dots, joined.
 sc <- co[, .(coach, go_rate, kick_ok, n_go)]
-p2 <- ggplot(sc, aes(kick_ok, go_rate)) +
-  geom_point(aes(size = n_go), colour = "#2B8CBE", alpha = 0.6) +
-  ggrepel::geom_text_repel(
-    data = sc[go_rate >= quantile(go_rate, 0.88) | go_rate <= quantile(go_rate, 0.12)],
-    aes(label = coach), size = 3.1, fontface = "bold", colour = "#1c5b80",
-    seed = 5, box.padding = 0.5, min.segment.length = 0, max.overlaps = 20) +
-  scale_size_continuous(range = c(1.6, 5), guide = "none") +
-  scale_x_continuous(labels = function(x) paste0(x, "%"), limits = c(80, 100)) +
-  scale_y_continuous(labels = function(x) paste0(x, "%")) +
+setorder(sc, go_rate)
+sc[, coach := factor(coach, levels = coach)]
+long <- rbind(
+  sc[, .(coach, kind = "On the obvious kicks", v = kick_ok)],
+  sc[, .(coach, kind = "On the obvious go-for-its", v = go_rate)]
+)
+lg_kick <- 100*mean(d$correct[d$verdict == "should kick"])
+lg_go   <- 100*mean(d$correct[d$verdict == "should go"])
+
+p2 <- ggplot() +
+  geom_segment(data = sc, aes(x = go_rate, xend = kick_ok, y = coach, yend = coach),
+               colour = "grey80", linewidth = 0.9) +
+  geom_point(data = long, aes(v, coach, colour = kind), size = 2.6) +
+  scale_colour_manual(values = c("On the obvious kicks" = "#2B8CBE",
+                                 "On the obvious go-for-its" = "#D55E00")) +
+  scale_x_continuous(labels = function(x) paste0(x, "%"), limits = c(15, 104),
+                     breaks = seq(20, 100, 20)) +
   labs(
-    title = "Nobody goes for it when they shouldn't. Plenty of coaches kick when they should go.",
-    subtitle = "Each point is a head coach: how often he correctly kicks (horizontal) against how often he correctly goes (vertical)",
-    x = "correct on the obvious kicks",
-    y = "correct on the obvious go-for-its",
+    title = "Every coach is near perfect on the obvious kicks and a coin flip on the obvious go-for-its",
+    subtitle = sprintf("Each row is a head coach. The gap is the whole story: leaguewide %.0f%% correct when the math says kick, %.0f%% when it says go.",
+                       lg_kick, lg_go),
+    x = NULL, y = NULL,
     caption = fig_caption(
       "nflverse play-by-play; nfl4th decision model",
-      sprintf("Head coaches with at least %d clear-cut fourth downs, %d to %d. Point size is how many obvious go-for-its he faced.", MIN_N, min(SEASONS), max(SEASONS)),
-      paste0("\nLook at the two axes. The horizontal one cannot start below 80% because nobody is worse than that at the obvious kicks; the vertical one never reaches 71%.\n",
-             "Leaguewide it is 98.8% correct on the obvious kicks against 49.8% on the obvious go-for-its. The error is almost entirely one-way: coaches rarely gamble when the math says kick,\n",
-             "and they kick roughly half the time when the math says gamble. Built by R/08."))
+      sprintf("Head coaches with at least %d clear-cut fourth downs, %d to %d, sorted by how often they correctly go.", MIN_N, min(SEASONS), max(SEASONS)),
+      paste0("\nThe error is almost entirely one-directional. Coaches essentially never gamble when the math says kick, and they kick about half the time when it says gamble.\n",
+             "Nobody's blue dot is below 96%. Nobody's orange dot reaches 71%. Built by R/08."))
   ) +
-  theme_coach(grid = "y")
+  theme_coach(grid = "none") +
+  theme(legend.position = "top", legend.title = element_blank(),
+        legend.justification = "left",
+        axis.text.y = element_text(size = rel(0.82)))
 
-save_fig("docs/figures/book_by_type.png", p2, w = 12, h = 7)
+save_fig("docs/figures/book_by_type.png", p2, w = 11.5, h = 9)
