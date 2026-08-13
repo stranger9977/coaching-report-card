@@ -24,13 +24,28 @@
 #   - nflreadr::load_player_stats(2002:2025): per-game passing lines, used
 #     to find each team-season's primary starting QB and his prior-season
 #     efficiency.
-#   - Draft pick value: the Jimmy Johnson trade chart, pulled from Lee
-#     Sharpe's (nflverse co-founder) nfldata repo, saved locally at
-#     data/raw/jj_draft_values.csv (source:
-#     https://github.com/leesharpe/nfldata, data/draft_values.csv, the
-#     "johnson" column). The chart only ever assigned values through pick
-#     224 (Johnson built it before compensatory picks existed); picks 225+
-#     are valued at 0, same as the original chart.
+#   - Draft pick value, three charts, all from the same source file: Lee
+#     Sharpe's (nflverse co-founder) nfldata repo, data/draft_values.csv
+#     (https://github.com/nflverse/nfldata). The Jimmy Johnson column was
+#     already saved locally at data/raw/jj_draft_values.csv; the full file
+#     (all three charts) is saved at data/raw/nfldata_draft_values.csv.
+#       - "johnson": the original Jimmy Johnson trade chart. Values only
+#         ever went through pick 224 (built before compensatory picks
+#         existed); picks 225+ are valued at 0, same as the original chart.
+#       - "stuart": Chase Stuart's Football Perspective chart, fit to
+#         Approximate Value (AV) actually produced in a drafted player's
+#         first 5 seasons, credited above a 2-AV/year replacement level.
+#         https://www.footballperspective.com/draft-value-chart/ . Also
+#         floors at 0 by pick 225.
+#       - "otc": the Fitzgerald-Spielberger chart (Jason Fitzgerald and
+#         Brad Spielberger, Over The Cap), fit to the actual second-contract
+#         APY earned by picks from the 2011-2015 draft classes, smoothed
+#         across neighboring picks. https://overthecap.com/draft-trade-value-chart
+#         Stays positive through pick 262 (no hard floor at 0).
+#   - Madden 26 (2025 season only): data/derived/madden_team_seasons.csv,
+#     already built by R/03_madden.R (top-25 mean OVR, z-scored within
+#     season; see that script for how it was sourced/validated). Not
+#     rebuilt here.
 #
 # Known data issues found and handled while building this (see comments at
 # each step): load_rosters()'s game_type field is unreliable for filtering
@@ -48,10 +63,13 @@
 # load_player_stats do not have that problem and are used instead.
 #
 # Out:
-#   - data/derived/team_talent.csv     (team-season roster value + performance)
+#   - data/derived/team_talent.csv     (team-season roster value + performance,
+#                                        now under all three draft charts)
 #   - data/derived/coach_vs_roster.csv (coach random effect, wins/season)
 #   - docs/figures/coach_vs_roster.png (coach leaderboard)
-#   - docs/figures/seahawks_2025.png   (2025 talent vs. performance scatter)
+#   - docs/figures/seahawks_2025.png   (2025 talent vs. performance, 2x2:
+#                                        Jimmy Johnson / Stuart / OTC / Madden 26,
+#                                        NFL team logos in place of points)
 # =============================================================================
 
 suppressMessages({
@@ -60,7 +78,7 @@ suppressMessages({
   library(nflreadr)
   library(lme4)
   library(ggplot2)
-  library(ggrepel)
+  library(nflplotR)
 })
 
 source("R/lib/theme_coach.R")
@@ -138,6 +156,22 @@ draft_value <- function(pick) {
   ifelse(is.na(pick) | is.na(v), 0, v)
 }
 
+# Two more charts (see header comment for sourcing), same file family as the
+# Jimmy Johnson chart above, used for the multi-chart comparison in Chart B
+# and the model robustness check below. Primary model input stays JJ (via
+# draft_value(), above); these two are never fed to the primary lmer model.
+alt_charts <- read.csv("data/raw/nfldata_draft_values.csv", stringsAsFactors = FALSE)
+stopifnot(all(alt_charts$johnson == jj_chart$johnson[match(alt_charts$pick, jj_chart$pick)]))
+
+draft_value_stuart <- function(pick) {
+  v <- alt_charts$stuart[match(pick, alt_charts$pick)]
+  ifelse(is.na(pick) | is.na(v), 0, v)
+}
+draft_value_otc <- function(pick) {
+  v <- alt_charts$otc[match(pick, alt_charts$pick)]
+  ifelse(is.na(pick) | is.na(v), 0, v)
+}
+
 players_draft <- load_players() %>%
   filter(!is.na(gsis_id)) %>%
   distinct(gsis_id, .keep_all = TRUE) %>%
@@ -148,12 +182,16 @@ rosters <- load_rosters(FIRST_SEASON:LAST_SEASON) %>%
   distinct(season, team, gsis_id, .keep_all = TRUE) %>%
   left_join(players_draft, by = "gsis_id") %>%
   mutate(draft_number_final = ifelse(is.na(draft_number), draft_pick, draft_number),
-         pick_value = draft_value(draft_number_final))
+         pick_value = draft_value(draft_number_final),
+         pick_value_stuart = draft_value_stuart(draft_number_final),
+         pick_value_otc = draft_value_otc(draft_number_final))
 
 roster_value <- rosters %>%
   group_by(season, team) %>%
   summarise(
     roster_value = sum(pick_value),
+    roster_value_stuart = sum(pick_value_stuart),
+    roster_value_otc = sum(pick_value_otc),
     roster_value_recent4 = sum(pick_value[!is.na(entry_year) & entry_year > season - 4]),
     n_players = n(),
     .groups = "drop"
@@ -270,6 +308,18 @@ coach_ranef_recent <- ranef(fit_recent)$head_coach %>%
 recent_compare <- inner_join(coach_ranef_primary, coach_ranef_recent, by = "head_coach")
 recent_cor <- cor(recent_compare$effect_primary, recent_compare$effect_recent)
 
+# Robustness: Chase Stuart AV-based chart in place of Jimmy Johnson for
+# roster value (QB value untouched, still his JJ draft value, so only the
+# roster measure changes).
+model_data_stuart <- model_data %>% mutate(roster_stuart_z = as.numeric(scale(roster_value_stuart)))
+fit_stuart <- lmer(point_diff_pg ~ roster_stuart_z + qb_z + (1 | head_coach) + (1 | season),
+                    data = model_data_stuart)
+coach_ranef_stuart <- ranef(fit_stuart)$head_coach %>%
+  tibble::rownames_to_column("head_coach") %>%
+  rename(effect_stuart = `(Intercept)`)
+stuart_compare <- inner_join(coach_ranef_primary, coach_ranef_stuart, by = "head_coach")
+stuart_cor <- cor(stuart_compare$effect_primary, stuart_compare$effect_stuart)
+
 # -----------------------------------------------------------------------
 # 6. Coach leaderboard table.
 # -----------------------------------------------------------------------
@@ -322,50 +372,85 @@ p_board <- ggplot(board, aes(x = wins_per_season, y = head_coach, fill = active_
 save_fig("docs/figures/coach_vs_roster.png", p_board, w = 12, h = 8.5)
 
 # -----------------------------------------------------------------------
-# 8. Chart B: 2025 talent vs. performance, Seattle highlighted.
+# 8. Chart B: 2025 talent vs. performance, four meters, Seattle highlighted.
+#    Kept: the original single-chart (Jimmy Johnson) fit, used only for the
+#    SEATTLE 2025 print block below, unchanged from before.
 # -----------------------------------------------------------------------
 data_2025 <- model_data %>% filter(season == 2025)
 fit_2025 <- lm(point_diff_pg ~ roster_value, data = data_2025)
 sea_resid <- residuals(fit_2025)[data_2025$team == "SEA"]
 sea_rank_resid <- rank(-residuals(fit_2025))[data_2025$team == "SEA"]
-
 sea_row <- data_2025 %>% filter(team == "SEA")
-sea_verdict <- if (abs(sea_resid) < sd(residuals(fit_2025)) * 0.5) {
-  "close to what its roster's draft capital predicted"
-} else if (sea_resid > 0) {
-  "well above what its roster's draft capital predicted"
+
+# Madden 26 launch talent, 2025 only, read from R/03's output (not rebuilt).
+madden_2025 <- read.csv("data/derived/madden_team_seasons.csv", stringsAsFactors = FALSE) %>%
+  filter(season == 2025) %>%
+  select(team, madden_talent_z = talent_z, madden_top25_ovr = top25_ovr)
+
+data_2025_full <- data_2025 %>% left_join(madden_2025, by = "team")
+stopifnot(nrow(data_2025_full) == nrow(data_2025), !anyNA(data_2025_full$madden_talent_z))
+
+meter_levels <- c("Jimmy Johnson", "Chase Stuart (AV)", "Fitzgerald-Spielberger (OTC)", "Madden 26 launch")
+
+panel_data <- bind_rows(
+  data_2025_full %>% transmute(team, meter = meter_levels[1], raw_value = roster_value, point_diff_pg),
+  data_2025_full %>% transmute(team, meter = meter_levels[2], raw_value = roster_value_stuart, point_diff_pg),
+  data_2025_full %>% transmute(team, meter = meter_levels[3], raw_value = roster_value_otc, point_diff_pg),
+  data_2025_full %>% transmute(team, meter = meter_levels[4], raw_value = madden_talent_z, point_diff_pg)
+) %>%
+  mutate(meter = factor(meter, levels = meter_levels)) %>%
+  group_by(meter) %>%
+  mutate(x_z = as.numeric(scale(raw_value))) %>%
+  ungroup()
+
+# Per-meter 2025 stats: correlation (panel annotation + title logic), and
+# Seattle's rank (1 = most talent by that meter).
+panel_stats <- panel_data %>%
+  group_by(meter) %>%
+  summarise(r = cor(raw_value, point_diff_pg),
+            sea_rank = rank(-raw_value, ties.method = "min")[team == "SEA"],
+            sea_resid_sign = sign(residuals(lm(point_diff_pg ~ raw_value))[team == "SEA"]),
+            .groups = "drop") %>%
+  mutate(label = sprintf("r = %.2f", r))
+
+full_cor_jj     <- talent_perf_cor
+full_cor_stuart <- cor(model_data$roster_value_stuart, model_data$point_diff_pg)
+full_cor_otc    <- cor(model_data$roster_value_otc, model_data$point_diff_pg)
+
+n_over <- sum(panel_stats$sea_resid_sign > 0)
+panel_title <- if (n_over == 4) {
+  "Seattle's 2025 point differential beat every talent meter's prediction, draft capital and Madden alike"
+} else if (n_over == 0) {
+  "Seattle's 2025 point differential fell short of every talent meter's prediction, draft capital and Madden alike"
 } else {
-  "below what its roster's draft capital predicted"
+  sprintf("Seattle's 2025 point differential beat %d of 4 talent meters' predictions and missed %d",
+          n_over, 4 - n_over)
 }
 
-label_teams <- data_2025 %>%
-  filter(team %in% c("SEA",
-                      data_2025$team[which.max(data_2025$point_diff_pg)],
-                      data_2025$team[which.min(data_2025$point_diff_pg)],
-                      data_2025$team[which.max(data_2025$roster_value)],
-                      data_2025$team[which.min(data_2025$roster_value)]))
-
-p_2025 <- ggplot(data_2025, aes(x = roster_value, y = point_diff_pg)) +
+p_2025 <- ggplot(panel_data, aes(x = x_z, y = point_diff_pg)) +
   geom_smooth(method = "lm", se = FALSE, colour = "grey55", linewidth = 0.6, linetype = "dashed") +
-  geom_point(aes(colour = team == "SEA"), size = 2.6) +
-  geom_text_repel(data = label_teams, aes(label = team), size = 3.6, fontface = "bold",
-                   colour = ink_body, seed = 1, min.segment.length = 0.2) +
-  scale_colour_manual(values = c(`TRUE` = "#045A8D", `FALSE` = "grey55")) +
+  geom_nfl_logos(aes(team_abbr = team, alpha = team == "SEA",
+                      width = ifelse(team == "SEA", 0.075, 0.05))) +
+  geom_point(data = panel_data %>% filter(team == "SEA"), shape = 21, size = 7,
+             stroke = 1.1, colour = ink_title, fill = NA) +
+  geom_text(data = panel_stats, aes(x = -Inf, y = Inf, label = label), inherit.aes = FALSE,
+            hjust = -0.15, vjust = 1.5, size = 3.5, fontface = "bold", colour = ink_body) +
+  scale_alpha_manual(values = c(`TRUE` = 1, `FALSE` = 0.55), guide = "none") +
+  facet_wrap(~ meter, ncol = 2) +
   labs(
-    title = sprintf("Seattle's 2025 point differential was %s", sea_verdict),
-    subtitle = sprintf("Roster draft value vs. point differential per game, all 32 teams, 2025. League-wide, roster draft value explains %.0f%% of the variance in point differential (r = %.2f).",
-                        100 * summary(fit_2025)$r.squared, cor(data_2025$roster_value, data_2025$point_diff_pg)),
-    x = "Team roster draft value (Jimmy Johnson chart, sum over season roster)",
+    title = panel_title,
+    subtitle = "Point differential per game vs. four measures of roster talent, all 32 teams, 2025 regular season.\nEach meter z-scored within 2025 so panels are on the same scale. Dashed line is that panel's league-wide fit;\nSeattle is the full-opacity, ringed logo in each panel.",
+    x = "talent meter, z-scored within 2025 (higher = more/better roster talent)",
     y = "Point differential per game"
   ) +
   theme_coach(grid = "y") +
-  labs(caption = fig_caption(
-    "games.csv (nflverse schedules) and nflreadr::load_rosters/load_players, 2025 regular season",
-    "32 teams. Dashed line is the league-wide fit; Seattle sits above/below it as noted in the title.",
-    NULL
-  ))
+  labs(caption = paste(strwrap(fig_caption(
+    "games.csv (nflverse schedules), nflreadr::load_rosters/load_players (2025), data/derived/madden_team_seasons.csv (R/03)",
+    "32 teams, 2025 regular season.",
+    "Draft charts: Jimmy Johnson (trade chart), Chase Stuart (AV-based, Football Perspective), Fitzgerald-Spielberger (contract-based, Over The Cap). Madden 26 = launch top-25 mean OVR."
+  ), width = 150), collapse = "\n"))
 
-save_fig("docs/figures/seahawks_2025.png", p_2025, w = 12, h = 7.5)
+save_fig("docs/figures/seahawks_2025.png", p_2025, w = 12, h = 10)
 
 # -----------------------------------------------------------------------
 # 9. Print headline numbers.
@@ -388,6 +473,17 @@ cat(sprintf("Robustness check, QB draft value vs. QB prior-season EPA/dropback: 
             nrow(robust_compare), robust_cor))
 cat(sprintf("Robustness check, career vs. recent(4-draft) roster value: correlation between the two models' coach effects (n=%d shared coaches) = %.3f\n",
             nrow(recent_compare), recent_cor))
+cat(sprintf("Robustness check, Jimmy Johnson vs. Chase Stuart roster value: correlation between the two models' coach effects (n=%d shared coaches) = %.3f\n",
+            nrow(stuart_compare), stuart_cor))
+
+cat("\n================ MULTI-CHART TALENT COMPARISON (2025 Chart B) ================\n")
+cat(sprintf("Full-panel (%d-%d) correlation, roster value vs. point differential per game:\n", FIRST_SEASON, LAST_SEASON))
+cat(sprintf("  Jimmy Johnson:                 r = %.3f\n", full_cor_jj))
+cat(sprintf("  Chase Stuart (AV):             r = %.3f\n", full_cor_stuart))
+cat(sprintf("  Fitzgerald-Spielberger (OTC):  r = %.3f\n", full_cor_otc))
+cat("  Madden 26: full-panel r not recomputed here; see R/03_madden.R's own print (different seasons/window).\n")
+cat("\n2025-only correlation and Seattle's rank (1 = most talent) under each meter:\n")
+print(as.data.frame(panel_stats %>% select(meter, r_2025 = r, sea_rank)), row.names = FALSE)
 
 cat("\n================ TOP 10 COACHES: wins/season above roster talent (min ", MIN_SEASONS_COACHED, " seasons) ================\n", sep = "")
 print(as.data.frame(coach_table %>% filter(seasons >= MIN_SEASONS_COACHED) %>% slice_max(wins_per_season, n = 10) %>%

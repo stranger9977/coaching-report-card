@@ -37,7 +37,8 @@ the new work.
 | Motion vs man coverage | +0.03 EPA, CI crosses zero; no deterrence effect |
 | Halftime adjustments repeat | split-half r = 0.48, 44 of 159 coaches outside the noise cone (~8 expected) |
 | But they are mostly team quality | adjustment score correlates 0.81 with plain point margin |
-| Draft pedigree explains ~nothing | roster draft value vs point diff: r = -0.005 across 736 team-seasons |
+| Draft pedigree explains ~nothing | r = -0.005 / -0.010 / -0.027 under the JJ, Stuart, and OTC charts, 736 team-seasons |
+| Madden sees what draft charts cannot | 2025: Madden launch r = 0.39 with point diff, all three draft charts ~0 |
 | Wins above roster talent | Belichick +4.2/season on top; Gase, Bradley, Saleh at the bottom |
 | Seattle 2025 vs its pedigree | roster 19th of 32 by draft value, biggest positive outlier in the league |
 | Madden knows something, weakly | launch talent explains 19% of win variance (r = 0.43), 2017-2025 |

@@ -35,6 +35,7 @@
 suppressMessages({
   library(tidyverse)
   library(ggrepel)
+  library(nflplotR)
 })
 
 source("R/lib/theme_coach.R")
@@ -291,15 +292,10 @@ chart_b_title <- sprintf("Seattle %s its 2025 market expectation by %.1f win%s",
 p_2025 <- ggplot(team_2025, aes(x = expected_wins, y = actual_wins)) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed",
               colour = ink_baseline, linewidth = 0.35) +
-  geom_point(aes(colour = is_sea, size = is_sea), alpha = 0.9) +
-  geom_text_repel(aes(label = paste0(team, " (", word(coach, -1), ")"), colour = is_sea),
-                   size = 2.9, fontface = "bold", show.legend = FALSE,
-                   segment.colour = "grey60", segment.size = 0.3,
-                   max.overlaps = Inf, box.padding = 0.45, point.padding = 0.15,
-                   min.segment.length = 0.1, force = 3, force_pull = 0.5,
-                   max.time = 3, max.iter = 20000, seed = 1) +
-  scale_colour_manual(values = c(`TRUE` = accent_outside, `FALSE` = "grey45")) +
-  scale_size_manual(values = c(`TRUE` = 3.2, `FALSE` = 1.9)) +
+  geom_nfl_logos(aes(team_abbr = team, alpha = is_sea, width = ifelse(is_sea, 0.09, 0.06))) +
+  geom_point(data = team_2025 %>% filter(is_sea), shape = 21, size = 8.5,
+             stroke = 1.1, colour = ink_title, fill = NA) +
+  scale_alpha_manual(values = c(`TRUE` = 1, `FALSE` = 0.55), guide = "none") +
   scale_x_continuous(name = "market-expected wins (from closing spreads)") +
   scale_y_continuous(name = "actual wins") +
   coord_equal() +
@@ -309,7 +305,7 @@ p_2025 <- ggplot(team_2025, aes(x = expected_wins, y = actual_wins)) +
                        "Above the line means the team won more than the closing spread implied."),
     caption = fig_caption(
       "nflverse schedules, 2025 season",
-      "All 32 teams, regular season only. Coach shown is whoever coached the most games that season.",
+      "All 32 teams, regular season only. Seattle is the full-opacity, ringed logo.",
       NULL
     )
   ) +
