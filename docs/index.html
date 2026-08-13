@@ -157,7 +157,21 @@
       <p class="row"><span class="lab">The catch:</span> because pedigree barely predicts performance, this "talent control" controls for less than the name suggests. Read it as wins above a league baseline with a QB nudge, not wins above a true talent measure. It also credits a whole season to whoever coached most of it (38 of 736 seasons had a midseason change). The next talent measure to try is on the ideas list: actual performance data, not draft slots.</p>
     </div>
 
-    <!-- PENDING: builder-madden card (madden_scatter.png + madden_coaches.png) goes here -->
+    <div class="card">
+      <div class="card-head"><span class="t">The Madden version, since you asked</span><span class="pill ship">Built, nine seasons</span></div>
+      <p class="row"><span class="lab">Michael:</span> "- WAR based on Madden ratings or something…"</p>
+      <p class="row found"><span class="lab">Found:</span> we pulled launch ratings for every team, 2017 through 2025, from a cleaned public rebuild of the Madden data. The game does know something: a roster's launch rating explains about 19 percent of the variance in wins (r = 0.43), which makes it a real but weak talent meter, and that weakness is worth saying out loud in the video. Madden 26 rated the 2025 Seahawks 23rd of 32 and priced them at 7.5 wins. They won 14. The coach view over nine seasons puts DeMeco Ryans, McVay, Payton, McDermott, and Reid on top of the video game's expectations, and Doug Marrone, Saleh, Patricia, and Gase under them.</p>
+      <figure>
+        <img src="figures/madden_scatter.png" alt="Scatter of 288 team-seasons, Madden launch talent rating against actual wins, with a positive but loose relationship and Seattle 2025 far above the fit.">
+        <figcaption>Madden launch talent against actual wins, 288 team-seasons, 2017 to 2025. The 0-16 2017 Browns and 4-win 2020 Eagles land where they should. Madden data via theedgepredictor/nfl-madden-data. Built by R/03.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/madden_coaches.png" alt="Leaderboard of coaches by wins per season above what their teams' Madden ratings implied, minimum three seasons.">
+        <figcaption>Wins per season above the video game's implied pace, coaches with at least three seasons in the window. Built by R/03.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> Madden ratings partly bake in last season's results, so this is not an independent talent measure, and nine seasons is a short window. Talent here means the average of a team's top 25 launch ratings.</p>
+      <p class="xref">Production note for the script: EA named two different games "Madden 25", and the ratings archive everyone links serves the 2013 one. The chart above nearly shipped with Calvin Johnson on the 2024 Lions.</p>
+    </div>
 
     <div class="tgroup">
       <h3>2 &nbsp;Playcalling</h3>

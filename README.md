@@ -40,8 +40,8 @@ the new work.
 | Draft pedigree explains ~nothing | roster draft value vs point diff: r = -0.005 across 736 team-seasons |
 | Wins above roster talent | Belichick +4.2/season on top; Gase, Bradley, Saleh at the bottom |
 | Seattle 2025 vs its pedigree | roster 19th of 32 by draft value, biggest positive outlier in the league |
-
-(The Madden row gets added when that script lands.)
+| Madden knows something, weakly | launch talent explains 19% of win variance (r = 0.43), 2017-2025 |
+| Seattle 2025 vs the video game | rated 23rd of 32, priced at 7.5 wins, won 14 |
 
 ## Scripts
 
@@ -52,7 +52,7 @@ figures and derived CSVs.
 |---|---|
 | `R/01_roster_talent.R` | coach_vs_roster.png, seahawks_2025.png |
 | `R/02_market_expectation.R` | market_funnel.png, market_2025.png |
-| `R/03_madden.R` | madden_scatter.png, madden_coaches.png (in progress) |
+| `R/03_madden.R` | madden_scatter.png, madden_coaches.png |
 | `R/04_halftime_adjustments.R` | halftime_cone.png, halftime_persistence.png (in progress) |
 
 ```sh
@@ -71,8 +71,10 @@ theme_ghost.R, functions renamed).
   play-caller per team-game, 1999-2025.
 - FTN charting 2022-2024, NGS participation 2016-2023 (charts built in
   nfl-analysis).
-- Madden ratings: https://github.com/theedgepredictor/nfl-madden-data
-  (in progress).
+- Madden ratings: https://github.com/theedgepredictor/nfl-madden-data,
+  launch ratings rebuilt per season with nflverse team codes, 2017-2025 used.
+  Warning for anyone retracing: the maddenratings.weebly.com "Madden 25" page
+  is the 2013 anniversary game, not the 2024-season one.
 
 ## The measurement problem, stated up front
 
