@@ -102,7 +102,7 @@
       <li><strong>The career leaderboard passes the smell test.</strong> Wins above what the roster predicts: Belichick +4.2 per season, then Dungy, Harbaugh, Payton. Macdonald sits at +1.5 on two seasons, real but preliminary.</li>
       <li><strong>Andy Reid is not a clock-management disaster.</strong> He has the best large-sample record at not dying with timeouts: 4 of 61 close losses vs a 15 percent league rate. The real sinners are Norv Turner (11 of 31) and Mike Martz (double the league burn rate, every season).</li>
       <li><strong>Dead hypotheses stay on the board.</strong> Icing the kicker: 26 seasons cannot prove it works, and Pete Carroll's apparent edge is the fluke screening 21 coaches predicts. Establish the run: zero in every metric, including its three best counterarguments. Halftime adjusters: the skill repeats on paper but correlates 0.81 with simply having the better team.</li>
-      <li><strong>The strangest one:</strong> a roster's draft pedigree explains essentially nothing about how the team performs (r = 0.00 across 736 team-seasons). That is its own finding.</li>
+      <li><strong>The strangest one:</strong> a roster's draft pedigree explains essentially nothing about how the team performs (r = 0.00 across 736 team-seasons). Payroll does better (r = 0.30), and Seattle beat that meter harder than anyone too, ranked 30th of 32 by paid talent.</li>
     </ul>
     <p>Everything below is one board. Each card is a line from our texts, then what the data says, then the chart that answers that exact question sitting under it. Open questions say so and name the next move.</p>
   </div>
@@ -162,7 +162,22 @@
         <img src="figures/coach_vs_roster.png" alt="Leaderboard of head coaches by wins per season above what roster draft value predicts, minimum four seasons, Belichick on top at about 4 wins and Gus Bradley at the bottom around minus 2.">
         <figcaption>Wins per season above roster pedigree, coaches with at least four seasons since 2003, active coaches marked. Built by R/01.</figcaption>
       </figure>
-      <p class="row"><span class="lab">The catch:</span> because pedigree barely predicts performance, this "talent control" controls for less than the name suggests. Read it as wins above a league baseline with a QB nudge, not wins above a true talent measure. The chart choice does not matter: refit with the Stuart chart instead of Jimmy Johnson and the coach effects correlate 0.999. It also credits a whole season to whoever coached most of it (38 of 736 seasons had a midseason change). The next talent measure to try is on the ideas list: actual performance data, not draft slots.</p>
+      <p class="row"><span class="lab">The catch:</span> because pedigree barely predicts performance, this "talent control" controls for less than the name suggests. Read it as wins above a league baseline with a QB nudge, not wins above a true talent measure. The chart choice does not matter: refit with the Stuart chart instead of Jimmy Johnson and the coach effects correlate 0.999. It also credits a whole season to whoever coached most of it (38 of 736 seasons had a midseason change). The better talent meter is the next card.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">The better meter: what the league pays</span><span class="pill ship">Built, and it works better</span></div>
+      <p class="row"><span class="lab">Nick:</span> "draft capital as a proxy for team talent is biased in a lot of ways and not really great. a better way would be to quantify team talent by looking at contract value"</p>
+      <p class="row found"><span class="lab">Found:</span> right. We priced every roster by its contracts, each player's APY as a share of the cap in his signing year, top 25 per team, 2012 to 2025 (contract coverage gets thin before that). Payroll is a real talent meter where draft capital was not: r = 0.30 with point differential, against zero for every draft chart, still under Madden's 0.43. And it sharpens Seattle instead of softening it. The 2025 Seahawks ranked 30th of 32 by paid talent and beat the contract model by more than any team in the league, 14.3 points a game above the fit. Sam Darnold cost 12 percent of the cap, 15th among the 32 primary starters, the middle of the market. "Won without an elite QB" checks out by price, and "without a lot of elite players" checks out even harder by payroll than by pedigree.</p>
+      <figure>
+        <img src="figures/contract_2025.png" alt="Scatter of 2025 team logos, contract-value talent against point differential per game with an upward fit line, r equals 0.32, and Seattle ringed in the top left as a low-payroll, high-performance outlier.">
+        <figcaption>2025 point differential against contract-value talent. The fit slopes upward, and Seattle sits in the wrong corner of it, farthest above the line. OverTheCap contract data via nflreadr. Built by R/06.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/coach_vs_contracts.png" alt="Diverging bar leaderboard of coaches by wins per season above what contract-paid talent predicts, 2012 to 2025: Belichick on top near plus 3, then John Harbaugh, Arians, McDermott, Reid; Gase and Saleh at the bottom.">
+        <figcaption>Wins per season above what contract-paid talent predicts, coaches with at least four seasons since 2012, both talent terms significant in this version. Macdonald sits at +1.1 wins per season on two seasons, below the chart's minimum. Built by R/06.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> contracts carry their own biases, in the opposite direction from draft charts. Rookie-scale stars read as cheap, and a washed $30M veteran counts like a $30M MVP. League-wide the rookie-deal bias barely moves the fit, but Seattle specifically has the second-highest rookie share of its top-25 payroll, so part of its outlier status is the meter underrating young players, consistent with the bias though one team cannot prove it. The window is also 2012 to 2025, so this leaderboard is not directly comparable to the 2003-to-2025 draft version. And the two models' coach effects correlate 0.91 mostly because both baselines are weak, not because the meters agree on who has talent.</p>
     </div>
 
     <div class="card">
@@ -434,9 +449,9 @@
     </div>
 
     <div class="card">
-      <div class="card-head"><span class="t">6 &nbsp;A talent meter better than pedigree</span><span class="pill open">The methodological upgrade</span></div>
-      <p class="row found"><span class="lab">The idea:</span> draft capital measures what teams paid, not what players became, and it explains nothing. The upgrades, in rough order of effort: snap-weighted approximate value, contract market value from OverTheCap (what the league currently pays the roster), or PFF grades. Rerun the coach model on one of those and the "above talent" claim gets real teeth.</p>
-      <p class="xref">Have: the whole model pipeline, swap one input. Need: a day with the AV or contracts data, and a check that the leaderboard stays face-valid.</p>
+      <div class="card-head"><span class="t">6 &nbsp;A talent meter better than pedigree</span><span class="pill ship">Contracts built; AV and PFF remain</span></div>
+      <p class="row found"><span class="lab">The idea:</span> draft capital measures what teams paid, not what players became, and it explains nothing. The contract-value version is now built and on the board (r = 0.30, both model terms significant). The remaining upgrades if the measure needs more teeth: snap-weighted approximate value and PFF grades.</p>
+      <p class="xref">Have: the contract model, R/06. Need: AV or PFF only if Michael pushes past payroll.</p>
     </div>
 
     <div class="card">

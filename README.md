@@ -39,6 +39,8 @@ the new work.
 | But they are mostly team quality | adjustment score correlates 0.81 with plain point margin |
 | Draft pedigree explains ~nothing | r = -0.005 / -0.010 / -0.027 under the JJ, Stuart, and OTC charts, 736 team-seasons |
 | Madden sees what draft charts cannot | 2025: Madden launch r = 0.39 with point diff, all three draft charts ~0 |
+| Payroll is a real talent meter | contract value (top-25 APY % of cap) vs point diff: r = 0.30, 2012-2025 |
+| Seattle 2025 vs its payroll | 30th of 32 by paid talent, biggest beat of the contract model; Darnold 15th of 32 QBs by cap share |
 | Wins above roster talent | Belichick +4.2/season on top; Gase, Bradley, Saleh at the bottom |
 | Seattle 2025 vs its pedigree | roster 19th of 32 by draft value, biggest positive outlier in the league |
 | Madden knows something, weakly | launch talent explains 19% of win variance (r = 0.43), 2017-2025 |
@@ -56,6 +58,7 @@ figures and derived CSVs.
 | `R/03_madden.R` | madden_scatter.png, madden_coaches.png |
 | `R/04_halftime_adjustments.R` | halftime_cone.png, halftime_persistence.png |
 | `R/05_caller_vs_qb.R` | caller_qb_stability.png, caller_qb_control.png (rebuilt from nfl-analysis scratch caches; reproduces the original numbers exactly) |
+| `R/06_contract_talent.R` | contract_2025.png, coach_vs_contracts.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
@@ -73,6 +76,10 @@ theme_ghost.R, functions renamed).
   play-caller per team-game, 1999-2025.
 - FTN charting 2022-2024, NGS participation 2016-2023 (charts built in
   nfl-analysis).
+- Contracts: OverTheCap via nflreadr::load_contracts(). Coverage supports a
+  top-25-per-team build from 2012 on (measured, not assumed: the minimum
+  matched players per team-roster first clears 25 in 2012). ~8% of contract
+  rows lack a gsis_id; a name+position fallback recovers most.
 - Madden ratings: https://github.com/theedgepredictor/nfl-madden-data,
   launch ratings rebuilt per season with nflverse team codes, 2017-2025 used.
   Warning for anyone retracing: the maddenratings.weebly.com "Madden 25" page
