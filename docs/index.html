@@ -116,6 +116,103 @@
   <div class="board">
 
     <div class="tgroup">
+      <h3>His feedback, 13 August</h3>
+      <p class="grouphint">Michael read the board and pushed on the word "predictable" three separate ways, caught a data-freshness problem, and added a new question. All of it is answered here.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">"Predictable" was doing two jobs at once</span><span class="pill ship">Fixed</span></div>
+      <p class="row"><span class="lab">Michael:</span> "This is saying Sean Mcvay is more predictable?" ... "I feel like Kubiak was labeled as highly predictable by the public but not here?" ... "I feel like McVay is lauded for being unpredictable in the sense of lots of movement, ya? But what you're saying is he is highly predictable based on run/pass?"</p>
+      <p class="row"><span class="lab">Nick, on text:</span> "Predictable might be a bad way to frame it... Gotta define predictable better."</p>
+      <p class="row found"><span class="lab">He is right, and the fix is to split the word.</span> There are two separate measures and both were being called predictable. CALL predictability asks whether a coach does what the down, distance, field position and score suggest. LOOK predictability asks whether his formation and personnel add anything on top of that. A coach can be high on one and low on the other, and conflating them is exactly what made the McVay answer sound wrong.</p>
+      <figure>
+        <img src="figures/pred_two_axes.png" alt="Scatter of play-callers with call predictability on the horizontal axis and residualised pre-snap look predictability on the vertical, showing Andy Reid high on calls but low on look, Sean McVay the reverse, and Ben Johnson low on both.">
+        <figcaption>The two axes separated. Andy Reid calls the obvious play but hides it; McVay is closer to the reverse. Built by R/07.</figcaption>
+      </figure>
+      <p class="row found"><span class="lab">And the direct answer on his two names:</span> on CALL predictability McVay is 69th percentile and Gary Kubiak is 70th. They are the same coach by this measure. Neither is extreme. The actual extremes are Andy Reid at 99th and Ben Johnson at 4th. McVay only looked remarkable on the old chart because he was labelled on it, not because he sits at an edge.</p>
+      <p class="row"><span class="lab">The catch we found on the way:</span> the LOOK metric is badly contaminated by sample size. Its shrinkage pulls small-sample callers toward zero, so more career plays mechanically means a higher measured tell, r = 0.60 and R-squared = 0.36. Every look number on this board is now residualised for that. It matters: Kyle Shanahan drops from the 87th percentile to the 35th once you correct it, and Andy Reid from 81st to 32nd.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">"Why is predictable play calling doing better?"</span><span class="pill ship">Answered, using your own analogy</span></div>
+      <p class="row"><span class="lab">Michael:</span> "Why is predictable play calling doing better?"</p>
+      <p class="row"><span class="lab">Nick:</span> "It's kind of like hitting on 14 when the dealer shows a 10. Like just do what the book says. Ben johnson is having a lot of success being unpredictable in smart spots tho. There's a gray area like when you are holding 16 and the dealer has a 10."</p>
+      <p class="row found"><span class="lab">That answer holds up when you plot it.</span> The unpredictable corner is not full of geniuses outsmarting defenses. It is full of Adam Gase, Nathaniel Hackett, Luke Getsy and Chip Kelly, all with negative offensive EPA. Deviating from the situation for its own sake is mostly something bad coaches do. The one real exception is the man you named unprompted: Ben Johnson sits at the 4th percentile in predictability with +0.089 EPA per play, alone in that quadrant.</p>
+      <figure>
+        <img src="figures/pred_blackjack.png" alt="Scatter of call predictability against offensive EPA per play for 77 career play-callers. The correlation is positive; the unpredictable low end is populated by Gase, Getsy, Hackett and Kelly with negative EPA, while Ben Johnson sits alone as an unpredictable caller with strongly positive EPA.">
+        <figcaption>Call predictability against offensive EPA per play, correlation +0.39. Ben Johnson is the exception that proves the rule. Built by R/07.</figcaption>
+      </figure>
+      <p class="xref">This is the cleanest version of the finding for the script: the book is right almost always, and the edge is knowing the handful of hands worth deviating on.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">"So teams aren't that similar year to year in a way?"</span><span class="pill ship">Answered, and it cuts the other way</span></div>
+      <p class="row"><span class="lab">Michael:</span> "So teams aren't that similar year to year in a way?"</p>
+      <p class="row found"><span class="lab">They are more similar than you would think, and more similar on tendency than on quality.</span> Across 228 consecutive caller-seasons, how predictable a coach calls it carries over at r = 0.46. How well his offense actually plays carries over at r = 0.37. Both persist, and the tendency persists more strongly than the performance. That is what makes this worth measuring at all: it behaves like a trait of the coach rather than only a description of last year.</p>
+      <figure>
+        <img src="figures/pred_stability.png" alt="Two side-by-side scatters of consecutive caller-seasons: predictability last season against this season with r of 0.46, and offensive EPA last season against this season with r of 0.37.">
+        <figcaption>Consecutive-season pairs, 2015 to 2025. Tendency carries over a little more than results do. Built by R/07.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Is McVay actually telegraphed pre-snap?</span><span class="pill ship">Yes, but there is no single McVay</span></div>
+      <p class="row"><span class="lab">Michael:</span> "He's high up and that says he predictable pre-snap?" ... "This says pre-snap on the y-axis?"</p>
+      <p class="row"><span class="lab">Nick:</span> "Oh wow that might have changed recently. He evolves a lot year over year tbh. I'll dig into that more."</p>
+      <p class="row found"><span class="lab">Dug into it, and Nick's instinct was right.</span> Career-level, McVay really is near the top on formation tell, 96th percentile even after the sample-size correction. But there is no settled McVay to label. Season by season he ranges from 2.0 standard deviations above the league in 2018 to 1.3 below it in 2022, with a below-average 2024 and an ordinary 2025, and no trend in either direction. Any career number on him is an average of ten different coaches.</p>
+      <figure>
+        <img src="figures/presnap_mcvay.png" alt="Line chart of Sean McVay's pre-snap tell by season from 2016 to 2025, oscillating between 2.0 standard deviations above the league and 1.3 below, against a shaded band showing the middle half of play-callers.">
+        <figcaption>McVay's formation tell by season, against the league each year. Built by R/09.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">So the reputation and the number are both right:</span> motion and shifts are not the same thing as hiding the call. He moves a lot before the snap and the personnel grouping still tells you plenty, at least in the years when it does.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">"Did you not have 2025?"</span><span class="pill ship">Fair hit. Fixed.</span></div>
+      <p class="row"><span class="lab">Michael:</span> "Also I noticed a lot of them were 2022-2023 data, did you not have 2025?"</p>
+      <p class="row found"><span class="lab">He was right and the cause was on our end.</span> The formation charts stopped in 2023 and the charting-based ones in 2024 because our local copy of the data stopped there, not because the league does. nflverse now publishes participation through 2025 and FTN charting through 2025. Both are downloaded and the pre-snap work is rebuilt on 2016 to 2025, which is 276,834 formation-coded plays instead of the old window.</p>
+      <figure>
+        <img src="figures/presnap_freshness.png" alt="Scatter comparing each play-caller's percentile on pre-snap tell in the old 2016 to 2023 window against the refreshed 2016 to 2025 window, clustered close to the diagonal with a rank correlation of 0.96.">
+        <figcaption>Old window against refreshed window. Rank correlation 0.96, so the picture holds, but individual coaches move. Built by R/09.</figcaption>
+      </figure>
+      <p class="xref">Still genuinely capped: tracking data for the deception work ends around 2022 and that is a licensing wall, not a stale cache. Everything else on this board now runs through 2025.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">"What coach does what he should?"</span><span class="pill ship">New build</span></div>
+      <p class="row"><span class="lab">Michael:</span> "Another thought - what about coaches that are the least/most by the analytics book? As in, what coach does what he should and what coach does not do what he should?"</p>
+      <p class="row found"><span class="lab">Fourth down is the place to answer it,</span> because every snap has a defensible right answer and the call belongs entirely to the head coach. Using the same model the public fourth-down bots run on, and counting only the clear-cut spots where going is worth at least 1.5 win-probability points more or less than kicking, there were 13,134 unambiguous decisions from 2018 to 2025.</p>
+      <figure>
+        <img src="figures/book_leaderboard.png" alt="Two-panel bar chart of head coaches most and least often correct on clear-cut fourth downs. Mike Macdonald leads at 88 percent; Josh McDaniels, Bruce Arians, Brandon Staley and Bill Belichick sit at the bottom near 70 to 73 percent.">
+        <figcaption>Share of clear-cut fourth downs handled correctly, 2018 to 2025. Built by R/08.</figcaption>
+      </figure>
+      <p class="row found"><span class="lab">Two things fall out of it that are worth the video.</span> First, Mike Macdonald is the most by-the-book coach in football at 88%, which lands right on top of the Seahawks spine. Second, Bill Belichick is near the bottom at 73%, going on only 35% of the fourth downs where he should have. The greatest coach of the era was one of the least analytically obedient.</p>
+      <p class="row found"><span class="lab">And the shape of the error is one-directional.</span> Leaguewide, coaches get the obvious kicks right 98.8% of the time and the obvious go-for-its right 49.8% of the time. Nobody gambles when the math says kick. Half the time they kick when the math says gamble. The cowardice is entirely in one direction.</p>
+      <figure>
+        <img src="figures/book_by_type.png" alt="Scatter of head coaches showing how often each correctly kicks against how often each correctly goes for it. The horizontal axis cannot start below 80 percent while the vertical axis never reaches 71 percent, showing the asymmetry.">
+        <figcaption>Correct on the obvious kicks against correct on the obvious go-for-its. Note the two axis ranges. Built by R/08.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">"Did the Seahawks outperform more than any other Super Bowl winning team?"</span><span class="pill ship">Answered</span></div>
+      <p class="row"><span class="lab">Michael:</span> "Did the Seahawks outperform more than any other Super Bowl winning team (look at various metrics)?"</p>
+      <p class="row found"><span class="lab">Close, but no: fourth of 27.</span> Against the closing point spread, which already prices in the roster, the quarterback and the schedule, 2025 Seattle won 14 games where the market expected 10.8, a beat of +3.2 wins per 17. Only the 2003 Patriots (+5.5), the 2001 Patriots (+4.2) and last season's Eagles (+3.3, by six hundredths of a win) did better. It is still the 96th percentile of all 861 team-seasons since 1999.</p>
+      <figure>
+        <img src="figures/champions_market.png" alt="Horizontal bar chart of all 27 Super Bowl winners since 1999 ranked by regular-season wins above the closing spread per 17 games. The 2003 Patriots lead at plus 5.5, and the 2025 Seahawks are fourth at plus 3.2, highlighted in orange.">
+        <figcaption>Every Super Bowl winner since 1999, by how much they beat the market. Built by R/10.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The useful framing for the script:</span> the only clear separation above Seattle is early-era Belichick, and the same measure has 2018 New England and 2023 Kansas City winning it all while performing slightly worse than the market expected. Beating the spread is not what winning a Super Bowl requires. Seattle did both, which is rarer.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Your read of the method was right</span><span class="pill data">Confirmed</span></div>
+      <p class="row"><span class="lab">Michael:</span> "So if I understand the conditional probability correct it is just looking at what teams have done across 305,827 plays. So for example on 2nd and 2 5 min left in the third quarter on x yardline, a team ran it 83% of the time"</p>
+      <p class="row found"><span class="lab">That is exactly it, with one refinement.</span> Every called play from 2015 to 2025 is dropped into a bucket defined by down, distance, field zone, score margin and half. Within each bucket we work out how often the league passes, then how often this particular caller passes. The gap is his predictability. The refinement is that small samples get pulled toward the league rate, so a caller with forty plays in a bucket is not credited with a tendency he has not really shown.</p>
+      <p class="xref">If you had to ask, the audience will too. Worth a fifteen-second explainer in the video, roughly in the words you used.</p>
+    </div>
+
+    <div class="tgroup">
       <h3>1 &nbsp;The Seahawks question</h3>
       <p class="grouphint">Your third bullet, and the reason for the video: how much is a team overachieving based on its player talent?</p>
     </div>
