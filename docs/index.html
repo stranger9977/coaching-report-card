@@ -182,9 +182,21 @@
     </div>
 
     <div class="card">
+      <div class="card-head"><span class="t">Motion, refreshed for the same reason</span><span class="pill ship">Survives. Mostly.</span></div>
+      <p class="row found"><span class="lab">Why it is here:</span> after the blitz headline died on refresh, every finding built on two seasons of charting had to be re-checked rather than assumed. Motion was the other one. It now runs on 63,652 dropbacks instead of 31,468.</p>
+      <p class="row found"><span class="lab">The main claim holds.</span> Motion's benefit against man versus against zone was +0.033 EPA on two seasons and is +0.028 on four, with the interval still straddling zero. Motion is not a man-coverage tax, and doubling the sample did not rescue it.</p>
+      <p class="row"><span class="lab">One piece did move.</span> We had said defenses flatly do not check out of man when motion is on. Raw rates still say that, 37.9% either way. But adjusted for situation and both teams, motion is now worth 1.2 points less man coverage at p = 0.002, where the same test on two seasons was not detectable. So there is a real deterrence effect. It is just tiny, and nowhere near the "hidden half of motion's value" the claim was built to debunk.</p>
+      <figure>
+        <img src="figures/motion_2025.png" alt="Dot-and-interval chart of offensive EPA per dropback with and without pre-snap motion, against man and against zone coverage, 2022 to 2025. The motion advantage against man is slightly larger than against zone but the intervals overlap.">
+        <figcaption>Motion against man and zone, 2022 to 2025. The interaction is still indistinguishable from zero. Built by R/12.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
       <div class="card-head"><span class="t">"Did you not have 2025?"</span><span class="pill ship">Fair hit. Fixed.</span></div>
       <p class="row"><span class="lab">Michael:</span> "Also I noticed a lot of them were 2022-2023 data, did you not have 2025?"</p>
       <p class="row found"><span class="lab">He was right and the cause was on our end.</span> The formation charts stopped in 2023 and the charting-based ones in 2024 because our local copy of the data stopped there, not because the league does. nflverse now publishes participation through 2025 and FTN charting through 2025. Both are downloaded and the pre-snap work is rebuilt on 2016 to 2025, which is 276,834 formation-coded plays instead of the old window.</p>
+      <p class="row found"><span class="lab">The full ledger, so you can check me:</span> everything on this board now runs through 2025 except where the data itself stops. Play-by-play, spreads, contracts and Madden were already current. The formation work (2016-2023) and the charting work (2022-2023 and 2022-2024) were the stale ones and are rebuilt. Two of those rebuilds changed a finding: the blitz card above, and the deterrence half of the motion card. The one genuine wall left is tracking data for the deception video, which stops around 2022 for licensing reasons, not staleness.</p>
       <figure>
         <img src="figures/presnap_freshness.png" alt="Scatter comparing each play-caller's percentile on pre-snap tell in the old 2016 to 2023 window against the refreshed 2016 to 2025 window, clustered close to the diagonal with a rank correlation of 0.96.">
         <figcaption>Old window against refreshed window. Rank correlation 0.96, so the picture holds, but individual coaches move. Built by R/09.</figcaption>
@@ -491,13 +503,14 @@
     </div>
 
     <div class="card">
-      <div class="card-head"><span class="t">Motion does not scare man coverage</span><span class="pill ship">A deception myth, already dead</span></div>
+      <div class="card-head"><span class="t">Motion does not scare man coverage</span><span class="pill block">Superseded by the 2025 rebuild.</span></div>
       <p class="row"><span class="lab">The belief:</span> pre-snap motion "reveals the coverage" and punishes man.</p>
       <p class="row found"><span class="lab">Found:</span> across 31,468 charted dropbacks in 2022 and 2023, motion against man coverage adds 0.03 EPA per play, indistinguishable from zero. The deterrence story fails too: defenses play man 35.8 percent of the time when the offense motions and 35.4 when it does not. They are not scared.</p>
       <figure>
         <img src="figures/motion-man-tax.png" alt="Diff-in-diff of motion against man coverage showing an effect near zero and no change in man coverage rates against motion.">
         <figcaption>The motion-against-man effect and the deterrence check, both flat. FTN charting 2022 to 2023. Built by nfl-analysis, motion-man-tax.R.</figcaption>
       </figure>
+      <p class="xref">Ran on 2022-23. Rebuilt on 2022-2025 near the top of this board: the main finding holds, the deterrence corollary is now a small but real 1.2 points.</p>
       <p class="row"><span class="lab">Where this goes:</span> a first honest brick for the deception video, and a warning that its intuitive claims will need the same treatment as establish-the-run got.</p>
     </div>
 
