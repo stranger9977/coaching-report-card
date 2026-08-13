@@ -206,8 +206,12 @@
       <p class="row"><span class="lab">The obvious objection:</span> predictable callers might only look good because they have Mahomes.</p>
       <p class="row found"><span class="lab">Found:</span> the link survives controlling for quarterback accuracy at about two thirds of its strength, and it remains significant. Predictability is also a stable trait of the caller: it carries season to season (r = 0.48), and it carries almost as well when the caller changes quarterbacks as when he keeps one. It is his signature, not his QB's.</p>
       <figure>
-        <img src="figures/caller-vs-qb.png" alt="Chart showing play-caller predictability persists across seasons and across quarterback changes, and the predictability-to-offense link survives controlling for QB quality.">
-        <figcaption>Predictability follows the caller across seasons and across quarterback changes. Built by nfl-analysis, caller-vs-qb.R.</figcaption>
+        <img src="figures/caller_qb_stability.png" alt="Two bars with confidence intervals: predictability correlates 0.54 with next season when the caller keeps his QB and 0.34 after a QB change, and the intervals overlap.">
+        <figcaption>Predictability carries into the next season whether or not the quarterback changes. The gap between the two bars is not statistically distinguishable. Built by R/05.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/caller_qb_control.png" alt="Three bars: the correlation of predictability with offensive EPA per play is 0.37 raw, 0.26 after removing QB accuracy, and 0.09 under an over-control that removes QB total EPA.">
+        <figcaption>The link to offense shrinks but survives removing the quarterback. The third bar over-controls, since QB total EPA contains the caller's own play design. Built by R/05.</figcaption>
       </figure>
     </div>
 

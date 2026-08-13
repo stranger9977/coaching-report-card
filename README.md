@@ -53,7 +53,8 @@ figures and derived CSVs.
 | `R/01_roster_talent.R` | coach_vs_roster.png, seahawks_2025.png |
 | `R/02_market_expectation.R` | market_funnel.png, market_2025.png |
 | `R/03_madden.R` | madden_scatter.png, madden_coaches.png |
-| `R/04_halftime_adjustments.R` | halftime_cone.png, halftime_persistence.png (in progress) |
+| `R/04_halftime_adjustments.R` | halftime_cone.png, halftime_persistence.png |
+| `R/05_caller_vs_qb.R` | caller_qb_stability.png, caller_qb_control.png (rebuilt from nfl-analysis scratch caches; reproduces the original numbers exactly) |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
