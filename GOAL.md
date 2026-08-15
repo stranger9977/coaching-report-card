@@ -41,11 +41,13 @@ year over year at r >= 0.30, and must persist across a change of team. The
 across-team test is the hard one and the one that matters: if a coach's number
 follows him from Baltimore to Seattle, it is about him.
 *Status: within-team persistence is met on five of six targets. The across-team
-split is now computed and reported in every grade (R5 prints same-team and
-changed-team correlations separately). Early indications are that the two
-differ substantially, which would mean much of what was being called a coach
-effect is a property of the building. This is the single most important number
-in the project and it is now measured rather than assumed.*
+split is computed and printed in every grade, but it CANNOT yet answer the
+question: only 11 to 42 coach-seasons involve a move, and the confidence
+intervals on the changed-team correlations run as wide as [-0.43, 0.59]. Two
+of the six targets point the opposite way. It stays in the diagnostics as a
+number to watch as more coaches change jobs; it is not strong enough to
+support a conclusion in either direction, and an earlier version of this file
+wrongly treated it as one.*
 
 **G3. Decisions are separated from outcomes.** Value must be computed
 counterfactually at the moment of the decision, not from whether the play
@@ -100,6 +102,9 @@ each of those is on the public board with its evidence:
   direction, and direction is just the league running too much)
 - "High-leverage fourth-down accuracy does not predict wins" (retracted: the
   measure had no between-coach reliability, so the null was about noise)
+- "Coaching tendencies are mostly the building, not the coach" (retracted the
+  same day it was written: 11 to 42 moved-coach pairs cannot carry it, and two
+  of six targets pointed the other way)
 - The first version of the decision-cost leaderboard (priced only two of the
   three options, ignored a 31% era trend, and ranked unshrunk rates without
   intervals)

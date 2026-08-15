@@ -125,11 +125,22 @@ NAMED <- c("Bill Belichick","Andy Reid","Mike Tomlin","Pete Carroll","Sean Payto
            "Adam Gase","Matt Patricia","Hue Jackson","Nathaniel Hackett","Urban Meyer",
            "Josh McDaniels","Jim Harbaugh","Mike Shanahan","Tony Dungy","Bill Cowher")
 z <- function(v) { s <- sd(v, na.rm = TRUE); if (is.na(s) || s == 0) return(rep(0, length(v))); (v - mean(v, na.rm = TRUE))/s }
+# Offence and defence are now TALENT-ADJUSTED (R/factory/97): the quarterback's
+# quality and the team's cap allocation are regressed out first, so these
+# columns are "did more than the roster implied" rather than "had a good
+# roster". Raw columns are kept alongside so the size of the adjustment is
+# visible rather than hidden.
+ta <- tryCatch(as.data.table(read_csv("data/factory/talent_adjusted.csv", show_col_types = FALSE)),
+               error = function(e) NULL)
+if (!is.null(ta)) {
+  rc <- merge(rc, ta[, .(coach, off_adj = adj, def_adj = adj_def)], by = "coach", all.x = TRUE)
+}
 grid <- rc[, .(coach, games,
-               `Beats the market` = z(market),
-               `Offence`          = z(off_epa),
-               `Defence`          = z(-def_epa),
-               `Fourth down`      = z(fd_obey))]
+               `Beats the market`   = z(market),
+               `Offence (raw)`      = z(off_epa),
+               `Offence vs talent`  = if ("off_adj" %in% names(rc)) z(off_adj) else z(off_epa),
+               `Defence vs talent`  = if ("def_adj" %in% names(rc)) z(def_adj) else z(-def_epa),
+               `Fourth down`        = z(fd_obey))]
 g <- melt(grid[coach %in% NAMED], id.vars = c("coach","games"),
           variable.name = "dim", value.name = "score")
 ord <- grid[coach %in% NAMED][order(`Beats the market`)]$coach
@@ -145,14 +156,16 @@ p2 <- ggplot(g[!is.na(score)], aes(dim, coach, fill = score)) +
   scale_x_discrete(position = "top") +
   labs(
     title = "Nobody is great at everything, and the WOATs are bad at different things too",
-    subtitle = "Standard deviations above or below the average head coach on each dimension. Blue is good, orange is bad.",
+    subtitle = "Standard deviations above or below the average head coach. Offence and defence are measured against the talent the coach was handed.",
     x = NULL, y = NULL,
     caption = fig_caption(
-      "nflverse play-by-play and schedules; nfl4th decision model; head coaches with at least 32 games",
-      paste0("Market is regressed for career length. Offence and defence are team EPA per play under that head coach.\n",
+      "nflverse play-by-play and schedules; nfl4th decision model",
+      paste0("Head coaches with at least 32 games. Market is regressed for career length.\n",
              "Play-by-play only reaches back to 2015 and the fourth-down model to 2018, so pre-2015 coaches show market only."),
       paste0("\nThe dimensions are kept apart on purpose. Averaging them into one grade would bury the interesting part: Belichick's edge is defence and beating the market and he is\n",
-             "poor at fourth down, Reid is the mirror image, and Macdonald and Campbell are strong exactly where the old guard is weak. Built by R/factory/90."))
+             "poor at fourth down, Reid is the mirror image, and Macdonald and Campbell are strong exactly where the old guard is weak.\n",
+             "The two offence columns are shown side by side on purpose. 'Raw' is the unit's EPA; 'vs talent' removes the quarterback and the payroll first. Coaches whose two\n",
+             "columns disagree are the ones whose reputation rests most on who they had. Talent explains about 15% of the variance, so most of this is still unexplained by roster. Built by R/factory/90."))
   ) +
   theme_coach(grid = "none") +
   theme(axis.text.x = element_text(size = rel(0.9), face = "bold"),

@@ -147,19 +147,6 @@ html <- paste0(
 <p class="note">Full log in <code>data/factory/experiments.csv</code>. Where a variant genuinely won on the rubric it was promoted and the model above reflects it.</p>
 </section>
 
-<h2>The most important correction</h2>
-<div class="prose">
-<p>Everything above rests on R5: a coach\'s residual repeats from one season to the next, therefore it is his. That test has a hole in it, and an adversarial review of this repo found it. Persistence measured while a coach stays at the same club cannot tell a coach from a franchise. The same roster, the same coordinators and the same quarterback produce the same tendencies whoever is nominally calling it.</p>
-<p>The only version that isolates the man is persistence across a change of club. It is now computed, and it lands hard.</p>
-</div>
-
-<section>
-<h3>Is it the coach, or is it the building?</h3>
-<figure><img src="figures/factory/coach_or_building.png" alt="Persistence of coaching residuals split by whether the coach stayed at the same club or moved"><figcaption>Year-over-year persistence, same club against changed club, with 95&#37; intervals.</figcaption></figure>
-<p>On four of five targets it falls by half or more. Run/pass goes from 0.54 to 0.21. Pre-snap motion, the most repeatable tendency in the whole project, goes from 0.81 to 0.11 and essentially does not travel. Man coverage is the one that survives, and that rests on eleven pairs.</p>
-<p class="note"><b>What this changes.</b> It does not make the residuals meaningless, but it does change what they are. They describe a <i>team\'s</i> identity in a season, which the head coach shapes without solely owning. Every sentence on this page of the form "this coach does X" should be read as "this coach\'s offence does X", and the project\'s central claim, that we can separate the coach from the roster, is further from proven than the within-team numbers made it look.</p>
-</section>
-
 <h2>The report card: greats and WOATs</h2>
 <div class="prose">
 <p>Raw wins-above-market cannot be ranked. Liam Coen leads every coach in history at +3.85 per 17 games on exactly one season; Belichick sits at +0.55 on 449 games. So every rate here is regressed toward the league mean by how noisy that coach\'s own record is, which is what a bookmaker should believe about him.</p>
@@ -176,6 +163,23 @@ html <- paste0(
 <h3>Nobody is great at everything</h3>
 <figure><img src="figures/factory/report_card_grid.png" alt="Grid of head coaches scored on beating the market, offence, defence and fourth down"><figcaption>Standard deviations above or below the average head coach. Blue is good, orange is bad.</figcaption></figure>
 <p>This is why the dimensions are never averaged into one grade. Belichick is +2.5 on beating the market and &minus;1.7 on fourth down. Reid is the mirror image: +2.0 on offence, &minus;0.5 on fourth down. Macdonald and Campbell are strong exactly where the old guard is weak. A composite rating would have hidden all of it.</p>
+</section>
+
+<h2>Controlling for the talent</h2>
+<div class="prose">
+<p>Two views on this page were raw team performance with a coach\'s name on top: the offence and defence columns of the grid above, and the per-coach situation grid. Both were quietly asking "whose team was good", which is mostly a question about the roster. The market leaderboard never had this problem, because the closing spread prices the roster by construction, and neither does the decision ledger below, because it prices a choice rather than an outcome.</p>
+</div>
+
+<section>
+<h3>How much of a coach&apos;s offence is the roster?</h3>
+<figure><img src="figures/factory/talent_controls_compare.png" alt="Variance in coach-season offensive EPA explained by each talent measure"><figcaption>Each control on its own, and the best pair together.</figcaption></figure>
+<p>Less than you might fear, and more than nothing: quarterback quality and cap allocation together explain about 15&#37; of the variance in a coach-season\'s offensive EPA. They are tested individually as well as combined because they disagree with each other — where a quarterback was drafted correlates about 0.00 with how he actually plays, while what he is paid correlates 0.39.</p>
+</section>
+
+<section>
+<h3>Who did more with less</h3>
+<figure><img src="figures/factory/talent_adjusted.png" alt="Raw offensive EPA against talent-adjusted offensive EPA by head coach"><figcaption>Raw EPA per play against the same figure with the quarterback and the payroll regressed out.</figcaption></figure>
+<p>The adjustment moves people. Bill Belichick goes from +0.8 to +1.3 standard deviations on offence once his roster is accounted for, and Mike Tomlin goes from +0.3 to &minus;0.1. Mike McDaniel drops nineteen places. Adam Gase, already the worst offence in the group, gets worse. The grid above now uses the adjusted version, with the raw column kept beside it so the size of the correction is visible rather than hidden.</p>
 </section>
 
 <h2>Decisions, priced</h2>
