@@ -42,6 +42,22 @@
 # A model that fails R1-R4 is a modelling problem: fix the features. A model
 # that passes R1-R4 but fails R5 is a finding in itself, and it means the
 # behaviour genuinely is not a stable coaching trait.
+#
+# AMENDED 15 Aug, after the experiment loop in factory/70. That first sentence
+# is only true until you have actually tried. Six feature sets and two tree
+# depths were run at the defensive targets, including the theoretically
+# motivated one (giving the coordinator the offensive personnel and formation
+# he can plainly see before he calls anything). Blitz moved from AUC 0.614 to
+# 0.619 and man coverage got worse on the rubric, not better.
+#
+# So R1 failure has two readings, and they are distinguished by R5:
+#   low AUC + low persistence  = a bad model. Keep working.
+#   low AUC + HIGH persistence = a real finding. The behaviour is a property of
+#     the coach rather than a response to the situation, which is exactly why
+#     the situation cannot predict it.
+# Blitz is the second kind: AUC 0.62, barely above a lookup table, with the
+# highest residual persistence of any target at 0.78. Coordinators blitz
+# according to who they are, not what is in front of them.
 # =============================================================================
 
 suppressMessages({

@@ -18,8 +18,9 @@ esc <- function(x) gsub("&","&amp;", gsub("<","&lt;", x))
 rows <- paste(vapply(seq_len(nrow(sc)), function(i) {
   r <- sc[i]; o <- fits[[r$target]]
   cls <- if (isTRUE(r$cleared)) "ok" else "no"
-  sprintf('<tr class="%s"><td class="nm">%s</td><td>%s</td><td>%.3f</td><td>%.3f</td><td>%+.3f</td><td>%.4f</td><td>%.2f</td><td><b>%d/5</b></td><td>%s</td></tr>',
-          cls, esc(r$label), format(r$n, big.mark = ","), r$rate, r$auc,
+  sprintf('<tr class="%s"><td class="nm">%s</td><td>%s</td><td>%s</td><td>%.3f</td><td>%.3f</td><td>%+.3f</td><td>%.4f</td><td>%.2f</td><td><b>%d/5</b></td><td>%s</td></tr>',
+          cls, esc(r$label), esc(if (is.null(r$variant)) "base" else r$variant),
+          format(r$n, big.mark = ","), r$rate, r$auc,
           r$auc - r$auc_base, r$ece, r$persist, r$n_rules_passed,
           if (isTRUE(r$cleared)) "cleared" else paste(o$grade[pass == FALSE]$rule, collapse = ", "))
 }, ""), collapse = "\n")
@@ -87,9 +88,11 @@ figcaption{font-size:12.5px;color:var(--ink3);padding:8px 4px 2px;line-height:1.
 footer{border-top:1px solid var(--line);margin-top:60px;padding-top:20px;font-size:13.5px;color:var(--ink3);max-width:760px;margin-left:auto;margin-right:auto}
 '
 
-html <- sprintf('<!DOCTYPE html>
+html <- paste0(
+  '<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Model Factory — Coaching Report Card</title><style>%s</style></head><body>
+<title>Model Factory — Coaching Report Card</title><style>', css,
+  '</style></head><body>
 <main>
 <header>
   <div class="kicker">Coaching report card</div>
@@ -100,31 +103,48 @@ html <- sprintf('<!DOCTYPE html>
 
 <div class="prose">
 <h2>Why this page exists</h2>
-<p>Eric Eager\'s framing, passed along by Michael: start with what the average coach would do given the situation, and take the residual. That only works if the model is right about the situation. If it is wrong inside the 10, then every coach who calls plays inside the 10 gets a residual that is really just model error wearing a coach\'s name.</p>
+<p>Eric Eager\\\'s framing, passed along by Michael: start with what the average coach would do given the situation, and take the residual. That only works if the model is right about the situation. If it is wrong inside the 10, then every coach who calls plays inside the 10 gets a residual that is really just model error wearing a coach\\\'s name.</p>
 <p>So every model here is graded before anyone is allowed to read a leaderboard off it. Five rules, all of them have to pass.</p>
 
 <div class="rubric">
 <dl>
 <dt>R1 &nbsp;Discrimination</dt><dd>Out-of-sample AUC at least 0.65, and at least 0.03 better than a plain down-and-distance lookup table. Beat the lookup table or you have learned nothing worth residualising.</dd>
-<dt>R2 &nbsp;Calibration</dt><dd>Expected calibration error at most 0.020, no probability decile off by more than 0.05. If the model runs low at 80%%, every coach in those spots gets a fake positive residual.</dd>
-<dt>R3 &nbsp;Slice safety</dt><dd>At least 90%% of situational slices with 200+ plays must have their predicted mean inside the actual mean\'s 95%% interval. Season is deliberately excluded: it is a time index, not a football situation, and league drift is removed at the residual stage instead by centring each coach within his own season.</dd>
+<dt>R2 &nbsp;Calibration</dt><dd>Expected calibration error at most 0.020, no probability decile off by more than 0.05. If the model runs low at 80%, every coach in those spots gets a fake positive residual.</dd>
+<dt>R3 &nbsp;Slice safety</dt><dd>At least 90% of situational slices with 200+ plays must have their predicted mean inside the actual mean\\\'s 95% interval. Season is deliberately excluded: it is a time index, not a football situation, and league drift is removed at the residual stage instead by centring each coach within his own season.</dd>
 <dt>R4 &nbsp;Honest holdout</dt><dd>Season-grouped cross-validation. No play is ever scored by a model that saw its own season, because letting the model see 2024 while scoring 2024 lets it learn the coach, which is the thing we want left in the residual.</dd>
-<dt>R5 &nbsp;Residual persistence</dt><dd>A coach\'s residual one season must correlate with the next at r of at least 0.30. A residual that does not persist is noise. This is the rule that separates a trait from a coincidence, and it is the one most write-ups skip.</dd>
+<dt>R5 &nbsp;Residual persistence</dt><dd>A coach\\\'s residual one season must correlate with the next at r of at least 0.30. A residual that does not persist is noise. This is the rule that separates a trait from a coincidence, and it is the one most write-ups skip.</dd>
 </dl>
 </div>
 <p>Failing R1 to R4 is a modelling problem and means go fix the features. Passing R1 to R4 but failing R5 is not a modelling problem at all: it means the behaviour genuinely is not a stable coaching trait, which is itself worth knowing.</p>
+<p><b>Amended after running the experiments below.</b> That first sentence only holds until you have actually tried. Six feature sets and two tree depths were run at the models that failed, including the one theory said should work: giving a defensive coordinator the offensive personnel and formation he can plainly see before he calls anything. It barely moved. So R1 failure has two readings, and R5 tells them apart. Low discrimination with low persistence is a bad model, keep working. Low discrimination with <i>high</i> persistence is a finding: the behaviour is a property of the coach rather than a response to the situation, which is exactly why the situation cannot predict it.</p>
 </div>
 
 <h2>Scorecard</h2>
 <table>
-<thead><tr><th>Target</th><th>plays</th><th>base rate</th><th>AUC</th><th>lift vs lookup</th><th>ECE</th><th>persistence</th><th>rules</th><th>status</th></tr></thead>
+<thead><tr><th>Target</th><th>winning feature set</th><th>plays</th><th>base rate</th><th>AUC</th><th>lift vs lookup</th><th>ECE</th><th>persistence</th><th>rules</th><th>status</th></tr></thead>
 <tbody>
-%s
+', rows,
+  '
 </tbody></table>
-<p class="prose" style="font-size:14px;color:var(--ink3);margin-top:10px">Persistence is the year-over-year correlation of a coach\'s residual. Lift is AUC above a down-and-distance lookup table. Every figure below is season-grouped out-of-sample.</p>
+<p class="prose" style="font-size:14px;color:var(--ink3);margin-top:10px">Persistence is the year-over-year correlation of a coach\\\'s residual. Lift is AUC above a down-and-distance lookup table. Every figure below is season-grouped out-of-sample.</p>
 
 <h2>Model by model</h2>
-%s
+', sect,
+  '
+
+<h2>The experiment loop</h2>
+<div class="prose">
+<p>Four of the six models failed, and every one of them failed on discrimination. Rather than excuse that, each was rerun across six variants: the situation-only base, the base plus the pre-snap look (offensive personnel and formation), the base plus what the offence did on the previous snap, both together, and two deeper-tree settings.</p>
+<p>The look features are the interesting case. For a defensive target they are not leakage at all: a coordinator deciding whether to blitz is standing there watching the offence substitute and line up, so that information exists before his decision. The test for leakage is whether the decision-maker had it, and he did.</p>
+</div>
+
+<section>
+<h3>What the experiments found</h3>
+<p><b>The theory was wrong, and the rubric caught something better.</b> Giving defensive models the offensive look barely moved blitz (AUC 0.614 to 0.619) and actively hurt man coverage on the rubric, because the small gain in discrimination came with worse calibration. Deeper trees hurt everything.</p>
+<p><b>The rubric refused a trade an AUC chase would have taken.</b> On pre-snap motion, adding the look lifted AUC from 0.583 to 0.616, which looks like a clear win, but expected calibration error got worse and the model dropped from three rules passed to two. Discrimination is not the objective. Trustworthy residuals are.</p>
+<p><b>And the failure itself turned out to be the finding.</b> Blitz has the lowest discrimination of any target and the highest residual persistence of any target, 0.78. A model cannot predict it from the situation, and yet a coordinator&apos;s tendency carries over from year to year better than anything else here. That is what it looks like when a decision is a property of the coach rather than a response to the game: coordinators blitz according to who they are, not what is in front of them. It is the same conclusion the old &quot;blitz on autopilot&quot; card reached, arrived at properly and after six honest attempts to beat it.</p>
+<p class="note">Full log in <code>data/factory/experiments.csv</code>. Where a variant genuinely won on the rubric it was promoted and the model above reflects it.</p>
+</section>
 
 <h2>What the models say about coaches</h2>
 <div class="prose">
@@ -134,7 +154,7 @@ html <- sprintf('<!DOCTYPE html>
 <section>
 <h3>Decisions when the game is on the line</h3>
 <p>The question Nick set: do coaches make the optimal call when it matters, and can we call that coaching value? Fourth down is the only decision with a defensible right answer, so it carries the test.</p>
-<figure><img src="figures/factory/leverage_fourthdown.png" alt="Fourth-down decision quality in routine versus high-leverage situations"><figcaption>Correct go-for-it calls fall from 51.5%% to 44.6%% in the highest-leverage quarter of plays. Correct kicks do not move. The playoffs are worse again.</figcaption></figure>
+<figure><img src="figures/factory/leverage_fourthdown.png" alt="Fourth-down decision quality in routine versus high-leverage situations"><figcaption>Correct go-for-it calls fall from 51.5% to 44.6% in the highest-leverage quarter of plays. Correct kicks do not move. The playoffs are worse again.</figcaption></figure>
 <p class="note">The honest limit on attribution: coaches who handle these well do <b>not</b> measurably beat the closing spread (r = +0.18, p = 0.23, n = 46). So this is a real and significant behavioural pattern, not a proven source of wins. The answer to "can we be certain it is coaching value add" is no, not from this.</p>
 </section>
 
@@ -147,19 +167,28 @@ html <- sprintf('<!DOCTYPE html>
 <section>
 <h3>Sean McVay rebuilt his offence in one off-season</h3>
 <figure><img src="figures/factory/mcvay_reinvention.png" alt="McVay 11 and 13 personnel usage by season against the league"><figcaption>The most extreme 11-personnel caller in football in 2022 and 2023, and the most extreme 13-personnel caller in 2025.</figcaption></figure>
-<p>Michael\'s outline has McVay leading the league in both 11 and 13 personnel. Both are true, and they never happened in the same season. He ran 11 personnel on 92%% and 95%% of snaps in 2022 and 2023, then dropped to 61%% in 2025 and put 29%% of his plays in 13 personnel against a league average of 5%%. His offence went from -0.09 EPA per play to +0.12, his best. It is also the cleanest explanation for why his pre-snap tell swings so wildly from year to year: there is no settled McVay to measure.</p>
+<p>Michael\\\'s outline has McVay leading the league in both 11 and 13 personnel. Both are true, and they never happened in the same season. He ran 11 personnel on 92% and 95% of snaps in 2022 and 2023, then dropped to 61% in 2025 and put 29% of his plays in 13 personnel against a league average of 5%. His offence went from -0.09 EPA per play to +0.12, his best. It is also the cleanest explanation for why his pre-snap tell swings so wildly from year to year: there is no settled McVay to measure.</p>
 </section>
 
 <section>
 <h3>Play action stops working out of heavy personnel</h3>
 <figure><img src="figures/factory/pa_by_personnel.png" alt="Play action EPA edge by personnel grouping"><figcaption>Worth +0.12 EPA out of 11 personnel, +0.09 out of 12, and nothing at all out of 13.</figcaption></figure>
-<p>The outline asks whether play action is more effective out of 13 personnel and assumes it would be. It is the opposite, and the reason is telegraphing: callers run play action on 52%% of their 13-personnel dropbacks, so the look stops carrying information. Same lesson as the pre-snap tell work, reached from a different direction.</p>
+<p>The outline asks whether play action is more effective out of 13 personnel and assumes it would be. It is the opposite, and the reason is telegraphing: callers run play action on 52% of their 13-personnel dropbacks, so the look stops carrying information. Same lesson as the pre-snap tell work, reached from a different direction.</p>
+</section>
+
+<section>
+<h3>Mike Macdonald, and the other half of the story</h3>
+<p>Michael&apos;s spine is offence against defence, McVay against Macdonald. Macdonald&apos;s shape is stranger than the overachievement framing suggests: at both franchises his defence was ordinary in year one and second in the league in year two.</p>
+<figure><img src="figures/factory/macdonald_clock.png" alt="Macdonald EPA per play allowed, year one versus year two, at Baltimore and Seattle"><figcaption>Baltimore 2022-23 and Seattle 2024-25. Twelfth then second; eleventh then second.</figcaption></figure>
+<p>What makes it worth a chart is that there is no league-wide year-two effect to hide behind. Across 96 stints where a coordinator got two seasons at the same club, year two is no better than year one: 43&#37; improve and a paired test gives p = 0.32. Macdonald&apos;s jumps were 0.127 and 0.101 EPA per play, the 94th and 91st percentile of every stint in the data, with different rosters in different conferences.</p>
+<figure><img src="figures/factory/defense_leaders.png" alt="Career EPA per play allowed by defensive play-caller"><figcaption>Career EPA per play allowed, minimum 1,500 charted plays. Macdonald is second behind Wade Phillips.</figcaption></figure>
+<p class="note">The honest limit is small: two stints is two data points, and his career average rests on 4,640 plays against Jim Schwartz&apos;s 8,403, so it is a shorter and more recent window than the names around him. The claim is only that landing in the top tenth twice, independently, is unlikely to be luck.</p>
 </section>
 
 <footer>
 Built by <code>R/factory/</code>: <code>00_features.R</code> builds one modelling table, <code>lib_factory.R</code> holds the rubric and the fitting engine, <code>10_run.R</code> fits and grades every target, <code>20_dashboard.R</code> draws these figures, <code>30_page.R</code> writes this page. Data: nflverse play-by-play 2015-2025, FTN charting and participation 2022-2025, play-caller attribution from samhoppen/NFL_public. Models are xgboost with season-grouped cross-validation.
 </footer>
-</main></body></html>', css, rows, sect)
+</main></body></html>')
 
 writeLines(html, "docs/models.html")
 cat("wrote docs/models.html\n")
