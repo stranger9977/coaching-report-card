@@ -90,6 +90,31 @@ for (f in fits) {
           panel.spacing = unit(0.9, "lines"))
   save_fig(file.path(FIG, sprintf("%s_slices.png", tg)), ps, w = 13, h = 9)
 
+
+  # ---- permutation importance -----------------------------------------------
+  if (!is.null(o$perm)) {
+    pm <- as.data.table(o$perm)
+    grp <- pm[kind == "group"][order(drop)]
+    grp[, name := factor(name, levels = name)]
+    pg <- ggplot(grp, aes(drop, name)) +
+      geom_col(fill = "#2B8CBE", width = 0.68) +
+      geom_errorbar(aes(xmin = drop - 1.96*sd, xmax = drop + 1.96*sd),
+                    width = 0.18, linewidth = 0.5, colour = "grey40") +
+      geom_text(aes(label = sprintf("%.3f", drop)), hjust = -0.2,
+                size = 3.2, fontface = "bold", colour = "grey25") +
+      scale_x_continuous(expand = expansion(mult = c(0, 0.16))) +
+      labs(title = sprintf("%s: what the model is actually using", o$label),
+           subtitle = "AUC lost when a whole concept is shuffled in the held-out fold. Bigger means the model leans on it more.",
+           x = "AUC lost when shuffled", y = NULL,
+           caption = fig_caption(
+             "Permutation importance on season-grouped held-out predictions, 3 shuffles per block",
+             sprintf("Base AUC %.3f. Bars are the spread across shuffles.", o$metrics$auc),
+             paste0("\nConcepts are permuted as BLOCKS rather than one column at a time, because the state features are deliberately redundant: quarter and seconds remaining\n",
+                    "correlate at -0.96, inside-the-10 and goal-to-go at 0.86. Shuffling one of a pair costs almost nothing since the model just reads its twin, so single-feature\n",
+                    "numbers would badly understate everything. Built by R/factory."))) +
+      theme_coach(grid = "none")
+    save_fig(file.path(FIG, sprintf("%s_perm.png", tg)), pg, w = 9.5, h = 5.4)
+  }
   # ---- residual leaderboard, only if the model earned the right ------------
   if (cleared) {
     cr <- as.data.table(o$residuals$career)

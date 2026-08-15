@@ -97,12 +97,13 @@ baseline_lookup <- function(train, test, target) {
 # Season-grouped CV (R4). Every play is scored by a model that never saw its
 # own season.
 fit_target <- function(dt, target, features, params = list(), nrounds = 400,
-                       min_rows = 5000, label = target) {
+                       min_rows = 5000, label = target, perm_repeats = 3) {
   d <- dt[!is.na(get(target))]
   d <- d[complete.cases(d[, ..features])]
   if (nrow(d) < min_rows) stop(sprintf("%s: only %d rows", label, nrow(d)))
   seasons <- sort(unique(d$season))
   p_oos <- rep(NA_real_, nrow(d)); p_base <- rep(NA_real_, nrow(d))
+  fold_models <- list(); fold_idx <- list()
 
   pr <- modifyList(list(objective = "binary:logistic", eval_metric = "logloss",
                         eta = 0.05, max_depth = 6, subsample = 0.8,
@@ -115,6 +116,8 @@ fit_target <- function(dt, target, features, params = list(), nrounds = 400,
     m <- xgb.train(pr, dtr, nrounds = nrounds, verbose = 0)
     p_oos[i_te] <- predict(m, xgb.DMatrix(as.matrix(d[i_te, ..features])))
     p_base[i_te] <- baseline_lookup(d[i_tr], d[i_te], target)
+    fold_models[[length(fold_models) + 1]] <- m
+    fold_idx[[length(fold_idx) + 1]] <- i_te
   }
   ok <- !is.na(p_oos)
   d <- d[ok]; p_oos <- p_oos[ok]; p_base <- p_base[ok]
@@ -124,12 +127,78 @@ fit_target <- function(dt, target, features, params = list(), nrounds = 400,
                     nrounds = nrounds, verbose = 0)
   imp <- as.data.table(xgb.importance(model = full))
 
+  # Held-out permutation importance, using each fold's own model. Re-index the
+  # fold test sets onto the filtered rows first.
+  keep_map <- cumsum(ok); fold_idx <- lapply(fold_idx, function(i) keep_map[i[ok[i]]])
+  perm <- perm_importance(d, y, features, fold_models, fold_idx,
+                          base_auc = auc_fast(y, p_oos), repeats = perm_repeats)
+
   list(label = label, target = target, features = features, n = nrow(d),
-       data = d, pred = p_oos, base = p_base, y = y, importance = imp,
+       data = d, pred = p_oos, base = p_base, y = y, importance = imp, perm = perm,
        metrics = list(
          auc = auc_fast(y, p_oos), auc_base = auc_fast(y, p_base),
          logloss = logloss(y, p_oos), logloss_base = logloss(y, p_base),
          brier = brier(y, p_oos), ece = ece(y, p_oos), rate = mean(y)))
+}
+
+# ---------------------------------------------------------------- permutation importance
+# Gain importance is fit in-sample and is biased toward continuous, high
+# cardinality features. This is the honest version: shuffle a feature in the
+# HELD-OUT fold, re-score with that fold's model, and measure how much
+# discrimination is lost. Nothing here ever sees its own season.
+#
+# THE COLLINEARITY PROBLEM, and why the grouped version is the one to read.
+# The state features are deliberately redundant: qtr and game_seconds_remaining
+# correlate at -0.96, is_inside10 and is_goal_to_go at 0.86, vegas_wp and
+# score_differential at 0.86. Permuting ONE of a correlated pair costs the model
+# almost nothing, because it just reads the twin instead. Taken alone, single
+# feature permutation would say the clock does not matter, which is false.
+# So concepts are permuted as blocks too, and the block numbers are the real
+# answer to "what is this model using".
+PERM_GROUPS <- list(
+  "Down and distance" = c("down","ydstogo"),
+  "Field position"    = c("yardline_100","is_redzone","is_inside10","is_goal_to_go","is_own_deep"),
+  "Clock"             = c("game_seconds_remaining","half_seconds_remaining","qtr",
+                          "is_2min","is_4min","is_half_end","is_second_half"),
+  "Score"             = c("score_differential","score_abs","is_one_score",
+                          "is_trailing","is_blowout"),
+  "Timeouts"          = c("posteam_timeouts_remaining","defteam_timeouts_remaining","to_diff"),
+  "Pre-game odds"     = c("spread_posteam"),
+  "Win probability"   = c("vegas_wp")
+)
+
+# models: one xgboost per season fold; idx: row indices of each fold's test set.
+perm_importance <- function(d, y, features, models, idx, base_auc, repeats = 3) {
+  X <- as.matrix(d[, ..features])
+  score_with <- function(cols) {
+    aucs <- numeric(repeats)
+    for (r in seq_len(repeats)) {
+      p <- rep(NA_real_, nrow(X))
+      for (k in seq_along(models)) {
+        i <- idx[[k]]; if (!length(i)) next
+        Xt <- X[i, , drop = FALSE]
+        # shuffle within the fold, so the marginal distribution is preserved
+        for (cl in cols) Xt[, cl] <- Xt[sample.int(nrow(Xt)), cl]
+        p[i] <- predict(models[[k]], xgb.DMatrix(Xt))
+      }
+      ok <- !is.na(p)
+      aucs[r] <- auc_fast(y[ok], p[ok])
+    }
+    c(mean = mean(aucs), sd = stats::sd(aucs))
+  }
+  single <- rbindlist(lapply(features, function(f) {
+    v <- score_with(f)
+    data.table(kind = "feature", name = f, auc_permuted = v[["mean"]],
+               drop = base_auc - v[["mean"]], sd = v[["sd"]])
+  }))
+  grps <- PERM_GROUPS[vapply(PERM_GROUPS, function(g) any(g %in% features), TRUE)]
+  grouped <- rbindlist(lapply(names(grps), function(g) {
+    cols <- intersect(grps[[g]], features)
+    v <- score_with(cols)
+    data.table(kind = "group", name = g, auc_permuted = v[["mean"]],
+               drop = base_auc - v[["mean"]], sd = v[["sd"]])
+  }))
+  rbind(single, grouped)[order(kind, -drop)]
 }
 
 # ---------------------------------------------------------------- slices

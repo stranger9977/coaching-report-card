@@ -41,10 +41,11 @@ sect <- paste(vapply(seq_len(nrow(sc)), function(i) {
   <ul class="rules">%s</ul>
   <figure><img src="figures/factory/%s_slices.png" alt="Actual versus predicted by binned feature for %s"><figcaption>Blue is what happened with a 95%% band, orange dashed is the model. This is the figure that decides whether a residual is signal or model error.</figcaption></figure>
   <figure><img src="figures/factory/%s_calib.png" alt="Calibration curve for %s"><figcaption>Calibration: deciles of predicted probability against what actually happened.</figcaption></figure>
+  <figure><img src="figures/factory/%s_perm.png" alt="Permutation importance for %s"><figcaption>Permutation importance, measured on the held-out folds. Concepts are shuffled as blocks because the state features are deliberately redundant.</figcaption></figure>
   %s
 </section>', tg, esc(r$label), if (isTRUE(r$cleared)) "ok" else "no",
           if (isTRUE(r$cleared)) "cleared" else sprintf("%d/5", r$n_rules_passed),
-          grows, tg, esc(r$label), tg, esc(r$label), resid_fig)
+          grows, tg, esc(r$label), tg, esc(r$label), tg, esc(r$label), resid_fig)
 }, ""), collapse = "\n")
 
 css <- '
@@ -124,6 +125,36 @@ html <- sprintf('<!DOCTYPE html>
 
 <h2>Model by model</h2>
 %s
+
+<h2>What the models say about coaches</h2>
+<div class="prose">
+<p>Everything above is plumbing. This is what it produced. Each of these came out of a cleared model or a decision with a knowable right answer, and each one is reported with what it does not prove.</p>
+</div>
+
+<section>
+<h3>Decisions when the game is on the line</h3>
+<p>The question Nick set: do coaches make the optimal call when it matters, and can we call that coaching value? Fourth down is the only decision with a defensible right answer, so it carries the test.</p>
+<figure><img src="figures/factory/leverage_fourthdown.png" alt="Fourth-down decision quality in routine versus high-leverage situations"><figcaption>Correct go-for-it calls fall from 51.5%% to 44.6%% in the highest-leverage quarter of plays. Correct kicks do not move. The playoffs are worse again.</figcaption></figure>
+<p class="note">The honest limit on attribution: coaches who handle these well do <b>not</b> measurably beat the closing spread (r = +0.18, p = 0.23, n = 46). So this is a real and significant behavioural pattern, not a proven source of wins. The answer to "can we be certain it is coaching value add" is no, not from this.</p>
+</section>
+
+<section>
+<h3>Deviating from the situation, and what that really measures</h3>
+<figure><img src="figures/factory/leverage_deviation.png" alt="Pass residual against high-leverage EPA for career play-callers"><figcaption>Callers who throw more than the situation expects move the ball better in high-leverage snaps.</figcaption></figure>
+<p class="note">This one nearly became a wrong finding. Absolute deviation and signed deviation correlate with EPA at +0.24 and +0.24, so magnitude adds nothing and direction is doing all the work: it is passing, not deviating. And with the quarterback controlled, the residual effect survives but shrinks (beta +0.0039, p = 0.013) while the QB index itself is roughly ten times larger. The caller matters. The quarterback matters more.</p>
+</section>
+
+<section>
+<h3>Sean McVay rebuilt his offence in one off-season</h3>
+<figure><img src="figures/factory/mcvay_reinvention.png" alt="McVay 11 and 13 personnel usage by season against the league"><figcaption>The most extreme 11-personnel caller in football in 2022 and 2023, and the most extreme 13-personnel caller in 2025.</figcaption></figure>
+<p>Michael\'s outline has McVay leading the league in both 11 and 13 personnel. Both are true, and they never happened in the same season. He ran 11 personnel on 92%% and 95%% of snaps in 2022 and 2023, then dropped to 61%% in 2025 and put 29%% of his plays in 13 personnel against a league average of 5%%. His offence went from -0.09 EPA per play to +0.12, his best. It is also the cleanest explanation for why his pre-snap tell swings so wildly from year to year: there is no settled McVay to measure.</p>
+</section>
+
+<section>
+<h3>Play action stops working out of heavy personnel</h3>
+<figure><img src="figures/factory/pa_by_personnel.png" alt="Play action EPA edge by personnel grouping"><figcaption>Worth +0.12 EPA out of 11 personnel, +0.09 out of 12, and nothing at all out of 13.</figcaption></figure>
+<p>The outline asks whether play action is more effective out of 13 personnel and assumes it would be. It is the opposite, and the reason is telegraphing: callers run play action on 52%% of their 13-personnel dropbacks, so the look stops carrying information. Same lesson as the pre-snap tell work, reached from a different direction.</p>
+</section>
 
 <footer>
 Built by <code>R/factory/</code>: <code>00_features.R</code> builds one modelling table, <code>lib_factory.R</code> holds the rubric and the fitting engine, <code>10_run.R</code> fits and grades every target, <code>20_dashboard.R</code> draws these figures, <code>30_page.R</code> writes this page. Data: nflverse play-by-play 2015-2025, FTN charting and participation 2022-2025, play-caller attribution from samhoppen/NFL_public. Models are xgboost with season-grouped cross-validation.

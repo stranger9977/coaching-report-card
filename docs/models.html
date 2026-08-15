@@ -67,12 +67,12 @@ footer{border-top:1px solid var(--line);margin-top:60px;padding-top:20px;font-si
 <table>
 <thead><tr><th>Target</th><th>plays</th><th>base rate</th><th>AUC</th><th>lift vs lookup</th><th>ECE</th><th>persistence</th><th>rules</th><th>status</th></tr></thead>
 <tbody>
-<tr class="ok"><td class="nm">Play action</td><td>84,817</td><td>0.217</td><td>0.818</td><td>+0.093</td><td>0.0107</td><td>0.62</td><td><b>5/5</b></td><td>cleared</td></tr>
-<tr class="ok"><td class="nm">Run or pass</td><td>381,266</td><td>0.606</td><td>0.794</td><td>+0.101</td><td>0.0042</td><td>0.50</td><td><b>5/5</b></td><td>cleared</td></tr>
-<tr class="no"><td class="nm">Man coverage</td><td>82,321</td><td>0.376</td><td>0.618</td><td>+0.033</td><td>0.0507</td><td>0.58</td><td><b>3/5</b></td><td>R1 discrimination, R2 calibration</td></tr>
-<tr class="no"><td class="nm">Blitz</td><td>84,817</td><td>0.274</td><td>0.614</td><td>+0.043</td><td>0.0186</td><td>0.78</td><td><b>4/5</b></td><td>R1 discrimination</td></tr>
-<tr class="no"><td class="nm">RPO</td><td>141,526</td><td>0.050</td><td>0.610</td><td>+0.055</td><td>0.0105</td><td>0.47</td><td><b>4/5</b></td><td>R1 discrimination</td></tr>
-<tr class="no"><td class="nm">Pre-snap motion</td><td>141,526</td><td>0.469</td><td>0.583</td><td>+0.096</td><td>0.0352</td><td>0.72</td><td><b>3/5</b></td><td>R1 discrimination, R2 calibration</td></tr>
+<tr class="ok"><td class="nm">Play action</td><td>84,817</td><td>0.217</td><td>0.818</td><td>+0.093</td><td>0.0100</td><td>0.61</td><td><b>5/5</b></td><td>cleared</td></tr>
+<tr class="ok"><td class="nm">Run or pass</td><td>381,266</td><td>0.606</td><td>0.794</td><td>+0.101</td><td>0.0043</td><td>0.50</td><td><b>5/5</b></td><td>cleared</td></tr>
+<tr class="no"><td class="nm">Man coverage</td><td>82,321</td><td>0.376</td><td>0.617</td><td>+0.033</td><td>0.0504</td><td>0.58</td><td><b>3/5</b></td><td>R1 discrimination, R2 calibration</td></tr>
+<tr class="no"><td class="nm">Blitz</td><td>84,817</td><td>0.274</td><td>0.614</td><td>+0.043</td><td>0.0181</td><td>0.77</td><td><b>4/5</b></td><td>R1 discrimination</td></tr>
+<tr class="no"><td class="nm">RPO</td><td>141,526</td><td>0.050</td><td>0.611</td><td>+0.055</td><td>0.0107</td><td>0.47</td><td><b>4/5</b></td><td>R1 discrimination</td></tr>
+<tr class="no"><td class="nm">Pre-snap motion</td><td>141,526</td><td>0.469</td><td>0.582</td><td>+0.096</td><td>0.0368</td><td>0.72</td><td><b>3/5</b></td><td>R1 discrimination, R2 calibration</td></tr>
 </tbody></table>
 <p class="prose" style="font-size:14px;color:var(--ink3);margin-top:10px">Persistence is the year-over-year correlation of a coach's residual. Lift is AUC above a down-and-distance lookup table. Every figure below is season-grouped out-of-sample.</p>
 
@@ -80,68 +80,104 @@ footer{border-top:1px solid var(--line);margin-top:60px;padding-top:20px;font-si
 <section id="y_pa">
   <h3>Play action <span class="tag ok">cleared</span></h3>
   <ul class="rules"><li><span class="pass">PASS</span> <b>R1 discrimination</b> — AUC 0.818 (lookup 0.725, lift +0.093)</li>
-<li><span class="pass">PASS</span> <b>R2 calibration</b> — ECE 0.0107, worst decile gap 0.047</li>
+<li><span class="pass">PASS</span> <b>R2 calibration</b> — ECE 0.0100, worst decile gap 0.044</li>
 <li><span class="pass">PASS</span> <b>R3 slice safety</b> — 100% of 57 slices inside interval</li>
 <li><span class="pass">PASS</span> <b>R4 honest holdout</b> — season-grouped CV</li>
-<li><span class="pass">PASS</span> <b>R5 residual persistence</b> — year-over-year r = 0.62 (n = 68)</li></ul>
+<li><span class="pass">PASS</span> <b>R5 residual persistence</b> — year-over-year r = 0.61 (n = 68)</li></ul>
   <figure><img src="figures/factory/y_pa_slices.png" alt="Actual versus predicted by binned feature for Play action"><figcaption>Blue is what happened with a 95% band, orange dashed is the model. This is the figure that decides whether a residual is signal or model error.</figcaption></figure>
   <figure><img src="figures/factory/y_pa_calib.png" alt="Calibration curve for Play action"><figcaption>Calibration: deciles of predicted probability against what actually happened.</figcaption></figure>
+  <figure><img src="figures/factory/y_pa_perm.png" alt="Permutation importance for Play action"><figcaption>Permutation importance, measured on the held-out folds. Concepts are shuffled as blocks because the state features are deliberately redundant.</figcaption></figure>
   <figure><img src="figures/factory/y_pa_resid.png" alt="Coach residual leaderboard for Play action"><figcaption>Residual leaderboard. Only drawn for models that cleared all five rules.</figcaption></figure>
 </section>
 <section id="y_pass">
   <h3>Run or pass <span class="tag ok">cleared</span></h3>
   <ul class="rules"><li><span class="pass">PASS</span> <b>R1 discrimination</b> — AUC 0.794 (lookup 0.693, lift +0.101)</li>
-<li><span class="pass">PASS</span> <b>R2 calibration</b> — ECE 0.0042, worst decile gap 0.009</li>
+<li><span class="pass">PASS</span> <b>R2 calibration</b> — ECE 0.0043, worst decile gap 0.008</li>
 <li><span class="pass">PASS</span> <b>R3 slice safety</b> — 100% of 57 slices inside interval</li>
 <li><span class="pass">PASS</span> <b>R4 honest holdout</b> — season-grouped CV</li>
 <li><span class="pass">PASS</span> <b>R5 residual persistence</b> — year-over-year r = 0.50 (n = 244)</li></ul>
   <figure><img src="figures/factory/y_pass_slices.png" alt="Actual versus predicted by binned feature for Run or pass"><figcaption>Blue is what happened with a 95% band, orange dashed is the model. This is the figure that decides whether a residual is signal or model error.</figcaption></figure>
   <figure><img src="figures/factory/y_pass_calib.png" alt="Calibration curve for Run or pass"><figcaption>Calibration: deciles of predicted probability against what actually happened.</figcaption></figure>
+  <figure><img src="figures/factory/y_pass_perm.png" alt="Permutation importance for Run or pass"><figcaption>Permutation importance, measured on the held-out folds. Concepts are shuffled as blocks because the state features are deliberately redundant.</figcaption></figure>
   <figure><img src="figures/factory/y_pass_resid.png" alt="Coach residual leaderboard for Run or pass"><figcaption>Residual leaderboard. Only drawn for models that cleared all five rules.</figcaption></figure>
 </section>
 <section id="y_man">
   <h3>Man coverage <span class="tag no">3/5</span></h3>
-  <ul class="rules"><li><span class="fail">FAIL</span> <b>R1 discrimination</b> — AUC 0.618 (lookup 0.584, lift +0.033)</li>
-<li><span class="fail">FAIL</span> <b>R2 calibration</b> — ECE 0.0507, worst decile gap 0.096</li>
+  <ul class="rules"><li><span class="fail">FAIL</span> <b>R1 discrimination</b> — AUC 0.617 (lookup 0.584, lift +0.033)</li>
+<li><span class="fail">FAIL</span> <b>R2 calibration</b> — ECE 0.0504, worst decile gap 0.097</li>
 <li><span class="pass">PASS</span> <b>R3 slice safety</b> — 100% of 57 slices inside interval</li>
 <li><span class="pass">PASS</span> <b>R4 honest holdout</b> — season-grouped CV</li>
 <li><span class="pass">PASS</span> <b>R5 residual persistence</b> — year-over-year r = 0.58 (n = 68)</li></ul>
   <figure><img src="figures/factory/y_man_slices.png" alt="Actual versus predicted by binned feature for Man coverage"><figcaption>Blue is what happened with a 95% band, orange dashed is the model. This is the figure that decides whether a residual is signal or model error.</figcaption></figure>
   <figure><img src="figures/factory/y_man_calib.png" alt="Calibration curve for Man coverage"><figcaption>Calibration: deciles of predicted probability against what actually happened.</figcaption></figure>
+  <figure><img src="figures/factory/y_man_perm.png" alt="Permutation importance for Man coverage"><figcaption>Permutation importance, measured on the held-out folds. Concepts are shuffled as blocks because the state features are deliberately redundant.</figcaption></figure>
   <p class="note">No residual leaderboard: this model did not clear the rubric, so its residuals are not safe to read as coaching. It fails R1 discrimination and R2 calibration.</p>
 </section>
 <section id="y_blitz">
   <h3>Blitz <span class="tag no">4/5</span></h3>
   <ul class="rules"><li><span class="fail">FAIL</span> <b>R1 discrimination</b> — AUC 0.614 (lookup 0.571, lift +0.043)</li>
-<li><span class="pass">PASS</span> <b>R2 calibration</b> — ECE 0.0186, worst decile gap 0.032</li>
+<li><span class="pass">PASS</span> <b>R2 calibration</b> — ECE 0.0181, worst decile gap 0.033</li>
 <li><span class="pass">PASS</span> <b>R3 slice safety</b> — 100% of 57 slices inside interval</li>
 <li><span class="pass">PASS</span> <b>R4 honest holdout</b> — season-grouped CV</li>
-<li><span class="pass">PASS</span> <b>R5 residual persistence</b> — year-over-year r = 0.78 (n = 68)</li></ul>
+<li><span class="pass">PASS</span> <b>R5 residual persistence</b> — year-over-year r = 0.77 (n = 68)</li></ul>
   <figure><img src="figures/factory/y_blitz_slices.png" alt="Actual versus predicted by binned feature for Blitz"><figcaption>Blue is what happened with a 95% band, orange dashed is the model. This is the figure that decides whether a residual is signal or model error.</figcaption></figure>
   <figure><img src="figures/factory/y_blitz_calib.png" alt="Calibration curve for Blitz"><figcaption>Calibration: deciles of predicted probability against what actually happened.</figcaption></figure>
+  <figure><img src="figures/factory/y_blitz_perm.png" alt="Permutation importance for Blitz"><figcaption>Permutation importance, measured on the held-out folds. Concepts are shuffled as blocks because the state features are deliberately redundant.</figcaption></figure>
   <p class="note">No residual leaderboard: this model did not clear the rubric, so its residuals are not safe to read as coaching. It fails R1 discrimination.</p>
 </section>
 <section id="y_rpo">
   <h3>RPO <span class="tag no">4/5</span></h3>
-  <ul class="rules"><li><span class="fail">FAIL</span> <b>R1 discrimination</b> — AUC 0.610 (lookup 0.556, lift +0.055)</li>
-<li><span class="pass">PASS</span> <b>R2 calibration</b> — ECE 0.0105, worst decile gap 0.033</li>
+  <ul class="rules"><li><span class="fail">FAIL</span> <b>R1 discrimination</b> — AUC 0.611 (lookup 0.556, lift +0.055)</li>
+<li><span class="pass">PASS</span> <b>R2 calibration</b> — ECE 0.0107, worst decile gap 0.034</li>
 <li><span class="pass">PASS</span> <b>R3 slice safety</b> — 100% of 57 slices inside interval</li>
 <li><span class="pass">PASS</span> <b>R4 honest holdout</b> — season-grouped CV</li>
 <li><span class="pass">PASS</span> <b>R5 residual persistence</b> — year-over-year r = 0.47 (n = 69)</li></ul>
   <figure><img src="figures/factory/y_rpo_slices.png" alt="Actual versus predicted by binned feature for RPO"><figcaption>Blue is what happened with a 95% band, orange dashed is the model. This is the figure that decides whether a residual is signal or model error.</figcaption></figure>
   <figure><img src="figures/factory/y_rpo_calib.png" alt="Calibration curve for RPO"><figcaption>Calibration: deciles of predicted probability against what actually happened.</figcaption></figure>
+  <figure><img src="figures/factory/y_rpo_perm.png" alt="Permutation importance for RPO"><figcaption>Permutation importance, measured on the held-out folds. Concepts are shuffled as blocks because the state features are deliberately redundant.</figcaption></figure>
   <p class="note">No residual leaderboard: this model did not clear the rubric, so its residuals are not safe to read as coaching. It fails R1 discrimination.</p>
 </section>
 <section id="y_motion">
   <h3>Pre-snap motion <span class="tag no">3/5</span></h3>
-  <ul class="rules"><li><span class="fail">FAIL</span> <b>R1 discrimination</b> — AUC 0.583 (lookup 0.487, lift +0.096)</li>
-<li><span class="fail">FAIL</span> <b>R2 calibration</b> — ECE 0.0352, worst decile gap 0.087</li>
+  <ul class="rules"><li><span class="fail">FAIL</span> <b>R1 discrimination</b> — AUC 0.582 (lookup 0.487, lift +0.096)</li>
+<li><span class="fail">FAIL</span> <b>R2 calibration</b> — ECE 0.0368, worst decile gap 0.091</li>
 <li><span class="pass">PASS</span> <b>R3 slice safety</b> — 100% of 57 slices inside interval</li>
 <li><span class="pass">PASS</span> <b>R4 honest holdout</b> — season-grouped CV</li>
 <li><span class="pass">PASS</span> <b>R5 residual persistence</b> — year-over-year r = 0.72 (n = 69)</li></ul>
   <figure><img src="figures/factory/y_motion_slices.png" alt="Actual versus predicted by binned feature for Pre-snap motion"><figcaption>Blue is what happened with a 95% band, orange dashed is the model. This is the figure that decides whether a residual is signal or model error.</figcaption></figure>
   <figure><img src="figures/factory/y_motion_calib.png" alt="Calibration curve for Pre-snap motion"><figcaption>Calibration: deciles of predicted probability against what actually happened.</figcaption></figure>
+  <figure><img src="figures/factory/y_motion_perm.png" alt="Permutation importance for Pre-snap motion"><figcaption>Permutation importance, measured on the held-out folds. Concepts are shuffled as blocks because the state features are deliberately redundant.</figcaption></figure>
   <p class="note">No residual leaderboard: this model did not clear the rubric, so its residuals are not safe to read as coaching. It fails R1 discrimination and R2 calibration.</p>
+</section>
+
+<h2>What the models say about coaches</h2>
+<div class="prose">
+<p>Everything above is plumbing. This is what it produced. Each of these came out of a cleared model or a decision with a knowable right answer, and each one is reported with what it does not prove.</p>
+</div>
+
+<section>
+<h3>Decisions when the game is on the line</h3>
+<p>The question Nick set: do coaches make the optimal call when it matters, and can we call that coaching value? Fourth down is the only decision with a defensible right answer, so it carries the test.</p>
+<figure><img src="figures/factory/leverage_fourthdown.png" alt="Fourth-down decision quality in routine versus high-leverage situations"><figcaption>Correct go-for-it calls fall from 51.5% to 44.6% in the highest-leverage quarter of plays. Correct kicks do not move. The playoffs are worse again.</figcaption></figure>
+<p class="note">The honest limit on attribution: coaches who handle these well do <b>not</b> measurably beat the closing spread (r = +0.18, p = 0.23, n = 46). So this is a real and significant behavioural pattern, not a proven source of wins. The answer to "can we be certain it is coaching value add" is no, not from this.</p>
+</section>
+
+<section>
+<h3>Deviating from the situation, and what that really measures</h3>
+<figure><img src="figures/factory/leverage_deviation.png" alt="Pass residual against high-leverage EPA for career play-callers"><figcaption>Callers who throw more than the situation expects move the ball better in high-leverage snaps.</figcaption></figure>
+<p class="note">This one nearly became a wrong finding. Absolute deviation and signed deviation correlate with EPA at +0.24 and +0.24, so magnitude adds nothing and direction is doing all the work: it is passing, not deviating. And with the quarterback controlled, the residual effect survives but shrinks (beta +0.0039, p = 0.013) while the QB index itself is roughly ten times larger. The caller matters. The quarterback matters more.</p>
+</section>
+
+<section>
+<h3>Sean McVay rebuilt his offence in one off-season</h3>
+<figure><img src="figures/factory/mcvay_reinvention.png" alt="McVay 11 and 13 personnel usage by season against the league"><figcaption>The most extreme 11-personnel caller in football in 2022 and 2023, and the most extreme 13-personnel caller in 2025.</figcaption></figure>
+<p>Michael's outline has McVay leading the league in both 11 and 13 personnel. Both are true, and they never happened in the same season. He ran 11 personnel on 92% and 95% of snaps in 2022 and 2023, then dropped to 61% in 2025 and put 29% of his plays in 13 personnel against a league average of 5%. His offence went from -0.09 EPA per play to +0.12, his best. It is also the cleanest explanation for why his pre-snap tell swings so wildly from year to year: there is no settled McVay to measure.</p>
+</section>
+
+<section>
+<h3>Play action stops working out of heavy personnel</h3>
+<figure><img src="figures/factory/pa_by_personnel.png" alt="Play action EPA edge by personnel grouping"><figcaption>Worth +0.12 EPA out of 11 personnel, +0.09 out of 12, and nothing at all out of 13.</figcaption></figure>
+<p>The outline asks whether play action is more effective out of 13 personnel and assumes it would be. It is the opposite, and the reason is telegraphing: callers run play action on 52% of their 13-personnel dropbacks, so the look stops carrying information. Same lesson as the pre-snap tell work, reached from a different direction.</p>
 </section>
 
 <footer>

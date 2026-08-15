@@ -52,8 +52,11 @@ for (t in TARGETS) {
   gr  <- grade(fit, sl, res)
   print(gr[, .(rule, value, status)])
 
+  cat("\n  permutation importance, grouped (AUC lost when the block is shuffled):\n")
+  print(fit$perm[kind == "group"][order(-drop), .(name, drop = round(drop, 4))])
+
   saveRDS(list(label = t$label, target = t$y, who = t$who,
-               metrics = fit$metrics, importance = fit$importance,
+               metrics = fit$metrics, importance = fit$importance, perm = fit$perm,
                slices = sl, deciles = decile_table(fit$y, fit$pred),
                residuals = res, grade = gr, n = fit$n,
                seasons = range(fit$data$season)),
