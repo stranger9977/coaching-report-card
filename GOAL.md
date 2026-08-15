@@ -1,0 +1,92 @@
+# The goal
+
+**Build the first public measure of NFL head-coaching value that separates a
+coach's decisions from his roster and his players' execution, and prove it is
+real by showing it predicts something out of sample.**
+
+Everything in this repo is either a step toward that or a test that failed on
+the way. This file is the north star the work gets judged against, not a
+description of what has been done.
+
+## Why it is worth attempting
+
+Every existing public answer to "who is a good coach" is one of three things:
+
+1. **Wins.** Which is mostly the roster. The 2007 Patriots would have won games
+   with a traffic cone in the headset.
+2. **Reputation.** Which is mostly wins, laundered through narrative.
+3. **A single analytics stat**, usually fourth-down aggression, which measures
+   one visible decision and quietly implies it stands in for judgement
+   generally.
+
+Nobody has built the thing in between: a measure that starts from what the
+average coach would do in a given situation, prices what this coach did
+instead, and then proves the difference is his rather than his quarterback's.
+That is a genuinely hard measurement problem, and it is why the answer is
+worth having.
+
+## What "done" looks like
+
+Five criteria. All of them are falsifiable, and the project fails honestly if
+they cannot be met.
+
+**G1. The baseline is trustworthy.** Every model whose residual is read as
+coaching must clear all five rubric rules in `R/factory/lib_factory.R`,
+including out-of-sample calibration and slice safety. A residual from an
+uncalibrated model is model error wearing a coach's name.
+*Status: 2 of 6 targets clear. Run/pass and play action.*
+
+**G2. The measure is a trait, not a season.** A coach's value must persist
+year over year at r >= 0.30, and must persist across a change of team. The
+across-team test is the hard one and the one that matters: if a coach's number
+follows him from Baltimore to Seattle, it is about him.
+*Status: within-team persistence is met on five of six targets. Across-team is
+untested and is the biggest open hole.*
+
+**G3. Decisions are separated from outcomes.** Value must be computed
+counterfactually at the moment of the decision, not from whether the play
+worked. `R/factory/95` does this for fourth down, where the win-probability
+cost of a choice is exactly computable. The ambition is to extend that pricing
+to a second and third decision class.
+*Status: fourth down done. Timeouts and play-calling not yet priced.*
+
+**G4. It survives the quarterback.** Every claim must be re-run controlling for
+quarterback quality using the lagged `ctrl_` columns. Where the effect
+disappears, that is reported as the finding.
+*Status: done for the high-leverage work, where the QB turned out to matter
+about ten times more than the play-calling residual. Not yet applied to the
+decision-cost ledger.*
+
+**G5. It predicts.** The measure must beat the closing spread out of sample, or
+predict next season's wins above expectation, at conventional significance.
+This is the criterion that separates a real metric from a well-dressed
+description.
+*Status: FAILING. High-leverage fourth-down accuracy does not predict beating
+the market (r = +0.18, p = 0.23, n = 46). Until this is met, the honest claim
+is that we have measured coaching behaviour, not coaching value.*
+
+## The standard of proof
+
+The project is worth more as an honest null than as an overclaim. Three
+findings have already died on contact with better data or a better test, and
+each of those is on the public board with its evidence:
+
+- "Defensive coordinators blitz on autopilot" (r = 0.06 on two seasons became
+  r = 0.32 on four)
+- Josh Allen as the most profitable blitz target (+58pp collapsed to +14 once
+  the unstable denominator was given more data)
+- "Deviating from the situation pays" (magnitude added nothing; it was
+  direction, and direction is just the league running too much)
+
+Any future claim gets the same treatment. If G5 cannot be met, the deliverable
+is a rigorous measurement of coaching *behaviour* plus a clear statement that
+its link to winning is unproven, which is still more than anyone else has
+published.
+
+## Non-goals
+
+- A single composite coach rating. The dimensions disagree with each other and
+  that disagreement is the interesting part: Belichick is first on beating the
+  market and near-worst on fourth down.
+- Predicting individual games.
+- Anything that requires tracking data after 2022, which we cannot license.

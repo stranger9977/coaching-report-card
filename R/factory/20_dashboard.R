@@ -115,8 +115,12 @@ for (f in fits) {
       theme_coach(grid = "none")
     save_fig(file.path(FIG, sprintf("%s_perm.png", tg)), pg, w = 9.5, h = 5.4)
   }
-  # ---- residual leaderboard, only if the model earned the right ------------
-  if (cleared) {
+  # ---- residual leaderboard ------------------------------------------------
+  # Drawn for EVERY model now, cleared or not (Nick asked to see them all).
+  # Where the model did not clear, the chart says so in its own subtitle rather
+  # than being silently withheld, because a suppressed leaderboard is easy to
+  # forget about and a labelled one is not.
+  {
     cr <- as.data.table(o$residuals$career)
     setnames(cr, 1, "coach")
     setorder(cr, -resid)
@@ -133,13 +137,22 @@ for (f in fits) {
       scale_x_continuous(labels = function(x) paste0(x, "pp"),
                          expand = expansion(mult = c(0.12, 0.12))) +
       labs(title = sprintf("%s: who deviates most from the situation", o$label),
-           subtitle = sprintf("Career residual in percentage points. Year-over-year persistence r = %.2f.", o$residuals$persist),
+           subtitle = if (cleared)
+             sprintf("Career residual in percentage points. Model cleared all five rules. Year-over-year persistence r = %.2f.", o$residuals$persist)
+           else
+             sprintf("CAUTION: this model failed %s. Residual in percentage points, persistence r = %.2f. Read the shape, not the order.",
+                     paste(o$grade[pass == FALSE]$rule, collapse = " and "), o$residuals$persist),
            x = NULL, y = NULL,
            caption = fig_caption("Residual = actual rate minus the situation-only model's expected rate",
              sprintf("%s, %d to %d. Coaches with enough charted plays.", o$label, o$seasons[1], o$seasons[2]),
-             "\nOnly drawn because this model cleared all five rubric rules, including residual persistence. Built by R/factory.")) +
+             if (cleared)
+               "\nThis model cleared all five rubric rules, including residual persistence, so these names can be read as coaching. Built by R/factory."
+             else
+               paste0("\nShown because it was asked for, with the warning attached. This model did not clear the rubric, so part of what is plotted here is model error rather than coaching.\n",
+                      "It is still worth looking at when persistence is high, because a residual that repeats year after year is measuring something real even when the model is weak. Built by R/factory."))) +
       theme_coach(grid = "none") + theme(legend.position = "none")
     save_fig(file.path(FIG, sprintf("%s_resid.png", tg)), pr, w = 11, h = 7)
   }
+
 }
 cat("\ndashboard figures written to", FIG, "\n")

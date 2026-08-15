@@ -146,6 +146,42 @@ html <- paste0(
 <p class="note">Full log in <code>data/factory/experiments.csv</code>. Where a variant genuinely won on the rubric it was promoted and the model above reflects it.</p>
 </section>
 
+<h2>The report card: greats and WOATs</h2>
+<div class="prose">
+<p>Raw wins-above-market cannot be ranked. Liam Coen leads every coach in history at +3.85 per 17 games on exactly one season; Belichick sits at +0.55 on 449 games. So every rate here is regressed toward the league mean by how noisy that coach\'s own record is, which is what a bookmaker should believe about him.</p>
+</div>
+
+<section>
+<h3>Who actually beat the market</h3>
+<figure><img src="figures/factory/greats_woats.png" alt="Head coaches ranked by regressed wins above market expectation"><figcaption>Belichick, Tomlin and Dungy at the top; Hue Jackson, Norv Turner and Rod Marinelli at the bottom. Stars mark careers too good or bad to be luck.</figcaption></figure>
+<p>The spread already prices the roster, the quarterback and the schedule, so this is what a coach added on top of what his team was thought to be. It is the closest thing to a fair all-time list the data allows.</p>
+</section>
+
+<section>
+<h3>Nobody is great at everything</h3>
+<figure><img src="figures/factory/report_card_grid.png" alt="Grid of head coaches scored on beating the market, offence, defence and fourth down"><figcaption>Standard deviations above or below the average head coach. Blue is good, orange is bad.</figcaption></figure>
+<p>This is why the dimensions are never averaged into one grade. Belichick is +2.5 on beating the market and &minus;1.7 on fourth down. Reid is the mirror image: +2.0 on offence, &minus;0.5 on fourth down. Macdonald and Campbell are strong exactly where the old guard is weak. A composite rating would have hidden all of it.</p>
+</section>
+
+<h2>Decisions, priced</h2>
+<div class="prose">
+<p>Cumulative EPA or WPA per coach is a counting stat: it mixes his choices, his players\' execution, the roster he was handed, and how long he kept the job. To tie value back to <i>decisions</i>, the cost has to be computed at the moment of the choice and independently of whether the play then worked.</p>
+<p>Fourth down is where that is possible. The model gives the win probability gained by going instead of kicking, so a coach who punts when going was worth four points is charged four points right there, whether or not the punt pinned them at the one.</p>
+</div>
+
+<section>
+<h3>Win probability thrown away</h3>
+<figure><img src="figures/factory/decision_cost.png" alt="Win probability wasted per game on fourth down by head coach"><figcaption>The counterfactual cost of each fourth-down choice, per game.</figcaption></figure>
+<figure><img src="figures/factory/decision_cost_cumulative.png" alt="Cumulative win probability wasted on fourth down across careers"><figcaption>The running tab. The line can only go up; the slope is the part that is about the coach rather than his tenure.</figcaption></figure>
+<p><b>The two best coaches by market are among the worst decision-makers here.</b> Mike Tomlin has thrown away about four games\' worth of win probability on fourth down and Bill Belichick about three, while Nick Sirianni, Matt LaFleur and Sean McDermott give away roughly half as much per game. Being a great coach and being good at the fourth-down math are, on this evidence, close to unrelated.</p>
+</section>
+
+<section>
+<h3>And the counting stat, for contrast</h3>
+<figure><img src="figures/factory/counting_stats.png" alt="Cumulative offensive EPA against games coached"><figcaption>Total EPA accumulated against games coached. The dominant axis is the horizontal one.</figcaption></figure>
+<p class="note">Shown because it was asked for and because it is worth seeing what it actually measures. Coaching a lot of games is how you accumulate a lot of EPA, and the roster does the rest. This is the chart the decision ledger above exists to replace.</p>
+</section>
+
 <h2>What the models say about coaches</h2>
 <div class="prose">
 <p>Everything above is plumbing. This is what it produced. Each of these came out of a cleared model or a decision with a knowable right answer, and each one is reported with what it does not prove.</p>
