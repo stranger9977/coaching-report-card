@@ -13,13 +13,20 @@
 # So this splits into two leaderboards that must not be confused.
 #
 # 1. DECISION COST. On fourth down the win-probability cost of a choice is
-#    computable exactly and counterfactually. nfl4th's `go_boost` is the win
-#    probability gained by going instead of kicking. A coach who kicks when
-#    go_boost is +4 threw away four points of win probability at the moment he
-#    decided, whether or not the punt team then pinned them at the one. That
-#    is decision value with execution stripped out, which is the thing being
-#    asked for. Summed over a career it is "win probability points thrown
-#    away", and divided by 100 it is roughly games thrown away.
+#    computable exactly and counterfactually. The model gives a win probability
+#    for each of the three options: go, kick the field goal, punt. A coach is
+#    charged the gap between the best of those and the one he chose, at the
+#    moment he chose it, whether or not the punt then pinned them at the one.
+#    That is decision value with execution stripped out.
+#
+#    Two corrections after adversarial review, both of which moved the
+#    ordering. The cost is priced against all THREE options, not just go
+#    versus kick, which had been giving every coach a free pass on punting
+#    when the field goal was better. And each coach is scored against the
+#    league in his own seasons, because leaguewide cost per game fell 31%
+#    from 2018 to 2025 and a pooled ranking was 22% an artefact of when a
+#    coach happened to work. Rates are then empirical-Bayes shrunk, because
+#    the raw metric's split-half reliability is only about 0.50.
 #
 # 2. COUNTING STATS. Cumulative team EPA and WPA under each coach, shown
 #    separately and labelled as what they are: mostly a measure of how good
@@ -50,10 +57,17 @@ fd[, kicked := as.integer(play_type %in% c("punt","field_goal") | punt_attempt =
 d <- fd[!is.na(go_boost) & (went == 1 | kicked == 1) &
         half_seconds_remaining >= 60 & vegas_wp >= 0.05 & vegas_wp <= 0.95]
 
-# The cost of the choice actually made. Zero when the coach picked the better
-# side; otherwise the full size of the edge he passed up.
-d[, cost := fifelse(go_boost > 0 & kicked == 1,  go_boost,
-            fifelse(go_boost < 0 & went   == 1, -go_boost, 0))]
+# The cost of the choice actually made, priced against ALL THREE options.
+# An earlier version charged only the go-versus-kick axis, which silently gave
+# every coach a free pass on punting when the field goal was better and vice
+# versa. Now the best available option is the max of going, kicking a field
+# goal and punting, and a coach is charged the gap between that and whatever he
+# actually did.
+d[, chosen_wp := fifelse(went == 1, go_wp,
+                 fifelse(play_type == "field_goal" | field_goal_attempt == 1, fg_wp, punt_wp))]
+d[, best_wp := pmax(go_wp, fg_wp, punt_wp, na.rm = TRUE)]
+d <- d[!is.na(chosen_wp) & !is.na(best_wp)]
+d[, cost := 100 * pmax(best_wp - chosen_wp, 0)]
 d[, lev := 4*vegas_wp*(1 - vegas_wp)]
 
 gm <- fread(file.path(NFLA, "data/games.csv"),
@@ -68,16 +82,50 @@ cat(sprintf("fourth downs scored: %s across %d coaches, %d-%d\n",
 cat(sprintf("league total win probability thrown away: %.0f points = %.1f games\n",
             sum(d$cost), sum(d$cost)/100))
 
-games <- unique(d[, .(game_id, coach)])[, .(g = .N), by = coach]
-dc <- d[, .(decisions = .N,
-            wp_cost = sum(cost),
-            wp_cost_hi = sum(cost[lev >= quantile(d$lev, 0.75)]),
-            wp_cost_post = sum(cost[season_type == "POST"]),
-            n_post = sum(season_type == "POST")), by = coach]
-dc <- merge(dc, games, by = "coach")
-dc[, `:=`(cost_per_game = wp_cost/g, games_thrown = wp_cost/100)]
+# ERA. The league has got sharper every year: cost per game falls from 2.64 in
+# 2018 to 1.82 in 2025, a 31% decline, and that alone explains 22% of the
+# variance in a pooled ranking. Ranking coaches against a single eight-year
+# average therefore rewards whoever happened to coach recently. Every coach is
+# scored against the league in HIS OWN seasons instead, weighted by how many
+# games he coached in each.
+gs <- unique(d[, .(game_id, coach, season)])[, .(g = .N), by = .(coach, season)]
+cs <- d[, .(cost = sum(cost)), by = .(coach, season)]
+cs <- merge(cs, gs, by = c("coach","season"))
+lg_season <- d[, .(lg_cost = sum(cost)), by = season]
+lg_games  <- unique(d[, .(game_id, coach, season)])[, .(lg_g = .N), by = season]
+lg_season <- merge(lg_season, lg_games, by = "season")[, lg_rate := lg_cost/lg_g]
+cat("\n--- league cost per game by season (the era effect) ---\n")
+print(lg_season[order(season), .(season, lg_rate = round(lg_rate,3))])
+cs <- merge(cs, lg_season[, .(season, lg_rate)], by = "season")
+
+games <- gs[, .(g = sum(g)), by = coach]
+dc <- cs[, .(wp_cost = sum(cost), g = sum(g),
+             expected = sum(lg_rate * g)), by = coach]
+dc <- merge(dc, d[, .(decisions = .N), by = coach], by = "coach")
+spans <- d[, .(first_season = min(season), last_season = max(season)), by = coach]
+dc <- merge(dc, spans, by = "coach")
+dc[, `:=`(cost_per_game = wp_cost/g,
+          era_adj = (wp_cost - expected)/g,      # + means worse than his own era
+          games_thrown = wp_cost/100)]
+
+# SHRINKAGE. The same empirical-Bayes step the market leaderboard already uses.
+# Between-coach variance net of sampling noise gives tau; each coach is pulled
+# toward zero by how noisy his own record is. Without it the ranking is
+# substantially luck: split-half reliability of the raw rate is about 0.50.
+gcost <- merge(unique(d[, .(game_id, coach, season)]),
+               d[, .(gcost = sum(cost)), by = .(game_id, coach)],
+               by = c("game_id","coach"))
+gcost <- merge(gcost, lg_season[, .(season, lg_rate)], by = "season")
+gcost[, gdev := gcost - lg_rate]
+se <- gcost[, .(se = sd(gdev)/sqrt(.N)), by = coach]
+dc <- merge(dc, se, by = "coach")
 dc <- dc[g >= 32]
-setorder(dc, cost_per_game)
+tau2 <- max(var(dc$era_adj) - mean(dc$se^2), 1e-4)
+dc[, era_shrunk := (tau2 * era_adj) / (tau2 + se^2)]
+dc[, `:=`(lo = era_adj - 1.96*se, hi = era_adj + 1.96*se)]
+cat(sprintf("\nshrinkage: tau = %.3f wp/game, mean se = %.3f -> typical shrink factor %.2f\n",
+            sqrt(tau2), mean(dc$se), tau2/(tau2 + mean(dc$se)^2)))
+setorder(dc, era_shrunk)
 write_csv(as.data.frame(dc), "data/factory/decision_value.csv")
 
 cat("\n=== best decision-makers (least win probability thrown away per game) ===\n")
@@ -88,37 +136,36 @@ print(tail(dc[, .(coach, g, decisions, cost_per_game = round(cost_per_game,3),
                   games_thrown = round(games_thrown,2))], 10))
 
 # ---------------------------------------------------------------- chart 1
-top <- rbind(head(dc, 12)[, side := "Wastes the least"],
-             tail(dc, 12)[, side := "Wastes the most"])
-top[, lab := sprintf("%s  (%d g)", coach, g)]
-setorder(top, -cost_per_game)
+top <- rbind(head(dc, 12)[, side := "Better than his era"],
+             tail(dc, 12)[, side := "Worse than his era"])
+top[, lab := sprintf("%s  (%d g, %d-%d)", coach, g, first_season, last_season)]
+setorder(top, -era_shrunk)
 top[, lab := factor(lab, levels = lab)]
-lg_rate <- sum(d$cost)/nrow(unique(d[, .(game_id, coach)]))
 
-p1 <- ggplot(top, aes(cost_per_game, lab, fill = side)) +
-  geom_col(width = 0.72) +
-  geom_vline(xintercept = lg_rate, linetype = "dashed", colour = ink_baseline, linewidth = 0.4) +
-  geom_text(aes(label = sprintf("%.2f", cost_per_game)), hjust = -0.2,
-            size = 3.1, fontface = "bold", colour = "grey25") +
-  annotate("text", x = lg_rate + 0.03, y = 1.2, hjust = 0, size = 3.1,
-           colour = "grey35", fontface = "bold", label = sprintf("league %.2f", lg_rate)) +
-  scale_fill_manual(values = c("Wastes the least" = "#2B8CBE", "Wastes the most" = "#D55E00")) +
-  scale_x_continuous(expand = expansion(mult = c(0, 0.14))) +
+p1 <- ggplot(top, aes(era_adj, lab, fill = side)) +
+  geom_vline(xintercept = 0, linetype = "dashed", colour = ink_baseline, linewidth = 0.45) +
+  geom_col(width = 0.66) +
+  geom_errorbarh(aes(xmin = lo, xmax = hi), height = 0.28, linewidth = 0.55,
+                 colour = "grey35") +
+  geom_point(aes(x = era_shrunk), shape = 18, size = 2.4, colour = "grey15") +
+  scale_fill_manual(values = c("Better than his era" = "#2B8CBE",
+                               "Worse than his era" = "#D55E00")) +
+  scale_x_continuous(expand = expansion(mult = c(0.10, 0.10))) +
   labs(
-    title = "Win probability thrown away on fourth down, per game",
-    subtitle = "What each coach's fourth-down choices cost at the moment he made them, regardless of whether the play then worked",
-    x = "win probability points wasted per game", y = NULL,
+    title = "Fourth-down decisions: win probability wasted, against the league in that coach's own seasons",
+    subtitle = "Bars are the raw rate, whiskers are 95% intervals, diamonds are the regressed estimate. Most coaches cannot be separated from zero.",
+    x = "win probability points wasted per game, above (+) or below (-) his own era", y = NULL,
     caption = fig_caption(
-      "nflverse play-by-play; decision model from the nfl4th package",
-      sprintf("%s fourth downs, 2018 to 2025, head coaches with at least 32 games. Regulation, a minute or more left in the half, win probability between 5%% and 95%%.",
+      "nflverse play-by-play; nfl4th decision model, 2018 to 2025",
+      sprintf("%s fourth downs, head coaches with at least 32 games. Cost is priced against all three options: go, field goal, punt.",
               format(nrow(d), big.mark = ",")),
-      paste0("\nThis is decision value with execution stripped out. If going for it was worth four points of win probability and the coach punted, he is charged four points at the\n",
-             "moment he decided, whether or not the punt then pinned them at the one. It is the counterfactual cost of the choice, not the result of the play.\n",
-             sprintf("Leaguewide that is %.0f points of win probability, about %.0f games, thrown away over eight seasons. Built by R/factory/95.", sum(d$cost), sum(d$cost)/100)))
+      paste0("\nThree things this chart is careful about, all of which changed the ordering. The league got 31% sharper between 2018 and 2025, so a pooled ranking would mostly reward\n",
+             "coaching recently; every coach is scored against his own seasons instead. The whiskers are there because roughly half of these names overlap zero and cannot honestly be\n",
+             "separated from average. The diamonds are the regressed estimate, and the gap between diamond and bar is how much of the raw number was luck. Built by R/factory/95."))
   ) +
   theme_coach(grid = "none") +
   theme(legend.position = "top", legend.title = element_blank(),
-        legend.justification = "left", axis.text.y = element_text(size = rel(0.88)))
+        legend.justification = "left", axis.text.y = element_text(size = rel(0.84)))
 save_fig("docs/figures/factory/decision_cost.png", p1, w = 12, h = 7.6)
 
 # ---------------------------------------------------------------- chart 2
@@ -153,7 +200,9 @@ p2 <- ggplot(cum, aes(dec_no, running, group = coach, colour = coach)) +
 save_fig("docs/figures/factory/decision_cost_cumulative.png", p2, w = 12, h = 6.8)
 
 # ---------------------------------------------------------------- chart 3
-mt <- as.data.table(readRDS("data/factory/model_table.rds"))
+# Windows must match: the fourth-down games denominator is 2018-2025, so the
+# EPA numerator is subset to the same span rather than 2015-2025.
+mt <- as.data.table(readRDS("data/factory/model_table.rds"))[season >= 2018]
 pbp <- merge(mt[, .(game_id, season, posteam, defteam, epa, wpa)], gm, by = "game_id")
 tm <- pbp[!is.na(epa), .(plays = .N, tot_epa = sum(epa, na.rm = TRUE),
                          tot_wpa = sum(wpa, na.rm = TRUE)),
@@ -172,10 +221,10 @@ p3 <- ggplot(tm, aes(g, tot_epa)) +
   scale_colour_manual(values = c("TRUE" = "#2B8CBE", "FALSE" = "#D55E00"), guide = "none") +
   labs(
     title = "The counting stat, and why it is not a coaching ranking",
-    subtitle = "Total offensive EPA accumulated under each head coach against how many games he has coached, 2015 to 2025",
+    subtitle = "Total offensive EPA accumulated under each head coach against how many games he has coached, 2018 to 2025",
     x = "games coached", y = "cumulative offensive EPA",
     caption = fig_caption(
-      "nflverse play-by-play 2015 to 2025; head coaches with at least 32 games",
+      "nflverse play-by-play 2018 to 2025; head coaches with at least 32 games",
       "Cumulative, not per play, so it rewards longevity by construction.",
       paste0("\nShown because it was asked for and because it is worth seeing what it actually measures. The dominant axis here is the horizontal one: coaching a lot of games is how\n",
              "you accumulate a lot of EPA. It also mixes in the roster and the players' execution. For a ranking of decisions rather than of tenure, use the two charts above,\n",

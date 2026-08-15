@@ -40,15 +40,29 @@ uncalibrated model is model error wearing a coach's name.
 year over year at r >= 0.30, and must persist across a change of team. The
 across-team test is the hard one and the one that matters: if a coach's number
 follows him from Baltimore to Seattle, it is about him.
-*Status: within-team persistence is met on five of six targets. Across-team is
-untested and is the biggest open hole.*
+*Status: within-team persistence is met on five of six targets. The across-team
+split is now computed and reported in every grade (R5 prints same-team and
+changed-team correlations separately). Early indications are that the two
+differ substantially, which would mean much of what was being called a coach
+effect is a property of the building. This is the single most important number
+in the project and it is now measured rather than assumed.*
 
 **G3. Decisions are separated from outcomes.** Value must be computed
 counterfactually at the moment of the decision, not from whether the play
 worked. `R/factory/95` does this for fourth down, where the win-probability
 cost of a choice is exactly computable. The ambition is to extend that pricing
 to a second and third decision class.
-*Status: fourth down done. Timeouts and play-calling not yet priced.*
+*Status: fourth down done, and corrected twice after adversarial review. The
+cost is now priced against all three options rather than go-versus-kick, which
+had been giving every coach a free pass on punting when the field goal was
+better. Each coach is scored against the league in his own seasons, because
+leaguewide waste fell 31% from 2018 to 2025 and a pooled ranking was 22% an
+artefact of when a coach worked. Rates are empirical-Bayes shrunk and plotted
+with intervals, because the raw metric's split-half reliability is only about
+0.50 and roughly half the named coaches cannot be separated from average.
+The metric's own year-over-year persistence is r = 0.21 to 0.26, BELOW the G2
+bar of 0.30, so it is a description of behaviour that does not yet qualify as
+a trait. Timeouts and play-calling are still unpriced.*
 
 **G4. It survives the quarterback.** Every claim must be re-run controlling for
 quarterback quality using the lagged `ctrl_` columns. Where the effect
@@ -61,9 +75,16 @@ decision-cost ledger.*
 predict next season's wins above expectation, at conventional significance.
 This is the criterion that separates a real metric from a well-dressed
 description.
-*Status: FAILING. High-leverage fourth-down accuracy does not predict beating
-the market (r = +0.18, p = 0.23, n = 46). Until this is met, the honest claim
-is that we have measured coaching behaviour, not coaching value.*
+*Status: NOT YET TESTED, which is a correction to what this file said before.
+It previously recorded G5 as FAILING on the grounds that high-leverage
+fourth-down accuracy does not predict beating the market (r = +0.18, p = 0.23,
+n = 46). Adversarial review showed that was not a test at all: the variable has
+a split-half reliability of -0.18 between coaches, so it carries no coach
+signal to begin with, and the confidence interval on that correlation runs from
+-0.12 to +0.45 and comfortably contains effects worth having. A null computed
+on noise is uninformative, not negative. G5 therefore remains open and needs a
+measure that clears a reliability check first. Until then the honest claim is
+unchanged: we have measured coaching behaviour, not coaching value.*
 
 ## The standard of proof
 
@@ -77,6 +98,15 @@ each of those is on the public board with its evidence:
   the unstable denominator was given more data)
 - "Deviating from the situation pays" (magnitude added nothing; it was
   direction, and direction is just the league running too much)
+- "High-leverage fourth-down accuracy does not predict wins" (retracted: the
+  measure had no between-coach reliability, so the null was about noise)
+- The first version of the decision-cost leaderboard (priced only two of the
+  three options, ignored a 31% era trend, and ranked unshrunk rates without
+  intervals)
+
+An adversarial review of this repo in August 2026 ran 24 agents across four
+dimensions and confirmed eleven defects, of which the four largest are fixed
+above. That review is the reason several numbers on the public page changed.
 
 Any future claim gets the same treatment. If G5 cannot be met, the deliverable
 is a rigorous measurement of coaching *behaviour* plus a clear statement that

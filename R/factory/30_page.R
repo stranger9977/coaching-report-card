@@ -136,14 +136,28 @@ html <- paste0(
 <div class="prose">
 <p>Four of the six models failed, and every one of them failed on discrimination. Rather than excuse that, each was rerun across six variants: the situation-only base, the base plus the pre-snap look (offensive personnel and formation), the base plus what the offence did on the previous snap, both together, and two deeper-tree settings.</p>
 <p>The look features are the interesting case. For a defensive target they are not leakage at all: a coordinator deciding whether to blitz is standing there watching the offence substitute and line up, so that information exists before his decision. The test for leakage is whether the decision-maker had it, and he did.</p>
+<p class="note"><b>The caveat that matters, because it applies to the two models that actually used these features.</b> RPO and pre-snap motion are OFFENSIVE targets, and there the "look" is the caller\'s own personnel and formation on the same play. Explaining a caller\'s choice with his other choice on the same snap is partly circular, which is why RPO\'s discrimination jumps so far, from AUC 0.611 to 0.756: an RPO needs a run look by definition. Read those two rows as "the call is legible from the formation", not as a situational model that got better.</p>
 </div>
 
 <section>
 <h3>What the experiments found</h3>
-<p><b>The theory was wrong, and the rubric caught something better.</b> Giving defensive models the offensive look barely moved blitz (AUC 0.614 to 0.619) and actively hurt man coverage on the rubric, because the small gain in discrimination came with worse calibration. Deeper trees hurt everything.</p>
-<p><b>The rubric refused a trade an AUC chase would have taken.</b> On pre-snap motion, adding the look lifted AUC from 0.583 to 0.616, which looks like a clear win, but expected calibration error got worse and the model dropped from three rules passed to two. Discrimination is not the objective. Trustworthy residuals are.</p>
+<p><b>The theory was wrong.</b> Giving defensive models the offensive look barely moved blitz, from AUC 0.614 to 0.619, nowhere near the 0.65 bar. Deeper trees hurt everything.</p>
+<p><b>The rubric refused a trade an AUC chase would have taken.</b> On pre-snap motion, adding the look lifted AUC from 0.583 to 0.616, which looks like a clear win, but the model dropped from three rules passed to two because it then failed R3 slice safety. On man coverage the same features lifted AUC and cost a rule for the same reason. Discrimination is not the objective; trustworthy residuals are.</p>
 <p><b>And the failure itself turned out to be the finding.</b> Blitz has the lowest discrimination of any target and the highest residual persistence of any target, 0.78. A model cannot predict it from the situation, and yet a coordinator&apos;s tendency carries over from year to year better than anything else here. That is what it looks like when a decision is a property of the coach rather than a response to the game: coordinators blitz according to who they are, not what is in front of them. It is the same conclusion the old &quot;blitz on autopilot&quot; card reached, arrived at properly and after six honest attempts to beat it.</p>
 <p class="note">Full log in <code>data/factory/experiments.csv</code>. Where a variant genuinely won on the rubric it was promoted and the model above reflects it.</p>
+</section>
+
+<h2>The most important correction</h2>
+<div class="prose">
+<p>Everything above rests on R5: a coach\'s residual repeats from one season to the next, therefore it is his. That test has a hole in it, and an adversarial review of this repo found it. Persistence measured while a coach stays at the same club cannot tell a coach from a franchise. The same roster, the same coordinators and the same quarterback produce the same tendencies whoever is nominally calling it.</p>
+<p>The only version that isolates the man is persistence across a change of club. It is now computed, and it lands hard.</p>
+</div>
+
+<section>
+<h3>Is it the coach, or is it the building?</h3>
+<figure><img src="figures/factory/coach_or_building.png" alt="Persistence of coaching residuals split by whether the coach stayed at the same club or moved"><figcaption>Year-over-year persistence, same club against changed club, with 95&#37; intervals.</figcaption></figure>
+<p>On four of five targets it falls by half or more. Run/pass goes from 0.54 to 0.21. Pre-snap motion, the most repeatable tendency in the whole project, goes from 0.81 to 0.11 and essentially does not travel. Man coverage is the one that survives, and that rests on eleven pairs.</p>
+<p class="note"><b>What this changes.</b> It does not make the residuals meaningless, but it does change what they are. They describe a <i>team\'s</i> identity in a season, which the head coach shapes without solely owning. Every sentence on this page of the form "this coach does X" should be read as "this coach\'s offence does X", and the project\'s central claim, that we can separate the coach from the roster, is further from proven than the within-team numbers made it look.</p>
 </section>
 
 <h2>The report card: greats and WOATs</h2>
@@ -153,7 +167,8 @@ html <- paste0(
 
 <section>
 <h3>Who actually beat the market</h3>
-<figure><img src="figures/factory/greats_woats.png" alt="Head coaches ranked by regressed wins above market expectation"><figcaption>Belichick, Tomlin and Dungy at the top; Hue Jackson, Norv Turner and Rod Marinelli at the bottom. Stars mark careers too good or bad to be luck.</figcaption></figure>
+<figure><img src="figures/factory/greats_woats.png" alt="Head coaches ranked by regressed wins above market expectation"><figcaption>Belichick, Tomlin and Dungy at the top; Hue Jackson, Norv Turner and Rod Marinelli at the bottom.</figcaption></figure>
+<p class="note"><b>How much of this ordering is real.</b> Eight of 132 coaches fall outside a 95&#37; luck cone, and pure chance would put about seven there, so the count of "significant" careers is what you would expect if no coach had any edge at all. Under a false-discovery correction none of them survives individually. The regression toward the mean above is doing the honest work here; treat the ordering as the best available estimate, not as proof that these particular names are distinguishable from each other.</p>
 <p>The spread already prices the roster, the quarterback and the schedule, so this is what a coach added on top of what his team was thought to be. It is the closest thing to a fair all-time list the data allows.</p>
 </section>
 

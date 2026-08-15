@@ -176,11 +176,13 @@ PERM_GROUPS <- list(
   "Field position"    = c("yardline_100","is_redzone","is_inside10","is_goal_to_go","is_own_deep"),
   "Clock"             = c("game_seconds_remaining","half_seconds_remaining","qtr",
                           "is_2min","is_4min","is_half_end","is_second_half"),
-  "Score"             = c("score_differential","score_abs","is_one_score",
-                          "is_trailing","is_blowout"),
-  "Timeouts"          = c("posteam_timeouts_remaining","defteam_timeouts_remaining","to_diff"),
-  "Pre-game odds"     = c("spread_posteam"),
-  "Win probability"   = c("vegas_wp")
+  # vegas_wp and spread_posteam sit WITH the score block, not apart from it.
+  # An earlier version split them out, which defeated the point of grouping:
+  # vegas_wp correlates with score_differential at 0.86, so permuting either
+  # alone cost almost nothing and both looked unimportant.
+  "Score and game state" = c("score_differential","score_abs","is_one_score",
+                             "is_trailing","is_blowout","vegas_wp","spread_posteam"),
+  "Timeouts"          = c("posteam_timeouts_remaining","defteam_timeouts_remaining","to_diff")
 )
 
 # models: one xgboost per season fold; idx: row indices of each fold's test set.
@@ -252,22 +254,39 @@ slice_table <- function(fit) {
 coach_residuals <- function(fit, who = "off_play_caller", min_n = 150) {
   d <- copy(fit$data); d[, `:=`(.y = fit$y, .p = fit$pred)]
   d <- d[!is.na(get(who)) & get(who) != ""]
+  # Carry the coach-season's modal team so persistence can be split by whether
+  # he stayed put. Without this, R5 cannot tell a coach effect from a building.
+  tcol <- if (who == "def_caller_opp") "defteam" else "posteam"
+  d[, .team := get(tcol)]
   # Centre within season: subtract the league's own residual that year, so
   # league-wide drift in how often anyone passes does not masquerade as a
   # coach's tendency. See R3.
   lg <- d[, .(lg_resid = 100*(mean(.y) - mean(.p))), by = season]
   cs <- d[, .(n = .N, actual = mean(.y), expected = mean(.p),
-              raw_resid = 100*(mean(.y) - mean(.p))), by = c(who, "season")][n >= min_n]
+              raw_resid = 100*(mean(.y) - mean(.p)),
+              team = names(sort(table(.team), decreasing = TRUE))[1]),
+          by = c(who, "season")][n >= min_n]
   cs <- merge(cs, lg, by = "season")
   cs[, resid := raw_resid - lg_resid]
   setnames(cs, who, "coach")
   setorder(cs, coach, season)
-  cs[, `:=`(prev = shift(resid), prev_season = shift(season)), by = coach]
+  cs[, `:=`(prev = shift(resid), prev_season = shift(season),
+            prev_team = shift(team)), by = coach]
   pr <- cs[!is.na(prev) & season - prev_season == 1]
+  pr[, moved := team != prev_team]
+  # THE TEST THAT MATTERS. Within-team persistence can be a property of the
+  # building: the same roster, coordinators and personnel produce the same
+  # tendencies whoever is nominally calling it. Persistence ACROSS a change of
+  # club is the only version that isolates the man.
+  same <- pr[moved == FALSE]; move <- pr[moved == TRUE]
   list(season = cs,
        career = cs[, .(n = sum(n), resid = weighted.mean(resid, n)), by = coach][n >= min_n*3],
        persist = if (nrow(pr) > 20) cor(pr$resid, pr$prev) else NA_real_,
-       n_pairs = nrow(pr))
+       n_pairs = nrow(pr),
+       persist_same = if (nrow(same) > 15) cor(same$resid, same$prev) else NA_real_,
+       n_same = nrow(same),
+       persist_moved = if (nrow(move) > 5) cor(move$resid, move$prev) else NA_real_,
+       n_moved = nrow(move))
 }
 
 # ---------------------------------------------------------------- verdict
@@ -282,7 +301,9 @@ grade <- function(fit, sl, res) {
               sprintf("ECE %.4f, worst decile gap %.3f", m$ece, max(abs(dec$actual - dec$predicted))),
               sprintf("%.0f%% of %d slices inside interval", 100*mean(big$inside), nrow(big)),
               "season-grouped CV",
-              sprintf("year-over-year r = %.2f (n = %d)", res$persist, res$n_pairs)),
+              sprintf("year-over-year r = %.2f (n = %d); same team %.2f (n = %d), changed team %.2f (n = %d)",
+                      res$persist, res$n_pairs,
+                      res$persist_same, res$n_same, res$persist_moved, res$n_moved)),
     pass = c(m$auc >= RUBRIC$auc_min && (m$auc - m$auc_base) >= RUBRIC$auc_lift_min,
              m$ece <= RUBRIC$ece_max && max(abs(dec$actual - dec$predicted)) <= RUBRIC$decile_gap_max,
              mean(big$inside) >= RUBRIC$slice_pass_min,

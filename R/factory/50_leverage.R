@@ -210,6 +210,24 @@ cat(sprintf("logistic, controlling for decision type and size of the edge: hi be
 
 # ---- can we attribute it to the coach? the honest answer ------------------
 cq <- fdq[hi == TRUE, .(n = .N, hi_obey = 100*mean(correct)), by = coach][n >= 25]
+
+# BEFORE regressing anything on hi_obey, check it measures a coach at all.
+# A null result about a variable with no between-coach signal is a null about
+# noise, not about coaching, and would be misreported as the latter.
+set.seed(11)
+hh <- fdq[hi == TRUE][, half := sample(rep_len(1:2, .N)), by = coach]
+sh <- dcast(hh[, .(v = 100*mean(correct), n = .N), by = .(coach, half)][n >= 12],
+            coach ~ half, value.var = "v")
+setnames(sh, c("coach","h1","h2"))
+sh <- sh[!is.na(h1) & !is.na(h2)]
+r_half <- cor(sh$h1, sh$h2)
+r_sb <- 2*r_half/(1 + r_half)
+cat(sprintf("\nhi_obey reliability: split-half r = %.2f, Spearman-Brown %.2f (n = %d coaches)\n",
+            r_half, r_sb, nrow(sh)))
+cat(sprintf("rubric's own persistence bar is %.2f, so this variable is %s\n",
+            RUBRIC_PERSIST <- 0.30,
+            if (r_sb >= 0.30) "reliable enough to regress on" else
+              "NOT reliable enough -- any null below is about noise, not coaching"))
 cm <- as.data.table(read_csv("data/derived/coach_market.csv", show_col_types = FALSE))
 cj <- merge(cq, cm, by = "coach")[!is.na(rate_per17)]
 r_mkt <- cor(cj$hi_obey, cj$rate_per17)
@@ -218,7 +236,12 @@ p_mkt <- summary(fit_m)$coefficients[2,4]
 cat(sprintf("\nhigh-leverage 4th-down obedience vs wins above market: r = %+.3f (p = %.3f, n = %d)\n",
             r_mkt, p_mkt, nrow(cj)))
 cat(sprintf("VERDICT: %s\n", if (p_mkt < 0.05) "significant" else
-            "NOT significant -- cannot claim decision quality alone buys wins"))
+            if (r_sb < 0.30)
+              "UNINFORMATIVE -- hi_obey is too unreliable to detect anything; this is not evidence of no effect"
+            else "NOT significant -- cannot claim decision quality alone buys wins"))
+ci <- suppressWarnings(cor.test(cj$hi_obey, cj$rate_per17)$conf.int)
+cat(sprintf("95%% CI on that correlation: [%+.2f, %+.2f] -- wide enough to contain useful effects\n",
+            ci[1], ci[2]))
 
 # ---------------------------------------------------------------- chart 2
 byv <- fdq[, .(n = .N, obey = 100*mean(correct)), by = .(verdict, hi)]
@@ -250,8 +273,9 @@ p2 <- ggplot(byv, aes(decision, obey, fill = lev)) +
       sprintf(paste0("\nThis answers Michael's outline note directly: coaches justify a punt in a go-for-it situation but never the reverse, and it gets worse when it matters. Correct\n",
                      "go-for-it calls fall from 51.5%% to 44.6%% in the highest-leverage quarter while correct kicks do not move. Controlling for the decision type and the size of the\n",
                      "edge, the high-leverage penalty is significant at p < 0.0001. The playoffs are worse again, 78.3%% overall against 82.3%% in routine regular-season spots.\n",
-                     "The honest limit: coaches who do this well do NOT measurably beat the closing spread (r = %+.2f, p = %.2f, n = %d). It is a real behavioural pattern,\n",
-                     "not a proven source of wins. Built by R/factory/50."), r_mkt, p_mkt, nrow(cj))
+                     "The honest limit, and it is weaker than a null: a coach's high-leverage accuracy is barely a property of the coach at all (split-half reliability %.2f, against the\n",
+                     "0.30 bar this project uses elsewhere), so the fact that it does not predict beating the spread (r = %+.2f, p = %.2f, n = %d) is uninformative rather than evidence\n",
+                     "of no effect. The measurement is too noisy to answer the question. Built by R/factory/50."), r_sb, r_mkt, p_mkt, nrow(cj))
     )
   ) +
   theme_coach(grid = "y") +
