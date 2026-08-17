@@ -153,12 +153,14 @@ setorder(ex, typ, -epa)
 pick <- ex[, .SD[1], by = .(bin, lev_bin, followed)]
 
 ord <- function(n) c("1st","2nd","3rd","4th")[n]
+# quarter 5 is overtime in nflverse, and "Q5" reads like a typo on screen
+qlab <- function(q) fifelse(q >= 5, "OT", paste0("Q", q))
 pick[, cell := paste0(bin, " / ", ifelse(lev_bin == "High leverage", "high leverage", "normal"))]
 pick[, matchup := sprintf("%d wk %d", season, week)]
 # score with the team holding the ball first, so it reads with the logos
 pick[, score := sprintf("%d-%d", posteam_score, defteam_score)]
-pick[, situation := sprintf("Q%d %s | %s and %d at the %s %d | %s | win prob %.0f%%",
-      qtr, time, ord(down), ydstogo,
+pick[, situation := sprintf("%s %s | %s and %d at the %s %d | %s | win prob %.0f%%",
+      qlab(qtr), time, ord(down), ydstogo,
       fifelse(yardline_100 > 50, "own", "opp"),
       fifelse(yardline_100 > 50, 100 - yardline_100, yardline_100),
       score, 100*wp)]
@@ -238,3 +240,102 @@ p2 <- ggplot(pick) +
         plot.title.position = "plot",
         plot.margin = margin(14, 14, 10, 14))
 save_fig("docs/figures/factory/coinflip_examples.png", p2, w = 14, h = 5.9)
+
+# =============================================================================
+# Second table: examples for the certainty chart (nuance_by_certainty.png).
+#
+# Nick: "need examples of this too."
+#
+# That chart's cells are certainty crossed with whether the caller FOLLOWED the
+# model, which is a different cut from the table above (certainty crossed with
+# leverage). Same selection rule, and this one carries what actually happened,
+# because the chart is about outcomes.
+#
+# Out: docs/figures/factory/certainty_examples.png
+# =============================================================================
+
+cellavg <- d[!is.na(epa), .(avg = mean(epa), n = .N), by = .(bin, followed)]
+cat("\n--- cell averages behind the certainty chart ---\n"); print(cellavg[order(bin, -followed)])
+
+ex2 <- merge(d[season >= 2024], pbp, by = c("game_id","play_id"), all.x = TRUE)
+ex2 <- ex2[!is.na(desc) & !is.na(epa)]
+med2 <- ex2[, .(m_dn = median(down), m_yt = median(ydstogo), m_yl = median(yardline_100),
+                m_sd = median(score_differential), m_wp = median(wp)),
+            by = .(bin, followed)]
+ex2 <- merge(ex2, med2, by = c("bin","followed"))
+ex2[, typ := ((down - m_dn))^2 + ((ydstogo - m_yt)/3)^2 + ((yardline_100 - m_yl)/10)^2 +
+             ((score_differential - m_sd)/7)^2 + ((wp - m_wp)/0.15)^2]
+setorder(ex2, typ, -epa)
+# two per cell this time, so the reader sees a good one and a bad one
+p2k <- ex2[, head(.SD, 2), by = .(bin, followed)]
+
+p2k[, cellf := paste0(sub("\n.*", "", bin), "\n",
+                      fifelse(followed == 1, "did what the model expected", "went the other way"))]
+p2k[, matchup := sprintf("%d wk %d", season, week)]
+p2k[, score := sprintf("%d-%d", posteam_score, defteam_score)]
+p2k[, situation := sprintf("%s %s | %s and %d | %s %d | %s",
+      qlab(qtr), time, ord(down), ydstogo,
+      fifelse(yardline_100 > 50, "own", "opp"),
+      fifelse(yardline_100 > 50, 100 - yardline_100, yardline_100), score)]
+p2k[, model_said := sprintf("%.0f%% pass", 100*p)]
+p2k[, call := fifelse(y == 1, "PASS", "RUN")]
+p2k[, result := sprintf("%+.2f", epa)]
+p2k[, happened := {
+  s <- gsub("^\\([^)]*\\) ", "", desc); s <- gsub("\\s+", " ", s)
+  fifelse(nchar(s) > 76, paste0(substr(s, 1, 74), ".."), s)
+}]
+
+lvl2 <- c("Coin flip","Leaning","Obvious")
+p2k[, bshort := sub("\n.*", "", bin)]
+setorder(p2k, bshort, -followed)
+p2k[, row := .I][, yy := -row]
+lab2 <- p2k[, .(yy = mean(yy), avg = cellavg[bin == .BY$bin & followed == .BY$followed]$avg),
+            by = .(bin, followed)]
+lab2 <- merge(lab2, unique(p2k[, .(bin, followed, cellf)]), by = c("bin","followed"))
+p2k[, band2 := match(cellf, unique(p2k$cellf)) %% 2]
+
+pE <- ggplot(p2k) +
+  geom_rect(aes(xmin = 0, xmax = 100, ymin = yy - 0.5, ymax = yy + 0.5,
+                fill = factor(band2)), alpha = 0.5) +
+  geom_nfl_logos(aes(x = 3.0, y = yy, team_abbr = posteam), width = 0.0165) +
+  geom_text(aes(x = 5.4, y = yy, label = "v"), size = 2.4, colour = "grey55") +
+  geom_nfl_logos(aes(x = 7.8, y = yy, team_abbr = defteam), width = 0.0165) +
+  geom_text(aes(x = 10.4, y = yy, label = matchup), hjust = 0, size = 2.6, colour = "grey40") +
+  geom_text(aes(x = 19, y = yy, label = situation), hjust = 0, size = 2.75, colour = "grey30") +
+  geom_text(aes(x = 45, y = yy, label = model_said), hjust = 0, size = 2.75, colour = "grey30") +
+  geom_text(aes(x = 53, y = yy, label = call,
+                colour = factor(followed)), hjust = 0, size = 2.9, fontface = "bold") +
+  geom_text(aes(x = 59.5, y = yy, label = result,
+                colour = epa >= 0), hjust = 0, size = 2.75, fontface = "bold",
+            show.legend = FALSE) +
+  geom_text(aes(x = 67, y = yy, label = happened), hjust = 0, size = 2.6, colour = "grey35") +
+  geom_text(data = lab2, aes(x = -1, y = yy, label = cellf), hjust = 1, size = 3.0,
+            fontface = "bold", colour = "#1e2126", lineheight = 0.95) +
+  geom_text(data = lab2, aes(x = -1, y = yy - 0.62,
+                             label = sprintf("league average %+.3f EPA", avg)),
+            hjust = 1, size = 2.6, colour = "grey45") +
+  annotate("text", x = c(1.4, 19, 45, 53, 59.5, 67), y = 0,
+           label = c("game","situation","model","call","EPA","what happened"),
+           hjust = 0, size = 2.8, fontface = "bold", colour = "grey45") +
+  scale_fill_manual(values = c("0" = "#eef2f5", "1" = "#ffffff"), guide = "none") +
+  scale_colour_manual(values = c("1" = "#2B7A3F", "0" = "#D55E00",
+                                 "TRUE" = "#2B7A3F", "FALSE" = "#D55E00"), guide = "none") +
+  scale_x_continuous(limits = c(-17, 102), expand = expansion(0)) +
+  scale_y_continuous(limits = c(-12.9, 0.9), expand = expansion(mult = c(0.01, 0.01))) +
+  labs(
+    title = "What each bar on the certainty chart is made of",
+    subtitle = "Two real plays from each of the six bars, with the league average for that bar next to the label",
+    caption = fig_caption(
+      "nflverse play-by-play, 2024 and 2025 regular season and playoffs",
+      "Model probability is out-of-sample from the situation-only run/pass model.",
+      paste0("\nSame rule as the other example table: inside each box, the plays nearest the middle of that box on down, distance, field position, score and win probability.\n",
+             "Single plays cannot show an average, which is why the league average for the bar sits under each label. Read a row as an illustration of the SPOT, not as\n",
+             "evidence for the number. Green is a call the situation implied and orange is a call against it. Built by R/factory/96."))
+  ) +
+  theme_void() +
+  theme(plot.title = element_text(face = "bold", size = 15, hjust = 0, margin = margin(b = 4)),
+        plot.subtitle = element_text(size = 11, colour = "grey35", hjust = 0, margin = margin(b = 10)),
+        plot.caption = element_text(size = 7.6, colour = "grey45", hjust = 0),
+        plot.caption.position = "plot", plot.title.position = "plot",
+        plot.margin = margin(14, 14, 10, 14))
+save_fig("docs/figures/factory/certainty_examples.png", pE, w = 15.5, h = 6.4)
