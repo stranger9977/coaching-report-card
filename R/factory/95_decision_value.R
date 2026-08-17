@@ -192,34 +192,46 @@ arc <- rbind(
 setorder(arc, coach, season, week)
 arc[, `:=`(g = seq_len(.N), cum = cumsum(win - exp)), by = coach]
 
-ARC <- c("Bill Belichick","Andy Reid","Mike Tomlin","Sean Payton","John Harbaugh",
-         "Pete Carroll","Sean McDermott","Sean McVay","Kyle Shanahan",
-         "Mike Macdonald","Dan Campbell","Bill Cowher","Tony Dungy",
-         "Hue Jackson","Norv Turner","Adam Gase","Josh McDaniels")
-a <- arc[coach %in% ARC]
-ends <- a[, .SD[.N], by = coach]
-ends[, lab := sprintf("%s  %+.0f", coach, cum)]
+# Every coach with a real tenure goes in as light grey context. Only a handful
+# get a color and a label, because seventeen coloured lines on one panel is a
+# ball of wool: the eye cannot follow any single career and the labels land on
+# top of each other in the crowded first hundred games.
+ctx <- arc[, .N, by = coach][N >= 64]$coach
+bg  <- arc[coach %in% ctx]
 
-p2 <- ggplot(a, aes(g, cum, group = coach)) +
+HL <- c("Bill Belichick","Andy Reid","Mike Tomlin","Sean Payton",
+        "Sean McDermott","Hue Jackson","Norv Turner")
+PAL <- c("Bill Belichick" = "#1c3f94", "Andy Reid" = "#2B8CBE",
+         "Mike Tomlin"    = "#1baf7a", "Sean Payton" = "#7a4fa3",
+         "Sean McDermott" = "#0f8a8a", "Hue Jackson" = "#D55E00",
+         "Norv Turner"    = "#a8332a")
+hl <- arc[coach %in% HL]
+hend <- hl[, .SD[.N], by = coach]
+hend[, lab := sprintf("%s  %+.0f", coach, cum)]
+
+p2 <- ggplot() +
   geom_hline(yintercept = 0, linetype = "dashed", colour = ink_baseline, linewidth = 0.45) +
-  geom_line(aes(colour = coach %in% ends[cum > 0]$coach), linewidth = 0.85) +
-  geom_text_repel(data = ends, aes(label = lab, colour = cum > 0), hjust = 0,
-                  size = 3.05, fontface = "bold", direction = "y", nudge_x = 14,
-                  segment.colour = NA, seed = 5, max.overlaps = 30) +
-  scale_colour_manual(values = c("TRUE" = "#2B8CBE", "FALSE" = "#D55E00"), guide = "none") +
+  geom_line(data = bg, aes(g, cum, group = coach), colour = "grey88", linewidth = 0.35) +
+  geom_line(data = hl, aes(g, cum, colour = coach), linewidth = 1) +
+  geom_point(data = hend, aes(g, cum, colour = coach), size = 2.1) +
+  geom_text_repel(data = hend, aes(g, cum, label = lab, colour = coach),
+                  hjust = 0, size = 3.3, fontface = "bold", direction = "y",
+                  nudge_x = 26, segment.colour = NA, seed = 5, box.padding = 0.55,
+                  point.padding = 0.4, min.segment.length = Inf, max.overlaps = Inf) +
+  scale_colour_manual(values = PAL, guide = "none") +
   scale_x_continuous(expand = expansion(mult = c(0.02, 0.30))) +
   labs(
-    title = "The career arc: wins banked above what the market expected, game by game",
-    subtitle = "Every regular-season game of a coach's career, cumulative. Climbing means beating what his team was thought to be.",
+    title = "The career arc: wins banked above what the market expected",
+    subtitle = sprintf("Cumulative across every regular-season game. Grey lines are the other %d head coaches with four seasons or more.", length(ctx) - length(HL)),
     x = "games coached (in career order)", y = "cumulative wins above market expectation",
     caption = fig_caption(
       "nflverse schedules 1999 to 2025, closing spreads; market model as in R/02",
-      "Selected head coaches. The spread already prices the roster, the quarterback and the schedule.",
-      paste0("\nThe slope is the coach and the length is his tenure, so a long flat line is a long average career and a long climbing line is the real thing. Belichick banks about\n",
-             "twenty-five wins more than the market expected across his career; the bottom of the chart is what a decade of underperforming looks like. Built by R/factory/95."))
+      sprintf("%d head coaches with at least 64 games. The spread already prices the roster, the quarterback and the schedule.", length(ctx)),
+      paste0("\nClimbing means beating what the team was thought to be, week after week. The slope is the coach and the length is his tenure, so a long flat line is a long average\n",
+             "career and a long climbing line is the real thing. Built by R/factory/95."))
   ) +
-  theme_coach(grid = "y") + theme(legend.position = "none")
-save_fig("docs/figures/factory/career_arc.png", p2, w = 12, h = 7)
+  theme_coach(grid = "y")
+save_fig("docs/figures/factory/career_arc.png", p2, w = 12, h = 6.8)
 
 # ---------------------------------------------------------------- chart 3
 # Windows must match: the fourth-down games denominator is 2018-2025, so the
@@ -231,7 +243,7 @@ tm <- pbp[!is.na(epa), .(plays = .N, tot_epa = sum(epa, na.rm = TRUE),
           by = .(coach = fifelse(posteam == home_team, home_coach, away_coach))]
 tm <- merge(tm, games, by = "coach")[g >= 32]
 setorder(tm, -tot_epa)
-lab3 <- tm[coach %in% c(ARC, "Sean Payton","Pete Carroll","Bruce Arians","Hue Jackson",
+lab3 <- tm[coach %in% c(HL, "Sean Payton","Pete Carroll","Bruce Arians","Hue Jackson",
                         "Adam Gase","Josh McDaniels","Matt Patricia")]
 
 p3 <- ggplot(tm, aes(g, tot_epa)) +
