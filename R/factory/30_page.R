@@ -38,7 +38,7 @@ sect <- paste(vapply(seq_len(nrow(sc)), function(i) {
     sprintf('<p class="note">No residual leaderboard: this model did not clear the rubric, so its residuals are not safe to read as coaching. It fails %s.</p>',
             esc(paste(g[pass == FALSE]$rule, collapse = " and ")))
   sprintf('<section id="%s">
-  <h3>%s <span class="tag %s">%s</span></h3>
+  <h3>%s <span class="badge">xgboost, season-grouped CV</span> <span class="tag %s">%s</span></h3>
   <ul class="rules">%s</ul>
   <figure><img src="figures/factory/%s_slices.png" alt="Actual versus predicted by binned feature for %s"><figcaption>Blue is what happened with a 95%% band, orange dashed is the model. This is the figure that decides whether a residual is signal or model error.</figcaption></figure>
   <figure><img src="figures/factory/%s_calib.png" alt="Calibration curve for %s"><figcaption>Calibration: deciles of predicted probability against what actually happened.</figcaption></figure>
@@ -81,6 +81,9 @@ ul.rules li{margin:4px 0;color:var(--ink2)}
 figure{margin:16px 0 10px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px;overflow:hidden}
 figure img{width:100%;height:auto;display:block;border-radius:5px}
 figcaption{font-size:12.5px;color:var(--ink3);padding:8px 4px 2px;line-height:1.5}
+.badge{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--line);color:var(--ink2);margin-left:8px;vertical-align:middle}
+.mtable td:first-child{font-weight:650;color:var(--ink)}
+.mtable td{text-align:left}
 .note{font-size:14px;color:var(--ink3);background:var(--nobg);border-left:3px solid var(--no);padding:10px 14px;border-radius:0 8px 8px 0}
 .rubric{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:16px 20px;margin:18px 0}
 .rubric dt{font-weight:700;color:var(--ink);margin-top:10px;font-size:14.5px}
@@ -119,6 +122,24 @@ html <- paste0(
 <p><b>Amended after running the experiments below.</b> That first sentence only holds until you have actually tried. Six feature sets and two tree depths were run at the models that failed, including the one theory said should work: giving a defensive coordinator the offensive personnel and formation he can plainly see before he calls anything. It barely moved. So R1 failure has two readings, and R5 tells them apart. Low discrimination with low persistence is a bad model, keep working. Low discrimination with <i>high</i> persistence is a finding: the behaviour is a property of the coach rather than a response to the situation, which is exactly why the situation cannot predict it.</p>
 </div>
 
+<h2>What kind of model is each thing</h2>
+<div class="prose">
+<p>Six different methods are doing the work on this page and only one of them is machine learning. Each is chosen for a reason, and the reason is usually that the alternative would have hidden something.</p>
+</div>
+<table class="mtable">
+<thead><tr><th>What</th><th>Model</th><th>Why that one</th></tr></thead>
+<tbody>
+<tr><td>The six play-call models</td><td>Gradient-boosted trees (xgboost), binary logistic objective, season-grouped cross-validation</td><td>The interactions are non-monotone. Fourth-and-1 on the opponent 40 is a different decision from fourth-and-1 on your own 40, and the red zone changes the shape of the field rather than just the distance. A regression would need all of that hand-specified.</td></tr>
+<tr><td>The bar those models have to clear</td><td>Lookup table: empirical rate by down &times; distance bucket</td><td>Not a model at all, deliberately. It is the dumbest thing that could work, and R1&apos;s &quot;lift&quot; is how far the trees beat it. Run/pass beats it by +0.101 AUC; blitz by only +0.043, which is most of why blitz never cleared.</td></tr>
+<tr><td>Wins above market</td><td>Logistic regression, one predictor: the closing spread</td><td>One predictor on purpose. The spread already contains the roster, the quarterback, the injuries and the schedule, so adding anything else would be double-counting the thing being controlled for.</td></tr>
+<tr><td>Is the high-leverage drop real</td><td>Logistic regression with controls for decision type and size of the edge</td><td>The two leverage buckets have a different mix of go and kick decisions, so the raw percentages are not comparable without holding that mix fixed.</td></tr>
+<tr><td>Talent adjustment</td><td>Ordinary least squares; performance regressed on QB quality and cap allocation, residual retained</td><td>Linear is enough here and keeps the residual interpretable as &quot;points above what the roster implied&quot;.</td></tr>
+<tr><td>Per-coach wins effects</td><td>Linear mixed-effects model with the coach as a random intercept</td><td>The random effect shrinks small samples automatically, so a coach with one season cannot outrank a coach with fifteen.</td></tr>
+<tr><td>Play-calling predictability</td><td>Not a fitted model: an empirical-Bayes smoothed contingency table, then binary entropy</td><td>There is nothing to train. Within each situation cell the caller&apos;s pass rate is shrunk toward the league rate by 15 pseudo-plays, and the entropy of that shrunk rate is the number. The shrinkage is the only regularisation.</td></tr>
+<tr><td>Every leaderboard</td><td>Empirical-Bayes shrinkage (an estimator, not a model)</td><td>Doing more work than anything else here. Without it, one lucky season tops every list.</td></tr>
+<tr><td>Fourth-down decision cost</td><td><b>Somebody else&apos;s models.</b> Ben Baldwin&apos;s nfl4th: its own win probability, first-down and field-goal models</td><td>Worth naming as a dependency. The whole decision ledger inherits his assumptions, so where his win-probability model is off in a particular situation, my &quot;win probability thrown away&quot; is off there too.</td></tr>
+</tbody></table>
+
 <h2>Scorecard</h2>
 <table>
 <thead><tr><th>Target</th><th>winning feature set</th><th>plays</th><th>base rate</th><th>AUC</th><th>lift vs lookup</th><th>ECE</th><th>persistence</th><th>rules</th><th>status</th></tr></thead>
@@ -140,7 +161,7 @@ html <- paste0(
 </div>
 
 <section>
-<h3>What the experiments found</h3>
+<h3>What the experiments found <span class="badge">xgboost, 24 fits</span></h3>
 <p><b>The theory was wrong.</b> Giving defensive models the offensive look barely moved blitz, from AUC 0.614 to 0.619, nowhere near the 0.65 bar. Deeper trees hurt everything.</p>
 <p><b>The rubric refused a trade an AUC chase would have taken.</b> On pre-snap motion, adding the look lifted AUC from 0.583 to 0.616, which looks like a clear win, but the model dropped from three rules passed to two because it then failed R3 slice safety. On man coverage the same features lifted AUC and cost a rule for the same reason. Discrimination is not the objective; trustworthy residuals are.</p>
 <p><b>And the failure itself turned out to be the finding.</b> Blitz has the lowest discrimination of any target and the highest residual persistence of any target, 0.78. A model cannot predict it from the situation, and yet a coordinator&apos;s tendency carries over from year to year better than anything else here. That is what it looks like when a decision is a property of the coach rather than a response to the game: coordinators blitz according to who they are, not what is in front of them. It is the same conclusion the old &quot;blitz on autopilot&quot; card reached, arrived at properly and after six honest attempts to beat it.</p>
@@ -153,14 +174,14 @@ html <- paste0(
 </div>
 
 <section>
-<h3>Who actually beat the market</h3>
+<h3>Who actually beat the market <span class="badge">logistic + empirical-Bayes</span></h3>
 <figure><img src="figures/factory/greats_woats.png" alt="Head coaches ranked by regressed wins above market expectation"><figcaption>Belichick, Tomlin and Dungy at the top; Hue Jackson, Norv Turner and Rod Marinelli at the bottom.</figcaption></figure>
 <p class="note"><b>How much of this ordering is real.</b> Eight of 132 coaches fall outside a 95&#37; luck cone, and pure chance would put about seven there, so the count of "significant" careers is what you would expect if no coach had any edge at all. Under a false-discovery correction none of them survives individually. The regression toward the mean above is doing the honest work here; treat the ordering as the best available estimate, not as proof that these particular names are distinguishable from each other.</p>
 <p>The spread already prices the roster, the quarterback and the schedule, so this is what a coach added on top of what his team was thought to be. It is the closest thing to a fair all-time list the data allows.</p>
 </section>
 
 <section>
-<h3>Nobody is great at everything</h3>
+<h3>Nobody is great at everything <span class="badge">mixed methods, standardised</span></h3>
 <figure><img src="figures/factory/report_card_grid.png" alt="Grid of head coaches scored on beating the market, offence, defence and fourth down"><figcaption>Standard deviations above or below the average head coach. Blue is good, orange is bad.</figcaption></figure>
 <p>This is why the dimensions are never averaged into one grade. Belichick is +2.5 on beating the market and &minus;1.7 on fourth down. Reid is the mirror image: +2.0 on offence, &minus;0.5 on fourth down. Macdonald and Campbell are strong exactly where the old guard is weak. A composite rating would have hidden all of it.</p>
 </section>
@@ -171,13 +192,13 @@ html <- paste0(
 </div>
 
 <section>
-<h3>How much of a coach&apos;s offence is the roster?</h3>
+<h3>How much of a coach&apos;s offence is the roster? <span class="badge">OLS variance decomposition</span></h3>
 <figure><img src="figures/factory/talent_controls_compare.png" alt="Variance in coach-season offensive EPA explained by each talent measure"><figcaption>Each control on its own, and the best pair together.</figcaption></figure>
 <p>Less than you might fear, and more than nothing: quarterback quality and cap allocation together explain about 15&#37; of the variance in a coach-season\'s offensive EPA. They are tested individually as well as combined because they disagree with each other — where a quarterback was drafted correlates about 0.00 with how he actually plays, while what he is paid correlates 0.39.</p>
 </section>
 
 <section>
-<h3>Who did more with less</h3>
+<h3>Who did more with less <span class="badge">OLS residual</span></h3>
 <figure><img src="figures/factory/talent_adjusted.png" alt="Raw offensive EPA against talent-adjusted offensive EPA by head coach"><figcaption>Raw EPA per play against the same figure with the quarterback and the payroll regressed out.</figcaption></figure>
 <p>The adjustment moves people. Bill Belichick goes from +0.8 to +1.3 standard deviations on offence once his roster is accounted for, and Mike Tomlin goes from +0.3 to &minus;0.1. Mike McDaniel drops nineteen places. Adam Gase, already the worst offence in the group, gets worse. The grid above now uses the adjusted version, with the raw column kept beside it so the size of the correction is visible rather than hidden.</p>
 </section>
@@ -189,14 +210,14 @@ html <- paste0(
 </div>
 
 <section>
-<h3>Win probability thrown away</h3>
+<h3>Win probability thrown away <span class="badge">nfl4th model + empirical-Bayes</span></h3>
 <figure><img src="figures/factory/decision_cost.png" alt="Win probability wasted per game on fourth down by head coach"><figcaption>The counterfactual cost of each fourth-down choice, per game.</figcaption></figure>
 <figure><img src="figures/factory/decision_cost_cumulative.png" alt="Cumulative win probability wasted on fourth down across careers"><figcaption>The running tab. The line can only go up; the slope is the part that is about the coach rather than his tenure.</figcaption></figure>
 <p><b>The two best coaches by market are among the worst decision-makers here.</b> Mike Tomlin has thrown away about four games\' worth of win probability on fourth down and Bill Belichick about three, while Nick Sirianni, Matt LaFleur and Sean McDermott give away roughly half as much per game. Being a great coach and being good at the fourth-down math are, on this evidence, close to unrelated.</p>
 </section>
 
 <section>
-<h3>And the counting stat, for contrast</h3>
+<h3>And the counting stat, for contrast <span class="badge">raw sums, no model</span></h3>
 <figure><img src="figures/factory/counting_stats.png" alt="Cumulative offensive EPA against games coached"><figcaption>Total EPA accumulated against games coached. The dominant axis is the horizontal one.</figcaption></figure>
 <p class="note">Shown because it was asked for and because it is worth seeing what it actually measures. Coaching a lot of games is how you accumulate a lot of EPA, and the roster does the rest. This is the chart the decision ledger above exists to replace.</p>
 </section>
@@ -207,32 +228,32 @@ html <- paste0(
 </div>
 
 <section>
-<h3>Decisions when the game is on the line</h3>
+<h3>Decisions when the game is on the line <span class="badge">nfl4th model + logistic test</span></h3>
 <p>The question Nick set: do coaches make the optimal call when it matters, and can we call that coaching value? Fourth down is the only decision with a defensible right answer, so it carries the test.</p>
 <figure><img src="figures/factory/leverage_fourthdown.png" alt="Fourth-down decision quality in routine versus high-leverage situations"><figcaption>Correct go-for-it calls fall from 51.5% to 44.6% in the highest-leverage quarter of plays. Correct kicks do not move. The playoffs are worse again.</figcaption></figure>
 <p class="note">The honest limit on attribution: coaches who handle these well do <b>not</b> measurably beat the closing spread (r = +0.18, p = 0.23, n = 46). So this is a real and significant behavioural pattern, not a proven source of wins. The answer to "can we be certain it is coaching value add" is no, not from this.</p>
 </section>
 
 <section>
-<h3>Deviating from the situation, and what that really measures</h3>
+<h3>Deviating from the situation, and what that really measures <span class="badge">xgboost residual + OLS</span></h3>
 <figure><img src="figures/factory/leverage_deviation.png" alt="Pass residual against high-leverage EPA for career play-callers"><figcaption>Callers who throw more than the situation expects move the ball better in high-leverage snaps.</figcaption></figure>
 <p class="note">This one nearly became a wrong finding. Absolute deviation and signed deviation correlate with EPA at +0.24 and +0.24, so magnitude adds nothing and direction is doing all the work: it is passing, not deviating. And with the quarterback controlled, the residual effect survives but shrinks (beta +0.0039, p = 0.013) while the QB index itself is roughly ten times larger. The caller matters. The quarterback matters more.</p>
 </section>
 
 <section>
-<h3>Sean McVay rebuilt his offence in one off-season</h3>
+<h3>Sean McVay rebuilt his offence in one off-season <span class="badge">descriptive, no model</span></h3>
 <figure><img src="figures/factory/mcvay_reinvention.png" alt="McVay 11 and 13 personnel usage by season against the league"><figcaption>The most extreme 11-personnel caller in football in 2022 and 2023, and the most extreme 13-personnel caller in 2025.</figcaption></figure>
 <p>Michael\\\'s outline has McVay leading the league in both 11 and 13 personnel. Both are true, and they never happened in the same season. He ran 11 personnel on 92% and 95% of snaps in 2022 and 2023, then dropped to 61% in 2025 and put 29% of his plays in 13 personnel against a league average of 5%. His offence went from -0.09 EPA per play to +0.12, his best. It is also the cleanest explanation for why his pre-snap tell swings so wildly from year to year: there is no settled McVay to measure.</p>
 </section>
 
 <section>
-<h3>Play action stops working out of heavy personnel</h3>
+<h3>Play action stops working out of heavy personnel <span class="badge">descriptive + bootstrap CI</span></h3>
 <figure><img src="figures/factory/pa_by_personnel.png" alt="Play action EPA edge by personnel grouping"><figcaption>Worth +0.12 EPA out of 11 personnel, +0.09 out of 12, and nothing at all out of 13.</figcaption></figure>
 <p>The outline asks whether play action is more effective out of 13 personnel and assumes it would be. It is the opposite, and the reason is telegraphing: callers run play action on 52% of their 13-personnel dropbacks, so the look stops carrying information. Same lesson as the pre-snap tell work, reached from a different direction.</p>
 </section>
 
 <section>
-<h3>Mike Macdonald, and the other half of the story</h3>
+<h3>Mike Macdonald, and the other half of the story <span class="badge">descriptive + paired t-test</span></h3>
 <p>Michael&apos;s spine is offence against defence, McVay against Macdonald. Macdonald&apos;s shape is stranger than the overachievement framing suggests: at both franchises his defence was ordinary in year one and second in the league in year two.</p>
 <figure><img src="figures/factory/macdonald_clock.png" alt="Macdonald EPA per play allowed, year one versus year two, at Baltimore and Seattle"><figcaption>Baltimore 2022-23 and Seattle 2024-25. Twelfth then second; eleventh then second.</figcaption></figure>
 <p>What makes it worth a chart is that there is no league-wide year-two effect to hide behind. Across 96 stints where a coordinator got two seasons at the same club, year two is no better than year one: 43&#37; improve and a paired test gives p = 0.32. Macdonald&apos;s jumps were 0.127 and 0.101 EPA per play, the 94th and 91st percentile of every stint in the data, with different rosters in different conferences.</p>
