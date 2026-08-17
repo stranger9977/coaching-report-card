@@ -222,6 +222,16 @@ html <- paste0(
 <p class="note">Shown because it was asked for and because it is worth seeing what it actually measures. Coaching a lot of games is how you accumulate a lot of EPA, and the roster does the rest. This is the chart the decision ledger above exists to replace.</p>
 </section>
 
+<section>
+<h3>When is it worth being unpredictable? <span class="badge">xgboost predictions, binned</span></h3>
+<p>The league-wide finding that predictable callers are better is true and incomplete. Splitting every snap by how sure the model actually was turns it into something more useful.</p>
+<figure><img src="figures/factory/nuance_by_certainty.png" alt="EPA per play by model certainty and whether the caller followed the model"><figcaption>Deviating costs when the call is obvious and gains +0.09 EPA when it is a coin flip.</figcaption></figure>
+<p>A third of snaps are genuine coin flips, and in those the caller who takes the less likely option gains, because the defense is working off the same probabilities the model is. The edge is biggest in coin-flip spots with the game on the line.</p>
+<figure><img src="figures/factory/nuance_leverage.png" alt="The deviation edge by certainty and leverage"><figcaption>Coin flip plus high leverage is the only place surprise is clearly worth something.</figcaption></figure>
+<p class="note"><b>What is not an axis:</b> how often a caller surprises on coin flips. When the model says 50/50, going the other way happens about half the time by construction, and across 84 callers that rate correlates with offense at &minus;0.01. What varies is whether the surprises work, which tracks caller quality at +0.11.</p>
+<figure><img src="figures/factory/nuance_where_deviate.png" alt="Which callers gain most from going against the model on coin flips"><figcaption>Kyle Shanahan and Ben Johnson are both top five at making a surprise pay.</figcaption></figure>
+</section>
+
 <h2>What the models say about coaches</h2>
 <div class="prose">
 <p>Everything above is plumbing. This is what it produced. Each of these came out of a cleared model or a decision with a knowable right answer, and each one is reported with what it does not prove.</p>
