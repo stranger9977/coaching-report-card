@@ -153,7 +153,7 @@ p1 <- ggplot(car, aes(resid, hi_epa)) +
   scale_x_continuous(labels = function(x) paste0(ifelse(x > 0, "+", ""), x, "pp")) +
   labs(
     title = sprintf("The callers who throw more than the situation expects are the ones who move the ball when it counts (r = %+.2f)", r_car),
-    subtitle = "How much more often a caller passes than the situation-only model expects, against his offence's EPA in the highest-leverage quarter of plays",
+    subtitle = "How much more often a caller passes than the situation-only model expects, against his offense's EPA in the highest-leverage quarter of plays",
     x = "passes MORE than expected  \u2192",
     y = "EPA per play, high-leverage snaps",
     caption = fig_caption(

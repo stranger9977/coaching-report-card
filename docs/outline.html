@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Outline &mdash; Coaching Report Card</title><style>
+<title>Script Outline &mdash; Coaching Report Card</title><style>
 :root{--bg:#fbfbfa;--ink:#1e2126;--ink2:#4a5058;--ink3:#778089;--accent:#2B8CBE;--card:#fff;--line:#e3e5e8;--warn:#b26a00;--warnbg:#fdf3e3}
 @media(prefers-color-scheme:dark){:root{--bg:#16181c;--ink:#e8eaed;--ink2:#b3b9c0;--ink3:#848b94;--accent:#62aed4;--card:#1e2126;--line:#2e3238;--warn:#e0a458;--warnbg:#2a2114}}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -26,8 +26,8 @@ footer{border-top:1px solid var(--line);margin-top:60px;padding-top:18px;font-si
 <main>
 <header>
   <div class="kicker">Coaching report card</div>
-  <h1>Michael&rsquo;s outline, with the charts</h1>
-  <p class="dek">Your outline in your order, with our best version of each thing underneath it. Orange boxes are where we do not have something solid yet.</p>
+  <h1>Script Outline</h1>
+  <p class="dek">The script outline in order, with our best version of each thing underneath it. Orange boxes are where we do not have something solid yet.</p>
   <div class="nav"><a href="index.html">The working board</a> &nbsp;&middot;&nbsp; <a href="models.html">Model Factory</a></div>
 </header>
 <h2>Setup: Defense vs. Offense &mdash; McVay vs. MacDonald</h2>
@@ -35,8 +35,8 @@ footer{border-top:1px solid var(--line);margin-top:60px;padding-top:18px;font-si
 <figure><img src="figures/market_2025.png" alt="Wins above market expectation by team in 2025"><figcaption>Wins above what the closing spread expected, 2025.</figcaption></figure></section>
 <section><h3>MacDonald (defense)</h3><figure><img src="figures/factory/macdonald_clock.png" alt="Macdonald defensive EPA allowed year one vs year two at Baltimore and Seattle"><figcaption>Ordinary in year one, second in the league in year two. Twice.</figcaption></figure>
 <figure><img src="figures/factory/defense_leaders.png" alt="Career EPA per play allowed by defensive play-caller"><figcaption>Career EPA per play allowed, minimum 1,500 charted plays.</figcaption></figure></section>
-<section><h3>Have coordinators decreased in age? How much? Offense? Defense?</h3><p class="gap">No chart yet. Coach and coordinator birth dates are not in nflverse or any other feed we use, so this needs a scraped source (Pro Football Reference coach pages, or Wikipedia) before it can be answered. Flagging rather than guessing.</p></section>
-<section><h3>The Seahawks defense struggled against the Rams, but their offense shredded them</h3><figure><img src="figures/factory/outline_sea_lar.png" alt="EPA per play by each offence in the four Seahawks-Rams games of 2024 and 2025"><figcaption>Both offences in all four meetings, including the playoff game.</figcaption></figure></section>
+<section><h3>Have coordinators decreased in age? How much? Offense? Defense?</h3><figure><img src="figures/factory/coordinator_age.png" alt="Average age of offensive and defensive play-callers by season, 1999 to 2025"><figcaption>Offense drifts down all window. Defense got older to a peak of 53.9 in 2019, then fell to 47.6.</figcaption></figure></section>
+<section><h3>The Seahawks defense struggled against the Rams, but their offense shredded them</h3><figure><img src="figures/factory/outline_sea_lar.png" alt="EPA per play by each offense in the four Seahawks-Rams games of 2024 and 2025"><figcaption>Both offenses in all four meetings, including the playoff game.</figcaption></figure></section>
 <h2>Personnel</h2>
 <section><h3>What 11 and 13 personnel are, and who uses them</h3><figure><img src="figures/factory/outline_personnel.png" alt="Share of snaps by personnel grouping with pass rate and EPA"><figcaption>The five groupings, their share of snaps, pass rate and EPA.</figcaption></figure></section>
 <section><h3>What Sean McVay did</h3><figure><img src="figures/factory/mcvay_reinvention.png" alt="Sean McVay 11 and 13 personnel usage by season"><figcaption>Same chart as the setup section: 92% and 95% in 11 personnel, then 29% in 13.</figcaption></figure></section>
@@ -49,7 +49,7 @@ footer{border-top:1px solid var(--line);margin-top:60px;padding-top:18px;font-si
 <section><h3>Coaches will punt when they should go for it, but not the other way around</h3><figure><img src="figures/book_by_type.png" alt="Correct on obvious kicks against correct on obvious go-for-its by coach"><figcaption>98.8% correct when the math says kick. 49.8% when it says go.</figcaption></figure>
 <figure><img src="figures/factory/leverage_fourthdown.png" alt="Fourth-down accuracy in routine versus high-leverage situations"><figcaption>And it gets worse in the highest-leverage quarter: 51.5% down to 44.6%.</figcaption></figure></section>
 <section><h3>What the decisions cost</h3><figure><img src="figures/factory/decision_cost.png" alt="Win probability wasted per game on fourth down by head coach"><figcaption>Priced against all three options, scored against the league in each coach's own seasons.</figcaption></figure>
-<figure><img src="figures/factory/decision_cost_cumulative.png" alt="Cumulative win probability wasted on fourth down across careers"><figcaption>The running tab. Slope is the coach; length is just tenure.</figcaption></figure></section>
+<figure><img src="figures/factory/career_arc.png" alt="Cumulative wins above market expectation across coaching careers"><figcaption>The career arc: wins banked above what the market expected, game by game.</figcaption></figure></section>
 <h2>Running on early downs</h2>
 <section><h3>Teams are still doing this too much</h3><figure><img src="figures/factory/outline_early_downs.png" alt="Early-down run rate by season against the EPA advantage of passing"><figcaption>Run rate 44.8% in 2015, 45.5% in 2025. Passing has been worth more every single season.</figcaption></figure></section>
 <h2>Adaptability</h2>
@@ -66,8 +66,8 @@ footer{border-top:1px solid var(--line);margin-top:60px;padding-top:18px;font-si
 <li><b>Motion at the snap versus motion before it.</b> FTN flags motion but not whether the man was still moving at the snap. Split those and the deception question gets sharper, because only one of them actually moves a defender late.</li>
 <li><b>Formation variety per caller.</b> How many distinct formation and personnel combinations does a caller use, and does a wider menu buy anything? Entropy over the look distribution, same method as the predictability work.</li>
 <li><b>Same look, different play.</b> The real disguise measure: for each caller, take his most common formations and ask how evenly run and pass are split from that exact look. High split means the look tells you nothing. This is buildable now.</li>
-<li><b>Late motion and defensive response.</b> Participation data has the defensive personnel on the field. If the defence substitutes or changes shell after motion, that is deception working. Needs care but the fields exist.</li>
-<li><b>Cadence and hard counts.</b> Pre-snap penalties drawn on the defence per snap is a crude but real proxy for a caller who manipulates cadence. Nobody publishes it as a coaching stat.</li>
+<li><b>Late motion and defensive response.</b> Participation data has the defensive personnel on the field. If the defense substitutes or changes shell after motion, that is deception working. Needs care but the fields exist.</li>
+<li><b>Cadence and hard counts.</b> Pre-snap penalties drawn on the defense per snap is a crude but real proxy for a caller who manipulates cadence. Nobody publishes it as a coaching stat.</li>
 <li><b>Play-action after a run versus after a pass.</b> Directly tests the sequencing claim below with the disguise framing: is the fake more convincing when the run game has been established that drive?</li>
 </ul></section>
 <h2>Sequencing</h2>
@@ -82,7 +82,7 @@ footer{border-top:1px solid var(--line);margin-top:60px;padding-top:18px;font-si
 <figure><img src="figures/factory/y_pa_slices.png" alt="Where the play-action model is right and where it is not"><figcaption>Model diagnostics: blue is what happened, orange dashed is the model.</figcaption></figure></section>
 <h2>Further questions from the outline</h2>
 <section><h3>Not built yet</h3><ul>
-<li><b>Matching personnel.</b> Does the defence answer 13 personnel with heavier bodies, and who exploits it when they do? The defensive personnel field exists, so this is buildable.</li>
+<li><b>Matching personnel.</b> Does the defense answer 13 personnel with heavier bodies, and who exploits it when they do? The defensive personnel field exists, so this is buildable.</li>
 <li><b>Hybrid players (Kupp, Puka in the slot / TE / receiver).</b> Needs alignment data, which means tracking. Not licensable past 2022.</li>
 <li><b>What does Sam think of personnel?</b> Interview question, not a data question.</li>
 <li><b>Coordinator ages over time.</b> Needs a scraped birth-date source.</li>

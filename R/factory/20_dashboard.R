@@ -119,7 +119,7 @@ for (f in fits) {
   # Drawn for EVERY model now, cleared or not (Nick asked to see them all).
   # Where the model did not clear, the chart says so in its own subtitle rather
   # than being silently withheld, because a suppressed leaderboard is easy to
-  # forget about and a labelled one is not.
+  # forget about and a labeled one is not.
   {
     cr <- as.data.table(o$residuals$career)
     setnames(cr, 1, "coach")

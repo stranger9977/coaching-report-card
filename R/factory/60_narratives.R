@@ -13,7 +13,7 @@
 # "Is play action more effective out of 13 personnel? Would assume better?"
 #   No. It is worth +0.12 EPA out of 11 personnel, +0.09 out of 12, and
 #   nothing at all out of 13. Heavy personnel telegraphs it: callers run play
-#   action on more than half their 13-personnel dropbacks, so the defence stops
+#   action on more than half their 13-personnel dropbacks, so the defense stops
 #   believing it.
 #
 # Out: docs/figures/factory/mcvay_reinvention.png
@@ -68,7 +68,7 @@ p1 <- ggplot(long, aes(season, v, colour = grp)) +
   scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(0, 100)) +
   coord_cartesian(clip = "off") +
   labs(
-    title = "Sean McVay tore up his own offence and rebuilt it, in one off-season",
+    title = "Sean McVay tore up his own offense and rebuilt it, in one off-season",
     subtitle = "Share of plays from 11 personnel (1 back, 1 tight end) and 13 personnel (1 back, 3 tight ends)",
     x = NULL, y = NULL,
     caption = fig_caption(
@@ -76,7 +76,7 @@ p1 <- ggplot(long, aes(season, v, colour = grp)) +
       "Play-callers with at least 300 charted plays in a season.",
       paste0("\nMichael's outline says McVay led the league in both 11 and 13 personnel. Both are true and they never happened in the same year, which is the interesting part.\n",
              "He ran 11 personnel on 92% and 95% of plays in 2022 and 2023, the most extreme in football both years. In 2025 he dropped to 61% and put 29% of his plays in\n",
-             "13 personnel, again the most extreme in football, against a league average of 5%. His offence went from -0.09 EPA per play in 2022 to +0.12 in 2025. Built by R/factory/60."))
+             "13 personnel, again the most extreme in football, against a league average of 5%. His offense went from -0.09 EPA per play in 2022 to +0.12 in 2025. Built by R/factory/60."))
   ) +
   theme_coach(grid = "y") + theme(legend.position = "none",
                                   plot.margin = margin(10, 20, 8, 10))

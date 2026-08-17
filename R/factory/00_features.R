@@ -1,5 +1,5 @@
 # =============================================================================
-# factory/00_features.R -- the one modelling table everything else reads.
+# factory/00_features.R -- the one modeling table everything else reads.
 #
 # Nick's spec, 15 Aug: "given a game state, predict different targets... down
 # distance yardline (redzone is an important part of the field, inside the 10

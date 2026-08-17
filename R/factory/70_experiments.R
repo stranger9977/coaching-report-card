@@ -5,26 +5,26 @@
 # experiments with different features to accomplish the goal."
 #
 # Four of six targets failed the rubric, and every one of them failed R1,
-# discrimination. R1 failing is a modelling problem by definition, so this is
+# discrimination. R1 failing is a modeling problem by definition, so this is
 # where it gets fixed rather than excused.
 #
 # THE HYPOTHESIS. The base feature set is situation only, which is right for
 # offensive targets: a play-caller picks run or pass from down, distance,
 # clock and score. But it is wrong for DEFENSIVE targets. A coordinator
 # deciding whether to blitz, or whether to play man, is standing on the
-# sideline looking at the offence's personnel grouping and formation. That
+# sideline looking at the offense's personnel grouping and formation. That
 # information exists before his decision, so it is part of his game state, not
 # leakage. The blitz and man models have been asked to guess blind.
 #
 # WHY THIS IS NOT CHEATING. The test for leakage is whether the feature is
 # known to the decision-maker at decision time. Offensive personnel is
 # announced by the substitution and the formation is set before the snap, so
-# both are. What WOULD be leakage is the offence's play, the outcome, or
+# both are. What WOULD be leakage is the offense's play, the outcome, or
 # anything derived from them, and none of that goes in.
 #
 # For offensive targets the same features are a different beast: a caller
 # chooses his own personnel, so adding it explains his call with his other
-# call. That is circular, so offensive targets are tested with the offence's
+# call. That is circular, so offensive targets are tested with the offense's
 # own personnel too, but the result is read with that caveat attached.
 #
 # Every variant is graded by the same five rules. Nothing is promoted on AUC
@@ -59,7 +59,7 @@ mt[, look_empty := as.integer(offense_formation == "EMPTY")]
 
 LOOK <- c("look_pers","look_form","look_rb","look_te","look_shotgun","look_empty")
 
-# Sequence: what the same offence did on the previous snap of this drive. Known
+# Sequence: what the same offense did on the previous snap of this drive. Known
 # to both sides, and the natural test of Michael's "sequencing" section.
 setorder(mt, game_id, posteam, drive, play_id)
 mt[, prev_pass := shift(y_pass), by = .(game_id, posteam, drive)]

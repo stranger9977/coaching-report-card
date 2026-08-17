@@ -32,7 +32,7 @@
 # artifact and has to be residualised before anyone reads a name off it.
 #
 # Sources: ~/stranger9977/nfl-analysis/scratch/pred_tip_disguise.rds (career,
-# 77 callers, formation window 2016-2023, built by scripts/pred_tip_disguise_
+# 77 callers, formation window 2016-2025, built by scripts/pred_tip_disguise_
 # build.R) and scratch/pred_tab.rds (caller-season 2015-2025, built by
 # scripts/predictability_build.R).
 #
@@ -44,15 +44,30 @@
 
 suppressMessages({
   library(data.table); library(dplyr); library(readr); library(ggplot2)
-  library(ggrepel); library(scales)
+  library(ggrepel); library(scales); library(readr)
 })
 source("R/lib/theme_coach.R")
 
 NFLA <- "/Users/nick/stranger9977/nfl-analysis"
 dir.create("data/derived", showWarnings = FALSE, recursive = TRUE)
 
-tip <- as.data.table(readRDS(file.path(NFLA, "scratch/pred_tip_disguise.rds")))
+# REFRESHED 2026-08-17. This used to read nfl-analysis/scratch/pred_tip_disguise
+# .rds, which was built on 2016-2025 only, so every chart here stopped three
+# seasons short. R/09 rebuilt the pre-snap tip on 2016-2025; the career call
+# predictability is now aggregated from the caller-season table over the full
+# window rather than taken from the stale career file.
 tab <- as.data.table(readRDS(file.path(NFLA, "scratch/pred_tab.rds")))[n_plays >= 300]
+tip_new <- as.data.table(read_csv("data/derived/presnap_tip_2025.csv", show_col_types = FALSE))
+car <- tab[, .(n_plays_car = sum(n_plays),
+               guess_xs = weighted.mean(guess_xs, n_plays),
+               H_vs_lg  = weighted.mean(H_vs_lg, n_plays),
+               epa_play = weighted.mean(epa_play, n_plays),
+               last_season = max(season)),
+           by = .(off_play_caller)][n_plays_car >= 1000]
+tip <- merge(tip_new[, .(off_play_caller, presnap_tip, n_look)], car,
+             by = "off_play_caller")
+cat(sprintf("callers on the refreshed 2016-2025 window: %d (seasons through %d)\n",
+            nrow(tip), max(tab$season)))
 
 # --- the sample-size artifact, measured then removed ------------------------
 fit <- lm(presnap_tip ~ log(n_plays_car), data = tip)
@@ -95,12 +110,12 @@ p1 <- ggplot(tip, aes(guess_xs, tip_resid)) +
            label = "Calls against the situation AND\nshows you nothing pre-snap") +
   labs(
     title = "Two different things were both being called 'predictable'",
-    subtitle = "Every play-caller with enough charted snaps, 2016 to 2023. Horizontal is the call, vertical is the look.",
+    subtitle = "Every play-caller with enough charted snaps, 2016 to 2025. Horizontal is the call, vertical is the look.",
     x = "CALL predictability  →  extra run/pass guesses a situational guesser nails per 100 plays, vs league",
     y = "LOOK predictability  →  formation tell,\nafter removing the sample-size artifact",
     caption = fig_caption(
       "nfl-analysis scratch/pred_tip_disguise.rds, built from nflverse participation + play-by-play",
-      sprintf("%d play-callers, formation-charted window 2016 to 2023.", nrow(tip)),
+      sprintf("%d play-callers, formation-charted window 2016 to 2025.", nrow(tip)),
       paste0("\nCall predictability answers 'does he do what the down and distance suggest'. Look predictability answers 'does the formation add anything beyond that'.\n",
              "The vertical axis is residualised because the raw tell tracks sample size almost mechanically (r = 0.60): more career plays means less shrinkage means a higher measured tell.\n",
              "Built by R/07."))
@@ -133,7 +148,7 @@ p2 <- ggplot(tip, aes(guess_xs, epa_play)) +
                   box.padding = 0.55, min.segment.length = 0, max.overlaps = 20) +
   labs(
     title = "The unpredictable callers are mostly just bad. Ben Johnson is the exception.",
-    subtitle = "Call predictability against offensive EPA per play, career, 2016 to 2023",
+    subtitle = "Call predictability against offensive EPA per play, career, 2016 to 2025",
     x = "→ more predictable (does what the situation calls for)",
     y = "offensive EPA per play",
     caption = fig_caption(

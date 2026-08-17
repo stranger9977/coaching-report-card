@@ -18,14 +18,14 @@
 # Five dimensions, each scored where the data exists:
 #   Beats the market   wins above the closing spread, shrunk    1999-2025
 #   Fourth down        share of clear-cut calls got right       2018-2025
-#   Offence            team EPA per play on offence             1999-2025
-#   Defence            team EPA per play allowed                1999-2025
+#   Offense            team EPA per play on offense             1999-2025
+#   Defense            team EPA per play allowed                1999-2025
 #   Talent squeeze     wins above what the roster's cost implies 2012-2025
 #
 # The dimensions are deliberately not averaged into one number. A single
 # ranking would hide the interesting part, which is that the greats are great
-# in different ways: Belichick's edge is defence and the market, Reid's is
-# offence, and neither is good at fourth down.
+# in different ways: Belichick's edge is defense and the market, Reid's is
+# offense, and neither is good at fourth down.
 #
 # Out: docs/figures/factory/greats_woats.png
 #      docs/figures/factory/report_card_grid.png
@@ -125,7 +125,7 @@ NAMED <- c("Bill Belichick","Andy Reid","Mike Tomlin","Pete Carroll","Sean Payto
            "Adam Gase","Matt Patricia","Hue Jackson","Nathaniel Hackett","Urban Meyer",
            "Josh McDaniels","Jim Harbaugh","Mike Shanahan","Tony Dungy","Bill Cowher")
 z <- function(v) { s <- sd(v, na.rm = TRUE); if (is.na(s) || s == 0) return(rep(0, length(v))); (v - mean(v, na.rm = TRUE))/s }
-# Offence and defence are now TALENT-ADJUSTED (R/factory/97): the quarterback's
+# Offense and defense are now TALENT-ADJUSTED (R/factory/97): the quarterback's
 # quality and the team's cap allocation are regressed out first, so these
 # columns are "did more than the roster implied" rather than "had a good
 # roster". Raw columns are kept alongside so the size of the adjustment is
@@ -137,9 +137,9 @@ if (!is.null(ta)) {
 }
 grid <- rc[, .(coach, games,
                `Beats the market`   = z(market),
-               `Offence (raw)`      = z(off_epa),
-               `Offence vs talent`  = if ("off_adj" %in% names(rc)) z(off_adj) else z(off_epa),
-               `Defence vs talent`  = if ("def_adj" %in% names(rc)) z(def_adj) else z(-def_epa),
+               `Offense (raw)`      = z(off_epa),
+               `Offense vs talent`  = if ("off_adj" %in% names(rc)) z(off_adj) else z(off_epa),
+               `Defense vs talent`  = if ("def_adj" %in% names(rc)) z(def_adj) else z(-def_epa),
                `Fourth down`        = z(fd_obey))]
 g <- melt(grid[coach %in% NAMED], id.vars = c("coach","games"),
           variable.name = "dim", value.name = "score")
@@ -156,15 +156,15 @@ p2 <- ggplot(g[!is.na(score)], aes(dim, coach, fill = score)) +
   scale_x_discrete(position = "top") +
   labs(
     title = "Nobody is great at everything, and the WOATs are bad at different things too",
-    subtitle = "Standard deviations above or below the average head coach. Offence and defence are measured against the talent the coach was handed.",
+    subtitle = "Standard deviations above or below the average head coach. Offense and defense are measured against the talent the coach was handed.",
     x = NULL, y = NULL,
     caption = fig_caption(
       "nflverse play-by-play and schedules; nfl4th decision model",
       paste0("Head coaches with at least 32 games. Market is regressed for career length.\n",
              "Play-by-play only reaches back to 2015 and the fourth-down model to 2018, so pre-2015 coaches show market only."),
-      paste0("\nThe dimensions are kept apart on purpose. Averaging them into one grade would bury the interesting part: Belichick's edge is defence and beating the market and he is\n",
+      paste0("\nThe dimensions are kept apart on purpose. Averaging them into one grade would bury the interesting part: Belichick's edge is defense and beating the market and he is\n",
              "poor at fourth down, Reid is the mirror image, and Macdonald and Campbell are strong exactly where the old guard is weak.\n",
-             "The two offence columns are shown side by side on purpose. 'Raw' is the unit's EPA; 'vs talent' removes the quarterback and the payroll first. Coaches whose two\n",
+             "The two offense columns are shown side by side on purpose. 'Raw' is the unit's EPA; 'vs talent' removes the quarterback and the payroll first. Coaches whose two\n",
              "columns disagree are the ones whose reputation rests most on who they had. Talent explains about 15% of the variance, so most of this is still unexplained by roster. Built by R/factory/90."))
   ) +
   theme_coach(grid = "none") +

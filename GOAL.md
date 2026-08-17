@@ -63,7 +63,7 @@ artefact of when a coach worked. Rates are empirical-Bayes shrunk and plotted
 with intervals, because the raw metric's split-half reliability is only about
 0.50 and roughly half the named coaches cannot be separated from average.
 The metric's own year-over-year persistence is r = 0.21 to 0.26, BELOW the G2
-bar of 0.30, so it is a description of behaviour that does not yet qualify as
+bar of 0.30, so it is a description of behavior that does not yet qualify as
 a trait. Timeouts and play-calling are still unpriced.*
 
 **G4. It survives the quarterback.** Every claim must be re-run controlling for
@@ -86,7 +86,7 @@ signal to begin with, and the confidence interval on that correlation runs from
 -0.12 to +0.45 and comfortably contains effects worth having. A null computed
 on noise is uninformative, not negative. G5 therefore remains open and needs a
 measure that clears a reliability check first. Until then the honest claim is
-unchanged: we have measured coaching behaviour, not coaching value.*
+unchanged: we have measured coaching behavior, not coaching value.*
 
 ## The standard of proof
 
@@ -114,7 +114,7 @@ dimensions and confirmed eleven defects, of which the four largest are fixed
 above. That review is the reason several numbers on the public page changed.
 
 Any future claim gets the same treatment. If G5 cannot be met, the deliverable
-is a rigorous measurement of coaching *behaviour* plus a clear statement that
+is a rigorous measurement of coaching *behavior* plus a clear statement that
 its link to winning is unproven, which is still more than anyone else has
 published.
 

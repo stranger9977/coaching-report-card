@@ -9,7 +9,7 @@
 # is fine, because it prices a choice rather than an outcome. But two views were
 # raw team performance with a coach's name on top and no adjustment at all:
 #
-#   - the Offence and Defence columns of the report-card grid
+#   - the Offense and Defense columns of the report-card grid
 #   - the per-coach situation grid (EPA by late down, late game, high leverage)
 #
 # Both were effectively asking "whose team was good", which is mostly a
@@ -110,7 +110,7 @@ p0 <- ggplot(r2_rows, aes(r2, control)) +
   scale_x_continuous(labels = percent_format(accuracy = 1),
                      expand = expansion(mult = c(0, 0.22))) +
   labs(
-    title = "How much of a coach-season's offence is just the talent he was handed",
+    title = "How much of a coach-season's offense is just the talent he was handed",
     subtitle = "Share of variance in offensive EPA per play explained by each talent measure on its own, and by the best pair together",
     x = "variance explained", y = NULL,
     caption = fig_caption(
@@ -138,7 +138,7 @@ dc2 <- def_m[, .(seasons = .N, plays = sum(plays),
 both <- merge(oc, dc2, by = "coach", all = TRUE)
 write_csv(as.data.frame(both), "data/factory/talent_adjusted.csv")
 
-cat("\n--- biggest movers once talent is removed (offence) ---\n")
+cat("\n--- biggest movers once talent is removed (offense) ---\n")
 oc[, `:=`(rank_raw = frank(-raw), rank_adj = frank(-adj))]
 oc[, shift := rank_raw - rank_adj]
 print(head(oc[order(-abs(shift)), .(coach, raw = round(raw,4), adj = round(adj,4),
@@ -158,14 +158,14 @@ p1 <- ggplot(oc, aes(raw, adj)) +
                   colour = "#8a3d00", seed = 5, box.padding = 0.5,
                   min.segment.length = 0, max.overlaps = 24) +
   labs(
-    title = "Offence before and after removing the quarterback and the payroll",
+    title = "Offense before and after removing the quarterback and the payroll",
     subtitle = "Raw offensive EPA per play against the same figure with QB quality and team cap talent regressed out",
     x = "raw EPA per play", y = "EPA per play above what the talent implied",
     caption = fig_caption(
       "Coach-seasons 2015 to 2025; QB index and team cap talent from R/factory/40",
       sprintf("%d head coaches with at least 3,000 offensive plays.", nrow(oc)),
-      paste0("\nCoaches well above the diagonal did more with less. Those below it had the roster to explain most of their offence. This is the adjustment that was missing from the\n",
-             "report-card grid, where the offence and defence columns were raw team performance with a coach's name attached. Built by R/factory/97."))
+      paste0("\nCoaches well above the diagonal did more with less. Those below it had the roster to explain most of their offense. This is the adjustment that was missing from the\n",
+             "report-card grid, where the offense and defense columns were raw team performance with a coach's name attached. Built by R/factory/97."))
   ) +
   theme_coach(grid = "y")
 save_fig("docs/figures/factory/talent_adjusted.png", p1, w = 11.5, h = 7)

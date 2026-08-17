@@ -29,7 +29,7 @@
 #    the raw metric's split-half reliability is only about 0.50.
 #
 # 2. COUNTING STATS. Cumulative team EPA and WPA under each coach, shown
-#    separately and labelled as what they are: mostly a measure of how good
+#    separately and labeled as what they are: mostly a measure of how good
 #    the team was and how long he had the job.
 #
 # The distinction is the point. A coach can be top of the counting stats and
@@ -169,35 +169,57 @@ p1 <- ggplot(top, aes(era_adj, lab, fill = side)) +
 save_fig("docs/figures/factory/decision_cost.png", p1, w = 12, h = 7.6)
 
 # ---------------------------------------------------------------- chart 2
-# The running total: a debt curve per coach.
-setorder(d, coach, season, week)
-NAMED <- c("Bill Belichick","Andy Reid","Mike Tomlin","John Harbaugh","Sean McVay",
-           "Kyle Shanahan","Mike Macdonald","Dan Campbell","Matt LaFleur",
-           "Sean McDermott","Nick Sirianni","Brandon Staley")
-cum <- d[coach %in% NAMED]
-setorder(cum, coach, season, week)
-cum[, dec_no := seq_len(.N), by = coach]
-cum[, running := cumsum(cost), by = coach]
-ends <- cum[, .SD[.N], by = coach]
+# The career arc: cumulative wins above what the market expected, game by game.
+#
+# An earlier version of this chart ran the cumulative COST of fourth-down
+# mistakes, which only goes up and therefore made every long-tenured good coach
+# look like the worst in football. That is backwards as a way to see a career.
+# This is the same idea pointed the right way: the spread already prices the
+# roster and the quarterback, so a line that climbs is a coach who kept beating
+# what his team was thought to be, week after week.
+sched <- fread(file.path(NFLA, "data/games.csv"), showProgress = FALSE)
+reg <- sched[game_type == "REG" & !is.na(result) & !is.na(spread_line)]
+dec <- reg[result != 0][, home_win := as.integer(result > 0)]
+mfit <- glm(home_win ~ spread_line, data = dec, family = binomial)
+reg[, p_home := predict(mfit, newdata = reg, type = "response")]
 
-p2 <- ggplot(cum, aes(dec_no, running, group = coach, colour = coach)) +
-  geom_line(linewidth = 0.9) +
-  geom_text_repel(data = ends, aes(label = coach), hjust = 0, size = 3.1,
-                  fontface = "bold", direction = "y", nudge_x = 12,
-                  segment.colour = NA, seed = 4, max.overlaps = 20) +
-  scale_x_continuous(expand = expansion(mult = c(0.02, 0.22))) +
+arc <- rbind(
+  reg[, .(season, week, coach = home_coach, exp = p_home,
+          win = fifelse(result > 0, 1, fifelse(result == 0, 0.5, 0)))],
+  reg[, .(season, week, coach = away_coach, exp = 1 - p_home,
+          win = fifelse(result < 0, 1, fifelse(result == 0, 0.5, 0)))]
+)[!is.na(coach) & coach != ""]
+setorder(arc, coach, season, week)
+arc[, `:=`(g = seq_len(.N), cum = cumsum(win - exp)), by = coach]
+
+ARC <- c("Bill Belichick","Andy Reid","Mike Tomlin","Sean Payton","John Harbaugh",
+         "Pete Carroll","Sean McDermott","Sean McVay","Kyle Shanahan",
+         "Mike Macdonald","Dan Campbell","Bill Cowher","Tony Dungy",
+         "Hue Jackson","Norv Turner","Adam Gase","Josh McDaniels")
+a <- arc[coach %in% ARC]
+ends <- a[, .SD[.N], by = coach]
+ends[, lab := sprintf("%s  %+.0f", coach, cum)]
+
+p2 <- ggplot(a, aes(g, cum, group = coach)) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = ink_baseline, linewidth = 0.45) +
+  geom_line(aes(colour = coach %in% ends[cum > 0]$coach), linewidth = 0.85) +
+  geom_text_repel(data = ends, aes(label = lab, colour = cum > 0), hjust = 0,
+                  size = 3.05, fontface = "bold", direction = "y", nudge_x = 14,
+                  segment.colour = NA, seed = 5, max.overlaps = 30) +
+  scale_colour_manual(values = c("TRUE" = "#2B8CBE", "FALSE" = "#D55E00"), guide = "none") +
+  scale_x_continuous(expand = expansion(mult = c(0.02, 0.30))) +
   labs(
-    title = "The running tab: win probability each coach has thrown away on fourth down",
-    subtitle = "Cumulative cost across every clear and close fourth down of his career, in order. A flatter line is a better decision-maker.",
-    x = "fourth downs faced (in career order)", y = "cumulative win probability wasted",
+    title = "The career arc: wins banked above what the market expected, game by game",
+    subtitle = "Every regular-season game of a coach's career, cumulative. Climbing means beating what his team was thought to be.",
+    x = "games coached (in career order)", y = "cumulative wins above market expectation",
     caption = fig_caption(
-      "nflverse play-by-play; nfl4th decision model, 2018 to 2025",
-      "Selected head coaches. The slope is what matters; the length of a line is just how long the coach has been on the job.",
-      paste0("\nEvery fourth down adds the cost of the choice made, so the line can only go up. A coach who always picks the better side has a flat line. The steepness is the rate at\n",
-             "which he gives win probability away, and it is the only part of this chart that is about him rather than about tenure. Built by R/factory/95."))
+      "nflverse schedules 1999 to 2025, closing spreads; market model as in R/02",
+      "Selected head coaches. The spread already prices the roster, the quarterback and the schedule.",
+      paste0("\nThe slope is the coach and the length is his tenure, so a long flat line is a long average career and a long climbing line is the real thing. Belichick banks about\n",
+             "twenty-five wins more than the market expected across his career; the bottom of the chart is what a decade of underperforming looks like. Built by R/factory/95."))
   ) +
   theme_coach(grid = "y") + theme(legend.position = "none")
-save_fig("docs/figures/factory/decision_cost_cumulative.png", p2, w = 12, h = 6.8)
+save_fig("docs/figures/factory/career_arc.png", p2, w = 12, h = 7)
 
 # ---------------------------------------------------------------- chart 3
 # Windows must match: the fourth-down games denominator is 2018-2025, so the
@@ -209,7 +231,7 @@ tm <- pbp[!is.na(epa), .(plays = .N, tot_epa = sum(epa, na.rm = TRUE),
           by = .(coach = fifelse(posteam == home_team, home_coach, away_coach))]
 tm <- merge(tm, games, by = "coach")[g >= 32]
 setorder(tm, -tot_epa)
-lab3 <- tm[coach %in% c(NAMED, "Sean Payton","Pete Carroll","Bruce Arians","Hue Jackson",
+lab3 <- tm[coach %in% c(ARC, "Sean Payton","Pete Carroll","Bruce Arians","Hue Jackson",
                         "Adam Gase","Josh McDaniels","Matt Patricia")]
 
 p3 <- ggplot(tm, aes(g, tot_epa)) +

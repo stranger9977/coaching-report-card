@@ -23,8 +23,8 @@
 #       Season is excluded from this rule on purpose. It is a time index, not a
 #       football situation, and R4's season-grouped design guarantees the model
 #       cannot know the league's pass rate that year. That drift is real, so it
-#       is removed at the residual stage instead, by centring every coach's
-#       residual within his own season. Without that centring a coach in a
+#       is removed at the residual stage instead, by centering every coach's
+#       residual within his own season. Without that centering a coach in a
 #       run-heavy year looks pass-shy for reasons that have nothing to do with
 #       him.
 #
@@ -37,11 +37,11 @@
 #       with his residual the next at r >= 0.30. A residual that does not
 #       persist is noise, and no story should be built on it. This is the
 #       criterion that separates "interesting" from "spurious", and it is the
-#       one most modelling write-ups skip.
+#       one most modeling write-ups skip.
 #
-# A model that fails R1-R4 is a modelling problem: fix the features. A model
+# A model that fails R1-R4 is a modeling problem: fix the features. A model
 # that passes R1-R4 but fails R5 is a finding in itself, and it means the
-# behaviour genuinely is not a stable coaching trait.
+# behavior genuinely is not a stable coaching trait.
 #
 # AMENDED 15 Aug, after the experiment loop in factory/70. That first sentence
 # is only true until you have actually tried. Six feature sets and two tree
@@ -52,7 +52,7 @@
 #
 # So R1 failure has two readings, and they are distinguished by R5:
 #   low AUC + low persistence  = a bad model. Keep working.
-#   low AUC + HIGH persistence = a real finding. The behaviour is a property of
+#   low AUC + HIGH persistence = a real finding. The behavior is a property of
 #     the coach rather than a response to the situation, which is exactly why
 #     the situation cannot predict it.
 # Blitz is the second kind: AUC 0.62, barely above a lookup table, with the
@@ -258,7 +258,7 @@ coach_residuals <- function(fit, who = "off_play_caller", min_n = 150) {
   # he stayed put. Without this, R5 cannot tell a coach effect from a building.
   tcol <- if (who == "def_caller_opp") "defteam" else "posteam"
   d[, .team := get(tcol)]
-  # Centre within season: subtract the league's own residual that year, so
+  # Center within season: subtract the league's own residual that year, so
   # league-wide drift in how often anyone passes does not masquerade as a
   # coach's tendency. See R3.
   lg <- d[, .(lg_resid = 100*(mean(.y) - mean(.p))), by = season]

@@ -19,7 +19,7 @@
 #
 # The other two talent meters do not reach back that far. Madden ratings start
 # at 2017 (R/03) and the contract-value meter at 2012 (R/06), so those get a
-# shorter comparison, clearly labelled.
+# shorter comparison, clearly labeled.
 #
 # Source: ~/stranger9977/nfl-analysis/data/games.csv (nflverse schedules,
 # 1999-2025, with closing spread_line and result), plus the two derived talent

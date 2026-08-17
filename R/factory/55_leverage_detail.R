@@ -21,7 +21,7 @@
 # headline if left alone. "Big swings" is defined by |WPA|, which is measured
 # AFTER the play, so it selects on outcome rather than on situation. It is
 # therefore dominated by plays that worked: +0.268 EPA and a 61.7% success
-# rate against -0.008 and 43.2% overall. That is not offences being good in
+# rate against -0.008 and 43.2% overall. That is not offenses being good in
 # big moments, it is the definition of a big moment including the touchdown.
 # It is kept because it answers a real question, which snaps actually decide
 # games, but it is excluded from every performance comparison because
@@ -29,7 +29,7 @@
 #
 # Two things are deliberately kept apart. The LEAGUE-WIDE historical view asks
 # how the sport has changed. The PER-COACH view asks who is good in which
-# moment. The second is much noisier than the first and is labelled as such:
+# moment. The second is much noisier than the first and is labeled as such:
 # a coach's playoff sample is tiny, and the chart says so rather than letting
 # a rank imply precision it does not have.
 #
@@ -127,14 +127,14 @@ p2 <- ggplot(pooled, aes(epa, situation)) +
   scale_fill_manual(values = c("TRUE" = "#2B8CBE", "FALSE" = "#D55E00"), guide = "none") +
   scale_x_continuous(expand = expansion(mult = c(0.22, 0.22))) +
   labs(
-    title = "Offence collapses when the game is actually on the line",
+    title = "Offense collapses when the game is actually on the line",
     subtitle = "EPA per play by situation, pooled 2015 to 2025",
     x = "EPA per play", y = NULL,
     caption = fig_caption(
       "nflverse play-by-play 2015 to 2025, all called plays",
       "Situations overlap by design: a play can be late-game and high-leverage at once. Big-swing plays are excluded here because they are selected on outcome.",
-      paste0("\nThe ordering is the point. Offences are mildly positive on an average snap and sharply negative on third and fourth down and in the last four minutes of a game.\n",
-             "Some of that is the situation selecting for hard downs, and some is that defences can play simpler when the field shrinks and the clock is short.\n",
+      paste0("\nThe ordering is the point. Offenses are mildly positive on an average snap and sharply negative on third and fourth down and in the last four minutes of a game.\n",
+             "Some of that is the situation selecting for hard downs, and some is that defenses can play simpler when the field shrinks and the clock is short.\n",
              "Playoffs run positive because the teams that get there are better, which is a selection effect rather than a statement about January. Built by R/factory/55."))
   ) +
   theme_coach(grid = "none")
@@ -171,7 +171,7 @@ p3 <- ggplot(per[plays >= 50 & situation != "Big swings"], aes(situation, coach,
     subtitle = "Offensive EPA per play above or below the league in each situation. Blue is better than league, orange is worse.",
     x = NULL, y = NULL,
     caption = fig_caption(
-      "nflverse play-by-play 2015 to 2025; head coaches, offence only, cells with at least 50 plays",
+      "nflverse play-by-play 2015 to 2025; head coaches, offense only, cells with at least 50 plays",
       "Rows are ordered by the high-leverage column. Situations overlap.",
       paste0("\nRead the left columns and the right columns differently. 'All plays' rests on tens of thousands of snaps per coach and is close to a settled number. 'Playoffs' and\n",
              "'Big swings' rest on a few hundred at most, so a good cell there is weak evidence on its own and a coach can move several places on one January afternoon.\n",

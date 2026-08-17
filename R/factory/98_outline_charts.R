@@ -98,7 +98,7 @@ p2 <- ggplot(bl, aes(plab, epa, fill = box)) +
             inherit.aes = FALSE, size = 3, colour = "grey40") +
   scale_fill_manual(values = c("Light box (6 or fewer)" = "#2B8CBE",
                                "Heavy box (8 or more)" = "#D55E00")) +
-  labs(title = "Heavy personnel draws a heavy box, and the offence does better when the box stays light",
+  labs(title = "Heavy personnel draws a heavy box, and the offense does better when the box stays light",
        subtitle = "EPA per play by personnel grouping against how many defenders were in the box, 2022 to 2025",
        x = NULL, y = "EPA per play",
        caption = fig_caption("nflverse participation, defenders_in_box",
@@ -117,7 +117,7 @@ sm <- pl[, .(plays = .N, epa = mean(epa, na.rm = TRUE), sr = mean(success, na.rm
          by = .(game_id, posteam)]
 sm <- merge(sm, mm[, .(game_id, season, week, home_team, home_score, away_team, away_score)], by = "game_id")
 sm[, label := paste0(season, " wk", week)]
-sm[, side := fifelse(posteam == "SEA", "Seattle offence", "Rams offence")]
+sm[, side := fifelse(posteam == "SEA", "Seattle offense", "Rams offense")]
 setorder(sm, season, week)
 sm[, label := factor(label, levels = unique(label))]
 cat("\n=== Seattle and the Rams, 2024-2025 ===\n"); print(sm[, .(label, posteam, plays, epa = round(epa,3))])
@@ -128,14 +128,14 @@ p3 <- ggplot(sm, aes(label, epa, fill = side)) +
   geom_text(aes(label = sprintf("%+.02f", epa), vjust = ifelse(epa >= 0, -0.5, 1.4)),
             position = position_dodge(width = 0.7), size = 3.4, fontface = "bold",
             colour = "grey25") +
-  scale_fill_manual(values = c("Seattle offence" = "#1c5b80", "Rams offence" = "#D55E00")) +
-  labs(title = "Seattle and the Rams: both offences played well in every meeting",
-       subtitle = "EPA per play by each offence in the four Seahawks-Rams games of 2024 and 2025",
+  scale_fill_manual(values = c("Seattle offense" = "#1c5b80", "Rams offense" = "#D55E00")) +
+  labs(title = "Seattle and the Rams: both offenses played well in every meeting",
+       subtitle = "EPA per play by each offense in the four Seahawks-Rams games of 2024 and 2025",
        x = NULL, y = "EPA per play",
        caption = fig_caption("nflverse play-by-play",
          paste(sprintf("%s: %s %d, %s %d", sm[!duplicated(game_id)]$label,
                        mm$home_team, mm$home_score, mm$away_team, mm$away_score), collapse = "  |  "),
-         "\nAnswers the outline's note that Seattle's defence struggled against the Rams while their offence shredded them. Built by R/factory/98.")) +
+         "\nAnswers the outline's note that Seattle's defense struggled against the Rams while their offense shredded them. Built by R/factory/98.")) +
   theme_coach(grid = "y") +
   theme(legend.position = "top", legend.title = element_blank(), legend.justification = "left")
 save_fig("docs/figures/factory/outline_sea_lar.png", p3, w = 11, h = 5.8)

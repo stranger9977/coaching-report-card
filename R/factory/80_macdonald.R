@@ -7,7 +7,7 @@
 # makes him so successful?"
 #
 # The answer to the first part is a shape nobody seems to have named. At both
-# franchises his defence was ordinary in year one and second in the league in
+# franchises his defense was ordinary in year one and second in the league in
 # year two. Same two-year clock, different rosters, different conference.
 #
 # The reason that is worth a chart rather than a sentence: there is no
@@ -66,7 +66,7 @@ p1 <- ggplot(mac, aes(yrlab, epa, group = stint, colour = stint)) +
   scale_y_continuous(limits = c(-0.18, 0.03)) +
   labs(
     title = "Mike Macdonald has done the same thing twice: ordinary in year one, second in the league in year two",
-    subtitle = "EPA per play allowed by his defences, at Baltimore and then at Seattle. Lower is better.",
+    subtitle = "EPA per play allowed by his defenses, at Baltimore and then at Seattle. Lower is better.",
     x = NULL, y = "EPA per play allowed",
     caption = fig_caption(
       "nflverse play-by-play; defensive play-caller attribution from samhoppen/NFL_public",

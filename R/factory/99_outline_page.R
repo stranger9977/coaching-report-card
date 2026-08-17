@@ -1,9 +1,9 @@
 # =============================================================================
 # factory/99_outline_page.R -- writes docs/outline.html
 #
-# Michael's outline, in his order, with our best chart under each line and no
+# The script outline, in order, with our best chart under each line and no
 # commentary. Built as its own page so Nick can send him one link that maps
-# straight onto the document he wrote.
+# straight onto the outline document.
 #
 # Where we have nothing solid (Disguise), research ideas go there instead,
 # clearly marked as ideas rather than findings.
@@ -64,11 +64,13 @@ sec('MacDonald (defense)',
         'Career EPA per play allowed by defensive play-caller',
         'Career EPA per play allowed, minimum 1,500 charted plays.')),
 sec('Have coordinators decreased in age? How much? Offense? Defense?',
-    gap('No chart yet. Coach and coordinator birth dates are not in nflverse or any other feed we use, so this needs a scraped source (Pro Football Reference coach pages, or Wikipedia) before it can be answered. Flagging rather than guessing.')),
+    fig(file.path(FIG,'coordinator_age.png'),
+        'Average age of offensive and defensive play-callers by season, 1999 to 2025',
+        'Offense drifts down all window. Defense got older to a peak of 53.9 in 2019, then fell to 47.6.')),
 sec('The Seahawks defense struggled against the Rams, but their offense shredded them',
     fig(file.path(FIG,'outline_sea_lar.png'),
-        'EPA per play by each offence in the four Seahawks-Rams games of 2024 and 2025',
-        'Both offences in all four meetings, including the playoff game.')),
+        'EPA per play by each offense in the four Seahawks-Rams games of 2024 and 2025',
+        'Both offenses in all four meetings, including the playoff game.')),
 
 '<h2>Personnel</h2>',
 sec('What 11 and 13 personnel are, and who uses them',
@@ -111,9 +113,9 @@ sec('What the decisions cost',
     fig(file.path(FIG,'decision_cost.png'),
         'Win probability wasted per game on fourth down by head coach',
         'Priced against all three options, scored against the league in each coach\'s own seasons.'),
-    fig(file.path(FIG,'decision_cost_cumulative.png'),
-        'Cumulative win probability wasted on fourth down across careers',
-        'The running tab. Slope is the coach; length is just tenure.')),
+    fig(file.path(FIG,'career_arc.png'),
+        'Cumulative wins above market expectation across coaching careers',
+        'The career arc: wins banked above what the market expected, game by game.')),
 
 '<h2>Running on early downs</h2>',
 sec('Teams are still doing this too much',
@@ -152,8 +154,8 @@ sec('Where this stands',
     idea('<b>Motion at the snap versus motion before it.</b> FTN flags motion but not whether the man was still moving at the snap. Split those and the deception question gets sharper, because only one of them actually moves a defender late.'),
     idea('<b>Formation variety per caller.</b> How many distinct formation and personnel combinations does a caller use, and does a wider menu buy anything? Entropy over the look distribution, same method as the predictability work.'),
     idea('<b>Same look, different play.</b> The real disguise measure: for each caller, take his most common formations and ask how evenly run and pass are split from that exact look. High split means the look tells you nothing. This is buildable now.'),
-    idea('<b>Late motion and defensive response.</b> Participation data has the defensive personnel on the field. If the defence substitutes or changes shell after motion, that is deception working. Needs care but the fields exist.'),
-    idea('<b>Cadence and hard counts.</b> Pre-snap penalties drawn on the defence per snap is a crude but real proxy for a caller who manipulates cadence. Nobody publishes it as a coaching stat.'),
+    idea('<b>Late motion and defensive response.</b> Participation data has the defensive personnel on the field. If the defense substitutes or changes shell after motion, that is deception working. Needs care but the fields exist.'),
+    idea('<b>Cadence and hard counts.</b> Pre-snap penalties drawn on the defense per snap is a crude but real proxy for a caller who manipulates cadence. Nobody publishes it as a coaching stat.'),
     idea('<b>Play-action after a run versus after a pass.</b> Directly tests the sequencing claim below with the disguise framing: is the fake more convincing when the run game has been established that drive?'),
     '</ul>'),
 
@@ -189,7 +191,7 @@ sec('Everything on play action in one place',
 '<h2>Further questions from the outline</h2>',
 sec('Not built yet',
     '<ul>',
-    idea('<b>Matching personnel.</b> Does the defence answer 13 personnel with heavier bodies, and who exploits it when they do? The defensive personnel field exists, so this is buildable.'),
+    idea('<b>Matching personnel.</b> Does the defense answer 13 personnel with heavier bodies, and who exploits it when they do? The defensive personnel field exists, so this is buildable.'),
     idea('<b>Hybrid players (Kupp, Puka in the slot / TE / receiver).</b> Needs alignment data, which means tracking. Not licensable past 2022.'),
     idea('<b>What does Sam think of personnel?</b> Interview question, not a data question.'),
     idea('<b>Coordinator ages over time.</b> Needs a scraped birth-date source.'),
@@ -199,12 +201,12 @@ sec('Not built yet',
 
 html <- paste0('<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Outline &mdash; Coaching Report Card</title><style>', css, '</style></head><body>
+<title>Script Outline &mdash; Coaching Report Card</title><style>', css, '</style></head><body>
 <main>
 <header>
   <div class="kicker">Coaching report card</div>
-  <h1>Michael&rsquo;s outline, with the charts</h1>
-  <p class="dek">Your outline in your order, with our best version of each thing underneath it. Orange boxes are where we do not have something solid yet.</p>
+  <h1>Script Outline</h1>
+  <p class="dek">The script outline in order, with our best version of each thing underneath it. Orange boxes are where we do not have something solid yet.</p>
   <div class="nav"><a href="index.html">The working board</a> &nbsp;&middot;&nbsp; <a href="models.html">Model Factory</a></div>
 </header>
 ', body, '
