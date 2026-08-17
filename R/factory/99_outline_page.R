@@ -193,16 +193,7 @@ sec('Everything on play action in one place',
         'Who uses it more than the situation calls for.'),
     fig(file.path(FIG,'pa_by_personnel.png'),
         'Play action edge by personnel grouping',
-        'It stops working out of heavy personnel.')),
-
-'<h2>Further questions from the outline</h2>',
-sec('Not built yet',
-    '<ul>',
-    idea('<b>Matching personnel.</b> Does the defense answer 13 personnel with heavier bodies, and who exploits it when they do? The defensive personnel field exists, so this is buildable.'),
-    idea('<b>Hybrid players (Kupp, Puka in the slot / TE / receiver).</b> Needs alignment data, which means tracking. Not licensable past 2022.'),
-    idea('<b>What does Sam think of personnel?</b> Interview question, not a data question.'),
-    idea('<b>Coordinator ages over time.</b> Needs a scraped birth-date source.'),
-    '</ul>')
+        'It stops working out of heavy personnel.'))
 
 ), collapse = "\n")
 
