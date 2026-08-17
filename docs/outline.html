@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Outline &mdash; Coaching Report Card</title><style>
+:root{--bg:#fbfbfa;--ink:#1e2126;--ink2:#4a5058;--ink3:#778089;--accent:#2B8CBE;--card:#fff;--line:#e3e5e8;--warn:#b26a00;--warnbg:#fdf3e3}
+@media(prefers-color-scheme:dark){:root{--bg:#16181c;--ink:#e8eaed;--ink2:#b3b9c0;--ink3:#848b94;--accent:#62aed4;--card:#1e2126;--line:#2e3238;--warn:#e0a458;--warnbg:#2a2114}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6;font-size:17px}
+main{max-width:1040px;margin:0 auto;padding:0 20px 90px}
+header{padding:54px 0 4px;text-align:center}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:12px auto 12px;max-width:820px;letter-spacing:-.02em}
+.dek{font-size:clamp(16px,2vw,20px);color:var(--ink2);max-width:720px;margin:0 auto}
+.nav{text-align:center;margin:20px 0 0;font-size:15px}
+.nav a{color:var(--accent);text-decoration:none;margin:0 10px}
+h2{font-size:clamp(22px,3vw,29px);margin:56px 0 4px;letter-spacing:-.01em;border-bottom:2px solid var(--accent);padding-bottom:8px}
+h3{font-size:19px;margin:0 0 12px;color:var(--ink)}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:18px 0}
+figure{margin:12px 0 8px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px;overflow:hidden}
+figure img{width:100%;height:auto;display:block;border-radius:4px}
+figcaption{font-size:12px;color:var(--ink3);padding:7px 4px 2px;line-height:1.45}
+.gap{font-size:14px;color:var(--warn);background:var(--warnbg);border-left:3px solid var(--warn);padding:9px 13px;border-radius:0 8px 8px 0;margin:10px 0}
+ul{margin:8px 0 4px 20px}li{font-size:14.5px;color:var(--ink2);margin:6px 0}
+li b{color:var(--ink)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding-top:18px;font-size:13.5px;color:var(--ink3);max-width:760px;margin-left:auto;margin-right:auto}
+</style></head><body>
+<main>
+<header>
+  <div class="kicker">Coaching report card</div>
+  <h1>Michael&rsquo;s outline, with the charts</h1>
+  <p class="dek">Your outline in your order, with our best version of each thing underneath it. Orange boxes are where we do not have something solid yet.</p>
+  <div class="nav"><a href="index.html">The working board</a> &nbsp;&middot;&nbsp; <a href="models.html">Model Factory</a></div>
+</header>
+<h2>Setup: Defense vs. Offense &mdash; McVay vs. MacDonald</h2>
+<section><h3>McVay (offense)</h3><figure><img src="figures/factory/mcvay_reinvention.png" alt="Sean McVay 11 and 13 personnel usage by season against the league"><figcaption>Led the league in 11 personnel in 2022 and 2023, then led it in 13 personnel in 2025.</figcaption></figure>
+<figure><img src="figures/market_2025.png" alt="Wins above market expectation by team in 2025"><figcaption>Wins above what the closing spread expected, 2025.</figcaption></figure></section>
+<section><h3>MacDonald (defense)</h3><figure><img src="figures/factory/macdonald_clock.png" alt="Macdonald defensive EPA allowed year one vs year two at Baltimore and Seattle"><figcaption>Ordinary in year one, second in the league in year two. Twice.</figcaption></figure>
+<figure><img src="figures/factory/defense_leaders.png" alt="Career EPA per play allowed by defensive play-caller"><figcaption>Career EPA per play allowed, minimum 1,500 charted plays.</figcaption></figure></section>
+<section><h3>Have coordinators decreased in age? How much? Offense? Defense?</h3><p class="gap">No chart yet. Coach and coordinator birth dates are not in nflverse or any other feed we use, so this needs a scraped source (Pro Football Reference coach pages, or Wikipedia) before it can be answered. Flagging rather than guessing.</p></section>
+<section><h3>The Seahawks defense struggled against the Rams, but their offense shredded them</h3><figure><img src="figures/factory/outline_sea_lar.png" alt="EPA per play by each offence in the four Seahawks-Rams games of 2024 and 2025"><figcaption>Both offences in all four meetings, including the playoff game.</figcaption></figure></section>
+<h2>Personnel</h2>
+<section><h3>What 11 and 13 personnel are, and who uses them</h3><figure><img src="figures/factory/outline_personnel.png" alt="Share of snaps by personnel grouping with pass rate and EPA"><figcaption>The five groupings, their share of snaps, pass rate and EPA.</figcaption></figure></section>
+<section><h3>What Sean McVay did</h3><figure><img src="figures/factory/mcvay_reinvention.png" alt="Sean McVay 11 and 13 personnel usage by season"><figcaption>Same chart as the setup section: 92% and 95% in 11 personnel, then 29% in 13.</figcaption></figure></section>
+<section><h3>How does this do against lighter boxes?</h3><figure><img src="figures/factory/outline_boxes.png" alt="EPA per play by personnel grouping against light and heavy boxes"><figcaption>Every grouping does better against a light box. 13 personnel is the least likely to see one.</figcaption></figure></section>
+<section><h3>Is play action more effective out of 13 personnel?</h3><figure><img src="figures/factory/pa_by_personnel.png" alt="Play action EPA edge by personnel grouping"><figcaption>+0.117 EPA out of 11 personnel, +0.089 out of 12, and nothing out of 13.</figcaption></figure></section>
+<section><h3>Run vs. Pass</h3><figure><img src="figures/factory/y_pass_resid.png" alt="Play-caller residual leaderboard for run versus pass"><figcaption>Who passes more or less than the game state predicts. Model cleared all five rubric rules.</figcaption></figure>
+<figure><img src="figures/factory/leverage_deviation.png" alt="Pass residual against high-leverage EPA by play-caller"><figcaption>Callers who throw more than expected move the ball better when it matters.</figcaption></figure></section>
+<h2>4th Downs</h2>
+<section><h3>How do coaches look here?</h3><figure><img src="figures/book_leaderboard.png" alt="Head coaches most and least often correct on clear-cut fourth downs"><figcaption>Share of clear-cut fourth downs handled correctly, 2018 to 2025.</figcaption></figure></section>
+<section><h3>Coaches will punt when they should go for it, but not the other way around</h3><figure><img src="figures/book_by_type.png" alt="Correct on obvious kicks against correct on obvious go-for-its by coach"><figcaption>98.8% correct when the math says kick. 49.8% when it says go.</figcaption></figure>
+<figure><img src="figures/factory/leverage_fourthdown.png" alt="Fourth-down accuracy in routine versus high-leverage situations"><figcaption>And it gets worse in the highest-leverage quarter: 51.5% down to 44.6%.</figcaption></figure></section>
+<section><h3>What the decisions cost</h3><figure><img src="figures/factory/decision_cost.png" alt="Win probability wasted per game on fourth down by head coach"><figcaption>Priced against all three options, scored against the league in each coach's own seasons.</figcaption></figure>
+<figure><img src="figures/factory/decision_cost_cumulative.png" alt="Cumulative win probability wasted on fourth down across careers"><figcaption>The running tab. Slope is the coach; length is just tenure.</figcaption></figure></section>
+<h2>Running on early downs</h2>
+<section><h3>Teams are still doing this too much</h3><figure><img src="figures/factory/outline_early_downs.png" alt="Early-down run rate by season against the EPA advantage of passing"><figcaption>Run rate 44.8% in 2015, 45.5% in 2025. Passing has been worth more every single season.</figcaption></figure></section>
+<h2>Adaptability</h2>
+<section><h3>First half vs second half adjustments</h3><figure><img src="figures/halftime_cone.png" alt="Halftime adjustment funnel by coach"><figcaption>Second-half improvement against first-half performance, with a luck cone.</figcaption></figure>
+<figure><img src="figures/halftime_persistence.png" alt="Halftime adjustment persistence season over season"><figcaption>Does being a good adjuster repeat? Split-half r = 0.475, but it correlates 0.81 with plain point margin.</figcaption></figure></section>
+<section><h3>Adapting to the players you have</h3><figure><img src="figures/factory/mcvay_reinvention.png" alt="McVay personnel reinvention"><figcaption>The clearest case in the data of a coach rebuilding around new personnel.</figcaption></figure></section>
+<section><h3>Kyle Shanahan and Ben Johnson</h3><figure><img src="figures/factory/outline_callers.png" alt="Play-action rate against offensive EPA by play-caller"><figcaption>Every caller with 1,200+ charted plays, 2022 to 2025.</figcaption></figure>
+<figure><img src="figures/pred_blackjack.png" alt="Call predictability against offensive EPA"><figcaption>Ben Johnson is the one caller who is unpredictable and good.</figcaption></figure></section>
+<h2>Disguise (offense and defense)</h2>
+<section><h3>Where this stands</h3><p class="gap">Nothing here is solid enough to build on yet. The one chart we have (pre-snap tell) turned out to be contaminated by sample size, and after correcting it the effect mostly disappeared. Post-snap disguise needs tracking data, which we cannot license past 2022. Research ideas below for the group to pick from.</p>
+<figure><img src="figures/pred_two_axes.png" alt="Call predictability against pre-snap look predictability"><figcaption>What we do have: the call and the look are separate axes. Reid hides his; McVay does not.</figcaption></figure>
+<h3 style="margin-top:18px">Research ideas to discuss</h3>
+<ul>
+<li><b>Motion at the snap versus motion before it.</b> FTN flags motion but not whether the man was still moving at the snap. Split those and the deception question gets sharper, because only one of them actually moves a defender late.</li>
+<li><b>Formation variety per caller.</b> How many distinct formation and personnel combinations does a caller use, and does a wider menu buy anything? Entropy over the look distribution, same method as the predictability work.</li>
+<li><b>Same look, different play.</b> The real disguise measure: for each caller, take his most common formations and ask how evenly run and pass are split from that exact look. High split means the look tells you nothing. This is buildable now.</li>
+<li><b>Late motion and defensive response.</b> Participation data has the defensive personnel on the field. If the defence substitutes or changes shell after motion, that is deception working. Needs care but the fields exist.</li>
+<li><b>Cadence and hard counts.</b> Pre-snap penalties drawn on the defence per snap is a crude but real proxy for a caller who manipulates cadence. Nobody publishes it as a coaching stat.</li>
+<li><b>Play-action after a run versus after a pass.</b> Directly tests the sequencing claim below with the disguise framing: is the fake more convincing when the run game has been established that drive?</li>
+</ul></section>
+<h2>Sequencing</h2>
+<section><h3>Play action: rate, and what the situation expected</h3><figure><img src="figures/factory/outline_pa_rate.png" alt="Actual play-action rate against the rate the situation predicts, by caller"><figcaption>Above the line means more play action than the game state calls for. This model cleared all five rubric rules.</figcaption></figure>
+<figure><img src="figures/factory/y_pa_resid.png" alt="Play-action residual leaderboard"><figcaption>The same thing as a leaderboard.</figcaption></figure></section>
+<section><h3>Does running set up the play-action pass?</h3><figure><img src="figures/run-sets-up-nothing.png" alt="Whether running earlier in a drive improves later play action"><figcaption>The existing answer: it does not.</figcaption></figure>
+<figure><img src="figures/steelman-pass-sets-run.png" alt="The strongest case for the run game setting up the pass"><figcaption>The best version of the opposite argument, tested.</figcaption></figure>
+<p class="gap">Still to do: a literature check on what is already published on sequencing, so we are not re-deriving something or contradicting a known result without knowing it. Worth asking Paganetti directly, since this is his area.</p></section>
+<h2>Play Action</h2>
+<section><h3>Everything on play action in one place</h3><figure><img src="figures/factory/outline_pa_rate.png" alt="Play-action rate versus expected by caller"><figcaption>Who uses it more than the situation calls for.</figcaption></figure>
+<figure><img src="figures/factory/pa_by_personnel.png" alt="Play action edge by personnel grouping"><figcaption>It stops working out of heavy personnel.</figcaption></figure>
+<figure><img src="figures/factory/y_pa_slices.png" alt="Where the play-action model is right and where it is not"><figcaption>Model diagnostics: blue is what happened, orange dashed is the model.</figcaption></figure></section>
+<h2>Further questions from the outline</h2>
+<section><h3>Not built yet</h3><ul>
+<li><b>Matching personnel.</b> Does the defence answer 13 personnel with heavier bodies, and who exploits it when they do? The defensive personnel field exists, so this is buildable.</li>
+<li><b>Hybrid players (Kupp, Puka in the slot / TE / receiver).</b> Needs alignment data, which means tracking. Not licensable past 2022.</li>
+<li><b>What does Sam think of personnel?</b> Interview question, not a data question.</li>
+<li><b>Coordinator ages over time.</b> Needs a scraped birth-date source.</li>
+</ul></section>
+<footer>
+Charts built from nflverse play-by-play 2015-2025, FTN charting and participation 2022-2025, play-caller attribution from samhoppen/NFL_public, and the nfl4th decision model. Model diagnostics and the grading rubric are on the <a href="models.html">Model Factory</a> tab.
+</footer>
+</main></body></html>

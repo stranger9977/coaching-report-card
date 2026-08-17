@@ -101,7 +101,7 @@ html <- paste0(
   <div class="kicker">Coaching report card</div>
   <h1>The Model Factory</h1>
   <p class="dek">Given the game state, what would the average coach do? Everything a coach does beyond that is the residual. This page is where we check whether the models are good enough for that residual to mean anything.</p>
-  <div class="nav"><a href="index.html">&larr; Back to the board</a></div>
+  <div class="nav"><a href="index.html">&larr; The working board</a> &nbsp;&middot;&nbsp; <a href="outline.html">Michael&rsquo;s Outline</a></div>
 </header>
 
 <div class="prose">
