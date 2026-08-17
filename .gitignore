@@ -1,8 +1,3 @@
-.Rhistory
-.RData
-.Rproj.user
-data/raw/*
-!data/raw/.gitkeep
-output/
-*.zip
-.DS_Store
+# Sumer data is licensed. Nothing derived from it is published until cleared.
+data/raw/sumer/
+output/sumer/
