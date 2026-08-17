@@ -21,6 +21,8 @@ sec <- function(title, ...) sprintf('<section><h3>%s</h3>%s</section>',
 
 gap <- function(txt) sprintf('<p class="gap">%s</p>', txt)
 idea <- function(txt) sprintf('<li>%s</li>', txt)
+# neutral note, for answering a question rather than flagging a hole
+note <- function(txt) sprintf('<p class="note">%s</p>', txt)
 
 css <- '
 :root{--bg:#fbfbfa;--ink:#1e2126;--ink2:#4a5058;--ink3:#778089;--accent:#2B8CBE;--card:#fff;--line:#e3e5e8;--warn:#b26a00;--warnbg:#fdf3e3}
@@ -41,6 +43,8 @@ figure{margin:12px 0 8px;background:#fff;border:1px solid var(--line);border-rad
 figure img{width:100%;height:auto;display:block;border-radius:4px}
 figcaption{font-size:12px;color:var(--ink3);padding:7px 4px 2px;line-height:1.45}
 .gap{font-size:14px;color:var(--warn);background:var(--warnbg);border-left:3px solid var(--warn);padding:9px 13px;border-radius:0 8px 8px 0;margin:10px 0}
+.note{font-size:14.5px;color:var(--ink2);border-left:3px solid var(--accent);padding:8px 13px;margin:10px 0}
+.note b{color:var(--ink)}
 ul{margin:8px 0 4px 20px}li{font-size:14.5px;color:var(--ink2);margin:6px 0}
 li b{color:var(--ink)}
 footer{border-top:1px solid var(--line);margin-top:60px;padding-top:18px;font-size:13.5px;color:var(--ink3);max-width:760px;margin-left:auto;margin-right:auto}
@@ -96,6 +100,14 @@ sec('Run vs. Pass',
     fig(file.path(FIG,'leverage_deviation.png'),
         'Pass residual against high-leverage EPA by play-caller',
         'Callers who throw more than expected move the ball better when it matters.')),
+sec('What a coin-flip high-leverage play is',
+    note('Two things have to be true at once. <b>High leverage</b> means the game is still live, with win probability between 36% and 64%. That is the top quarter of all snaps by how much a single play can swing the result. <b>Coin flip</b> means the situation gives the defense nothing, with the model landing between 50 and 60% on run or pass. It knows down, distance, field position, score and clock, and it does not know who is playing. The two together are 10.6% of all called plays, and the typical one is 1st and 10 near midfield in a one-score game.'),
+    fig(file.path(FIG,'coinflip_anatomy.png'),
+        'Leverage as a function of win probability, and model pass probability by down and distance',
+        'The two dials, drawn separately. A play has to sit in the shaded band of both.'),
+    fig(file.path(FIG,'coinflip_examples.png'),
+        'Two real plays from each of the six certainty and leverage buckets',
+        'Twelve real plays, one that followed the model and one that went the other way in each spot.')),
 sec('When is it worth being unpredictable?',
     fig(file.path(FIG,'nuance_by_certainty.png'),
         'EPA per play by how sure the model was and whether the caller followed it',
@@ -109,9 +121,14 @@ sec('When is it worth being unpredictable?',
 
 '<h2>4th Downs</h2>',
 sec('How do coaches look here?',
+    note('Every fourth-down chart on this page is credited to the <b>head coach</b>, not the play-caller. That is why Mike Macdonald appears on them even though he calls the defense. The head coach has the final say on whether to go, and it lands on him when it fails.'),
     fig(file.path(OLD,'book_leaderboard.png'),
         'Head coaches most and least often correct on clear-cut fourth downs',
         'Share of clear-cut fourth downs handled correctly, 2018 to 2025.')),
+sec('Old coaches against young coaches',
+    fig(file.path(FIG,'age_fourthdown.png'),
+        'Coach age against how often he goes for it on clear go-for-it fourth downs',
+        'Age barely moves it. Kliff Kingsbury at 41 is the most aggressive coach in the data and DeMeco Ryans at 40 is the most cautious. Only the 60-and-over group separates from the league.')),
 sec('Coaches will punt when they should go for it, but not the other way around',
     fig(file.path(OLD,'book_by_type.png'),
         'Correct on obvious kicks against correct on obvious go-for-its by coach',
@@ -132,6 +149,10 @@ sec('Teams are still doing this too much',
     fig(file.path(FIG,'outline_early_downs.png'),
         'Early-down run rate by season against the EPA advantage of passing',
         'Run rate 44.8% in 2015, 45.5% in 2025. Passing has been worth more every single season.')),
+sec('Which play-callers are best and worst at it?',
+    fig(file.path(FIG,'early_down_callers.png'),
+        'Early-down run rate above expected by play-caller, and the offense that goes with it',
+        'Measured against what the game state called for, so a caller who spent three years with a lead is not punished for it. Andy Reid is 8.4 points below expected, Arthur Smith 6.2 above.')),
 
 '<h2>Adaptability</h2>',
 sec('First half vs second half adjustments',
