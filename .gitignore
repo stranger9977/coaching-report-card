@@ -1,3 +1,3 @@
-# Sumer data is licensed. Nothing derived from it is published until cleared.
+# Raw SumerSports pull. Licensed data, so the play-level rows stay out of the
+# repo; figures and aggregates computed from it are published with credit.
 data/raw/sumer/
-output/sumer/

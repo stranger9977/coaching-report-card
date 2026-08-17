@@ -202,8 +202,14 @@ sec('Same look, different play',
     fig(file.path(FIG,'disguise_same_look.png'),
         'How much each play-caller pre-snap look gives away, and whether it repeats across seasons',
         'It repeats hard (r = +0.79), and it is the man rather than his formation menu, which explains only 5%. Matt LaFleur and Sean McVay hide the most from the same looks everyone else uses. Being readable does not visibly cost offense (r = +0.12, p = 0.37), so this describes style more than it grades it.')),
+sec('Defense: showing one coverage and playing another',
+    note('This is the defensive half, and it comes from <b>SumerSports</b> charting, which records the middle-of-field shell both <b>before</b> the snap and as <b>actually played</b>. The shell rotates on 30% of charted snaps. Showing two-high and dropping to one is the common lie; the reverse is about a third as frequent.'),
+    fig(file.path(FIG,'disguise_defense.png'),
+        'Shell rotation rate above expected by defensive play-caller, and whether it repeats across seasons',
+        'The strongest trait measured anywhere on this project: r = +0.90 across seasons. Vic Fangio +7.4 and Don Martindale -11.6 land where football people would put them, which is a good outside check. Macdonald is +5.5.'),
+    note('Worth saying carefully on camera: rotating more does <b>not</b> mean allowing less. Across coordinators, rotation above expected and EPA allowed correlate at r = +0.22 (p = 0.16). This measures a style that is unmistakably real and repeatable, not one that is proven to work.')),
 sec('Where the rest of this stands',
-    gap('Post-snap disguise still needs tracking data, which we cannot license past 2022. The older pre-snap tell chart below is superseded by the one above. Research ideas at the bottom for the group to pick from.'),
+    gap('Sequencing is still open, and the older pre-snap tell chart below is superseded by the two above. Research ideas at the bottom for the group to pick from.'),
     fig(file.path(OLD,'pred_two_axes.png'),
         'Call predictability against pre-snap look predictability',
         'The earlier version: the call and the look are separate axes. Superseded by the chart above.'),
@@ -257,7 +263,7 @@ html <- paste0('<!DOCTYPE html>
 </header>
 ', body, '
 <footer>
-Charts built from nflverse play-by-play 2015-2025, FTN charting and participation 2022-2025, play-caller attribution from samhoppen/NFL_public, and the nfl4th decision model. Model diagnostics and the grading rubric are on the <a href="models.html">Model Factory</a> tab.
+Charts built from nflverse play-by-play 2015-2025, FTN charting and participation 2022-2025, play-caller attribution from samhoppen/NFL_public, the nfl4th decision model, Madden player ratings, and play charting from SumerSports. Model diagnostics and the grading rubric are on the <a href="models.html">Model Factory</a> tab.
 </footer>
 </main></body></html>')
 

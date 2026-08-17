@@ -18,9 +18,11 @@
 #              rarer opposite, the surprise, where nothing showed and pressure
 #              came anyway.
 #
-# OUTPUT IS NOT PUBLISHED. Sumer data is licensed, so figures land in
-# output/sumer/ rather than docs/, and nothing goes on the public site until
-# Nick clears it.
+# PUBLISHING. Sumer data is licensed. Nick cleared the derived figure for the
+# public board on 17 Aug, so the chart is written to docs/ and credited to
+# SumerSports on the page and in the caption. The RAW pull stays out of the
+# repo (data/raw/sumer/ is gitignored) because redistributing their play-level
+# data is a different thing from showing a number computed from it.
 #
 # THE CONFOUND, handled the same way as everywhere else in the factory.
 # Defenses disguise far more on obvious passing downs, so a raw rate would rank
@@ -31,8 +33,8 @@
 # NOTHING IS CLAIMED UNTIL IT PERSISTS. Split-half by season parity, same as
 # the offensive version in R/factory/89.
 #
-# Out: output/sumer/disguise_defense.png
-#      output/sumer/disguise_defense.csv
+# Out: docs/figures/factory/disguise_defense.png
+#      data/factory/disguise_defense.csv
 # =============================================================================
 
 suppressMessages({
@@ -41,7 +43,7 @@ suppressMessages({
   library(xgboost)
 })
 source("R/lib/theme_coach.R")
-dir.create("output/sumer", showWarnings = FALSE, recursive = TRUE)
+dir.create("docs/figures/factory", showWarnings = FALSE, recursive = TRUE)
 
 SEASONS <- 2022:2025
 NFLA <- "/Users/nick/stranger9977/nfl-analysis"
@@ -185,7 +187,7 @@ rr <- merge(rc, rot[, .(epa = mean(expected_points_added, na.rm = TRUE)),
 ce <- cor.test(rr$resid, rr$epa)
 cat(sprintf("\nacross coordinators, rotating more and EPA allowed: r = %+.3f [%.3f, %.3f] p = %.3f\n",
             ce$estimate, ce$conf.int[1], ce$conf.int[2], ce$p.value))
-write_csv(as.data.frame(rc), "output/sumer/disguise_defense.csv")
+write_csv(as.data.frame(rc), "data/factory/disguise_defense.csv")
 
 # ---------------------------------------------------------------- chart
 NAMED <- c("Mike Macdonald","Steve Wilks","Brian Flores","Vic Fangio","Dennis Allen",
@@ -243,6 +245,6 @@ p <- p + plot_annotation(
             format(nrow(sh), big.mark = ","), nrow(rc)),
     paste0("\nDefenses rotate far more on obvious passing downs, so a raw rate would rank coordinators by the schedule they faced. Every number here is measured against a\n",
            "situation-only model of when the league rotates, season-grouped, so a coordinator is compared with what everyone else does in his own spots. Showing two-high\n",
-           "and dropping to one is the common lie; the reverse is about a third as frequent. Built by R/factory/85. Sumer data is licensed and this figure is not published.")),
+           "and dropping to one is the common lie; the reverse is about a third as frequent. Charting data by SumerSports. Built by R/factory/85.")),
   theme = theme_coach(grid = "none"))
-save_fig("output/sumer/disguise_defense.png", p, w = 13.6, h = 7.4)
+save_fig("docs/figures/factory/disguise_defense.png", p, w = 13.6, h = 7.4)
