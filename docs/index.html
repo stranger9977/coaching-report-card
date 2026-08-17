@@ -116,6 +116,120 @@
   <div class="board">
 
     <div class="tgroup">
+      <h3>Rebuilt properly, 17 August</h3>
+      <p class="grouphint">Everything above stands. This is the same set of questions run through a proper modelling setup, so where a card up there and a card down here disagree, trust this one. Full diagnostics live on the <a href="models.html">Model Factory</a> tab.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">What changed, and why it is better</span><span class="pill data">Read this first</span></div>
+      <p class="row"><span class="lab">The approach, from Eric Eager via you:</span> "I would start w what would the average coach do given situation and take the residual."</p>
+      <p class="row found"><span class="lab">Built:</span> six models that predict what the average coach does from the game state alone, on 381,266 called plays from 2015 to 2025. Down, distance, field position with the red zone and the ten flagged separately, score, clock with two-minute and four-minute flagged, timeouts, and the spread. Everything a coach does beyond that prediction is his residual.</p>
+      <p class="row found"><span class="lab">The part that matters:</span> a residual only means something if the model is right about the situation. So every model is graded against five rules before anyone reads a leaderboard off it, including out-of-sample calibration and a check that it is not quietly wrong inside the ten. Two of six passed all five. The other four are shown with their failures printed on them rather than left out.</p>
+      <p class="xref">Rubric, scorecard, calibration curves, per-feature diagnostics and permutation importance: <a href="models.html">the Model Factory tab</a>.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">McVay tore up his own offence and rebuilt it</span><span class="pill ship">Your outline, answered</span></div>
+      <p class="row"><span class="lab">Michael (outline):</span> "What Sean McVay did: Led NFL in 11 Personnel... Led NFL in 13 Personnel."</p>
+      <p class="row found"><span class="lab">Both true, and never in the same season, which is the story.</span> He ran 11 personnel on 92% and 95% of snaps in 2022 and 2023, the most extreme in football both years. In 2025 he dropped to 61% and put 29% of his plays in 13 personnel, again the most extreme in football, against a league average of 5%. His offence went from -0.09 EPA per play to +0.12, the best of his run. Within 2025 his 13-personnel snaps produced +0.18 against +0.10 from 11.</p>
+      <figure>
+        <img src="figures/factory/mcvay_reinvention.png" alt="Sean McVay's 11 and 13 personnel usage by season against the league average, showing a collapse in 11 personnel and a jump to 29 percent 13 personnel in 2025.">
+        <figcaption>McVay's personnel mix against the league, 2022 to 2025. Built by R/factory/60.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">Why this is the Adaptability section:</span> nobody else in the charting era moves like that. It also explains the swings in his pre-snap tell up above. There is no settled McVay to measure, because he keeps rebuilding.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Macdonald, the other half of the spine</span><span class="pill ship">Your outline, answered</span></div>
+      <p class="row"><span class="lab">Michael (outline):</span> "MacDonald (defense): The overachievers (how much have his teams overachieved defensively?) Ravens / Seahawks."</p>
+      <p class="row found"><span class="lab">He has done the same thing twice.</span> Ordinary in year one, second in the league in year two, at both franchises. Baltimore went twelfth then second, Seattle eleventh then second. Career EPA per play allowed puts him second of 75 defensive play-callers, behind only Wade Phillips, on fewer snaps than anyone near him.</p>
+      <figure>
+        <img src="figures/factory/macdonald_clock.png" alt="Mike Macdonald's defensive EPA allowed in year one and year two at Baltimore and Seattle, both showing a large improvement.">
+        <figcaption>Two franchises, same two-year shape. Built by R/factory/80.</figcaption>
+      </figure>
+      <p class="row found"><span class="lab">Why it is worth a chart rather than a sentence:</span> there is no league-wide year-two effect to hide behind. Across 96 stints where a coordinator got two seasons at the same club, year two is no better than year one, 43% improve and a paired test gives p = 0.32. His jumps sit in the 94th and 91st percentile of every stint, with different rosters in different conferences.</p>
+      <p class="row"><span class="lab">The limit:</span> two stints is two data points. The claim is only that landing in the top tenth twice is unlikely to be luck, not that we have found his method.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Play action out of heavy personnel: your assumption was backwards</span><span class="pill ship">Your outline, answered</span></div>
+      <p class="row"><span class="lab">Michael (outline):</span> "Is play action more effective out of 13 personnel? Would assume better?"</p>
+      <p class="row found"><span class="lab">The opposite.</span> The play-action edge is +0.117 EPA per dropback out of 11 personnel, +0.089 out of 12, and -0.005 out of 13. Nothing at all from the heavy look.</p>
+      <figure>
+        <img src="figures/factory/pa_by_personnel.png" alt="Play action EPA edge by personnel grouping, showing plus 0.117 from 11 personnel, plus 0.089 from 12, and roughly zero from 13.">
+        <figcaption>The play-action edge by personnel, 2022 to 2025. Built by R/factory/60.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">Why:</span> callers run play action on 52% of their 13-personnel dropbacks. Once you fake it half the time from a look, the look stops being information. It is the same lesson as the pre-snap tell work, arriving from a different direction, and it is a good beat for the Deception section.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Coaches get more cowardly when the game is on the line</span><span class="pill ship">Confirms your 4th-down note</span></div>
+      <p class="row"><span class="lab">Michael (outline):</span> "coaches always punt when they should... and VERY RARELY 'Go for it' when they should NOT... playcallers will justify a punt in a 'go for it' situation, but not the other way around."</p>
+      <p class="row found"><span class="lab">Right, and it gets worse under pressure.</span> On clear-cut fourth downs the league is 98.8% correct when the math says kick and 49.8% correct when it says go. In the highest-leverage quarter of plays the go-for-it number falls further, from 51.5% to 44.6%, while the kick number does not move. Controlling for the type of decision and the size of the edge, that drop is significant at p below 0.0001. The playoffs are worse again.</p>
+      <figure>
+        <img src="figures/factory/leverage_fourthdown.png" alt="Fourth-down accuracy in routine versus high-leverage situations, split by whether the math says go or kick. The go-for-it rate falls from 51.5 to 44.6 percent while the kick rate is unchanged.">
+        <figcaption>The whole gap sits on one side. Built by R/factory/50.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">What it does not show:</span> that being good at this wins games. Coaches who handle these well do not measurably beat the closing spread, and the measure is too noisy between coaches to settle the question either way. It is a real pattern in behaviour, not a proven source of wins.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Win probability thrown away, per coach</span><span class="pill ship">New</span></div>
+      <p class="row"><span class="lab">Nick's ask:</span> a leaderboard of value tied back to decisions rather than to outcomes.</p>
+      <p class="row found"><span class="lab">Fourth down is where that is possible.</span> The model prices going, kicking a field goal and punting, so a coach who punts when going was worth four points of win probability is charged four points at the moment he chose, whether or not the punt then pinned them at the one. Execution is stripped out entirely. Across 2018 to 2025 the league has thrown away about 100 games' worth of win probability this way.</p>
+      <figure>
+        <img src="figures/factory/decision_cost.png" alt="Head coaches ranked by win probability wasted per game on fourth down, measured against the league in their own seasons, with 95 percent intervals.">
+        <figcaption>Scored against the league in each coach's own seasons, with intervals. Built by R/factory/95.</figcaption>
+      </figure>
+      <p class="row found"><span class="lab">Three things this is careful about,</span> because the first version got all three wrong and the ordering changed when they were fixed. The league got 31% sharper between 2018 and 2025, so every coach is scored against his own seasons rather than a pooled average. The whiskers are there because about half of these names cannot be separated from average. And the cost is priced against all three options, not just go versus kick, which had been letting everyone punt for free when the field goal was better.</p>
+      <p class="row"><span class="lab">The catch:</span> this measure repeats from season to season at about r = 0.24, below the 0.30 bar the project uses elsewhere. Treat it as a description of how a coach has behaved, not yet as a settled trait.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">The greats and the WOATs</span><span class="pill ship">New</span></div>
+      <p class="row"><span class="lab">Nick's ask:</span> a breakdown of the coaching greats, modern and legacy, and the worst of all time.</p>
+      <p class="row found"><span class="lab">Ranked on wins above what the market expected,</span> which is the strictest available test because the closing spread already prices the roster, the quarterback and the schedule. Raw rates cannot be ranked, so each is regressed by how noisy that coach's own record is. Belichick, Tomlin, Dungy, McDermott and Reid at the top; Hue Jackson, Norv Turner, Rod Marinelli and Dennis Allen at the bottom.</p>
+      <figure>
+        <img src="figures/factory/greats_woats.png" alt="Head coaches ranked by regressed wins above market expectation, greats at the top and worst at the bottom.">
+        <figcaption>All-time, 1999 to 2025, regressed for career length. Built by R/factory/90.</figcaption>
+      </figure>
+      <p class="row found"><span class="lab">And the part worth building a segment on:</span> nobody is good at everything, and the disagreements are the interesting bit. Belichick is +2.5 standard deviations at beating the market and -1.7 at fourth down. Reid is the mirror image, elite on offence and poor on the math. Macdonald and Campbell are strong exactly where the old guard is weak.</p>
+      <figure>
+        <img src="figures/factory/report_card_grid.png" alt="Grid of head coaches scored on beating the market, raw offence, offence versus talent, defence versus talent and fourth down.">
+        <figcaption>Five dimensions, deliberately never averaged into one grade. Built by R/factory/90.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">On the ordering:</span> eight of 132 coaches sit outside a 95% luck band, and chance alone would put about seven there. So read the ranking as the best available estimate, not as proof that these particular names are separable from each other.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Controlling for the quarterback and the payroll</span><span class="pill ship">New</span></div>
+      <p class="row"><span class="lab">Nick:</span> the offence and defence numbers were raw team performance with a coach's name on top, which is mostly a question about the roster.</p>
+      <p class="row found"><span class="lab">Now adjusted.</span> Each coach-season's performance is regressed on quarterback quality, using last season's EPA and completion percentage over expected, contract share and draft slot, plus the team's cap allocation. Every control is lagged or set before the season, so none of them is contaminated by the year being explained. Together they account for 15% of the variance in a coach-season's offence.</p>
+      <figure>
+        <img src="figures/factory/talent_adjusted.png" alt="Raw offensive EPA per play against the same figure with quarterback quality and team cap talent regressed out, by head coach.">
+        <figcaption>Before and after removing the quarterback and the payroll. Built by R/factory/97.</figcaption>
+      </figure>
+      <p class="row found"><span class="lab">It moves people.</span> Belichick goes from +0.8 to +1.3 standard deviations on offence once his roster is accounted for. Tomlin goes from +0.3 to -0.1. Mike McDaniel drops nineteen places. Adam Gase, already the worst in the group, gets worse. The grid above shows raw and adjusted side by side so the size of the correction is visible.</p>
+      <p class="xref">The proxies were tested one at a time as well as combined, because they disagree: where a quarterback was drafted correlates about 0.00 with how he actually plays, while what he is paid correlates 0.39.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">High leverage, in detail</span><span class="pill ship">New</span></div>
+      <p class="row"><span class="lab">Nick's ask:</span> playoffs, late game, late half, late down, big swings, per coach and league-wide.</p>
+      <p class="row found"><span class="lab">League-wide first.</span> Offences are mildly positive on an average snap and sharply negative on third and fourth down and in the last four minutes. The penalty for pressure has not shrunk in a decade. Playoff numbers run positive, but that is the teams that get there being better rather than anything about January.</p>
+      <figure>
+        <img src="figures/factory/leverage_situations.png" alt="EPA per play by situation: all plays, late down, late half, late game, high leverage and playoffs.">
+        <figcaption>EPA per play by situation, pooled 2015 to 2025. Built by R/factory/55.</figcaption>
+      </figure>
+      <p class="row found"><span class="lab">Then per coach.</span> Reid, LaFleur, Sirianni and McDermott hold up best in the highest-leverage quarter of plays; Stefanski, McDaniels and Patricia fall away most. Read the left columns and right columns differently though: "all plays" rests on tens of thousands of snaps per coach, while playoff cells rest on a few hundred and can move on one afternoon.</p>
+      <figure>
+        <img src="figures/factory/coach_situations.png" alt="Grid of head coaches showing offensive EPA above or below league average in each situation.">
+        <figcaption>Each coach against the league, by situation. Built by R/factory/55.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">One thing deliberately left out of the comparison:</span> plays with the biggest win-probability swings. That category is defined by what happened after the snap, so it selects for plays that worked and cannot be compared with the others. It is on the models tab as a description of which snaps decide games, not as a measure of anyone's performance.</p>
+    </div>
+
+    <div class="tgroup">
       <h3>His feedback, 13 August</h3>
       <p class="grouphint">Michael read the board and pushed on the word "predictable" three separate ways, caught a data-freshness problem, and added a new question. All of it is answered here.</p>
     </div>
@@ -257,7 +371,7 @@
     <div class="card">
       <div class="card-head"><span class="t">Can any coach beat the market for a living?</span><span class="pill ship">Mostly no, and that is the finding</span></div>
       <p class="row"><span class="lab">Michael:</span> "Coaching is a tough one like how do teams grade that?"</p>
-      <p class="row found"><span class="lab">Found:</span> one honest way is to ask who wins more than the closing spread says they should, career after career. Answer: almost nobody. Of 157 coaches with at least a season of games since 1999, ten sit outside the 95 percent luck cone, and screening 157 people at that threshold hands about eight to luck all by itself. Worse for the genius theory: across 654 coach-seasons, beating the market one year has zero correlation with beating it the next (r = -0.03). The names above the cone are the ones you would guess, Belichick with 23 extra wins across 387 games, Tomlin, Dungy, and now Macdonald, but the population-level result is that the market already knows.</p>
+      <p class="row found"><span class="lab">Found:</span> one way to ask it is who wins more than the closing spread says they should, career after career. Answer: almost nobody. Of 157 coaches with at least a season of games since 1999, ten sit outside the 95 percent luck cone, and screening 157 people at that threshold hands about eight to luck all by itself. Worse for the genius theory: across 654 coach-seasons, beating the market one year has zero correlation with beating it the next (r = -0.03). The names above the cone are the ones you would guess, Belichick with 23 extra wins across 387 games, Tomlin, Dungy, and now Macdonald, but the population-level result is that the market already knows.</p>
       <figure>
         <img src="figures/market_funnel.png" alt="Funnel plot of 157 coach careers: games coached against wins above market expectation per 17 games, with a 95 percent luck cone. Belichick, Tomlin, Dungy, McDermott, Vrabel and Macdonald sit above the cone; Norv Turner and Hue Jackson below.">
         <figcaption>Career wins above market expectation per 17 games, against career length, with the range luck alone produces shaded. Ten of 157 coaches fall outside it; chance alone would put about eight there. nflverse schedules, closing spreads, 1999 to 2025, regular season. Built by R/02.</figcaption>
@@ -356,7 +470,7 @@
     <div class="card">
       <div class="card-head"><span class="t">The disguise excuse</span><span class="pill block">Tested. It busts.</span></div>
       <p class="row"><span class="lab">The comfortable theory:</span> good callers can afford predictable calls because they disguise them pre-snap.</p>
-      <p class="row found"><span class="lab">Found:</span> the formation data (2016 to 2023) says no. The corner of the chart the theory needs, callers who are predictable in their calls but hard to read from formation, is empty. The apparent disguise effect collapses once quarterback quality enters the model. The honest conclusion stays the uncomfortable one: the plays are simply good.</p>
+      <p class="row found"><span class="lab">Found:</span> the formation data (2016 to 2023) says no. The corner of the chart the theory needs, callers who are predictable in their calls but hard to read from formation, is empty. The apparent disguise effect collapses once quarterback quality enters the model. The conclusion stays the uncomfortable one: the plays are simply good.</p>
       <figure>
         <img src="figures/presnap-tip-disguise.png" alt="Chart testing whether pre-snap disguise explains why predictable play-callers succeed; the predictable but low-tip region is empty and the effect is not significant after QB control.">
         <figcaption>Does pre-snap disguise rescue the mystery? No. Formation data 2016 to 2023. Built by nfl-analysis, presnap-tip-disguise.R.</figcaption>
@@ -445,7 +559,7 @@
     <div class="card">
       <div class="card-head"><span class="t">What a burned timeout actually costs</span><span class="pill work">Small, and not proven</span></div>
       <p class="row"><span class="lab">The follow-up question:</span> fine, but does any of it matter on the scoreboard?</p>
-      <p class="row found"><span class="lab">Found:</span> less than the yelling suggests. Teams entering the two-minute drill with all three timeouts score 0.7 more points than teams with none, but most of that gap is clock selection, not the timeouts. Control for when they get the ball and the gap drops to about a quarter point across all three timeouts, which does not clear statistical significance. The honest line for the script: the sin is dying with them, not the price of one.</p>
+      <p class="row found"><span class="lab">Found:</span> less than the yelling suggests. Teams entering the two-minute drill with all three timeouts score 0.7 more points than teams with none, but most of that gap is clock selection, not the timeouts. Control for when they get the ball and the gap drops to about a quarter point across all three timeouts, which does not clear statistical significance. The line for the script: the sin is dying with them, not the price of one.</p>
       <figure>
         <img src="figures/burned_timeout_price.png" alt="Chart showing raw and controlled point value of entering the two-minute drill with more timeouts; the controlled effect is small.">
         <figcaption>The raw staircase and what survives the controls. Built by nfl-analysis, burned_timeout_price.R.</figcaption>
@@ -511,7 +625,7 @@
         <figcaption>The motion-against-man effect and the deterrence check, both flat. FTN charting 2022 to 2023. Built by nfl-analysis, motion-man-tax.R.</figcaption>
       </figure>
       <p class="xref">Ran on 2022-23. Rebuilt on 2022-2025 near the top of this board: the main finding holds, the deterrence corollary is now a small but real 1.2 points.</p>
-      <p class="row"><span class="lab">Where this goes:</span> a first honest brick for the deception video, and a warning that its intuitive claims will need the same treatment as establish-the-run got.</p>
+      <p class="row"><span class="lab">Where this goes:</span> a first solid brick for the deception video, and a warning that its intuitive claims will need the same treatment as establish-the-run got.</p>
     </div>
 
     <div class="card">
@@ -536,7 +650,7 @@
 
     <div class="card">
       <div class="card-head"><span class="t">1 &nbsp;The Seahawks question as the spine</span><span class="pill work">The new build</span></div>
-      <p class="row found"><span class="lab">The idea:</span> open on the 2025 Seahawks, ask what the market missed, and let the answer walk through the whole report card: talent models, playcalling, game management, and the luck cones that keep everyone honest.</p>
+      <p class="row found"><span class="lab">The idea:</span> open on the 2025 Seahawks, ask what the market missed, and let the answer walk through the whole report card: talent models, playcalling, game management, and the luck cones that stop anyone getting carried away.</p>
       <p class="row"><span class="lab">Why it is best:</span> it is your own hook, it is current, and every segment on this board plugs into it.</p>
       <p class="xref">Have: market model, roster model, playcalling suite, game management suite. Need: a decision on how hard to lean on a two-season coach, and ideally the talent meter upgrade below.</p>
     </div>
