@@ -164,34 +164,75 @@ p2 <- ggplot(top, aes(surprise_edge, off_play_caller, fill = side)) +
 save_fig("docs/figures/factory/nuance_where_deviate.png", p2, w = 11.5, h = 7.6)
 
 # ---------------------------------------------------------------- chart 3
+# This chart used to say the surprise pays MOST when the game is on the line,
+# splitting on the top quartile of leverage. That was wrong, and the reason is
+# worth stating: leverage is 4*wp*(1-wp), which peaks when a game is even, and
+# games are most even at the start. The top leverage quartile is 36% first
+# quarter and 13.6% fourth, against 22.7% and 26.8% for all snaps. So "high
+# leverage" means CLOSE GAME, not LATE GAME, and reading it as the latter got
+# the story backwards.
+#
+# Test it against the moment people actually mean instead. The coin-flip edge
+# survives everywhere broad and disappears everywhere late.
 hi_cut <- quantile(d$leverage, 0.75, na.rm = TRUE)
-d[, lev_bin := fifelse(leverage >= hi_cut, "High leverage", "Everything else")]
-lv <- d[, .(plays = .N, epa_follow = mean(epa[followed == 1], na.rm = TRUE),
-            epa_deviate = mean(epa[followed == 0], na.rm = TRUE)),
-        by = .(bin, lev_bin)]
-lv[, edge := epa_deviate - epa_follow]
-cat("\n=== the deviation edge, by certainty and leverage ===\n"); print(lv[order(bin, lev_bin)])
+mt2 <- as.data.table(readRDS("data/factory/model_table.rds"))
+d <- merge(d, mt2[, .(game_id, play_id, qtr, score_differential,
+                      game_seconds_remaining, is_playoff)],
+           by = c("game_id","play_id"), all.x = TRUE)
+d <- d[!is.na(epa)]
 
-lv[, lev_bin := factor(lev_bin, levels = c("Everything else","High leverage"))]
-p3 <- ggplot(lv, aes(bin, edge, fill = lev_bin)) +
-  geom_hline(yintercept = 0, colour = ink_baseline, linewidth = 0.4) +
-  geom_col(position = position_dodge(width = 0.7), width = 0.6) +
-  geom_text(aes(label = sprintf("%+.03f", edge), vjust = ifelse(edge >= 0, -0.5, 1.4)),
-            position = position_dodge(width = 0.7), size = 3.4, fontface = "bold",
-            colour = "grey25") +
-  scale_fill_manual(values = c("Everything else" = "#9db6c9", "High leverage" = "#D55E00")) +
+cat("\n=== what the top leverage quartile actually contains ===\n")
+qd <- merge(d[leverage >= hi_cut, .(hi = 100*.N/nrow(d[leverage >= hi_cut])), by = qtr],
+            d[, .(all = 100*.N/nrow(d)), by = qtr], by = "qtr")
+print(qd[order(qtr)])
+
+cf3 <- d[bin == "Coin flip\n50-60% sure"]
+DEFS <- list(
+  list(lab = "Every coin flip",                    x = cf3),
+  list(lab = "Close game (top-quartile leverage)", x = cf3[leverage >= hi_cut]),
+  list(lab = "First half",                         x = cf3[qtr <= 2]),
+  list(lab = "Second half",                        x = cf3[qtr >= 3]),
+  list(lab = "Playoffs",                           x = cf3[is_playoff == 1]),
+  list(lab = "4th quarter or OT, one score",       x = cf3[qtr >= 4 & abs(score_differential) <= 8]),
+  list(lab = "Last 5 minutes, one score",          x = cf3[game_seconds_remaining <= 300 &
+                                                           abs(score_differential) <= 8]))
+fo <- rbindlist(lapply(DEFS, function(z) {
+  a <- z$x$epa[z$x$followed == 0]; b <- z$x$epa[z$x$followed == 1]
+  e <- mean(a) - mean(b); se <- sqrt(var(a)/length(a) + var(b)/length(b))
+  data.table(lab = z$lab, n = nrow(z$x), edge = e, lo = e - 1.96*se, hi = e + 1.96*se)
+}))
+fo[, verdict := fifelse(lo > 0, "The surprise pays",
+                 fifelse(hi < 0, "The surprise backfires", "No effect either way"))]
+cat("\n=== coin-flip deviation edge, by how you define the moment ===\n"); print(fo)
+write_csv(as.data.frame(fo), "data/factory/nuance_leverage_defs.csv")
+
+fo[, lab := factor(lab, levels = rev(lab))]
+p3 <- ggplot(fo, aes(edge, lab, colour = verdict)) +
+  geom_vline(xintercept = 0, colour = ink_baseline, linewidth = 0.45) +
+  geom_errorbarh(aes(xmin = lo, xmax = hi), height = 0.16, linewidth = 0.6) +
+  geom_point(size = 3.4) +
+  geom_text(aes(label = sprintf("%+.3f", edge)), vjust = -1.35, size = 3.1,
+            fontface = "bold", show.legend = FALSE) +
+  geom_text(aes(x = min(fo$lo) - 0.035, label = sprintf("n = %s", format(n, big.mark = ","))),
+            hjust = 0, size = 2.85, colour = "grey45", show.legend = FALSE) +
+  scale_colour_manual(values = c("The surprise pays" = "#2B8CBE",
+                                 "No effect either way" = "#8a8f96",
+                                 "The surprise backfires" = "#D55E00")) +
+  scale_x_continuous(expand = expansion(mult = c(0.16, 0.10))) +
   labs(
-    title = "The payoff for surprising the defense is biggest in coin-flip spots when the game is on the line",
-    subtitle = "EPA gained by going against the model rather than following it, by how sure the situation was and how much the play mattered",
-    x = NULL, y = "EPA gained by deviating",
+    title = "The coin-flip surprise pays everywhere except the moment you would expect it to matter most",
+    subtitle = "EPA gained by going against the model rather than following it, on coin-flip calls only, with 95% intervals",
+    x = "EPA gained by going against the grain", y = NULL,
     caption = fig_caption(
-      "Situation-only run/pass model; leverage is 4 x wp x (1 - wp), high is the top quartile",
-      sprintf("%s called plays, 2015 to 2025.", format(nrow(d), big.mark = ",")),
-      paste0("\nRead the right-hand group first: on the obvious calls deviating is a mistake whatever the stakes. The coin-flip group is where the two lines separate, and the\n",
-             "high-leverage bar is the biggest number on the chart. That is the part of the game where a caller can actually take something from a defense that is guessing\n",
-             "with the same information he has. Built by R/factory/93."))
+      "Situation-only run/pass model, season-grouped out-of-sample, 2015 to 2025",
+      sprintf("Coin-flip calls only (%s plays). Rows overlap: they are different ways of asking when the play mattered.",
+              format(nrow(cf3), big.mark = ",")),
+      paste0("\nAn earlier version of this chart split on the top quartile of leverage and said the surprise pays most with the game on the line. Leverage is 4 x wp x (1 - wp),\n",
+             "so it peaks when a game is even, and games are most even at the start: that top quartile is 36% first quarter and 14% fourth, against 23% and 27% of all snaps.\n",
+             "It measures a CLOSE game, not a LATE one. Split on late and close instead and the edge is gone, and in the last five minutes it turns negative. The broad finding\n",
+             "holds, including in the playoffs. What does not hold is the claim that it grows when the clock runs out. Built by R/factory/93."))
   ) +
-  theme_coach(grid = "y") +
+  theme_coach(grid = "none") +
   theme(legend.position = "top", legend.title = element_blank(),
         legend.justification = "left")
-save_fig("docs/figures/factory/nuance_leverage.png", p3, w = 11.5, h = 6.4)
+save_fig("docs/figures/factory/nuance_leverage.png", p3, w = 11.8, h = 6.6)

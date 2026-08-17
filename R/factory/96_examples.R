@@ -121,9 +121,10 @@ pAB <- (pA | pB) +
       "nflverse play-by-play 2015-2025; run/pass model is situation only, season-grouped out-of-sample",
       sprintf("%s called plays. High leverage is the top quartile of leverage. Coin flip is max(p, 1-p) under 60%%.",
               format(nrow(d), big.mark = ",")),
-      paste0("\nThe left dial is about the scoreboard and the clock; it says nothing about the play call. The right dial is about down, distance and field position; it says\n",
-             "nothing about the stakes. Third and 12 is an obvious pass whether the game is tied or over. A tied game on 1st and 10 at the 45 is both live and unreadable,\n",
-             "and that is the spot where surprising the defense is worth the most. Built by R/factory/96.")),
+      paste0("\nThe left dial is about the scoreboard; it says nothing about the play call. The right dial is about down, distance and field position; it says nothing about the\n",
+             "stakes. Third and 12 is an obvious pass whether the game is tied or over. A tied game on 1st and 10 at the 45 is both live and unreadable.\n",
+             "Note what the left dial does NOT mean. Leverage peaks when a game is even and games are most even at the start, so the top quartile is 36% first quarter and 14%\n",
+             "fourth. It marks a CLOSE game, not a LATE one, which is why several of the examples below are early and tied. Built by R/factory/96.")),
     theme = theme_coach(grid = "none"))
 save_fig("docs/figures/factory/coinflip_anatomy.png", pAB, w = 13, h = 6.6)
 
@@ -134,7 +135,8 @@ save_fig("docs/figures/factory/coinflip_anatomy.png", pAB, w = 13, h = 6.6)
 # score and win probability, so it represents the spot rather than the tail of
 # it. Picking the biggest EPA swing instead returned twelve pick-sixes and
 # strip-sacks, which is a chart about turnovers, not about play calling.
-pbp <- as.data.table(load_pbp(2024:2025))[, .(game_id, play_id, desc, time)]
+pbp <- as.data.table(load_pbp(2024:2025))[, .(game_id, play_id, desc, time,
+                                              posteam_score, defteam_score)]
 ex <- merge(d[season >= 2024], pbp, by = c("game_id","play_id"), all.x = TRUE)
 ex <- ex[!is.na(desc) & !is.na(epa)]
 
@@ -152,14 +154,14 @@ pick <- ex[, .SD[1], by = .(bin, lev_bin, followed)]
 
 ord <- function(n) c("1st","2nd","3rd","4th")[n]
 pick[, cell := paste0(bin, " / ", ifelse(lev_bin == "High leverage", "high leverage", "normal"))]
-pick[, matchup := sprintf("%s v %s, %d wk %d", posteam, defteam, season, week)]
+pick[, matchup := sprintf("%d wk %d", season, week)]
+# score with the team holding the ball first, so it reads with the logos
+pick[, score := sprintf("%d-%d", posteam_score, defteam_score)]
 pick[, situation := sprintf("Q%d %s | %s and %d at the %s %d | %s | win prob %.0f%%",
       qtr, time, ord(down), ydstogo,
       fifelse(yardline_100 > 50, "own", "opp"),
       fifelse(yardline_100 > 50, 100 - yardline_100, yardline_100),
-      fifelse(score_differential == 0, "tied",
-              sprintf("%+d", score_differential)),
-      100*wp)]
+      score, 100*wp)]
 pick[, model_said := sprintf("%.0f%% pass", 100*p)]
 pick[, call := fifelse(y == 1, "PASS", "RUN")]
 pick[, verdict := fifelse(followed == 1, "followed the model", "went the other way")]
@@ -171,11 +173,11 @@ pick[, short := {
 }]
 
 setorder(pick, bin, lev_bin, -followed)
-write_csv(as.data.frame(pick[, .(cell, matchup, situation, model_said, call,
-                                 verdict, result, desc)]),
+write_csv(as.data.frame(pick[, .(cell, posteam, defteam, matchup, situation, score,
+                                 model_said, call, verdict, result, desc)]),
           "data/factory/coinflip_examples.csv")
 cat("\n--- twelve example plays ---\n")
-print(pick[, .(cell, verdict, matchup, model_said, call, result)])
+print(pick[, .(cell, verdict, posteam, defteam, matchup, score, model_said, call, result)])
 
 # render as a table graphic so it sits with the other figures
 pick[, row := .I]
@@ -187,24 +189,29 @@ lvl <- c("Coin flip / high leverage", "Coin flip / normal",
          "Obvious / high leverage", "Obvious / normal")
 pick[, band := match(cell, lvl) %% 2]
 
+suppressMessages(library(nflplotR))
 p2 <- ggplot(pick) +
   geom_rect(aes(xmin = 0, xmax = 100, ymin = y - 0.5, ymax = y + 0.5,
                 fill = factor(band)), alpha = 0.5) +
-  geom_text(aes(x = 1, y = y, label = matchup), hjust = 0, size = 3.05,
-            fontface = "bold", colour = "grey15") +
-  geom_text(aes(x = 15.5, y = y, label = situation), hjust = 0, size = 2.9,
+  # ball carrier first, then the defense, so the score reads left to right
+  geom_nfl_logos(aes(x = 3.2, y = y, team_abbr = posteam), width = 0.019) +
+  geom_text(aes(x = 5.9, y = y, label = "v"), size = 2.6, colour = "grey55") +
+  geom_nfl_logos(aes(x = 8.6, y = y, team_abbr = defteam), width = 0.019) +
+  geom_text(aes(x = 11.6, y = y, label = matchup), hjust = 0, size = 2.75,
+            colour = "grey40") +
+  geom_text(aes(x = 21.5, y = y, label = situation), hjust = 0, size = 2.9,
             colour = "grey30") +
-  geom_text(aes(x = 62, y = y, label = model_said), hjust = 0, size = 2.9,
+  geom_text(aes(x = 64, y = y, label = model_said), hjust = 0, size = 2.9,
             colour = "grey30") +
-  geom_text(aes(x = 70.5, y = y, label = call, colour = verdict), hjust = 0,
+  geom_text(aes(x = 72, y = y, label = call, colour = verdict), hjust = 0,
             size = 3.05, fontface = "bold") +
-  geom_text(aes(x = 77, y = y, label = verdict, colour = verdict), hjust = 0,
+  geom_text(aes(x = 78.5, y = y, label = verdict, colour = verdict), hjust = 0,
             size = 2.85) +
-  geom_text(aes(x = 93.5, y = y, label = result), hjust = 0, size = 2.9,
+  geom_text(aes(x = 94, y = y, label = result), hjust = 0, size = 2.9,
             fontface = "bold", colour = "grey15") +
   geom_text(data = cell_lab, aes(x = -1, y = y, label = cell), hjust = 1,
             size = 3.15, fontface = "bold", colour = "#1e2126", lineheight = 0.95) +
-  annotate("text", x = c(1, 15.5, 62, 70.5, 93.5), y = 0,
+  annotate("text", x = c(1.6, 21.5, 64, 72, 94), y = 0,
            label = c("game", "situation", "model", "call", "result"),
            hjust = 0, size = 2.9, fontface = "bold", colour = "grey45") +
   scale_fill_manual(values = c("0" = "#eef2f5", "1" = "#ffffff"), guide = "none") +
