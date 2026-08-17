@@ -106,16 +106,16 @@ html <- paste0(
 
 <div class="prose">
 <h2>Why this page exists</h2>
-<p>Eric Eager\\\'s framing, passed along by Michael: start with what the average coach would do given the situation, and take the residual. That only works if the model is right about the situation. If it is wrong inside the 10, then every coach who calls plays inside the 10 gets a residual that is really just model error wearing a coach\\\'s name.</p>
+<p>Eric Eager\'s framing, passed along by Michael: start with what the average coach would do given the situation, and take the residual. That only works if the model is right about the situation. If it is wrong inside the 10, then every coach who calls plays inside the 10 gets a residual that is really just model error wearing a coach\'s name.</p>
 <p>So every model here is graded before anyone is allowed to read a leaderboard off it. Five rules, all of them have to pass.</p>
 
 <div class="rubric">
 <dl>
 <dt>R1 &nbsp;Discrimination</dt><dd>Out-of-sample AUC at least 0.65, and at least 0.03 better than a plain down-and-distance lookup table. Beat the lookup table or you have learned nothing worth residualising.</dd>
 <dt>R2 &nbsp;Calibration</dt><dd>Expected calibration error at most 0.020, no probability decile off by more than 0.05. If the model runs low at 80%, every coach in those spots gets a fake positive residual.</dd>
-<dt>R3 &nbsp;Slice safety</dt><dd>At least 90% of situational slices with 200+ plays must have their predicted mean inside the actual mean\\\'s 95% interval. Season is deliberately excluded: it is a time index, not a football situation, and league drift is removed at the residual stage instead by centring each coach within his own season.</dd>
+<dt>R3 &nbsp;Slice safety</dt><dd>At least 90% of situational slices with 200+ plays must have their predicted mean inside the actual mean\'s 95% interval. Season is deliberately excluded: it is a time index, not a football situation, and league drift is removed at the residual stage instead by centring each coach within his own season.</dd>
 <dt>R4 &nbsp;Honest holdout</dt><dd>Season-grouped cross-validation. No play is ever scored by a model that saw its own season, because letting the model see 2024 while scoring 2024 lets it learn the coach, which is the thing we want left in the residual.</dd>
-<dt>R5 &nbsp;Residual persistence</dt><dd>A coach\\\'s residual one season must correlate with the next at r of at least 0.30. A residual that does not persist is noise. This is the rule that separates a trait from a coincidence, and it is the one most write-ups skip.</dd>
+<dt>R5 &nbsp;Residual persistence</dt><dd>A coach\'s residual one season must correlate with the next at r of at least 0.30. A residual that does not persist is noise. This is the rule that separates a trait from a coincidence, and it is the one most write-ups skip.</dd>
 </dl>
 </div>
 <p>Failing R1 to R4 is a modelling problem and means go fix the features. Passing R1 to R4 but failing R5 is not a modelling problem at all: it means the behaviour genuinely is not a stable coaching trait, which is itself worth knowing.</p>
@@ -147,7 +147,7 @@ html <- paste0(
 ', rows,
   '
 </tbody></table>
-<p class="prose" style="font-size:14px;color:var(--ink3);margin-top:10px">Persistence is the year-over-year correlation of a coach\\\'s residual. Lift is AUC above a down-and-distance lookup table. Every figure below is season-grouped out-of-sample.</p>
+<p class="prose" style="font-size:14px;color:var(--ink3);margin-top:10px">Persistence is the year-over-year correlation of a coach\'s residual. Lift is AUC above a down-and-distance lookup table. Every figure below is season-grouped out-of-sample.</p>
 
 <h2>Model by model</h2>
 ', sect,
@@ -243,7 +243,7 @@ html <- paste0(
 <section>
 <h3>Sean McVay rebuilt his offence in one off-season <span class="badge">descriptive, no model</span></h3>
 <figure><img src="figures/factory/mcvay_reinvention.png" alt="McVay 11 and 13 personnel usage by season against the league"><figcaption>The most extreme 11-personnel caller in football in 2022 and 2023, and the most extreme 13-personnel caller in 2025.</figcaption></figure>
-<p>Michael\\\'s outline has McVay leading the league in both 11 and 13 personnel. Both are true, and they never happened in the same season. He ran 11 personnel on 92% and 95% of snaps in 2022 and 2023, then dropped to 61% in 2025 and put 29% of his plays in 13 personnel against a league average of 5%. His offence went from -0.09 EPA per play to +0.12, his best. It is also the cleanest explanation for why his pre-snap tell swings so wildly from year to year: there is no settled McVay to measure.</p>
+<p>Michael\'s outline has McVay leading the league in both 11 and 13 personnel. Both are true, and they never happened in the same season. He ran 11 personnel on 92% and 95% of snaps in 2022 and 2023, then dropped to 61% in 2025 and put 29% of his plays in 13 personnel against a league average of 5%. His offence went from -0.09 EPA per play to +0.12, his best. It is also the cleanest explanation for why his pre-snap tell swings so wildly from year to year: there is no settled McVay to measure.</p>
 </section>
 
 <section>
