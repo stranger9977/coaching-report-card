@@ -317,6 +317,27 @@
       <p class="row"><span class="lab">The catch:</span> "second most valuable behind the QB" is directionally plausible but unproven here; nothing on this board builds the QB-value ladder to compare against, and the one adjacent number we have (the QB index running roughly ten times the coaching residual in the leverage model) points the same cautious way. The market number is a lower bound by construction. Nick's next lead: recreating the Hermsmeyer scheme-coefficient model, on the ideas list.</p>
     </div>
 
+    <div class="card">
+      <div class="card-head"><span class="t">Same personnel, different playbook: what the Rams do out of 13, and what Kyle does instead</span><span class="pill ship">His three follow-ups, answered</span></div>
+      <p class="row"><span class="lab">Michael:</span> "everyone else kinda sucked at this while the Rams were insane. So what were they doing out of it?" ... "Wtf does Kyle do" ... "What ways do you think Schnahan adapted in 2025?"</p>
+      <p class="row found"><span class="lab">The Rams out of 13 are running a different playbook, not a better version of the same one.</span> Their runs are man and gap blocked at 40.6% against a league at 17.7%, they called zero power runs out of it all season while the league lives on power, they are under center 89% of the time, their play action fakes inside zone at four times the league rate, and they treat 13 as a passing personnel: lower run rate than the league uses it at, more deep shots. Eight of nineteen playbook metrics separate at p below 0.05, and the league baseline excludes LA so they are not graded against themselves.</p>
+      <figure>
+        <img src="figures/rams_13_playbook.png" alt="Ranked differences between the Rams and the league out of 13 personnel across nineteen playbook metrics, led by man-gap run blocking, under-center rate and inside-zone play-action looks.">
+        <figcaption>The Rams against the league, out of the same personnel. Built by R/24.</figcaption>
+      </figure>
+      <p class="row found"><span class="lab">And Kyle does not play 13 at all.</span> Eight snaps all season. His heavy package is 21 with the fullback, a third of his snaps, from which he throws more than the league throws out of 21, runs outside zone at +16 points over the league, and uses less play action than anyone's 21. Two mutually exclusive routes to heavy: LA adds a third tight end, SF adds a back.</p>
+      <figure>
+        <img src="figures/kyle_heavy.png" alt="Two panels: LA and SF take opposite heavy-personnel routes, 13 versus 21, and what San Francisco runs out of 21 versus the league.">
+        <figcaption>What Kyle does instead. Built by R/24.</figcaption>
+      </figure>
+      <p class="row found"><span class="lab">And Shanahan did not adapt in 2025, which is Nick's point made measurable.</span> Across a nine-metric scheme fingerprint, all three of his season-to-season transitions sit below the league's median drift for coaches who kept their jobs (4th to 17th percentile). McVay's 11-to-13 pivot sits at the 98th, which is what actual adaptation looks like on this ruler. Shanahan's stability is the signature.</p>
+      <figure>
+        <img src="figures/shanahan_2025.png" alt="Shanahan's nine-metric scheme fingerprint by season, nearly flat, with his three same-caller drift values far below the league median and McVay's pivot at the 98th percentile for contrast.">
+        <figcaption>The fingerprint barely moves. The catch: whether CMC carried the load is not testable in this pull (no carry-share field), and the caption says so. Built by R/24.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> play-action concept cells get thin (LA has 98 PA dropbacks out of 13, split five ways), flagged in the data; and SF's 2025 run EPA was actually his worst of the four seasons, so "CMC carried the load" shows up nowhere in the play-calling data either way.</p>
+    </div>
+
     <div class="tgroup">
       <h3>Rebuilt properly, 17 August</h3>
       <p class="grouphint">Everything above stands. This is the same set of questions run through a proper modeling setup, so where a card up there and a card down here disagree, trust this one. Full diagnostics live on the <a href="models.html">Model Factory</a> tab.</p>
