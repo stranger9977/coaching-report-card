@@ -54,6 +54,12 @@ the new work.
 | Defensive callers run hot, nobody mixes | previous blitz raises the next-blitz residual ~3.6pp league-wide net of situation; no DC anti-correlates; the identity persists odd-vs-even seasons at r = 0.78 |
 | Blitz guessability does not cost anything | r = +0.08 with EPA allowed, CI well across zero; the offensive predictability result has no defensive twin |
 | Macdonald calls one game everywhere | situational range 33rd of 42, below league blitz rate in all six cuts; BAL 2023 second-most static personnel of 121 coordinator-seasons, SEA at median |
+| The U-shape theory is dead | no U on any predictability axis; offense monotonic, defense flat; structure is universal among the elite, Johnson alone combines it with unexploitability |
+| Shell rotation is rising | 29.1% of dropbacks (2022) to 32.3% (2025), +1.2pp/season, CI clear of zero |
+| But rotation is not provably worth it | -0.01 EPA to the offense after situation controls, CI spans zero in every split |
+| Macdonald's Super Bowl trap | the Drake Maye pick came on a rotated shell (Q4 8:49); SEA 29, NE 13 verified vs nflverse |
+| Cowardly and brave boards | Harbaugh/Patricia/Ryans vs Kingsbury/McDermott/LaFleur; go/kick rate clears the trait bar (r = 0.76) |
+| McDaniels for the animator | middling on clear-cut fourth downs, 1 of 17 in the razor-thin band |
 
 ## Scripts
 
@@ -73,6 +79,9 @@ figures and derived CSVs.
 | `R/14_bj_ftn_signature.R` | bj_ingredients.png, bj_pa_cold.png, bj_same_look.png |
 | `R/15_motion_encryption.R` | motion_encryption.png, motion_pa.png |
 | `R/16_def_sequencing.R` | def_seq_lift.png, def_situational.png, def_shapeshift.png |
+| `R/17_ushape.R` | ushape_test.png, ushape_structure.png |
+| `R/18_shell_rotation.R` | rotation_trend.png, rotation_worth.png, rotation_dcs.png, macdonald_reel.csv |
+| `R/19_brave_cowardly.R` | cowardly.png, brave.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done

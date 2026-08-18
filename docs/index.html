@@ -117,7 +117,53 @@
 
     <div class="tgroup">
       <h3>The sequencing file, 18 August</h3>
-      <p class="grouphint">Nick's theory: "we have a theory that ben johsnons play sequencing is unique." Plus Michael's pre-snap question and the defensive side. What survived: the chain finding, the play-action volume, a McVay-only motion effect, and a defensive flatness signature for Macdonald. The dead tests stay on the board with the evidence.</p>
+      <p class="grouphint">Nick's theory: "we have a theory that ben johsnons play sequencing is unique." Plus Michael's pre-snap question, his U-shape theory, his post-snap rotation questions, and the defensive side. What survived: the chain finding, the play-action volume, a McVay-only motion effect, a rising-rotation trend, and two leaderboards. The dead tests stay on the board with the evidence.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">His U-shape theory, tested</span><span class="pill block">No U. Something better underneath.</span></div>
+      <p class="row"><span class="lab">Michael:</span> "Predictability is U-shaped. You don't want to be at the extremes…we are narrative pattern seeking creatures - if you are too unpredictable, then the narrative does not make sense, it's nonsensical. Your team needs a narrative and structure, but if you're too predictable, the other team will gain an edge on you." And: "So we need ways that McVay, Schnahan, McDonald, and Johnson are like this"</p>
+      <p class="row found"><span class="lab">The U is not there, on any axis.</span> Situational guessability, sequence guessability, defensive blitz guessability: three tests, and in each one the quadratic term fails, the information criterion prefers the straight line, and the flexible fit collapses onto it. Offense is monotonic (more guessable tracks better offense the whole way); defense is flat. But the second half of his sentence survives on its own: structure. Every elite name has a strong situational identity. The difference is what the opponent can do with it, and there are two roads: McVay and Shanahan run strong identities that are also guessable, and win anyway. Johnson runs the strongest identity in the sample with the least exploitability in the league, on both guessability axes. His ideal quadrant exists; it just has one man in it.</p>
+      <figure>
+        <img src="figures/ushape_test.png" alt="Scatter of situational guessability against career offensive EPA with linear and flexible fits agreeing on a straight upward line, no U shape.">
+        <figcaption>The U test on the main axis. The flexible fit collapses onto the straight line. Built by R/17.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/ushape_structure.png" alt="Quadrant chart of structure against exploitability percentiles with Michael's ideal quadrant shaded and Ben Johnson the only one of the four highlighted names inside it.">
+        <figcaption>The rescue version: structure against exploitability. The shaded corner is his ideal quadrant. Built by R/17.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> the structure measure's raw range is narrow (percentiles spread it out, the underlying differences are small), and Macdonald is placed with defensive analogues rather than the same measures, illustrative rather than literal.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Post-snap movement: right on the trend, empty on the payoff</span><span class="pill ship">His guess, checked both ways</span></div>
+      <p class="row"><span class="lab">Michael:</span> "I wonder if post snap movement out of shell has increased over time…my guess is yes" ... "Also curious if EPA is down on plays where there is a rotation post-snap. That'd tell us if it's worth it."</p>
+      <p class="row found"><span class="lab">Right on the first, and honestly empty on the second.</span> Shell rotation rose from 29.1% of dropbacks in 2022 to 32.3% in 2025, climbing about a point a season with the interval clear of zero, and the charting's missingness is under 1.1% and stable, so the trend is real. The worth-it question comes back a genuine null: after situation controls, rotated snaps cost the offense one hundredth of a point of EPA with an interval spanning zero, in every split. Rotating is free, not proven profitable. Macdonald rotates 6 points more than his situations call for, 9th of 41 coordinators, and the trait persists at r = 0.91, the strongest repeatability number on this board.</p>
+      <figure>
+        <img src="figures/rotation_trend.png" alt="Shell rotation share of dropbacks rising from 29.1 percent in 2022 to 32.3 percent in 2025.">
+        <figcaption>His trend guess, confirmed. SumerSports charting. Built by R/18.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/rotation_worth.png" alt="Offensive EPA on rotated versus static snaps after situation controls, with every interval spanning zero.">
+        <figcaption>The worth-it test, a real null said plainly. Built by R/18.</figcaption>
+      </figure>
+      <p class="row found"><span class="lab">The film reel:</span> his ten worst-for-the-offense rotated snaps are tabled with date, quarter and clock in data/derived/macdonald_reel.csv. The top three: a Week 10 2025 sack-fumble touchdown against Arizona, the Week 10 2023 pick-six against Cleveland, a second Arizona sack-fumble the same game. Fifth on the list, on merit: the Super Bowl interception of Drake Maye, fourth quarter, 8:49, open shell shown, closed coverage played. Checked against nflverse: Seattle 29, New England 13.</p>
+      <p class="row"><span class="lab">The catch:</span> the reel ranks by outcome, and outcomes on single plays are mostly the offense's mistake plus luck; the rotation set the trap on these plays, but no single play proves the trap did it.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">The cowardly and the brave</span><span class="pill ship">Two boards, built</span></div>
+      <p class="row"><span class="lab">Nick:</span> "Probably need a cowardly coach leaderboard. And a brave coach leaderboard"</p>
+      <p class="row found"><span class="lab">Built on the clear-cut fourth downs,</span> where the model says going is plainly better, era-adjusted so 2018 coaches are not punished for their time. The cowardly board: Jim Harbaugh, Matt Patricia, DeMeco Ryans, with Tomlin, Belichick and Carroll in the top ten and separable from their eras. The brave board: Kliff Kingsbury, Sean McDermott, Matt LaFleur, Dan Campbell. And the number for Michael's animator: Josh McDaniels is merely middling on clear-cut spots, but in the razor-thin band where nerve actually shows, he went for it once in seventeen chances.</p>
+      <figure>
+        <img src="figures/cowardly.png" alt="Leaderboard of head coaches who kick most when the math clearly says go, era-adjusted with intervals, led by Jim Harbaugh and Matt Patricia.">
+        <figcaption>Who kicks when the math clearly says go. Built by R/19.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/brave.png" alt="Leaderboard of head coaches who go for it most in clear-cut spots, era-adjusted with intervals, led by Kliff Kingsbury and Sean McDermott.">
+        <figcaption>Who goes when the math says go. Built by R/19.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> 43 of 58 coaches cannot be separated from their own era's average and both charts say so on their face. One point in the boards' favor: this go-or-kick rate repeats at r = 0.76 split-half, clearing the project's trait bar that the dollar-cost ledger fails.</p>
     </div>
 
     <div class="card">
