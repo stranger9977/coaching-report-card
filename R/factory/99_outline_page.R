@@ -81,6 +81,13 @@ sec('The Seahawks defense struggled against the Rams, but their offense shredded
         'EPA per play by each offense in the four Seahawks-Rams games of 2024 and 2025',
         'Both offenses in all four meetings, including the playoff game.')),
 
+'<h2>Coaching vs. the roster</h2>',
+sec('What leaves with the coach, and what stays',
+    note('The cleanest answer this project has to the question underneath the whole video. Take every team-season and the one after it, split the pairs by whether the same man was still calling plays, and see what survives. <b>Scheme belongs to a man.</b> Tempo predicts itself at 0.94 when the caller stays and <b>-0.03</b> when he leaves. Five-plus rushers 0.83 to 0.05. Cover 3 0.74 to -0.03. Average drop across eight scheme measures is 0.63. <b>Results belong to the building.</b> Sack rate moves 0.06, and offensive EPA is <i>more</i> stable when the caller changes.'),
+    fig(file.path(FIG,'travels.png'),
+        'Year-over-year team correlation for scheme and outcome measures, split by whether the play-caller stayed',
+        'From SumerSports charting, 96 consecutive team-season pairs a side. The sting in the tail: the numbers that are unmistakably the coach are the ones that do not move the scoreboard, and the offensive number that best predicts scoring, the share of throws that are catchable, is not a coach trait at all.')),
+
 '<h2>Personnel</h2>',
 sec('What 11 and 13 personnel are, and who uses them',
     fig(file.path(FIG,'outline_personnel.png'),
