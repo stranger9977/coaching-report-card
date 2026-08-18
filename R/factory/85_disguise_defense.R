@@ -170,6 +170,26 @@ persist <- function(z, lab) {
 cat("\n=== does disguise repeat across seasons? ===\n")
 pr <- persist(rs, "Shell rotation"); pb <- persist(bs, "Blitz bluff")
 
+# THE CONFOUND THAT MATTERS MOST, and the one this window is worst placed to
+# answer. Sumer only covers 2022-2025, so most coordinators never change club
+# inside it, and a split-half test can pass because the BUILDING is the same:
+# same roster, same secondary, same head coach. The only version that isolates
+# the man is whether his tendency travels when he moves.
+tmm <- d[has_shell == TRUE & def_caller != "", .N, by = .(caller = def_caller, season, def_team)]
+setorder(tmm, caller, season, -N); tmm <- tmm[, .SD[1], by = .(caller, season)]
+zz <- merge(rs, tmm[, .(caller, season, team = def_team)], by = c("caller","season"))
+setorder(zz, caller, season)
+zz[, `:=`(prev = shift(resid), prev_season = shift(season), prev_team = shift(team)), by = caller]
+yy <- zz[!is.na(prev) & season - prev_season == 1]
+yy[, moved := team != prev_team]
+mv <- yy[moved == TRUE]; sm <- yy[moved == FALSE]
+ct_mv <- cor.test(mv$resid, mv$prev); ct_sm <- cor.test(sm$resid, sm$prev)
+cat(sprintf("\nyear-over-year pairs %d | same club %d | CHANGED CLUB %d (%d coordinators)\n",
+            nrow(yy), nrow(sm), nrow(mv), uniqueN(mv$caller)))
+cat(sprintf("  same club     r = %+.3f [%.2f, %.2f]\n", ct_sm$estimate, ct_sm$conf.int[1], ct_sm$conf.int[2]))
+cat(sprintf("  CHANGED club  r = %+.3f [%.2f, %.2f] p = %.4f  <- the one that isolates the man\n",
+            ct_mv$estimate, ct_mv$conf.int[1], ct_mv$conf.int[2], ct_mv$p.value))
+
 # ---------------------------------------------------------------- does it work?
 cat("\n=== does the lie help? EPA allowed, offense's point of view ===\n")
 w1 <- rot[, .(plays = .N, epa = mean(expected_points_added, na.rm = TRUE)), by = rotate]
@@ -245,6 +265,10 @@ p <- p + plot_annotation(
             format(nrow(sh), big.mark = ","), nrow(rc)),
     paste0("\nDefenses rotate far more on obvious passing downs, so a raw rate would rank coordinators by the schedule they faced. Every number here is measured against a\n",
            "situation-only model of when the league rotates, season-grouped, so a coordinator is compared with what everyone else does in his own spots. Showing two-high\n",
-           "and dropping to one is the common lie; the reverse is about a third as frequent. Charting data by SumerSports. Built by R/factory/85.")),
+           sprintf("and dropping to one is the common lie; the reverse is about a third as frequent. The split-half test on its own could be measuring the BUILDING rather than the man,\n"),
+           sprintf("because only %d of %d coordinators change club inside this four-season window. So the harder test: across the %d moves, a coordinator's rotation tendency travels with\n",
+                   uniqueN(mv$caller), uniqueN(yy$caller), nrow(mv)),
+           sprintf("him at r = %+.2f [%.2f, %.2f], p = %.3f, against %+.2f when he stays put. It is the man. Charting data by SumerSports. Built by R/factory/85.",
+                   ct_mv$estimate, ct_mv$conf.int[1], ct_mv$conf.int[2], ct_mv$p.value, ct_sm$estimate))),
   theme = theme_coach(grid = "none"))
 save_fig("docs/figures/factory/disguise_defense.png", p, w = 13.6, h = 7.4)

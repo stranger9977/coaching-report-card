@@ -1,0 +1,9 @@
+measure,reported_r,my_r,reproduces,r_drop3extremes,team_keyed_r,mover_r,sched_confound_r,epa_r,verdict
+rush5_5plus,0.787,0.786,yes,0.637,0.609,0.442,,-0.142,SURVIVES (coach trait)
+press_given_rushers,0.328,0.329,yes,0.103,0.691,0.029,0.358,-0.516,"KILLED - team stat, zero travel, 3-caller artifact"
+press_four_man,0.307,0.305,yes (only at undisclosed min_half=250),0.157,0.613,0.189,0.335,-0.6,"KILLED - team+roster+schedule, EPA half mechanical"
+stunt,0.518,0.515,yes,0.255,0.728,0.175,,0.108,"DOWNGRADE - team stat, 3-caller artifact"
+time_to_pressure,0.487,0.487,"yes (only at min_half=150, 6x below default)",0.159,0.499,0.644,,0.415,"KILLED - threshold-manufactured, and it is an offense/QB stat"
+rushcount_entropy,0.77,0.77,yes,,,,,-0.048,SURVIVES but redundant with rush5 (r=0.836)
+sack_given_pressure,0.001,0.041,approx,,,,,,"negative confirmed (underpowered null, not proven zero)"
+press_on_5plus,0.518,0.538,approx,,,,,,negative confirmed (underpowered)
