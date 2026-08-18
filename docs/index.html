@@ -266,6 +266,58 @@
     </div>
 
     <div class="tgroup">
+      <h3>The evening texts, 18 August</h3>
+      <p class="grouphint">Four asks from the same afternoon: verify his Seahawks numbers, add the Rams to the 13-personnel picture, build the going-for-2 view, and check his guess at what a coach is worth. Two of his numbers verified, one got corrected into a better stat, and one hunch on each side of this conversation died.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">"Can you verify this?" The Seahawks two-high numbers</span><span class="pill work">Close, and the correction is a better stat</span></div>
+      <p class="row"><span class="lab">Michael:</span> "Pre-snap 2 high…for Seahawks can you verify this? 78% pre snap the most in the NFL…? League average is 52.5%. For first down alone it's 84%" ... "They only play 6% cover 1 (29th) and 33% cover 3 (31st)?"</p>
+      <p class="row found"><span class="lab">Checked against Sumer, number by number.</span> The spirit holds, the specifics do not. Seattle shows two-high on 85.5% of dropbacks, second in the league, not first; Philadelphia leads at 86.7%. First down: 88.9%, again second. His league average runs ten points below ours on both cuts, uniformly, which reads as his source drawing the shell line differently rather than a Seattle error. Cover 1 agrees in direction (they barely play it) but not size, and the Cover 3 rank is flatly wrong: 16th, dead center, not 31st. The stat worth keeping is what the correction uncovers: they show two-high on 85.5% and play it on 56.2%. A 29-point spin-down, sixth-most rotation in football. The story is not that Seattle sits in two-high. It is that Seattle advertises it and then leaves.</p>
+      <figure>
+        <img src="figures/sea_twohigh.png" alt="Verification chart pairing Michael's claimed Seahawks numbers against SumerSports measurements for two-high rate, first-down two-high, Cover 1 and Cover 3, with ranks noted.">
+        <figcaption>His numbers against Sumer's, stat by stat. Built by R/20.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> Sumer charts the shell only on dropbacks, so a source that charts run plays too would read lower everywhere; that is the likeliest reason for the level gap, and it cannot be tested from this data.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">The Rams out of 13, added in</span><span class="pill ship">Both his numbers confirmed</span></div>
+      <p class="row"><span class="lab">Michael:</span> "it doesn't really make the case for 'Rams are dope at 13 personnel' - maybe add them in?" ... "I'm curious how good their pass/rush was against a light box and heavy box out of 13 too" ... "They were fucking nuts out of 13 personal. .50 EPA passing, .07 EPA per play running my god"</p>
+      <p class="row found"><span class="lab">Both numbers check out inside our intervals</span> (we compute +0.44 passing, +0.05 running; his tool counts garbage time, ours can go either way). The 2025 usage picture: nobody else is close, 26.1% of snaps against 12.0% for the next team, and their efficiency out of it ranks second behind Buffalo's much thinner sample. His box question finds the real story: defenses stack the box against the Rams' 13 personnel 72% of the time, and that is exactly where the Rams separate. Passing stays at +0.37 into a stacked box while the league sits at +0.03, and their runs hold break-even where the league gets stuffed. Those are the only two splits that clear significance. It is not that they are great everywhere out of 13; it is that the look defenses choose against it is the one it beats.</p>
+      <figure>
+        <img src="figures/rams_13.png" alt="Team logos scattered by 13-personnel usage rate against EPA per play out of 13 in 2025, with the Rams ringed as the extreme usage outlier.">
+        <figcaption>Usage against payoff out of 13 personnel, 2025, teams with 25+ charted snaps. Built by R/21.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/rams_13_box.png" alt="Bar chart of Rams versus league EPA out of 13 personnel split by box count and play type, with the significant edges both against heavy boxes.">
+        <figcaption>Where the edge lives: the stacked box. Sample sizes under every bar; the light-box run split is six plays and treated as directional. Built by R/21.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Going for 2</span><span class="pill block">Built, and Nick's hunch dies</span></div>
+      <p class="row"><span class="lab">Michael:</span> "Do we have anything on 2Pt conversions? Going for 2"</p>
+      <p class="row"><span class="lab">Nick:</span> "Correlates really high with 4th down aggressiveness so can probably combine them to an extent. Like no one is aggressive on 4th down and conservative on 2pt conversions. But I can test that actually"</p>
+      <p class="row found"><span class="lab">Tested, and the quadrant that was supposed to be empty holds 28% of the league.</span> Andy Reid, Dan Campbell, Matt LaFleur, Sean McDermott and John Harbaugh are all brave on fourth down and conservative on two-point tries. The correlation is r = 0.10 with an interval spanning zero, nowhere near "really high." Two honest wrinkles worth the script's time: coaches obey the go-for-2 card 99.6% of the time in the fourth quarter and only 48.6% before it, so the card is a late-game religion and an early-game suggestion. And two-point tries are so rare (10 to 19 chart-says-go chances per coach across eight seasons) that "two-point aggressiveness" fails its own reliability test as a coaching trait; the fourth-down version passes at r = 0.76. One decision is a trait, the other is a coin that comes up a few times a year.</p>
+      <figure>
+        <img src="figures/two_point.png" alt="Scatter of coaches' fourth-down bravery against two-point aggressiveness with quadrants labeled, orange coaches filling the quadrant claimed to be empty, correlation 0.10.">
+        <figcaption>Fourth-down bravery against two-point aggressiveness. The labeled quadrant was supposed to be empty. Built by R/22.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">What is a coach actually worth</span><span class="pill ship">His guess, put against three rulers</span></div>
+      <p class="row"><span class="lab">Michael:</span> "I wonder how much a good OC/coach is worth… it certainly feels like there's an argument that they are the second most valuable person on the roster behind QB." ... "Like it 'feels' as if McDonald, Schanahan, and McVay are responsible for 3-4 wins a year. A WAR of 3-4 for the outlier guys"</p>
+      <p class="row found"><span class="lab">The three measures on this board answer him with a ladder.</span> Against draft pedigree, the loosest ruler, the all-time outliers do reach his band: Belichick +4.2, Dungy +3.0. Control for what the roster is actually paid and the ceiling drops under 3. Price the coach into the closing spread, the strictest ruler there is, and the sustained elite tier is about one win a season. The stricter the control, the smaller the coach. And the three men he named never clear +1.7 on any ruler; Shanahan's career number against the market is slightly negative, which is the measured version of "he keeps getting priced as a genius and performing to the price." His 3-4 win coach exists only in the measure that cannot tell coaching apart from roster-building.</p>
+      <figure>
+        <img src="figures/coach_war.png" alt="Three stacked distributions of coach wins per season above expectation under increasingly strict controls, with Michael's three-to-four win guess shaded and only the loosest measure reaching it.">
+        <figcaption>Three rulers, loosest to strictest, his guess shaded. Macdonald carries a two-season flag everywhere. Built by R/23.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> "second most valuable behind the QB" is directionally plausible but unproven here; nothing on this board builds the QB-value ladder to compare against, and the one adjacent number we have (the QB index running roughly ten times the coaching residual in the leverage model) points the same cautious way. The market number is a lower bound by construction. Nick's next lead: recreating the Hermsmeyer scheme-coefficient model, on the ideas list.</p>
+    </div>
+
+    <div class="tgroup">
       <h3>Rebuilt properly, 17 August</h3>
       <p class="grouphint">Everything above stands. This is the same set of questions run through a proper modeling setup, so where a card up there and a card down here disagree, trust this one. Full diagnostics live on the <a href="models.html">Model Factory</a> tab.</p>
     </div>

@@ -1,0 +1,5 @@
+claim,his_pct,his_rank,our_pct,our_rank,his_league_avg,our_league_avg,universe,verdict
+"Pre-snap two-high, all downs",78,1st (most in NFL),85.5,2 of 32,52.5,63,"dropbacks, non-garbage-time, 2025 REG","off (SEA is 2nd, not 1st; league avg off by ~10-11pts)"
+"Pre-snap two-high, first down only",84,1st (implied),88.9,2 of 32,52,63.2,"dropbacks, non-garbage-time, 2025 REG","off (SEA is 2nd, not 1st; league avg off by ~10-11pts)"
+Cover 1 rate,6,29th,13.6,26 of 32,NA,18.9,"dropbacks, non-garbage-time, 2025 REG","close (direction agrees, magnitude 2x+ off)"
+Cover 3 rate,33,31st,29.6,16 of 32,NA,30.8,"dropbacks, non-garbage-time, 2025 REG",off (rank contradicted)

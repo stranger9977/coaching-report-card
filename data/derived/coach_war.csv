@@ -1,0 +1,425 @@
+"measure","coach","wins_per_season","sample","sample_unit","eligible","outside_cone","z"
+"Draft-talent model (2003-2025)","Bill Belichick",4.1594136831773,21,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Tony Dungy",3.02872984792976,6,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","John Harbaugh",2.84576485051979,18,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Sean Payton",2.64262367281511,18,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Sean McDermott",2.45820954483901,9,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Mike McCarthy",2.4248455906949,18,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Andy Reid",2.26926336318272,23,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Matt LaFleur",2.11552166794213,7,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Dick Vermeil",2.09185463647874,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Mike Tomlin",1.97426346795217,19,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Marty Schottenheimer",1.9085694765288,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Nick Sirianni",1.89836045209676,5,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Pete Carroll",1.85817502630976,15,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Jim Harbaugh",1.83423411150398,6,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Wade Phillips",1.73478640128318,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Bill Cowher",1.67933814845374,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Kyle Shanahan",1.67189558371957,9,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Bruce Arians",1.65814848897678,8,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Sean McVay",1.64650083173985,9,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Mike Holmgren",1.55854114901097,6,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Mike Macdonald",1.51478227900649,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Mike Zimmer",1.44631096122373,8,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Jason Garrett",1.37953483423246,10,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Mike Sherman",1.33744857695146,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Mike Smith",1.22531789709503,7,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Mike Vrabel",1.19985439428139,7,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Norv Turner",1.19768848532834,8,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Brad Childress",1.17499870832567,5,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Liam Coen",1.13854333027714,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Brian Billick",1.09331973787979,5,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Dan Campbell",0.926051647924148,5,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Anthony Lynn",0.924597825171567,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Kevin O'Connell",0.844728302334412,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","John Fox",0.806361932881795,15,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","DeMeco Ryans",0.711247907809666,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Bill O'Brien",0.668527510129533,6,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Mike Martz",0.652252027994163,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Gary Kubiak",0.651353104878204,10,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Mike Tice",0.61724413913123,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Marvin Lewis",0.581625564353126,16,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Tom Coughlin",0.580071402781459,12,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Dan Quinn",0.576612844428118,7,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Lovie Smith",0.517860031382929,12,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Matt Nagy",0.499614816568584,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Doug Pederson",0.417192977121726,8,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Joe Gibbs",0.413057657392405,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Dave Wannstedt",0.404583003539402,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Bill Parcells",0.320533177121682,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Jack Del Rio",0.289721855143247,12,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Shane Steichen",0.282785173839134,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Ben Johnson",0.281595407605807,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Mike McDaniel",0.240389194304183,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Jim Caldwell",0.23681567741089,7,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Brandon Staley",0.219601234592383,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Mike Shanahan",0.206935275256591,10,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Rex Ryan",0.177225319766087,8,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Mike McCoy",0.16744119379914,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Frank Reich",0.153472929809035,6,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Nick Saban",0.124938238784995,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Chuck Pagano",0.0559471835890857,6,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Chip Kelly",0.0264920152818331,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Ron Rivera",0.0237029241874992,13,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Joe Vitt",0.00297371580564369,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Joe Philbin",-0.0168484909844498,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Mike Singletary",-0.0486784126993716,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Todd Bowles",-0.0542567409693433,8,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Zac Taylor",-0.114342381107767,7,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Brian Schottenheimer",-0.173991522567644,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Jon Gruden",-0.189549470497646,9,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Nathaniel Hackett",-0.198215296328086,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Josh McDaniels",-0.199308878441061,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Mike Munchak",-0.213597712828245,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Jeff Fisher",-0.222656816107384,13,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Antonio Pierce",-0.22370540239951,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Greg Schiano",-0.224325043316363,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Eric Mangini",-0.227185950549449,5,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Vance Joseph",-0.245656985550087,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Kliff Kingsbury",-0.248229141920626,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Doug Marrone",-0.265611820114584,6,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Jim Mora",-0.282182145187773,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Dick Jauron",-0.285540256760784,5,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Vic Fangio",-0.313846787235497,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Gregg Williams",-0.361812546503001,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Brian Flores",-0.377296791532992,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Rich Bisaccia",-0.378214051047918,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Mike Mularkey",-0.381153774987417,5,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Herm Edwards",-0.397048954514385,6,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Kellen Moore",-0.400685287473131,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Leslie Frazier",-0.418795651158349,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Jim Zorn",-0.445875241214017,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Tony Sparano",-0.447100615558773,5,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Dennis Erickson",-0.451187149879537,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Freddie Kitchens",-0.46758345466138,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Dennis Green",-0.533162991630003,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Jay Gruden",-0.537637204801406,5,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Dirk Koetter",-0.557154839749766,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Steve Spurrier",-0.567202659497452,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Rob Chudzinski",-0.619295892276022,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Todd Haley",-0.61997130333374,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Marc Trestman",-0.623137371870111,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Matt Eberflus",-0.675209495636417,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Ben McAdoo",-0.681731314782629,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Dennis Allen",-0.689722332135589,5,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Dan Reeves",-0.746503323656895,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Ken Whisenhunt",-0.749706561337774,8,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Jim Schwartz",-0.756787000936146,5,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Matt Rhule",-0.758161135616214,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Butch Davis",-0.78157689290824,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Kevin Stefanski",-0.802096889615577,6,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Jerod Mayo",-0.808233453644545,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Scott Linehan",-0.820443168955574,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Mike Pettine",-0.846514992153789,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Arthur Smith",-0.848429501221363,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Jonathan Gannon",-0.909226692606987,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Lane Kiffin",-0.941850692655374,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","David Culley",-1.03158891471233,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Pat Shurmur",-1.03326743707574,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Chan Gailey",-1.04739260736106,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Jim Fassel",-1.0516842524628,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Jim Tomsula",-1.07267153301663,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Raheem Morris",-1.08714152334927,6,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Brian Daboll",-1.14882940012761,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Matt Patricia",-1.16294674810292,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Art Shell",-1.17377737451262,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Cam Cameron",-1.17406417173433,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Bobby Petrino",-1.22697055770086,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Steve Mariucci",-1.28268528804447,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Steve Wilks",-1.33029729742137,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Romeo Crennel",-1.3678545162475,6,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Joe Judge",-1.38383269209333,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Jim Haslett",-1.4160473102255,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Aaron Glenn",-1.42229210230339,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Tom Cable",-1.45022037593812,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Robert Saleh",-1.48291064906456,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Dom Capers",-1.55038152692921,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Dave Canales",-1.56892042815146,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Urban Meyer",-1.59422252837115,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Dave McGinnis",-1.61757993175531,1,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Adam Gase",-1.71931527357017,5,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Bill Callahan",-1.77198178322804,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Brian Callahan",-1.80471156452055,2,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Rod Marinelli",-1.8807252969324,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Gus Bradley",-1.98032299968966,4,"seasons",TRUE,NA,NA
+"Draft-talent model (2003-2025)","Hue Jackson",-2.11752969571777,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Mike Nolan",-2.24374862649268,3,"seasons",FALSE,NA,NA
+"Draft-talent model (2003-2025)","Steve Spagnuolo",-2.4262395199052,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Bill Belichick",2.92707289782625,11,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","John Harbaugh",2.04720881830239,13,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Bruce Arians",1.86631536820506,5,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Sean McDermott",1.57306971562283,9,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Andy Reid",1.54624725082894,14,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Pete Carroll",1.42765300990557,13,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","John Fox",1.21441682189369,6,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Sean McVay",1.17748064689046,9,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Jim Harbaugh",1.17645159969121,5,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Sean Payton",1.12984783574242,11,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Jason Garrett",1.12697845174574,8,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Mike Macdonald",1.12179664973055,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Kyle Shanahan",0.958574362278249,9,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Marvin Lewis",0.87908295432175,7,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Mike Tomlin",0.875802941045019,13,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Mike McCarthy",0.815247909691537,12,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Matt LaFleur",0.799307499362445,7,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Mike Vrabel",0.796733490326471,7,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","DeMeco Ryans",0.735584850092361,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Anthony Lynn",0.701894739974443,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Mike Zimmer",0.646423673975418,8,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Liam Coen",0.565506726013233,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Nick Sirianni",0.560452008504964,5,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Chuck Pagano",0.469264960498507,6,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Bill O'Brien",0.465631231850535,6,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Dan Quinn",0.392243709233918,7,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Tom Coughlin",0.350220729957683,4,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Gary Kubiak",0.323491508058613,4,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Kevin O'Connell",0.301068405799638,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Jim Caldwell",0.262446249654378,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Shane Steichen",0.23895379144451,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Norv Turner",0.236080701476183,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Dan Campbell",0.195417624353344,4,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Ron Rivera",0.184575129208636,12,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Chip Kelly",0.179400065403548,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Mike Smith",0.177891678894274,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Matt Nagy",0.168854870203526,4,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Mike McCoy",0.142130224277471,4,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Ben Johnson",0.123426324666154,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Todd Bowles",0.0880433872336898,7,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Mike Shanahan",0.0714319026138786,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Greg Schiano",0.0448587003043387,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Leslie Frazier",0.0292893134712927,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Joe Vitt",0.0269890465433762,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Kliff Kingsbury",0.0108779439628251,4,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Joe Philbin",-0.0073759128585029,4,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Brian Flores",-0.010856993143995,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Frank Reich",-0.0134972801619904,6,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Doug Pederson",-0.0278052418318492,8,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Jack Del Rio",-0.0464522396159976,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Jeff Fisher",-0.0510721020626556,4,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Jim Schwartz",-0.0676432223924737,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Gregg Williams",-0.0848981509102451,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Rob Chudzinski",-0.139983020440046,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Matt Eberflus",-0.147095875848147,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Antonio Pierce",-0.153217613264229,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Brandon Staley",-0.191114564304145,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Kellen Moore",-0.21250965250729,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Arthur Smith",-0.225433630219243,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Dirk Koetter",-0.22845205591049,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Mike McDaniel",-0.233621328737465,4,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Mike Mularkey",-0.240848595700368,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Freddie Kitchens",-0.260331268142712,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Doug Marrone",-0.274794208254994,6,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Chan Gailey",-0.285012523143126,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Zac Taylor",-0.287661647882252,7,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Josh McDaniels",-0.299618060053308,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Rich Bisaccia",-0.302302323327841,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Pat Shurmur",-0.310376304925846,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Vic Fangio",-0.372439544921858,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Rex Ryan",-0.378213966760193,5,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Mike Munchak",-0.382031081543404,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Jerod Mayo",-0.3872694276454,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Vance Joseph",-0.396755262160016,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Mike Pettine",-0.411384594924522,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Matt Rhule",-0.480625842398497,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Raheem Morris",-0.482825937445157,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Marc Trestman",-0.490119616617641,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Ben McAdoo",-0.491805275860194,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Jay Gruden",-0.503615724625378,5,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Nathaniel Hackett",-0.525139259617438,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Brian Schottenheimer",-0.542413790817323,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Dennis Allen",-0.560999890962393,5,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Jim Tomsula",-0.570197556620629,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","David Culley",-0.64470268222384,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Brian Daboll",-0.653856904368754,4,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Steve Wilks",-0.68114566805674,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Lovie Smith",-0.683998691371912,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Jonathan Gannon",-0.71500008518453,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Tony Sparano",-0.730319359574736,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Aaron Glenn",-0.741754498868,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Joe Judge",-0.802588581349329,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Bill Callahan",-0.870219773717201,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Urban Meyer",-0.887364584390191,1,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Dave Canales",-0.888301003231153,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Ken Whisenhunt",-1.02454864968567,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Matt Patricia",-1.07377133059548,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Gus Bradley",-1.07691316496817,4,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Kevin Stefanski",-1.0838172497716,6,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Brian Callahan",-1.10664590614643,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Hue Jackson",-1.11976100797449,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Jon Gruden",-1.23939043472073,3,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Robert Saleh",-1.29781668027669,4,"seasons",TRUE,NA,NA
+"Contract-talent model (2012-2025)","Romeo Crennel",-1.36942226842282,2,"seasons",FALSE,NA,NA
+"Contract-talent model (2012-2025)","Adam Gase",-1.38258860762359,5,"seasons",TRUE,NA,NA
+"Market model (career, prices the coach in)","Bill Belichick",1.00850496365365,387,"games",TRUE,TRUE,2.6133121459578
+"Market model (career, prices the coach in)","Andy Reid",0.705996456720453,437,"games",TRUE,FALSE,1.90632164193632
+"Market model (career, prices the coach in)","Mike Tomlin",0.95663436029499,309,"games",TRUE,TRUE,2.13679776648549
+"Market model (career, prices the coach in)","Sean Payton",0.733200632667303,292,"games",TRUE,FALSE,1.6059415119464
+"Market model (career, prices the coach in)","Tony Dungy",1.33511688539372,160,"games",TRUE,TRUE,2.20727070820611
+"Market model (career, prices the coach in)","Sean McDermott",1.2493338122994,148,"games",TRUE,TRUE,2.00078802738619
+"Market model (career, prices the coach in)","Mike Vrabel",1.33144287650026,116,"games",TRUE,FALSE,1.8092429836624
+"Market model (career, prices the coach in)","Jeff Fisher",0.512154939211784,272,"games",TRUE,FALSE,1.07734020515448
+"Market model (career, prices the coach in)","Kevin O'Connell",1.91602308192884,68,"games",TRUE,FALSE,1.95168519953314
+"Market model (career, prices the coach in)","Chuck Pagano",1.33421339554419,96,"games",TRUE,FALSE,1.65975444573383
+"Market model (career, prices the coach in)","Jim Harbaugh",1.28980700446112,98,"games",TRUE,FALSE,1.6412979278331
+"Market model (career, prices the coach in)","Mike McCarthy",0.43607011994239,288,"games",TRUE,FALSE,0.957738924172093
+"Market model (career, prices the coach in)","Bruce Arians",0.953339287903995,129,"games",TRUE,FALSE,1.3890920753123
+"Market model (career, prices the coach in)","Marty Schottenheimer",1.27307199186787,96,"games",TRUE,FALSE,1.59444207876672
+"Market model (career, prices the coach in)","Mike Smith",1.06102840681657,112,"games",TRUE,FALSE,1.42335043113539
+"Market model (career, prices the coach in)","Matt LaFleur",1.0107175550734,117,"games",TRUE,FALSE,1.39288481546318
+"Market model (career, prices the coach in)","Pete Carroll",0.43486157758824,260,"games",TRUE,FALSE,0.90104042285575
+"Market model (career, prices the coach in)","Bill Cowher",0.806147989822096,128,"games",TRUE,FALSE,1.15448500099013
+"Market model (career, prices the coach in)","Nick Sirianni",1.13704328381775,85,"games",TRUE,FALSE,1.344594325758
+"Market model (career, prices the coach in)","Marvin Lewis",0.356686316084016,256,"games",TRUE,FALSE,0.724273457488584
+"Market model (career, prices the coach in)","John Harbaugh",0.310050739620803,293,"games",TRUE,FALSE,0.68160203999298
+"Market model (career, prices the coach in)","Jim Caldwell",0.794993443171748,112,"games",TRUE,FALSE,1.0668142990294
+"Market model (career, prices the coach in)","Brian Flores",1.8063755890958,49,"games",TRUE,FALSE,1.69876821579986
+"Market model (career, prices the coach in)","DeMeco Ryans",1.68196240294463,51,"games",TRUE,FALSE,1.49242224414095
+"Market model (career, prices the coach in)","Dan Campbell",0.984575814766742,85,"games",TRUE,FALSE,1.17255633302204
+"Market model (career, prices the coach in)","Mike Macdonald",2.3674725883307,34,"games",TRUE,FALSE,1.73285877139021
+"Market model (career, prices the coach in)","Mike Zimmer",0.555691585085424,129,"games",TRUE,FALSE,0.793582300050993
+"Market model (career, prices the coach in)","Sean McVay",0.474791900429721,149,"games",TRUE,FALSE,0.743041345085347
+"Market model (career, prices the coach in)","John Fox",0.258776205448306,256,"games",TRUE,FALSE,0.533961168308082
+"Market model (career, prices the coach in)","Liam Coen",3.84871683375258,17,"games",TRUE,TRUE,1.97848729964788
+"Market model (career, prices the coach in)","Dick Jauron",0.45311202015788,142,"games",TRUE,FALSE,0.693138730432907
+"Market model (career, prices the coach in)","Adam Gase",0.781031301711659,80,"games",TRUE,FALSE,0.924007188873703
+"Market model (career, prices the coach in)","Bill O'Brien",0.620050559779941,100,"games",TRUE,FALSE,0.77758083895451
+"Market model (career, prices the coach in)","Mike Sherman",0.567745156268411,96,"games",TRUE,FALSE,0.70073195453794
+"Market model (career, prices the coach in)","Tom Cable",1.23865581102866,44,"games",TRUE,FALSE,1.1090297570545
+"Market model (career, prices the coach in)","Jack Del Rio",0.273590753337264,187,"games",TRUE,FALSE,0.470335207663698
+"Market model (career, prices the coach in)","Ron Rivera",0.236128179132482,211,"games",TRUE,FALSE,0.432714736522796
+"Market model (career, prices the coach in)","Ben Johnson",2.86780970334938,17,"games",TRUE,FALSE,1.45207408261699
+"Market model (career, prices the coach in)","Matt Nagy",0.727132231139491,65,"games",TRUE,FALSE,0.742418997166772
+"Market model (career, prices the coach in)","Bobby Ross",2.00605754221557,23,"games",TRUE,FALSE,1.19258819867946
+"Market model (career, prices the coach in)","Brian Billick",0.305978774946649,144,"games",TRUE,FALSE,0.469816341157494
+"Market model (career, prices the coach in)","Dick Vermeil",0.445527044619989,96,"games",TRUE,FALSE,0.550806434487623
+"Market model (career, prices the coach in)","Jason Garrett",0.273171704240959,152,"games",TRUE,FALSE,0.42193153576615
+"Market model (career, prices the coach in)","Dave Canales",1.05658722722403,34,"games",TRUE,FALSE,0.80597547099961
+"Market model (career, prices the coach in)","Dave Wannstedt",0.471223645699792,73,"games",TRUE,FALSE,0.501261054091312
+"Market model (career, prices the coach in)","Rich Bisaccia",2.82033937086938,12,"games",FALSE,FALSE,1.21140276212846
+"Market model (career, prices the coach in)","Lovie Smith",0.175199020631899,193,"games",TRUE,FALSE,0.311048839098947
+"Market model (career, prices the coach in)","Todd Haley",0.593595637861111,45,"games",TRUE,FALSE,0.524460270900925
+"Market model (career, prices the coach in)","Tony Sparano",0.296838669417517,73,"games",TRUE,FALSE,0.32225604813338
+"Market model (career, prices the coach in)","Mike Nolan",0.364989134262556,55,"games",TRUE,FALSE,0.363164633357822
+"Market model (career, prices the coach in)","Al Groh",0.995759719236931,16,"games",TRUE,FALSE,0.49532945219754
+"Market model (career, prices the coach in)","Mike Holmgren",0.0838249564305303,160,"games",TRUE,FALSE,0.134555262966464
+"Market model (career, prices the coach in)","Jim Tomsula",0.715108855952987,17,"games",TRUE,FALSE,0.388768492148233
+"Market model (career, prices the coach in)","Ben McAdoo",0.41835294035639,28,"games",TRUE,FALSE,0.280461542198268
+"Market model (career, prices the coach in)","Jim Bates",1.59366370493896,7,"games",FALSE,FALSE,0.589568341234427
+"Market model (career, prices the coach in)","Shane Steichen",0.155277916294196,51,"games",TRUE,FALSE,0.137503833361163
+"Market model (career, prices the coach in)","David Culley",0.401055635290789,17,"games",TRUE,FALSE,0.251865059287136
+"Market model (career, prices the coach in)","Steve Wilks",0.184315026956026,28,"games",TRUE,FALSE,0.131939933684246
+"Market model (career, prices the coach in)","Mel Tucker",0.925328885049737,5,"games",FALSE,FALSE,0.272212714311052
+"Market model (career, prices the coach in)","Nick Saban",0.13465780574739,32,"games",TRUE,FALSE,0.0957501982817832
+"Market model (career, prices the coach in)","Jay Rosburg",1.47841033233407,2,"games",FALSE,FALSE,0.30589433810703
+"Market model (career, prices the coach in)","Perry Fewell",0.363563192057797,7,"games",FALSE,FALSE,0.1256804694228
+"Market model (career, prices the coach in)","Jimmy Johnson",0.110338484562651,16,"games",TRUE,FALSE,0.0545234438663465
+"Market model (career, prices the coach in)","Bill Parcells",-0.00190365343801298,80,"games",TRUE,FALSE,-0.00214712873590326
+"Market model (career, prices the coach in)","Eric Mangini",-0.00199041975009755,80,"games",TRUE,FALSE,-0.00232097190100268
+"Market model (career, prices the coach in)","Mike Munchak",-0.0159274086517107,48,"games",TRUE,FALSE,-0.0139732535345002
+"Market model (career, prices the coach in)","Emmitt Thomas",-0.37246454606882,4,"games",FALSE,FALSE,-0.102220650384417
+"Market model (career, prices the coach in)","Kellen Moore",-0.233260537294563,17,"games",TRUE,FALSE,-0.123669879497731
+"Market model (career, prices the coach in)","Antonio Pierce",-0.203524964632173,26,"games",TRUE,FALSE,-0.134767349698591
+"Market model (career, prices the coach in)","Leslie Frazier",-0.0999874154524326,54,"games",TRUE,FALSE,-0.0933777318954806
+"Market model (career, prices the coach in)","Gary Moeller",-0.687030330026885,9,"games",FALSE,FALSE,-0.269711313659714
+"Market model (career, prices the coach in)","Gary Kubiak",-0.0406971052457516,157,"games",TRUE,FALSE,-0.0649063950469093
+"Market model (career, prices the coach in)","Gunther Cunningham",-0.204520173253935,32,"games",TRUE,FALSE,-0.141839738212314
+"Market model (career, prices the coach in)","Joe Judge",-0.200052055999463,33,"games",TRUE,FALSE,-0.151884450602917
+"Market model (career, prices the coach in)","Butch Davis",-0.117349396609643,59,"games",TRUE,FALSE,-0.11282168924956
+"Market model (career, prices the coach in)","Wade Phillips",-0.0751724708348568,94,"games",TRUE,FALSE,-0.0938835581127153
+"Market model (career, prices the coach in)","Jay Gruden",-0.114024022853434,85,"games",TRUE,FALSE,-0.132486975575295
+"Market model (career, prices the coach in)","Jim Fassel",-0.122660778364935,80,"games",TRUE,FALSE,-0.137889436599822
+"Market model (career, prices the coach in)","Eric Studesville",-2.59214844676534,4,"games",FALSE,FALSE,-0.656762436143333
+"Market model (career, prices the coach in)","Darrell Bevell",-1.22785629498189,9,"games",FALSE,FALSE,-0.521309961156499
+"Market model (career, prices the coach in)","Dirk Koetter",-0.258568796447363,48,"games",TRUE,FALSE,-0.222579149053314
+"Market model (career, prices the coach in)","Mike McDaniel",-0.19841802043567,68,"games",TRUE,FALSE,-0.207303266116749
+"Market model (career, prices the coach in)","Joe Gibbs",-0.226685028111407,64,"games",TRUE,FALSE,-0.228945541728189
+"Market model (career, prices the coach in)","Vince Tobin",-0.659981804608078,25,"games",TRUE,FALSE,-0.41417310370229
+"Market model (career, prices the coach in)","Joe Vitt",-0.840670916119414,21,"games",TRUE,FALSE,-0.489696947216646
+"Market model (career, prices the coach in)","Bobby Petrino",-1.47863257809107,12,"games",FALSE,FALSE,-0.661138445335399
+"Market model (career, prices the coach in)","Terry Robiskie",-1.01029239381626,18,"games",TRUE,FALSE,-0.559710123758612
+"Market model (career, prices the coach in)","Brian Daboll",-0.272336597105663,68,"games",TRUE,FALSE,-0.291619606941343
+"Market model (career, prices the coach in)","Dave McGinnis",-0.338412420170287,55,"games",TRUE,FALSE,-0.333475280081519
+"Market model (career, prices the coach in)","Giff Smith",-6.40732203887415,3,"games",FALSE,FALSE,-1.47653578123898
+"Market model (career, prices the coach in)","Jerod Mayo",-1.14651333495228,17,"games",TRUE,FALSE,-0.614162132188959
+"Market model (career, prices the coach in)","Chris Tabor",-3.25163669088486,6,"games",FALSE,FALSE,-0.978966411348046
+"Market model (career, prices the coach in)","Brian Schottenheimer",-1.20734892724934,17,"games",TRUE,FALSE,-0.61395546030939
+"Market model (career, prices the coach in)","Mike Singletary",-0.63492443651204,40,"games",TRUE,FALSE,-0.511292458800434
+"Market model (career, prices the coach in)","Jon Gruden",-0.120762490398693,213,"games",TRUE,FALSE,-0.224394656404978
+"Market model (career, prices the coach in)","Chris Palmer",-0.808756308253895,32,"games",TRUE,FALSE,-0.690296051066093
+"Market model (career, prices the coach in)","Rex Ryan",-0.205930827620502,127,"games",TRUE,FALSE,-0.291142477364693
+"Market model (career, prices the coach in)","Vic Fangio",-0.534029794830731,49,"games",TRUE,FALSE,-0.479735891633396
+"Market model (career, prices the coach in)","Aaron Kromer",-4.54219236744066,6,"games",FALSE,FALSE,-1.43369442045803
+"Market model (career, prices the coach in)","Marc Trestman",-0.905443271116707,32,"games",TRUE,FALSE,-0.635862604228429
+"Market model (career, prices the coach in)","Lane Kiffin",-1.50035852502698,20,"games",TRUE,FALSE,-0.877317867777431
+"Market model (career, prices the coach in)","Steve Spurrier",-0.943618112192833,32,"games",TRUE,FALSE,-0.660820731267888
+"Market model (career, prices the coach in)","Brad Childress",-0.427482076445456,74,"games",TRUE,FALSE,-0.467571384404545
+"Market model (career, prices the coach in)","Dom Capers",-0.499241537334825,64,"games",TRUE,FALSE,-0.53650857003901
+"Market model (career, prices the coach in)","Urban Meyer",-2.48979391818206,13,"games",FALSE,FALSE,-1.20603545414282
+"Market model (career, prices the coach in)","Arthur Smith",-0.642067175501717,51,"games",TRUE,FALSE,-0.573787804751075
+"Market model (career, prices the coach in)","Bill Callahan",-0.779100229174573,43,"games",TRUE,FALSE,-0.667051989627878
+"Market model (career, prices the coach in)","Joe Philbin",-0.498969944902042,68,"games",TRUE,FALSE,-0.512880625946254
+"Market model (career, prices the coach in)","Jeff Saturday",-4.36693494757328,8,"games",FALSE,FALSE,-1.55714511941446
+"Market model (career, prices the coach in)","Kliff Kingsbury",-0.566416030757139,66,"games",TRUE,FALSE,-0.586768817039886
+"Market model (career, prices the coach in)","Ray Rhodes",-2.34859056067223,16,"games",TRUE,FALSE,-1.19138143501841
+"Market model (career, prices the coach in)","Jim Mora",-0.339935220479558,112,"games",TRUE,FALSE,-0.456067058922844
+"Market model (career, prices the coach in)","Kyle Shanahan",-0.256017792330025,149,"games",TRUE,FALSE,-0.402255507620105
+"Market model (career, prices the coach in)","Aaron Glenn",-2.24462654825272,17,"games",TRUE,FALSE,-1.23407665685136
+"Market model (career, prices the coach in)","Raheem Morris",-0.411235506632411,93,"games",TRUE,FALSE,-0.504652789926009
+"Market model (career, prices the coach in)","Bruce Coslet",-2.02652160673333,19,"games",TRUE,FALSE,-1.21600198655816
+"Market model (career, prices the coach in)","Greg Schiano",-1.20468316848396,32,"games",TRUE,FALSE,-0.858857645153878
+"Market model (career, prices the coach in)","Mike Tice",-0.595533035199417,65,"games",TRUE,FALSE,-0.605490783275589
+"Market model (career, prices the coach in)","Jim Haslett",-0.364770423452643,108,"games",TRUE,FALSE,-0.481047953922106
+"Market model (career, prices the coach in)","Dan Quinn",-0.335538990584123,119,"games",TRUE,FALSE,-0.459358147960653
+"Market model (career, prices the coach in)","Gregg Williams",-0.715085838664655,56,"games",TRUE,FALSE,-0.670243846669758
+"Market model (career, prices the coach in)","Kevin Stefanski",-0.402285169680755,101,"games",TRUE,FALSE,-0.511620527280231
+"Market model (career, prices the coach in)","Brandon Staley",-0.854584010897624,48,"games",TRUE,FALSE,-0.733913392389889
+"Market model (career, prices the coach in)","Freddie Kitchens",-2.57310205863603,16,"games",TRUE,FALSE,-1.30993594634275
+"Market model (career, prices the coach in)","Rob Chudzinski",-2.82638816772382,16,"games",TRUE,FALSE,-1.42092689721767
+"Market model (career, prices the coach in)","Todd Bowles",-0.346249319211286,135,"games",TRUE,FALSE,-0.510440025642093
+"Market model (career, prices the coach in)","Frank Reich",-0.550087726668413,85,"games",TRUE,FALSE,-0.645047382128311
+"Market model (career, prices the coach in)","Dave Campo",-0.983454524965362,48,"games",TRUE,FALSE,-0.891317801855249
+"Market model (career, prices the coach in)","Art Shell",-2.95120683583684,16,"games",TRUE,FALSE,-1.60759080255308
+"Market model (career, prices the coach in)","Jim Zorn",-1.48841020415289,32,"games",TRUE,FALSE,-1.09119953911429
+"Market model (career, prices the coach in)","Zac Taylor",-0.411852811677447,116,"games",TRUE,FALSE,-0.567054956249682
+"Market model (career, prices the coach in)","Mike Ditka",-3.01743800558413,16,"games",TRUE,FALSE,-1.60482523716872
+"Market model (career, prices the coach in)","Mike Pettine",-1.52443839407869,32,"games",TRUE,FALSE,-1.11518496929065
+"Market model (career, prices the coach in)","Doug Pederson",-0.377452039010547,131,"games",TRUE,FALSE,-0.543286842841022
+"Market model (career, prices the coach in)","Dick LeBeau",-1.13606026474067,45,"games",TRUE,FALSE,-0.988983704559197
+"Market model (career, prices the coach in)","Mike Mularkey",-0.649992582882078,80,"games",TRUE,FALSE,-0.731720869363462
+"Market model (career, prices the coach in)","Scott Linehan",-1.47672733100223,36,"games",TRUE,FALSE,-1.13486092830101
+"Market model (career, prices the coach in)","Steve Mariucci",-0.497884297288512,107,"games",TRUE,FALSE,-0.652429389909552
+"Market model (career, prices the coach in)","Herm Edwards",-0.443898643476075,128,"games",TRUE,FALSE,-0.634476486572685
+"Market model (career, prices the coach in)","Nathaniel Hackett",-3.8813149750738,15,"games",FALSE,FALSE,-1.86485512607171
+"Market model (career, prices the coach in)","Mike McCoy",-0.937440248309848,64,"games",TRUE,FALSE,-0.945261830320198
+"Market model (career, prices the coach in)","Chip Kelly",-0.953317077704295,63,"games",TRUE,FALSE,-0.957805959044007
+"Market model (career, prices the coach in)","Anthony Lynn",-0.932552993686842,65,"games",TRUE,FALSE,-0.959551917531425
+"Market model (career, prices the coach in)","Mike Martz",-0.729676051858495,85,"games",TRUE,FALSE,-0.898810583130551
+"Market model (career, prices the coach in)","Robert Saleh",-0.977565938576646,68,"games",TRUE,FALSE,-1.03234158171734
+"Market model (career, prices the coach in)","Matt Patricia",-1.55755859888034,43,"games",TRUE,FALSE,-1.28816206177238
+"Market model (career, prices the coach in)","Jonathan Gannon",-1.35047004798012,51,"games",TRUE,FALSE,-1.25047402983914
+"Market model (career, prices the coach in)","Dan Reeves",-0.932122252359684,77,"games",TRUE,FALSE,-1.04273624568565
+"Market model (career, prices the coach in)","Cam Cameron",-4.51367341188427,16,"games",TRUE,TRUE,-2.40140747202433
+"Market model (career, prices the coach in)","George Seifert",-1.51783135675309,48,"games",TRUE,FALSE,-1.37407676022753
+"Market model (career, prices the coach in)","Matt Eberflus",-1.43329238320549,51,"games",TRUE,FALSE,-1.3012192336908
+"Market model (career, prices the coach in)","Dennis Erickson",-2.28785271129433,32,"games",TRUE,FALSE,-1.66877179299602
+"Market model (career, prices the coach in)","Tom Coughlin",-0.288944597991025,256,"games",TRUE,FALSE,-0.58835457238799
+"Market model (career, prices the coach in)","Vance Joseph",-2.34519087825389,32,"games",TRUE,FALSE,-1.64543130204645
+"Market model (career, prices the coach in)","Josh McDaniels",-1.43800354928766,53,"games",TRUE,FALSE,-1.31511989580604
+"Market model (career, prices the coach in)","Chan Gailey",-1.21194748505234,64,"games",TRUE,FALSE,-1.22808475721733
+"Market model (career, prices the coach in)","Matt Rhule",-2.10450040251952,38,"games",TRUE,FALSE,-1.63434850017805
+"Market model (career, prices the coach in)","Doug Marrone",-0.82303766758835,98,"games",TRUE,FALSE,-1.03378117116602
+"Market model (career, prices the coach in)","Romeo Crennel",-0.884579716130285,95,"games",TRUE,FALSE,-1.10878397775689
+"Market model (career, prices the coach in)","Dennis Green",-0.918278691527846,95,"games",TRUE,FALSE,-1.1373109167175
+"Market model (career, prices the coach in)","Steve Spagnuolo",-1.69703151973619,52,"games",TRUE,FALSE,-1.64216738746965
+"Market model (career, prices the coach in)","Brian Callahan",-2.62110504521414,34,"games",TRUE,TRUE,-2.00513349640175
+"Market model (career, prices the coach in)","Marty Mornhinweg",-2.83069593209963,32,"games",TRUE,TRUE,-2.08634373238256
+"Market model (career, prices the coach in)","Mike Riley",-1.91360046799397,48,"games",TRUE,FALSE,-1.69525362433129
+"Market model (career, prices the coach in)","Mike Shanahan",-0.455086523736949,224,"games",TRUE,FALSE,-0.862253480597612
+"Market model (career, prices the coach in)","Ken Whisenhunt",-0.831938939234492,128,"games",TRUE,FALSE,-1.2049659856121
+"Market model (career, prices the coach in)","Pat Shurmur",-1.65220355991886,65,"games",TRUE,FALSE,-1.69997454947638
+"Market model (career, prices the coach in)","Gus Bradley",-1.78962866047338,62,"games",TRUE,FALSE,-1.85175106820128
+"Market model (career, prices the coach in)","Rod Marinelli",-2.31600590214748,48,"games",TRUE,TRUE,-2.10935854582961
+"Market model (career, prices the coach in)","Jim Schwartz",-1.42977077498211,80,"games",TRUE,FALSE,-1.66886399440742
+"Market model (career, prices the coach in)","Dennis Allen",-1.46811117132221,87,"games",TRUE,FALSE,-1.74194260851696
+"Market model (career, prices the coach in)","Hue Jackson",-2.43130337319053,56,"games",TRUE,TRUE,-2.34664902714799
+"Market model (career, prices the coach in)","Norv Turner",-1.09677920008018,147,"games",TRUE,FALSE,-1.71310383132092

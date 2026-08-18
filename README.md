@@ -60,6 +60,11 @@ the new work.
 | Macdonald's Super Bowl trap | the Drake Maye pick came on a rotated shell (Q4 8:49); SEA 29, NE 13 verified vs nflverse |
 | Cowardly and brave boards | Harbaugh/Patricia/Ryans vs Kingsbury/McDermott/LaFleur; go/kick rate clears the trait bar (r = 0.76) |
 | McDaniels for the animator | middling on clear-cut fourth downs, 1 of 17 in the razor-thin band |
+| SEA two-high, verified | 85.5% shown (2nd, PHI leads), played only 56.2%: a 29-point spin-down, 6th in rotation |
+| Rams out of 13, verified | his .50/.07 EPA confirmed in CI; the edge lives vs stacked boxes (72% of their 13 snaps) |
+| Nick's 2pt hunch dies | 28% of coaches are brave on 4th and conservative on 2pt (Reid, Campbell, LaFleur); r = 0.10 |
+| The 2pt card is a late-game religion | obeyed 99.6% in Q4/OT, 48.6% before |
+| Coach worth: the ladder | elite tier +2.5-4.2 vs pedigree, under 3 vs payroll, ~1 win vs the market; the 3-4-win coach only exists on the loosest ruler |
 
 ## Scripts
 
@@ -82,6 +87,10 @@ figures and derived CSVs.
 | `R/17_ushape.R` | ushape_test.png, ushape_structure.png |
 | `R/18_shell_rotation.R` | rotation_trend.png, rotation_worth.png, rotation_dcs.png, macdonald_reel.csv |
 | `R/19_brave_cowardly.R` | cowardly.png, brave.png |
+| `R/20_sea_twohigh_verify.R` | sea_twohigh.png |
+| `R/21_rams_13.R` | rams_13.png, rams_13_box.png |
+| `R/22_two_point.R` | two_point.png |
+| `R/23_coach_war.R` | coach_war.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
