@@ -1,5 +1,5 @@
 # =============================================================================
-# 11_def_sequencing.R
+# 16_def_sequencing.R
 #
 # Nick, verbatim: "im also curious about defensive play call sequencing too"
 # ... "in different game situations etc."
@@ -357,7 +357,7 @@ p1 <- ggplot(lift, aes(rank, lift_shrunk)) +
       "nflverse participation (2016-2021) + FTN charting (2022-2025) + playcallers.csv",
       sprintf("%s charted dropbacks, %d DCs with %d+ career plays and 5+ plays on both sides of at least one situation cell.",
               format(sum(lift$n_seq), big.mark = ","), nrow(lift), MIN_CAREER),
-      sprintf("\nBlitz = %d+ pass rushers, agreeing with the participation-era definition %.1f%% of the time in the 2022-2023 overlap. Dashed line is the precision-weighted league mean (%+.1fpp): even the median DC runs\nslightly hot, not neutral. Nobody sits meaningfully negative once shrunk. Built by R/11.",
+      sprintf("\nBlitz = %d+ pass rushers, agreeing with the participation-era definition %.1f%% of the time in the 2022-2023 overlap. Dashed line is the precision-weighted league mean (%+.1fpp): even the median DC runs\nslightly hot, not neutral. Nobody sits meaningfully negative once shrunk. Built by R/16.",
               5, 100 * agree_rate, 100 * grand_lift)
     )
   ) +
@@ -408,7 +408,7 @@ p2 <- ggplot(situ_show, aes(cut_f, 100 * rate_shrunk, group = def_play_caller, c
       "nflverse participation (2016-2021) + FTN charting (2022-2025) + playcallers.csv",
       sprintf("%d DCs with a shrunk rate in all six situational cuts (50+ plays each).", nrow(wide)),
       paste0("\n'Situational range' is the standard deviation of a DC's shrunk blitz rate across the six cuts; higher means the coordinator calls a visibly different game by spot.\n",
-             sprintf("Macdonald's range ranks %d of %d, near the flattest end of the league. Built by R/11.", mac_row$range_rank, nrow(wide)))
+             sprintf("Macdonald's range ranks %d of %d, near the flattest end of the league. Built by R/16.", mac_row$range_rank, nrow(wide)))
     )
   ) +
   theme_coach(grid = "y") +
@@ -558,7 +558,7 @@ p3 <- ggplot(shape, aes(rank, shapeshift)) +
                   min.segment.length = 0, max.overlaps = 30) +
   annotate("text", x = 3, y = max(shape$shapeshift), hjust = 0, vjust = 1, size = 3.1,
            fontface = "bold", colour = "grey35", label = "Reshuffles personnel most\nbetween early and late down") +
-  annotate("text", x = nrow(shape) - 2, y = min(shape$shapeshift), hjust = 1, vjust = 0, size = 3.1,
+  annotate("text", x = nrow(shape) * 0.7, y = 0.37, hjust = 0.5, vjust = 1, size = 3.1,
            fontface = "bold", colour = "grey35", label = "Same personnel group\nregardless of down") +
   labs(
     title = "Macdonald's Baltimore defense barely reshuffled personnel by down; Seattle looks average",
@@ -569,7 +569,7 @@ p3 <- ggplot(shape, aes(rank, shapeshift)) +
       sprintf("%d team-seasons, personnel mix compared between the early_down and late_down refinements.", nrow(shape)),
       paste0("\nIndex is total variation distance between the two personnel-grouping distributions (half the sum of absolute percentage-point gaps); it is a full-sample descriptive statistic from SumerSports'\n",
              "own charting, not a survey estimate, so no sampling-based confidence interval is attached. Baltimore under Macdonald (2022 rank 128th of 128, 2023 in the bottom quartile) barely changed personnel\n",
-             "by down; Seattle in 2024-2025, with Macdonald calling it as head coach, sits close to the league median both years. Built by R/11."))
+             "by down; Seattle in 2024-2025, with Macdonald calling it as head coach, sits close to the league median both years. Built by R/16."))
   ) +
   theme_coach(grid = "y")
 save_fig("docs/figures/def_shapeshift.png", p3, w = 12, h = 7)

@@ -51,6 +51,9 @@ the new work.
 | Johnson's one outlier ingredient | early-down play action 39.5% (2nd of 35); trick plays carry the sample's best payoff |
 | Play action works cold league-wide | median after-run-minus-cold PA gap is negative; the setup story fails again |
 | Motion blinds the model for McVay only | run/pass gap rank 6 of 37, CI clear of zero; Shanahan below median; on play action the whole league benefits |
+| Defensive callers run hot, nobody mixes | previous blitz raises next-blitz odds ~3pp league-wide beyond situation; no DC anti-correlates |
+| Blitz guessability does not cost anything | r = +0.12 with EPA allowed, CI crosses zero; the offensive predictability result has no defensive twin |
+| Macdonald calls one game everywhere | situational range 59th of 71; BAL 2022 most static personnel of 128 team-seasons, SEA at median |
 
 ## Scripts
 
@@ -69,6 +72,7 @@ figures and derived CSVs.
 | `R/13_bj_sequencing.R` | bj_seq_lift.png, bj_setup_cash.png |
 | `R/14_bj_ftn_signature.R` | bj_ingredients.png, bj_pa_cold.png, bj_same_look.png |
 | `R/15_motion_encryption.R` | motion_encryption.png, motion_pa.png |
+| `R/16_def_sequencing.R` | def_seq_lift.png, def_situational.png, def_shapeshift.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
