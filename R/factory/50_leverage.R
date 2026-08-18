@@ -270,7 +270,7 @@ p2 <- ggplot(byv, aes(decision, obey, fill = lev)) +
       "nfl4th decision model; leverage = 4 x wp x (1 - wp), high leverage is the top quartile",
       sprintf("%s clear-cut fourth downs. Regulation, at least a minute left in the half, win probability between 5%% and 95%%.",
               format(nrow(fdq), big.mark = ",")),
-      sprintf(paste0("\nThis answers Michael's outline note directly: coaches justify a punt in a go-for-it situation but never the reverse, and it gets worse when it matters. Correct\n",
+      sprintf(paste0("\nCoaches justify a punt in a go-for-it situation but never the reverse, and it gets worse when it matters. Correct\n",
                      "go-for-it calls fall from 51.5%% to 44.6%% in the highest-leverage quarter while correct kicks do not move. Controlling for the decision type and the size of the\n",
                      "edge, the high-leverage penalty is significant at p < 0.0001. The playoffs are worse again, 78.3%% overall against 82.3%% in routine regular-season spots.\n",
                      "The honest limit, and it is weaker than a null: a coach's high-leverage accuracy is barely a property of the coach at all (split-half reliability %.2f, against the\n",

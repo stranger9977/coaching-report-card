@@ -112,7 +112,7 @@ p1 <- ggplot(z, aes(respond, rotate_resid)) +
   scale_size_area(max_size = 6, guide = "none") +
   scale_x_continuous(labels = function(x) paste0(x, " pts")) +
   labs(
-    title = "Michael's read on the Seahawks holds up: static before the snap, moving after it",
+    title = "Static before the snap, moving after it: the Seahawks defense on two axes",
     subtitle = "How much a coordinator changes his personnel to match the offense, against how often his coverage shell rotates after the snap",
     x = "pre-snap responsiveness  (nickel rate vs 11 personnel minus vs heavy personnel)  → adapts more",
     y = "post-snap shell rotation above expected",
@@ -120,7 +120,7 @@ p1 <- ggplot(z, aes(respond, rotate_resid)) +
       "SumerSports play charting 2022-2025; defensive play-caller attribution from samhoppen/NFL_public",
       sprintf("%d coordinators on both axes. The two measures correlate at %+.2f, so they really are separate things.",
               nrow(z), cor(z$respond, z$rotate_resid)),
-      paste0(sprintf("\nMichael: \"they ran Nickel like the whole time and didn't give af what the offense was doing... their unpredictability came when the ball was snapped.\" Macdonald\n"),
+      paste0(sprintf("\nA defense can be readable before the snap and unreadable after it, and these two measures are close to independent, so they separate cleanly. Macdonald\n"),
              sprintf("plays nickel on %.0f%% of snaps against 11 personnel and %.0f%% against heavy, a gap of %.0f points where the league average is %.0f, which puts him %d of %d for\n",
                      mac$nk_light, mac$nk_heavy, mac$respond, mean(w$respond),
                      which(z[order(-respond)]$caller == "Mike Macdonald"), nrow(z)),

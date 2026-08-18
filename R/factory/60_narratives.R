@@ -74,7 +74,7 @@ p1 <- ggplot(long, aes(season, v, colour = grp)) +
     caption = fig_caption(
       "nflverse participation personnel groupings, 2022 to 2025",
       "Play-callers with at least 300 charted plays in a season.",
-      paste0("\nMichael's outline says McVay led the league in both 11 and 13 personnel. Both are true and they never happened in the same year, which is the interesting part.\n",
+      paste0("\nMcVay led the league in both 11 and 13 personnel. Both are true and they never happened in the same year, which is the interesting part.\n",
              "He ran 11 personnel on 92% and 95% of plays in 2022 and 2023, the most extreme in football both years. In 2025 he dropped to 61% and put 29% of his plays in\n",
              "13 personnel, again the most extreme in football, against a league average of 5%. His offense went from -0.09 EPA per play in 2022 to +0.12 in 2025. Built by R/factory/60."))
   ) +
@@ -113,7 +113,7 @@ p2 <- ggplot(tab, aes(plab, edge)) +
     caption = fig_caption(
       "nflverse play-by-play, FTN charting and participation personnel, 2022 to 2025",
       sprintf("%s charted dropbacks from these three groupings. Bars are 95%% intervals.", format(sum(tab$dropbacks), big.mark = ",")),
-      paste0("\nMichael's outline asks whether play action is more effective out of 13 personnel and assumes it would be. It is the opposite. The fake is worth +0.12 EPA out of\n",
+      paste0("\nThe natural assumption is that play action is more effective out of 13 personnel. It is the opposite. The fake is worth +0.12 EPA out of\n",
              "11 personnel, +0.09 out of 12, and nothing at all out of 13. The reason is in the grey line: callers run play action on more than half their 13-personnel dropbacks,\n",
              "so the look stops being information. It is the same lesson as the pre-snap tell work, arriving from a different direction. Built by R/factory/60."))
   ) +

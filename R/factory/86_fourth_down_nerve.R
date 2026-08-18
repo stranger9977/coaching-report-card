@@ -144,7 +144,7 @@ p <- (pA | pB) + plot_layout(widths = c(1.15, 1)) +
       "nfl4th decision model on nflverse play-by-play 2018-2025",
       sprintf("%s fourth downs after filters, %s of them with a positive case for going. Close game is the top quartile of leverage.",
               format(nrow(fd), big.mark = ","), format(nrow(go), big.mark = ",")),
-      paste0(sprintf("\nMichael's hunch was right about the shape and wrong about the cause. The go rate falls off a cliff as the case gets thinner, from %.0f%% when the model says go by\n", NOARG),
+      paste0(sprintf("\nThe shape is the point, and the cause is not what it looks like. The go rate falls off a cliff as the case gets thinner, from %.0f%% when the model says go by\n", NOARG),
              sprintf("eight-plus points to %.0f%% when it says go by under one, and in close games the thin band drops another %.1f points. But conversion does NOT fall: teams convert\n",
                      RAZOR, -THIN$diff),
              sprintf("%.1f%% in close games against %.1f%% elsewhere, a gap of %.1f points with p = %.2f. So the caution is not earned by the plays being harder when it matters. It is\n",

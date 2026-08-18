@@ -13,7 +13,7 @@
 # imply a correction that is not doing any work. Situation adjustment stays
 # where it earns its keep: run/pass, blitz, shell rotation.
 #
-# The colour is the percentile among qualified callers, so the grid reads as
+# The color is the percentile among qualified callers, so the grid reads as
 # "extreme for this league" rather than "big number". The printed value is the
 # actual rate, because that is what gets said on camera.
 #
@@ -112,7 +112,7 @@ grid_for <- function(tbl, measures, who, title, sub, out, w, h) {
     labs(title = title, subtitle = sub, x = NULL, y = NULL,
          caption = fig_caption(
            "SumerSports play charting 2022-2025; play-caller attribution from samhoppen/NFL_public",
-           sprintf("Cells are the caller's own rate as a percentage; colour is his percentile among the %d qualified callers; 'lg' is the league rate.", nrow(tbl)),
+           sprintf("Cells are the caller's own rate as a percentage; color is his percentile among the %d qualified callers; 'lg' is the league rate.", nrow(tbl)),
            paste0("\nThese are plain rates, not situation-adjusted ones, and that is on purpose: adjusting for down, distance, score and clock moves every number here by a fraction\n",
                   "of a point, because the situation does not predict WHICH concept a man calls. The adjusted versions live on the model factory tab where they earn their keep.\n",
                   "Charting data by SumerSports. Built by R/factory/81."))) +
