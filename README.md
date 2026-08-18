@@ -51,9 +51,9 @@ the new work.
 | Johnson's one outlier ingredient | early-down play action 39.5% (2nd of 35); trick plays carry the sample's best payoff |
 | Play action works cold league-wide | median after-run-minus-cold PA gap is negative; the setup story fails again |
 | Motion blinds the model for McVay only | run/pass gap rank 6 of 37, CI clear of zero; Shanahan below median; on play action the whole league benefits |
-| Defensive callers run hot, nobody mixes | previous blitz raises next-blitz odds ~3pp league-wide beyond situation; no DC anti-correlates |
-| Blitz guessability does not cost anything | r = +0.12 with EPA allowed, CI crosses zero; the offensive predictability result has no defensive twin |
-| Macdonald calls one game everywhere | situational range 59th of 71; BAL 2022 most static personnel of 128 team-seasons, SEA at median |
+| Defensive callers run hot, nobody mixes | previous blitz raises the next-blitz residual ~3.6pp league-wide net of situation; no DC anti-correlates; the identity persists odd-vs-even seasons at r = 0.78 |
+| Blitz guessability does not cost anything | r = +0.08 with EPA allowed, CI well across zero; the offensive predictability result has no defensive twin |
+| Macdonald calls one game everywhere | situational range 33rd of 42, below league blitz rate in all six cuts; BAL 2023 second-most static personnel of 121 coordinator-seasons, SEA at median |
 
 ## Scripts
 
