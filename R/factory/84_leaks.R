@@ -41,8 +41,8 @@ tg_fd  <- 2*uniqueN(fd$game_id)
 
 # ---------------------------------------------------------------- matched cells
 d <- mt[!is.na(epa) & down %in% 1:2 & !is.na(y_pass)]
-d[, dist_b := cut(ydstogo, c(0,2,4,7,10,15,99),
-                  labels = c("1-2","3-4","5-7","8-10","11-15","16+"))]
+d[, dist_b := cut(ydstogo, c(0,2,4,7,9,10,15,99),
+                  labels = c("1-2","3-4","5-7","8-9","10","11-15","16+"))]
 d[, cell := paste(down, dist_b, cut(yardline_100, c(0,10,20,40,60,80,90,100)),
                   cut(score_differential, c(-99,-9,-4,0,4,9,99)))]
 cl <- d[, .(n = .N, npass = sum(y_pass), nrun = sum(1 - y_pass),
@@ -89,10 +89,11 @@ pA <- ggplot(leaks, aes(per_game, leak, fill = leak)) +
   theme(axis.text.y = element_text(size = rel(0.95), lineheight = 0.95))
 
 # ---------------------------------------------------------------- where it lives
-by_dd <- cl[, .(runs = sum(nrun), gap = weighted.mean(gap, nrun)),
-            by = .(down, dist_b)][runs >= 2000]
-by_dd[, lab := sprintf("%s & %s   (%s runs)", c("1st","2nd")[down], dist_b,
-                       format(runs, big.mark = ","))]
+by_dd <- cl[, .(runs = sum(nrun), passes = sum(npass), gap = weighted.mean(gap, nrun)),
+            by = .(down, dist_b)][runs >= 1800]
+by_dd[, runrate := 100*runs/(runs + passes)]
+by_dd[, lab := sprintf("%s & %s   (%s runs, %.0f%% run rate)", c("1st","2nd")[down], dist_b,
+                       format(runs, big.mark = ","), runrate)]
 setorder(by_dd, gap)
 by_dd[, lab := factor(lab, levels = lab)]
 cat("\n--- where the early-down leak concentrates ---\n")
@@ -106,7 +107,7 @@ pB <- ggplot(by_dd, aes(gap, lab)) +
   scale_fill_manual(values = c("TRUE" = "#D55E00", "FALSE" = "#9db6c9"), guide = "none") +
   scale_x_continuous(expand = expansion(mult = c(0.05, 0.18))) +
   labs(title = "And where it lives",
-       subtitle = "Pass minus run EPA within identical situations, by down and distance",
+       subtitle = "Pass minus run EPA within identical situations. On 2nd and 10 teams still run a third of the time.",
        x = "EPA advantage of passing, matched situations", y = NULL) +
   theme_coach(grid = "none")
 
@@ -122,6 +123,9 @@ p <- (pA / pB) + plot_layout(heights = c(1, 1.5)) +
              "comparison here is inside a cell of down, distance, field position and score margin, using only cells with at least 25 of each, so it is always like for like.\n",
              "What this does NOT do is price the leak in points. Turning those runs into passes at the observed gap would assume the marginal run becomes an average pass,\n",
              "and it would not: the first runs a coach gives up are his most predictable ones, and defenses adjust. The frequency and the direction are solid; the point value\n",
-             "is not, so no point value is quoted. Built by R/factory/84.")),
+             sprintf("is not, so no point value is quoted. The two spots to say out loud: 1st and 10, where teams run %.0f%% of the time and passing is worth %+.2f more, and 2nd and 10,\n",
+                     by_dd[down == 1 & dist_b == "10"]$runrate, by_dd[down == 1 & dist_b == "10"]$gap),
+             sprintf("where they have already been stopped once, still run %.0f%% of the time, and passing is worth %+.2f. Built by R/factory/84.",
+                     by_dd[down == 2 & dist_b == "10"]$runrate, by_dd[down == 2 & dist_b == "10"]$gap))),
     theme = theme_coach(grid = "none"))
 save_fig("docs/figures/factory/leaks.png", p, w = 12.4, h = 9.4)
