@@ -1,3 +1,6 @@
 # Raw SumerSports pull. Licensed data, so the play-level rows stay out of the
 # repo; figures and aggregates computed from it are published with credit.
 data/raw/sumer/
+
+# Cached FTN charting pull (R/13), so reruns don't need network access.
+data/raw/ftn_2025.csv.gz

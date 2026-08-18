@@ -116,6 +116,85 @@
   <div class="board">
 
     <div class="tgroup">
+      <h3>The sequencing file, 18 August</h3>
+      <p class="grouphint">Nick's theory: "we have a theory that ben johsnons play sequencing is unique." Plus Michael's pre-snap question and the defensive side. Five tests ran; two survived. The dead ones stay on the board.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Johnson's chain has no links</span><span class="pill ship">The theory survives, in one specific sense</span></div>
+      <p class="row"><span class="lab">The theory:</span> "ben johsnons play sequencing is unique"</p>
+      <p class="row found"><span class="lab">It is, in what it withholds.</span> Measure how much a defense learns about the next call from the previous one, beyond the situation, and Ben Johnson gives away the least of any of 73 play-caller careers since 2015. Dead last, 2.3 standard deviations below the league mean, and it holds in every one of his four seasons, in Detroit and in Chicago. The average caller hands a defense about 1.2 extra correct guesses per hundred plays through his sequences; Johnson hands over 0.7. His calls are close to memoryless: knowing what he just did tells you almost nothing about what he does next.</p>
+      <figure>
+        <img src="figures/bj_seq_lift.png" alt="Distribution of 73 play-caller careers by how much their previous call helps predict their next call, with Ben Johnson lowest in the league and marquee callers labeled.">
+        <figcaption>How much the previous call gives away, per caller career, 2015 to 2025. Johnson sits at the bottom of the league. Built by R/13.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> rank 1 of 73 is real and repeated, but he does not clear a formal outlier test; Chip Kelly sits close behind. "Most extreme in the league" is the defensible phrasing, "in a class of his own" is not. Four seasons is still a short career.</p>
+      <p class="xref">Pairs with the predictability cards below: situationally he is roughly league-normal to slightly hard to read. The sequencing is where he is genuinely extreme.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Nobody cashes the setup, him included</span><span class="pill block">Null, for everyone</span></div>
+      <p class="row"><span class="lab">The romantic version of the theory:</span> he runs early to set up the kill shot later.</p>
+      <p class="row found"><span class="lab">Tested per caller, it exists for no one.</span> A pass after a run in the same drive, at fixed situation, gains nothing across 95 caller careers. Eight callers clear their own noise band where screening 95 people hands about five to luck, and Johnson is not one of them; his setup effect is a rounding error with a wide interval, mid-pack in both directions. The league finding on the establish-the-run cards holds at the individual level too: the setup play is a story coaches tell, not a thing the data can find anyone doing.</p>
+      <figure>
+        <img src="figures/bj_setup_cash.png" alt="Per-caller effect of a same-drive prior run on pass EPA at fixed situation, with a noise band; roughly as many callers clear it as chance predicts and Ben Johnson sits mid-pack.">
+        <figcaption>The setup effect per caller against the band luck alone produces. Built by R/13.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">The opening script is mostly a myth</span><span class="pill ship">Weak trait, and he does not have it</span></div>
+      <p class="row"><span class="lab">The other romantic version:</span> the scripted first 15 plays are where the sequencer shows his hand.</p>
+      <p class="row found"><span class="lab">Two results, both deflating.</span> First, script skill barely exists as a trait: a caller's script edge this season predicts next season at r = 0.15, with an interval that nearly touches zero. Second, Johnson's own script edge is ordinary, 19th of 64, and his one big script year was his rookie season calling Detroit; it has been slightly negative every season since, including Chicago. The genuinely interesting pattern runs the other way: the famous scripters, Reid, Payton, McVay, Shanahan, LaFleur, all get harder to guess during their scripts. Johnson does not, because he has nothing to switch on. He is one of the hardest offenses to read in the league in the script, after the script, all game.</p>
+      <figure>
+        <img src="figures/bj_script_edge.png" alt="Scatter of 64 callers' EPA per play on their first 15 plays against the rest of the game, with a diagonal marking no edge; Ben Johnson sits near the diagonal.">
+        <figcaption>Script EPA against rest-of-game EPA, 64 careers, 2015 to 2025. The diagonal is no edge at all. Built by R/09.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/bj_script_guess.png" alt="Scatter of guessability in the script against after it, showing Ben Johnson unusually hard to read in both segments rather than only in the script.">
+        <figcaption>Guessability in the script against after it. Johnson is hard to read everywhere rather than script-only. Built by R/09.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> script versus rest is not a randomized comparison; script plays live earlier in closer games by construction. And his own confidence intervals are the widest of the marquee names, on 74 games.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">His one true outlier ingredient: play action, constantly</span><span class="pill ship">Narrows the theory usefully</span></div>
+      <p class="row"><span class="lab">The question:</span> if his sequencing is unique, it should show up in what he calls.</p>
+      <p class="row found"><span class="lab">Across six charted ingredients, exactly one is extreme.</span> Early-down play action: 39.5% of his early downs, second of 35 callers in the charting era, against a league median of 31%. Everything else is league-normal or below; he uses less RPO and less no-huddle than the median caller. Two footnotes worth a beat in the video. His trick plays are only fifth by rate but carry the best payoff in the sample, over a full point of EPA each. And league-wide, play action works slightly better cold than after a successful run, one more nail from the establish-the-run coffin arriving by a new road. His own cold-versus-warm split is indistinguishable from zero.</p>
+      <figure>
+        <img src="figures/bj_ingredients.png" alt="Ben Johnson's rate and payoff on six charted ingredients against 35 callers: play action on early downs is a true outlier, the rest are league-normal.">
+        <figcaption>Six ingredients, ranked by how extreme he is. One true outlier. FTN charting 2022 to 2025, his whole calling career. Built by R/14.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/bj_pa_cold.png" alt="Ben Johnson's play-action EPA with and without a prior successful run in the drive, both strongly positive with overlapping intervals, against a league distribution centered slightly below zero.">
+        <figcaption>His play action does not need the run, and neither does the league's. Built by R/14.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> the same-look, different-play version of the theory tested null. His run/pass/play-action mix out of a given pre-snap look ranks ninth of 35 in diversity, and the interval overlaps the league median; the only pockets where he is clearly more diverse are second-and-short and third-and-medium.</p>
+      <figure>
+        <img src="figures/bj_same_look.png" alt="Same-look play-mix diversity per caller with Ben Johnson ninth of 35 and his confidence interval overlapping the league median.">
+        <figcaption>Different plays from the same picture: above average, not provably special. Look proxies are coarse. Built by R/14.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Does motion blind the model? For McVay, yes. For Shanahan, no.</span><span class="pill ship">Your question, answered with a model</span></div>
+      <p class="row"><span class="lab">Michael:</span> "What ways do you think we can quantify the McVay pre-snap movement and Schnahan?"</p>
+      <p class="row"><span class="lab">Nick, in the thread:</span> "Does the model struggle to predict when those two have different motion types pre snap. Struggle to predict run v pass, play action etc."</p>
+      <p class="row found"><span class="lab">Built exactly that, and it splits the two names.</span> A pre-snap model reads run versus pass at AUC 0.84 across 139,311 plays. On McVay's motion plays it genuinely struggles: his motion-versus-still gap is sixth largest of 37 callers, and his interval clears zero comfortably. Shanahan, third-heaviest motion user in football, shows no such effect: below the league median, and his motion plays actually produce slightly worse EPA than his still ones. McVay's motion is camouflage; Shanahan's is choreography, moving blockers to where the play is going rather than hiding what it is. Johnson is unremarkable on this test too, which fits everything above: his encryption is in the sequence, not the pre-snap theater.</p>
+      <figure>
+        <img src="figures/motion_encryption.png" alt="Callers ranked by how much harder motion plays are for a pre-snap run-pass model to read, with McVay well above the league and Shanahan and Johnson in the pack.">
+        <figcaption>How much motion degrades the run-pass model, per caller. Built by R/15.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/motion_pa.png" alt="The play-action version of the same test, where motion makes play action harder to read for nearly every caller and none of the three famous names separate from the league.">
+        <figcaption>The play-action version: everyone benefits, nobody owns it. Built by R/15.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> FTN's motion flag is presence-only. Jet, orbit and a simple shift all code identically, so this tests whether a caller motions, not which kind, and Michael's "different motion types" question stays open until a motion-type source exists. Sumer's play-level data has no motion type either; checked.</p>
+    </div>
+
+    <!-- PENDING: defensive sequencing card (builder-defseq, R/16) goes here -->
+
+    <div class="tgroup">
       <h3>Rebuilt properly, 17 August</h3>
       <p class="grouphint">Everything above stands. This is the same set of questions run through a proper modeling setup, so where a card up there and a card down here disagree, trust this one. Full diagnostics live on the <a href="models.html">Model Factory</a> tab.</p>
     </div>

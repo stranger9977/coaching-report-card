@@ -45,6 +45,12 @@ the new work.
 | Seattle 2025 vs its pedigree | roster 19th of 32 by draft value, biggest positive outlier in the league |
 | Madden knows something, weakly | launch talent explains 19% of win variance (r = 0.43), 2017-2025 |
 | Seattle 2025 vs the video game | rated 23rd of 32, priced at 7.5 wins, won 14 |
+| Ben Johnson's sequencing is unique | least sequence-predictable of 73 careers since 2015 (z = -2.3), every season, both teams |
+| Nobody cashes the setup play | 8 of 95 callers clear their own noise band, ~5 expected by chance; Johnson mid-pack |
+| The opening script is a weak trait | year-to-year r = 0.15, CI barely clears zero; Johnson 19th of 64, one rookie-year blip |
+| Johnson's one outlier ingredient | early-down play action 39.5% (2nd of 35); trick plays carry the sample's best payoff |
+| Play action works cold league-wide | median after-run-minus-cold PA gap is negative; the setup story fails again |
+| Motion blinds the model for McVay only | run/pass gap rank 6 of 37, CI clear of zero; Shanahan below median; on play action the whole league benefits |
 
 ## Scripts
 
@@ -59,6 +65,10 @@ figures and derived CSVs.
 | `R/04_halftime_adjustments.R` | halftime_cone.png, halftime_persistence.png |
 | `R/05_caller_vs_qb.R` | caller_qb_stability.png, caller_qb_control.png (rebuilt from nfl-analysis scratch caches; reproduces the original numbers exactly) |
 | `R/06_contract_talent.R` | contract_2025.png, coach_vs_contracts.png |
+| `R/09_bj_script.R` | bj_script_edge.png, bj_script_guess.png |
+| `R/13_bj_sequencing.R` | bj_seq_lift.png, bj_setup_cash.png |
+| `R/14_bj_ftn_signature.R` | bj_ingredients.png, bj_pa_cold.png, bj_same_look.png |
+| `R/15_motion_encryption.R` | motion_encryption.png, motion_pa.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
