@@ -34,7 +34,7 @@ NFLA_PC   <- "/Users/nick/stranger9977/nfl-analysis/data/playcallers.csv"
 # Sumer club codes that nflverse spells differently
 SUMER_TEAM_FIX <- c(ARZ = "ARI", BLT = "BAL", CLV = "CLE", HST = "HOU")
 
-load_sumer <- function(seasons = 2022:2025, file = file.path(SUMER_DIR, "plays_full.csv")) {
+load_sumer <- function(seasons = 2022:2025, file = file.path(SUMER_DIR, "plays_full.csv.gz")) {
   plays <- fread(file, showProgress = FALSE)
   teams <- as.data.table(fromJSON(file.path(SUMER_DIR, "teams.json")))
   teams[, abbr := fifelse(team_code %in% names(SUMER_TEAM_FIX),
