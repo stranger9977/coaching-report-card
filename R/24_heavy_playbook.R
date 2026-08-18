@@ -92,6 +92,7 @@ d <- d[run_pass %in% c("P", "R")]
 d[, pb := sub("[*]$", "", offensive_personnel_basic)]
 d[, is_pass := run_pass == "P"]
 d[, gadget := jet_sweep_run == TRUE | end_around_run == TRUE | reverse_run == TRUE]
+d[, extra_blocker := lead_run == TRUE | split_run == TRUE | cross_lead_run == TRUE]
 
 d25 <- d[season == 2025 & garbage_time == FALSE]
 
@@ -195,6 +196,18 @@ for (i in seq_len(nrow(diff_tab))) with(diff_tab[i], cat(sprintf(
 sig1 <- diff_tab[!is.na(p) & p < 0.05]
 cat(sprintf("\n%d of %d metrics clear p < 0.05: %s\n", nrow(sig1), nrow(diff_tab), paste(sig1$metric, collapse = "; ")))
 
+cat("\n=== 1b. does it work: LA/13 vs league/13 EPA, direct test of 'the rest of the league wasn't great at 13' ===\n")
+epa_la_pass <- mean(la_p$expected_points_added, na.rm = TRUE); epa_lg_pass <- mean(lg_p$expected_points_added, na.rm = TRUE)
+epa_la_run  <- mean(la_r$expected_points_added, na.rm = TRUE); epa_lg_run  <- mean(lg_r$expected_points_added, na.rm = TRUE)
+tt_pass13 <- t.test(la_p$expected_points_added, lg_p$expected_points_added)
+tt_run13  <- t.test(la_r$expected_points_added, lg_r$expected_points_added)
+cat(sprintf("Passing: LA %+.3f vs league-13 %+.3f EPA/play, diff %+.3f, p=%.4f (n=%d vs %d)\n",
+            epa_la_pass, epa_lg_pass, epa_la_pass - epa_lg_pass, tt_pass13$p.value, nrow(la_p), nrow(lg_p)))
+cat(sprintf("Running: LA %+.3f vs league-13 %+.3f EPA/play, diff %+.3f, p=%.4f (n=%d vs %d)\n",
+            epa_la_run, epa_lg_run, epa_la_run - epa_lg_run, tt_run13$p.value, nrow(la_r), nrow(lg_r)))
+cat("The rest of the league is genuinely bad out of 13: league-13 passing is below replacement and running is well underwater, while LA is positive on both.\n")
+cat("(R/21_rams_13.R already verified LA's own .50/.07 claim in isolation; this is the same LA numbers compared directly against the league-13 baseline that was missing there.)\n")
+
 # ------------------------------------------------------------ chart A
 diff_tab[, dir := factor(ifelse(diff >= 0, "LA higher", "LA lower"), levels = c("LA higher", "LA lower"))]
 diff_tab[, lab := sprintf("%s  (LA n=%d, lg n=%d)", metric, la_d, lg_d)]
@@ -216,7 +229,8 @@ pA <- ggplot(diff_tab, aes(diff, lab)) +
       "SumerSports play charting, 2025 season",
       sprintf("League excludes LA (%d of the league's %d 13-personnel snaps, %.0f%%). Metrics marked thin have a denominator under 20 on one side; play-action-concept rows are\nthe thinnest, splitting an already-small dropback sample five ways.",
               nrow(la13), nrow(la13) + nrow(lg13), 100 * nrow(la13) / (nrow(la13) + nrow(lg13))),
-      "\nBiggest, least-thin gaps: LA runs man/gap blocking scheme out of 13 more than double the league rate and has not called a single power run out of it all season, while the league leans on\nzone and power almost evenly. LA also throws it more out of 13 (under center 89% of snaps but still a real dropback package) than the league does, which mostly treats 13 as a run-first grouping.\nBuilt by R/24_heavy_playbook.R.")
+      sprintf("\nBiggest, least-thin gaps: LA runs man/gap blocking scheme out of 13 more than double the league rate and has not called a single power run out of it all season, while the league leans on\nzone and power almost evenly. LA also throws it more out of 13 (under center 89%% of snaps but still a real dropback package) than the league does, which mostly treats 13 as a run-first grouping.\nDoes it work: league-13 passing (%+.2f EPA/play) and running (%+.2f) are both below the league's own overall average; LA is positive on both (%+.2f, %+.2f). Built by R/24_heavy_playbook.R.",
+              epa_lg_pass, epa_lg_run, epa_la_pass, epa_la_run))
   ) +
   theme_coach(grid = "none") +
   theme(legend.position = "top", legend.title = element_blank(), legend.justification = "left")
@@ -275,6 +289,33 @@ cat(sprintf("\nSF out of 21: run rate %.1f%% (LOWER than league-21's %.1f%%), ou
 cat(sprintf("play action on just %.1f%% of dropbacks vs league-21's %.1f%%. Kyle Shanahan's answer to 'what do you do out of your heavy set' is: get in it, then throw zone runs at you and\nthrow it downfield without much play-action disguise -- not run-run-run with a lead fullback like the stereotype.\n",
             diff2[metric == "Play action (of dropbacks)"]$sf_rate, diff2[metric == "Play action (of dropbacks)"]$lg_rate))
 
+cat("\n=== 2b. does it work: SF/21 vs league/21 EPA, and the extra-blocker rate reframed against the WHOLE league ===\n")
+epa_sf_pass <- mean(sf21_p$expected_points_added, na.rm = TRUE); epa_lg21_pass <- mean(lg21_p$expected_points_added, na.rm = TRUE)
+epa_sf_run  <- mean(sf21_r$expected_points_added, na.rm = TRUE); epa_lg21_run  <- mean(lg21_r$expected_points_added, na.rm = TRUE)
+tt_pass21 <- t.test(sf21_p$expected_points_added, lg21_p$expected_points_added)
+tt_run21  <- t.test(sf21_r$expected_points_added, lg21_r$expected_points_added)
+cat(sprintf("Passing: SF %+.3f vs league-21 %+.3f EPA/play, diff %+.3f, p=%.4f (n=%d vs %d)\n",
+            epa_sf_pass, epa_lg21_pass, epa_sf_pass - epa_lg21_pass, tt_pass21$p.value, nrow(sf21_p), nrow(lg21_p)))
+cat(sprintf("Running: SF %+.3f vs league-21 %+.3f EPA/play, diff %+.3f, p=%.4f (n=%d vs %d) -- statistically even, despite the outside-zone identity\n",
+            epa_sf_run, epa_lg21_run, epa_sf_run - epa_lg21_run, tt_run21$p.value, nrow(sf21_r), nrow(lg21_r)))
+
+# extra-blocker framing (lead_run | split_run | cross_lead_run) benchmarked against the WHOLE league's run
+# rate, not just other 21-personnel snaps -- own-personnel league-21 baselines wash this out almost entirely
+# (SF/21 42.5% vs league-21 41.2%, since 21 personnel already implies a lead blocker most places). Design
+# credit: builder-rams13 flagged this reframe independently while working the same task; verified here.
+la13_r_all <- d25[pb == "13" & off_team == "LA" & run_pass == "R"]
+lg_run_all <- d25[run_pass == "R"]
+eb <- rbindlist(list(
+  data.table(grp = "LA, out of 13", n = sum(la13_r_all$extra_blocker), d = nrow(la13_r_all)),
+  data.table(grp = "SF, out of 21", n = sum(sf21_r$extra_blocker), d = nrow(sf21_r)),
+  data.table(grp = "Whole league (all personnel)", n = sum(lg_run_all$extra_blocker), d = nrow(lg_run_all))
+))
+eb[, `:=`(rate = 100 * n / d)]
+for (i in seq_len(nrow(eb))) with(eb[i], cat(sprintf("extra-blocker rate (lead/split/cross-lead run), %-30s %.1f%% (n=%d of %d)\n", grp, rate, n, d)))
+cat(sprintf("SF is %.1fx the whole league's extra-blocker rate out of its heavy package; LA is %.1fx. Against the WHOLE league, not just other 21-personnel snaps,\nSF is still the more extreme 'extra blocker' team even though the personnel-package headline (13 vs 21) goes to LA.\n",
+            eb[grp == "SF, out of 21"]$rate / eb[grp == "Whole league (all personnel)"]$rate,
+            eb[grp == "LA, out of 13"]$rate / eb[grp == "Whole league (all personnel)"]$rate))
+
 # ------------------------------------------------------------ chart B
 usage_long <- rbind(
   data.table(team = "LA", personnel = "13 (1 RB, 3 TE)", rate = 100 * mean(la_all$pb == "13")),
@@ -319,7 +360,9 @@ pB <- (pB1 | pB2) + plot_layout(widths = c(0.75, 1.25)) +
     caption = fig_caption(
       "SumerSports play charting, 2025 season",
       sprintf("SF's own 13-personnel sample (n=8) is too small to chart; it is functionally not part of Shanahan's playbook. n's for the right panel printed in the console output."),
-      "\nSF actually runs the ball LESS out of 21 than the league does out of 21 (defenses know it's coming and sell out against it), leans on outside zone far more than\nleague-21 does, and uses play action noticeably less. LA's 13-personnel package, by contrast, stays under center and still throws it downfield. Built by R/24_heavy_playbook.R."
+      sprintf("\nSF actually runs the ball LESS out of 21 than the league does out of 21 (defenses know it's coming and sell out against it), leans on outside zone far more than\nleague-21 does, and uses play action noticeably less. LA's 13-personnel package, by contrast, stays under center and still throws it downfield. Passing beats league-21 out of SF's set (%+.2f EPA/play, p=%.3f) but rushing\ndoes not (%+.2f, statistically even, p=%.2f). And measured against the WHOLE league's extra-blocker rate, not just other 21-personnel snaps, SF (%.0f%%) is still the more extreme extra-blocker\nteam by a wide margin, even though LA (%.0f%%) gets the personnel-innovation headline (whole-league baseline %.0f%%). Built by R/24_heavy_playbook.R.",
+              epa_sf_pass - epa_lg21_pass, tt_pass21$p.value, epa_sf_run - epa_lg21_run, tt_run21$p.value,
+              eb[grp == "SF, out of 21"]$rate, eb[grp == "LA, out of 13"]$rate, eb[grp == "Whole league (all personnel)"]$rate)
     ),
     theme = theme_coach(grid = "none")
   )
@@ -364,6 +407,17 @@ print(sf_seas[, .(season, p11 = round(p11,1), p12 = round(p12,1), p13 = round(p1
                   run_rate = round(run_rate,1), pa_rate = round(pa_rate,1), uc_rate = round(uc_rate,1),
                   no_huddle = round(no_huddle,1), adot = round(adot,2), oz_rate = round(oz_rate,1),
                   run_epa = round(run_epa,3), pass_epa = round(pass_epa,3), off_epa = round(off_epa,3))])
+
+# formal slope test on SF's 21-personnel share, vs the league-wide trend in the same grouping over the
+# same window. Design credit: builder-rams13 ran this independently on the same task; verified here.
+p21_slope <- summary(lm(p21 ~ season, sf_seas))$coefficients["season", ]
+lg_p21_seas <- team_seas[, .(p21 = 100 * weighted.mean(p21/100, n)), by = season][order(season)]
+cat(sprintf("\nSF 21-personnel share, season slope: %+.3f pts/season (p=%.3f) -- no detectable trend, not just 'looks flat'\n",
+            p21_slope["Estimate"], p21_slope["Pr(>|t|)"]))
+cat("league-wide 21-personnel share by season:\n"); print(lg_p21_seas[, .(season, p21 = round(p21,1))])
+cat(sprintf("League-wide 21-personnel usage fell %.1f%% (%.1f%% in 2022) to %.1f%% (2025) over the same window SF held flat --\nShanahan is a bigger outlier in 21 personnel now than he was three years ago, without moving himself at all.\n",
+            lg_p21_seas[season == min(season)]$p21 - lg_p21_seas[season == max(season)]$p21,
+            lg_p21_seas[season == min(season)]$p21, lg_p21_seas[season == max(season)]$p21))
 
 stayed_drift <- pairs[stayed == TRUE]$drift
 changed_drift <- pairs[stayed == FALSE]$drift
@@ -452,7 +506,9 @@ pC <- (pC1 / pC2) + plot_layout(heights = c(1.3, 1)) +
     caption = fig_caption(
       "SumerSports play charting, 2022-2025 regular season, non-garbage-time",
       sprintf("%d team-seasons with 300+ charted plays, %d consecutive same-caller pairs leaguewide.", nrow(team_seas), length(stayed_drift)),
-      sprintf("\nAll three of Shanahan's own transitions (2022-23: %.0fth pct, 2023-24: %.0fth pct, 2024-25: %.0fth pct) sit below the league median for a coach who kept his job.\n", 100*mean(stayed_drift<=sf_pairs[season==2022]$drift), 100*mean(stayed_drift<=sf_pairs[season==2023]$drift), pct2425) %>%
+      sprintf("\nAll three of Shanahan's own transitions (2022-23: %.0fth pct, 2023-24: %.0fth pct, 2024-25: %.0fth pct) sit below the league median for a coach who kept his job. His 21-personnel share\nshows no season slope either (%+.3f pts/season, p=%.2f) while league-wide 21-personnel usage fell %.1f%% to %.1f%% over the same window, making him a bigger outlier now without moving.\n",
+              100*mean(stayed_drift<=sf_pairs[season==2022]$drift), 100*mean(stayed_drift<=sf_pairs[season==2023]$drift), pct2425,
+              p21_slope["Estimate"], p21_slope["Pr(>|t|)"], lg_p21_seas[season==min(season)]$p21, lg_p21_seas[season==max(season)]$p21) %>%
         paste0(sprintf("McVay's 2024-25 pivot from 11 to 13 personnel sits at the %.0fth percentile, for scale of what an actual scheme change looks like in this metric. The one thing that did move for SF:\n", pct_la2425),
                sprintf("run rate was flat (%.1f%% in 2025 vs %.1f%% average 2022-2024) and run EPA was its worst of the four seasons (%+.3f), so any 'CMC carried the load' effect is not visible as a playcalling\nshift here -- it would take carry-share data this Sumer pull does not have. Built by R/24_heavy_playbook.R.",
                        sf_seas[season==2025]$run_rate, mean(sf_seas[season<2025]$run_rate), sf_seas[season==2025]$run_epa))

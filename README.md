@@ -66,7 +66,8 @@ the new work.
 | The 2pt card is a late-game religion | obeyed 99.6% in Q4/OT, 48.6% before |
 | Coach worth: the ladder | elite tier +2.5-4.2 vs pedigree, under 3 vs payroll, ~1 win vs the market; the 3-4-win coach only exists on the loosest ruler |
 | Rams 13: different playbook | man/gap runs 40.6% vs league 17.7%, zero power all season, 89% under center, PA fakes inside zone at 4x league |
-| Kyle's heavy is 21, not 13 | 8 snaps of 13 all year; out of 21 he throws MORE than league and play-fakes less |
+| Kyle's heavy is 21, not 13 | 8 snaps of 13 all year; out of 21 he throws MORE than league and play-fakes less; 69% extra-blocker runs, 2.2x the league |
+| The league really is bad out of 13 | league-13 passing negative, running well underwater; LA positive on both (p = 0.0003 / 0.01) |
 | Shanahan did not adapt in 2025 | all three same-caller transitions at the 4th-17th pctile of league drift; McVay's pivot at the 98th |
 
 ## Scripts
