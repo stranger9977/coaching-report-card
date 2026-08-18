@@ -1,0 +1,601 @@
+caller,variable,value,side
+Andy Reid,Tempo,1.682935038707506,Offense
+Pete Carmichael,Tempo,6.0046189376443415,Offense
+Zac Taylor,Tempo,2.807735217552994,Offense
+Sean McVay,Tempo,7.812216784484321,Offense
+Mike McDaniel,Tempo,3.8371640046747175,Offense
+Kevin Stefanski,Tempo,8.347826086956523,Offense
+Kyle Shanahan,Tempo,2.7300124091473146,Offense
+Greg Roman,Tempo,3.787128712871287,Offense
+Matt Canada,Tempo,8.251748251748252,Offense
+Shane Waldron,Tempo,16.965643052599575,Offense
+Shane Steichen,Tempo,11.400293255131965,Offense
+Kevin O'Connell,Tempo,10.426179604261796,Offense
+Scott Turner,Tempo,7.472417251755266,Offense
+Kliff Kingsbury,Tempo,43.31103678929766,Offense
+Ken Dorsey,Tempo,11.40745501285347,Offense
+Josh McDaniels,Tempo,3.343108504398827,Offense
+Matt LaFleur,Tempo,6.300697981512922,Offense
+Mike Kafka,Tempo,14.30323846908734,Offense
+Arthur Smith,Tempo,13.484006895230799,Offense
+Todd Downing,Tempo,6.418918918918918,Offense
+Ben Johnson,Tempo,4.162401910610713,Offense
+Nathaniel Hackett,Tempo,7.232441471571906,Offense
+Luke Getsy,Tempo,6.774394033561218,Offense
+Kellen Moore,Tempo,16.118989968868906,Offense
+Klint Kubiak,Tempo,7.191883019994032,Offense
+Bobby Slowik,Tempo,5.825577387107893,Offense
+Mike McCarthy,Tempo,6.786355475763016,Offense
+Todd Monken,Tempo,4.488899731641864,Offense
+Press Taylor,Tempo,7.833920877399138,Offense
+Sean Payton,Tempo,10.31357177853993,Offense
+Dave Canales,Tempo,5.869017632241814,Offense
+Drew Petzing,Tempo,9.08385093167702,Offense
+Bo Hardegree,Tempo,7.308377896613191,Offense
+Joe Brady,Tempo,5.118778280542986,Offense
+Zac Robinson,Tempo,10.776361529548089,Offense
+Liam Coen,Tempo,5.350686912509038,Offense
+Andy Reid,Under center,9.124579124579125,Offense
+Pete Carmichael,Under center,15.785054575986566,Offense
+Zac Taylor,Under center,6.574271499644634,Offense
+Sean McVay,Under center,28.9193302891933,Offense
+Mike McDaniel,Under center,12.21001221001221,Offense
+Kevin Stefanski,Under center,17.573221757322173,Offense
+Kyle Shanahan,Under center,20.72,Offense
+Greg Roman,Under center,14.396028681742967,Offense
+Matt Canada,Under center,10.253807106598984,Offense
+Shane Waldron,Under center,15.23096129837703,Offense
+Shane Steichen,Under center,6.273369339426672,Offense
+Kevin O'Connell,Under center,27.674153026265703,Offense
+Scott Turner,Under center,13.326226012793176,Offense
+Kliff Kingsbury,Under center,3.664921465968586,Offense
+Ken Dorsey,Under center,14.140127388535031,Offense
+Josh McDaniels,Under center,23.231058234189106,Offense
+Matt LaFleur,Under center,18.966977138018628,Offense
+Mike Kafka,Under center,14.922907488986784,Offense
+Arthur Smith,Under center,15.92442645074224,Offense
+Todd Downing,Under center,18.124341412012647,Offense
+Ben Johnson,Under center,30.204841713221604,Offense
+Nathaniel Hackett,Under center,19.604612850082372,Offense
+Luke Getsy,Under center,11.804008908685969,Offense
+Kellen Moore,Under center,12.383177570093459,Offense
+Klint Kubiak,Under center,26.67116812964213,Offense
+Bobby Slowik,Under center,20.287769784172664,Offense
+Mike McCarthy,Under center,15.290739411342427,Offense
+Todd Monken,Under center,11.742892459826946,Offense
+Press Taylor,Under center,10.008071025020177,Offense
+Sean Payton,Under center,16.42105263157895,Offense
+Dave Canales,Under center,13.81156316916488,Offense
+Drew Petzing,Under center,15.228966986155484,Offense
+Bo Hardegree,Under center,16.848484848484848,Offense
+Joe Brady,Under center,17.978290366350066,Offense
+Zac Robinson,Under center,9.982788296041308,Offense
+Liam Coen,Under center,18.49802371541502,Offense
+Andy Reid,Play action,20.64080944350759,Offense
+Pete Carmichael,Play action,15.798319327731091,Offense
+Zac Taylor,Play action,18.253400143163923,Offense
+Sean McVay,Play action,28.92530487804878,Offense
+Mike McDaniel,Play action,31.013431013431013,Offense
+Kevin Stefanski,Play action,24.42468619246862,Offense
+Kyle Shanahan,Play action,22.849139655862345,Offense
+Greg Roman,Play action,28.547763666482606,Offense
+Matt Canada,Play action,16.361788617886177,Offense
+Shane Waldron,Play action,23.09136420525657,Offense
+Shane Steichen,Play action,29.308909242298085,Offense
+Kevin O'Connell,Play action,28.947368421052634,Offense
+Scott Turner,Play action,28.068303094983992,Offense
+Kliff Kingsbury,Play action,24.89517819706499,Offense
+Ken Dorsey,Play action,23.581899298916507,Offense
+Josh McDaniels,Play action,22.33375156838143,Offense
+Matt LaFleur,Play action,26.016949152542374,Offense
+Mike Kafka,Play action,24.682495858641634,Offense
+Arthur Smith,Play action,28.51985559566787,Offense
+Todd Downing,Play action,27.291886195995787,Offense
+Ben Johnson,Play action,30.462341536167038,Offense
+Nathaniel Hackett,Play action,19.966996699669966,Offense
+Luke Getsy,Play action,25.27881040892193,Offense
+Kellen Moore,Play action,22.92073408824678,Offense
+Klint Kubiak,Play action,24.577987846049968,Offense
+Bobby Slowik,Play action,24.244604316546763,Offense
+Mike McCarthy,Play action,20.632638389647738,Offense
+Todd Monken,Play action,26.237623762376238,Offense
+Press Taylor,Play action,21.06537530266344,Offense
+Sean Payton,Play action,25.53975776724592,Offense
+Dave Canales,Play action,24.049276914836636,Offense
+Drew Petzing,Play action,25.732551944592437,Offense
+Bo Hardegree,Play action,24.179829890643987,Offense
+Joe Brady,Play action,24.660326086956523,Offense
+Zac Robinson,Play action,17.687661777394307,Offense
+Liam Coen,Play action,23.47826086956522,Offense
+Andy Reid,RPO,14.540558734432851,Offense
+Pete Carmichael,RPO,5.196304849884527,Offense
+Zac Taylor,RPO,10.208255857195983,Offense
+Sean McVay,RPO,3.0088816385716877,Offense
+Mike McDaniel,RPO,3.4670821971172576,Offense
+Kevin Stefanski,RPO,5.242236024844721,Offense
+Kyle Shanahan,RPO,1.5068250310228684,Offense
+Greg Roman,RPO,4.084158415841585,Offense
+Matt Canada,RPO,9.137529137529137,Offense
+Shane Waldron,RPO,9.54697476436607,Offense
+Shane Steichen,RPO,15.909090909090908,Offense
+Kevin O'Connell,RPO,5.688736681887367,Offense
+Scott Turner,RPO,8.425275827482448,Offense
+Kliff Kingsbury,RPO,10.989010989010989,Offense
+Ken Dorsey,RPO,14.652956298200515,Offense
+Josh McDaniels,RPO,1.847507331378299,Offense
+Matt LaFleur,RPO,13.884172797585363,Offense
+Mike Kafka,RPO,12.73307163886163,Offense
+Arthur Smith,RPO,7.374066270829344,Offense
+Todd Downing,RPO,5.8880308880308885,Offense
+Ben Johnson,RPO,4.0259297168201975,Offense
+Nathaniel Hackett,RPO,7.901337792642141,Offense
+Luke Getsy,RPO,9.509011808576757,Offense
+Kellen Moore,RPO,10.273261847111726,Offense
+Klint Kubiak,RPO,4.506117576842734,Offense
+Bobby Slowik,RPO,2.481902792140641,Offense
+Mike McCarthy,RPO,7.0377019748653495,Offense
+Todd Monken,RPO,7.538424005855086,Offense
+Press Taylor,RPO,8.382295338817078,Offense
+Sean Payton,RPO,7.5208231259186675,Offense
+Dave Canales,RPO,11.435768261964736,Offense
+Drew Petzing,RPO,4.8395445134575565,Offense
+Bo Hardegree,RPO,7.902554961378491,Offense
+Joe Brady,RPO,11.029411764705882,Offense
+Zac Robinson,RPO,5.368868288914639,Offense
+Liam Coen,RPO,5.531453362255966,Offense
+Andy Reid,Screens,13.861720067453625,Offense
+Pete Carmichael,Screens,7.73109243697479,Offense
+Zac Taylor,Screens,8.518253400143164,Offense
+Sean McVay,Screens,9.527439024390244,Offense
+Mike McDaniel,Screens,13.349613349613348,Offense
+Kevin Stefanski,Screens,9.728033472803348,Offense
+Kyle Shanahan,Screens,10.444177671068427,Offense
+Greg Roman,Screens,7.5096631695196026,Offense
+Matt Canada,Screens,7.41869918699187,Offense
+Shane Waldron,Screens,9.011264080100124,Offense
+Shane Steichen,Screens,10.112359550561797,Offense
+Kevin O'Connell,Screens,10.564454614797866,Offense
+Scott Turner,Screens,8.004268943436498,Offense
+Kliff Kingsbury,Screens,13.626834381551362,Offense
+Ken Dorsey,Screens,7.903123008285533,Offense
+Josh McDaniels,Screens,7.089084065244668,Offense
+Matt LaFleur,Screens,13.940677966101694,Offense
+Mike Kafka,Screens,8.227498619547212,Offense
+Arthur Smith,Screens,11.416967509025271,Offense
+Todd Downing,Screens,11.591148577449948,Offense
+Ben Johnson,Screens,10.961968680089486,Offense
+Nathaniel Hackett,Screens,10.80858085808581,Offense
+Luke Getsy,Screens,14.275092936802974,Offense
+Kellen Moore,Screens,8.548009367681498,Offense
+Klint Kubiak,Screens,9.25050641458474,Offense
+Bobby Slowik,Screens,10.287769784172662,Offense
+Mike McCarthy,Screens,9.202012940330698,Offense
+Todd Monken,Screens,10.767326732673267,Offense
+Press Taylor,Screens,11.702986279257466,Offense
+Sean Payton,Screens,13.428120063191153,Offense
+Dave Canales,Screens,8.462774504552758,Offense
+Drew Petzing,Screens,9.4832179009057,Offense
+Bo Hardegree,Screens,11.7861482381531,Offense
+Joe Brady,Screens,13.043478260869565,Offense
+Zac Robinson,Screens,9.749784296807592,Offense
+Liam Coen,Screens,12.964426877470355,Offense
+Andy Reid,Trick looks,7.135644564119826,Offense
+Pete Carmichael,Trick looks,6.0046189376443415,Offense
+Zac Taylor,Trick looks,2.51022685013016,Offense
+Sean McVay,Trick looks,10.349827804966468,Offense
+Mike McDaniel,Trick looks,6.2329567588624855,Offense
+Kevin Stefanski,Trick looks,3.801242236024845,Offense
+Kyle Shanahan,Trick looks,5.637298351356143,Offense
+Greg Roman,Trick looks,5,Offense
+Matt Canada,Trick looks,13.24009324009324,Offense
+Shane Waldron,Trick looks,6.202493159014899,Offense
+Shane Steichen,Trick looks,2.346041055718475,Offense
+Kevin O'Connell,Trick looks,6.392694063926941,Offense
+Scott Turner,Trick looks,11.183550651955867,Offense
+Kliff Kingsbury,Trick looks,4.777830864787386,Offense
+Ken Dorsey,Trick looks,3.4383033419023135,Offense
+Josh McDaniels,Trick looks,4.134897360703812,Offense
+Matt LaFleur,Trick looks,5.980003772873043,Offense
+Mike Kafka,Trick looks,4.268891069676154,Offense
+Arthur Smith,Trick looks,3.600842750430952,Offense
+Todd Downing,Trick looks,4.777992277992278,Offense
+Ben Johnson,Trick looks,5.493005800068236,Offense
+Nathaniel Hackett,Trick looks,5.68561872909699,Offense
+Luke Getsy,Trick looks,6.805469235550031,Offense
+Kellen Moore,Trick looks,5.1020408163265305,Offense
+Klint Kubiak,Trick looks,4.5359594150999705,Offense
+Bobby Slowik,Trick looks,4.860392967942089,Offense
+Mike McCarthy,Trick looks,4.093357271095153,Offense
+Todd Monken,Trick looks,5.952671383264211,Offense
+Press Taylor,Trick looks,4.191147669408539,Offense
+Sean Payton,Trick looks,2.8172464478196964,Offense
+Dave Canales,Trick looks,4.282115869017632,Offense
+Drew Petzing,Trick looks,3.0797101449275366,Offense
+Bo Hardegree,Trick looks,4.991087344028521,Offense
+Joe Brady,Trick looks,2.234162895927602,Offense
+Zac Robinson,Trick looks,2.8968713789107765,Offense
+Liam Coen,Trick looks,8.496023138105567,Offense
+Andy Reid,Outside zone,23.60970677451972,Offense
+Pete Carmichael,Outside zone,27.724867724867725,Offense
+Zac Taylor,Outside zone,17.555831265508683,Offense
+Sean McVay,Outside zone,25.982189628077528,Offense
+Mike McDaniel,Outside zone,37.471655328798185,Offense
+Kevin Stefanski,Outside zone,23.92378263937897,Offense
+Kyle Shanahan,Outside zone,39.44700460829493,Offense
+Greg Roman,Outside zone,14.37908496732026,Offense
+Matt Canada,Outside zone,18.998716302952502,Offense
+Shane Waldron,Outside zone,29.08921933085502,Offense
+Shane Steichen,Outside zone,16.098029793368575,Offense
+Kevin O'Connell,Outside zone,33.72502937720329,Offense
+Scott Turner,Outside zone,23.9221140472879,Offense
+Kliff Kingsbury,Outside zone,9.844559585492227,Offense
+Ken Dorsey,Outside zone,15.057915057915059,Offense
+Josh McDaniels,Outside zone,16.078753076292042,Offense
+Matt LaFleur,Outside zone,30.08893280632411,Offense
+Mike Kafka,Outside zone,15.895765472312704,Offense
+Arthur Smith,Outside zone,41.75609756097561,Offense
+Todd Downing,Outside zone,36.77069199457259,Offense
+Ben Johnson,Outside zone,35.22156235724075,Offense
+Nathaniel Hackett,Outside zone,28.900949796472187,Offense
+Luke Getsy,Outside zone,18.82261812548412,Offense
+Kellen Moore,Outside zone,20.008992805755398,Offense
+Klint Kubiak,Outside zone,32.48,Offense
+Bobby Slowik,Outside zone,32.139201637666325,Offense
+Mike McCarthy,Outside zone,16.377440347071584,Offense
+Todd Monken,Outside zone,22.18390804597701,Offense
+Press Taylor,Outside zone,12.572087658592848,Offense
+Sean Payton,Outside zone,22.78127183787561,Offense
+Dave Canales,Outside zone,24.636627906976745,Offense
+Drew Petzing,Outside zone,13.307692307692307,Offense
+Bo Hardegree,Outside zone,30.499075785582253,Offense
+Joe Brady,Outside zone,21.904761904761905,Offense
+Zac Robinson,Outside zone,58.64197530864198,Offense
+Liam Coen,Outside zone,20.88235294117647,Offense
+Andy Reid,Extra blocker,26.845298281092013,Offense
+Pete Carmichael,Extra blocker,40,Offense
+Zac Taylor,Extra blocker,20.6575682382134,Offense
+Sean McVay,Extra blocker,34.88737558931378,Offense
+Mike McDaniel,Extra blocker,56.235827664399096,Offense
+Kevin Stefanski,Extra blocker,23.500352858151025,Offense
+Kyle Shanahan,Extra blocker,49.67741935483871,Offense
+Greg Roman,Extra blocker,43.8562091503268,Offense
+Matt Canada,Extra blocker,25.802310654685495,Offense
+Shane Waldron,Extra blocker,22.58364312267658,Offense
+Shane Steichen,Extra blocker,24.74771744353676,Offense
+Kevin O'Connell,Extra blocker,29.435957696827263,Offense
+Scott Turner,Extra blocker,36.99582753824757,Offense
+Kliff Kingsbury,Extra blocker,28.173575129533678,Offense
+Ken Dorsey,Extra blocker,13.416988416988417,Offense
+Josh McDaniels,Extra blocker,42.49384741591468,Offense
+Matt LaFleur,Extra blocker,29.496047430830043,Offense
+Mike Kafka,Extra blocker,27.035830618892508,Offense
+Arthur Smith,Extra blocker,32.6829268292683,Offense
+Todd Downing,Extra blocker,32.021709633649934,Offense
+Ben Johnson,Extra blocker,31.566925536774782,Offense
+Nathaniel Hackett,Extra blocker,31.071913161465396,Offense
+Luke Getsy,Extra blocker,29.04725019364833,Offense
+Kellen Moore,Extra blocker,24.415467625899282,Offense
+Klint Kubiak,Extra blocker,42.480000000000004,Offense
+Bobby Slowik,Extra blocker,44.42169907881269,Offense
+Mike McCarthy,Extra blocker,24.728850325379607,Offense
+Todd Monken,Extra blocker,36.7816091954023,Offense
+Press Taylor,Extra blocker,20.9919261822376,Offense
+Sean Payton,Extra blocker,33.6827393431167,Offense
+Dave Canales,Extra blocker,23.546511627906977,Offense
+Drew Petzing,Extra blocker,26.692307692307693,Offense
+Bo Hardegree,Extra blocker,29.20517560073937,Offense
+Joe Brady,Extra blocker,13.129251700680273,Offense
+Zac Robinson,Extra blocker,29.835390946502056,Offense
+Liam Coen,Extra blocker,27.254901960784313,Offense
+Vance Joseph,Five-plus rushers,35.12195121951219,Defense
+Mike Macdonald,Five-plus rushers,22.18284904323175,Defense
+Lou Anarumo,Five-plus rushers,23.953488372093023,Defense
+Joe Woods,Five-plus rushers,22.933643771827704,Defense
+Dan Quinn,Five-plus rushers,27.989487516425754,Defense
+Ejiro Evero,Five-plus rushers,32.26934849147355,Defense
+Aaron Glenn,Five-plus rushers,32.27722772277228,Defense
+Joe Barry,Five-plus rushers,33.02364864864865,Defense
+Gus Bradley,Five-plus rushers,17.75754126351736,Defense
+Mike Caldwell,Five-plus rushers,28.623452294246178,Defense
+Steve Spagnuolo,Five-plus rushers,30.804679191775964,Defense
+Raheem Morris,Five-plus rushers,28.23343848580442,Defense
+Brandon Staley,Five-plus rushers,29.342027267338473,Defense
+Patrick Graham,Five-plus rushers,24.51802179379715,Defense
+Bill Belichick,Five-plus rushers,27.402700555996823,Defense
+Dennis Allen,Five-plus rushers,23.24074074074074,Defense
+Don Martindale,Five-plus rushers,43.41085271317829,Defense
+Jeff Ulbrich,Five-plus rushers,23.930885529157667,Defense
+Teryl Austin,Five-plus rushers,29.610894941634243,Defense
+Clint Hurtt,Five-plus rushers,18.88446215139442,Defense
+DeMeco Ryans,Five-plus rushers,24.121265377855888,Defense
+Todd Bowles,Five-plus rushers,35.85672082717873,Defense
+Shane Bowen,Five-plus rushers,22.93103448275862,Defense
+Jack Del Rio,Five-plus rushers,26.456071076011845,Defense
+Nick Rallis,Five-plus rushers,22.118742724097785,Defense
+Ryan Nielsen,Five-plus rushers,18.703241895261847,Defense
+Sean McDermott,Five-plus rushers,21.152856407617087,Defense
+Jim Schwartz,Five-plus rushers,28.28520919269299,Defense
+Vic Fangio,Five-plus rushers,19.68426245683276,Defense
+Brian Flores,Five-plus rushers,46.23250807319699,Defense
+Steve Wilks,Five-plus rushers,22.93877551020408,Defense
+Matt Eberflus,Five-plus rushers,24.56813819577735,Defense
+Zach Orr,Five-plus rushers,21.207764198418406,Defense
+Jeff Hafley,Five-plus rushers,18.705603788476715,Defense
+Chris Shula,Five-plus rushers,20.877565463552724,Defense
+Jesse Minter,Five-plus rushers,22.21318144833198,Defense
+Anthony Weaver,Five-plus rushers,26.551724137931032,Defense
+Dennard Wilson,Five-plus rushers,22.547169811320757,Defense
+Joe Whitt Jr.,Five-plus rushers,31.983385254413292,Defense
+Vance Joseph,Rush three,4.202626641651032,Defense
+Mike Macdonald,Rush three,3.437278525868179,Defense
+Lou Anarumo,Rush three,8.565891472868218,Defense
+Joe Woods,Rush three,5.355064027939465,Defense
+Dan Quinn,Rush three,3.942181340341656,Defense
+Ejiro Evero,Rush three,2.1425448185395717,Defense
+Aaron Glenn,Rush three,3.2673267326732676,Defense
+Joe Barry,Rush three,3.6317567567567566,Defense
+Gus Bradley,Rush three,3.187250996015936,Defense
+Mike Caldwell,Rush three,4.879825200291333,Defense
+Steve Spagnuolo,Rush three,4.643743353420772,Defense
+Raheem Morris,Rush three,5.83596214511041,Defense
+Brandon Staley,Rush three,2.2525192649673977,Defense
+Patrick Graham,Rush three,5.029337803855825,Defense
+Bill Belichick,Rush three,6.98967434471803,Defense
+Dennis Allen,Rush three,6.851851851851852,Defense
+Don Martindale,Rush three,4.341085271317829,Defense
+Jeff Ulbrich,Rush three,3.7580993520518358,Defense
+Teryl Austin,Rush three,1.2062256809338523,Defense
+Clint Hurtt,Rush three,3.5856573705179287,Defense
+DeMeco Ryans,Rush three,1.9771528998242531,Defense
+Todd Bowles,Rush three,4.800590841949778,Defense
+Shane Bowen,Rush three,3.103448275862069,Defense
+Jack Del Rio,Rush three,1.4807502467917077,Defense
+Nick Rallis,Rush three,6.577415599534342,Defense
+Ryan Nielsen,Rush three,4.655029093931837,Defense
+Sean McDermott,Rush three,3.705609881626351,Defense
+Jim Schwartz,Rush three,0.7660577489687684,Defense
+Vic Fangio,Rush three,2.1213616181549084,Defense
+Brian Flores,Rush three,10.76426264800861,Defense
+Steve Wilks,Rush three,0.8979591836734694,Defense
+Matt Eberflus,Rush three,1.983365323096609,Defense
+Zach Orr,Rush three,4.097771387491013,Defense
+Jeff Hafley,Rush three,2.7624309392265194,Defense
+Chris Shula,Rush three,4.246284501061571,Defense
+Jesse Minter,Rush three,5.288852725793328,Defense
+Anthony Weaver,Rush three,3.793103448275862,Defense
+Dennard Wilson,Rush three,0.5660377358490566,Defense
+Joe Whitt Jr.,Rush three,2.284527518172378,Defense
+Vance Joseph,Heavy box,21.672919885235046,Defense
+Mike Macdonald,Heavy box,15.987124463519315,Defense
+Lou Anarumo,Heavy box,23.73680664720413,Defense
+Joe Woods,Heavy box,26.032540675844807,Defense
+Dan Quinn,Heavy box,25.171294626758023,Defense
+Ejiro Evero,Heavy box,21.281992160479593,Defense
+Aaron Glenn,Heavy box,25.802650957290137,Defense
+Joe Barry,Heavy box,20.1627486437613,Defense
+Gus Bradley,Heavy box,26.77925211097708,Defense
+Mike Caldwell,Heavy box,26.356589147286826,Defense
+Steve Spagnuolo,Heavy box,20.630313083143275,Defense
+Raheem Morris,Heavy box,15.66925536774783,Defense
+Brandon Staley,Heavy box,20.966688438928806,Defense
+Patrick Graham,Heavy box,27.285415212840196,Defense
+Bill Belichick,Heavy box,22.893772893772894,Defense
+Dennis Allen,Heavy box,21.204323211528564,Defense
+Don Martindale,Heavy box,29.427197201574113,Defense
+Jeff Ulbrich,Heavy box,25.24407252440725,Defense
+Teryl Austin,Heavy box,26.905829596412556,Defense
+Clint Hurtt,Heavy box,22.35092235092235,Defense
+DeMeco Ryans,Heavy box,21.875798619984664,Defense
+Todd Bowles,Heavy box,29.03225806451613,Defense
+Shane Bowen,Heavy box,18.487185867131128,Defense
+Jack Del Rio,Heavy box,21.205230244457077,Defense
+Nick Rallis,Heavy box,23.726164426383246,Defense
+Ryan Nielsen,Heavy box,19.051918735891647,Defense
+Sean McDermott,Heavy box,20.01166861143524,Defense
+Jim Schwartz,Heavy box,33.891752577319586,Defense
+Vic Fangio,Heavy box,14.460227272727272,Defense
+Brian Flores,Heavy box,31.55952014764688,Defense
+Steve Wilks,Heavy box,25.29439472444654,Defense
+Matt Eberflus,Heavy box,21.831775700934582,Defense
+Zach Orr,Heavy box,21.29916040653999,Defense
+Jeff Hafley,Heavy box,20.09825815096025,Defense
+Chris Shula,Heavy box,19.4264943457189,Defense
+Jesse Minter,Heavy box,16.338951310861425,Defense
+Anthony Weaver,Heavy box,25.967662910338067,Defense
+Dennard Wilson,Heavy box,23.156853043047995,Defense
+Joe Whitt Jr.,Heavy box,23.05600870038064,Defense
+Vance Joseph,Man coverage,26.264518546272015,Defense
+Mike Macdonald,Man coverage,22.69830028328612,Defense
+Lou Anarumo,Man coverage,25.78397212543554,Defense
+Joe Woods,Man coverage,24.33061699650757,Defense
+Dan Quinn,Man coverage,28.608752449379494,Defense
+Ejiro Evero,Man coverage,15.539065910082932,Defense
+Aaron Glenn,Man coverage,36.795252225519285,Defense
+Joe Barry,Man coverage,20.10135135135135,Defense
+Gus Bradley,Man coverage,12.18416619876474,Defense
+Mike Caldwell,Man coverage,19.186046511627907,Defense
+Steve Spagnuolo,Man coverage,29.603399433427764,Defense
+Raheem Morris,Man coverage,13.081166272655635,Defense
+Brandon Staley,Man coverage,21.6696269982238,Defense
+Patrick Graham,Man coverage,24.842899036447424,Defense
+Bill Belichick,Man coverage,34.17922283901665,Defense
+Dennis Allen,Man coverage,29.61591855622397,Defense
+Don Martindale,Man coverage,40.775193798449614,Defense
+Jeff Ulbrich,Man coverage,24.687634640241278,Defense
+Teryl Austin,Man coverage,32.98368298368298,Defense
+Clint Hurtt,Man coverage,15.53784860557769,Defense
+DeMeco Ryans,Man coverage,20.19315188762072,Defense
+Todd Bowles,Man coverage,20.605612998522897,Defense
+Shane Bowen,Man coverage,27.851915626345242,Defense
+Jack Del Rio,Man coverage,28.57142857142857,Defense
+Nick Rallis,Man coverage,17.838466008134805,Defense
+Ryan Nielsen,Man coverage,32.946058091286304,Defense
+Sean McDermott,Man coverage,23.005661348430262,Defense
+Jim Schwartz,Man coverage,36.984687868080094,Defense
+Vic Fangio,Man coverage,23.174914257716807,Defense
+Brian Flores,Man coverage,22.258064516129032,Defense
+Steve Wilks,Man coverage,24.674267100977197,Defense
+Matt Eberflus,Man coverage,18.234165067178505,Defense
+Zach Orr,Man coverage,32.20704529115744,Defense
+Jeff Hafley,Man coverage,17.363851617995266,Defense
+Chris Shula,Man coverage,19.2226148409894,Defense
+Jesse Minter,Man coverage,17.20779220779221,Defense
+Anthony Weaver,Man coverage,21.188630490956072,Defense
+Dennard Wilson,Man coverage,21.20640904806786,Defense
+Joe Whitt Jr.,Man coverage,31.360332294911736,Defense
+Vance Joseph,Cover 2,11.05282877482203,Defense
+Mike Macdonald,Cover 2,12.429178470254957,Defense
+Lou Anarumo,Cover 2,17.11188540456833,Defense
+Joe Woods,Cover 2,14.551804423748546,Defense
+Dan Quinn,Cover 2,20.37883736120183,Defense
+Ejiro Evero,Cover 2,6.721955477957224,Defense
+Aaron Glenn,Cover 2,14.886251236399604,Defense
+Joe Barry,Cover 2,8.361486486486488,Defense
+Gus Bradley,Cover 2,12.352610892756879,Defense
+Mike Caldwell,Cover 2,15.55232558139535,Defense
+Steve Spagnuolo,Cover 2,20.821529745042493,Defense
+Raheem Morris,Cover 2,3.7037037037037033,Defense
+Brandon Staley,Cover 2,8.052101835405566,Defense
+Patrick Graham,Cover 2,17.260159195643066,Defense
+Bill Belichick,Cover 2,17.208564631245043,Defense
+Dennis Allen,Cover 2,20.68486811661268,Defense
+Don Martindale,Cover 2,4.728682170542635,Defense
+Jeff Ulbrich,Cover 2,3.963808703145196,Defense
+Teryl Austin,Cover 2,16.744366744366744,Defense
+Clint Hurtt,Cover 2,4.701195219123506,Defense
+DeMeco Ryans,Cover 2,12.159789288849868,Defense
+Todd Bowles,Cover 2,14.99261447562777,Defense
+Shane Bowen,Cover 2,13.947481704692208,Defense
+Jack Del Rio,Cover 2,13.793103448275861,Defense
+Nick Rallis,Cover 2,14.00348634514817,Defense
+Ryan Nielsen,Cover 2,20.91286307053942,Defense
+Sean McDermott,Cover 2,17.55018013381369,Defense
+Jim Schwartz,Cover 2,17.550058892815077,Defense
+Vic Fangio,Cover 2,1.4208721215090643,Defense
+Brian Flores,Cover 2,27.473118279569892,Defense
+Steve Wilks,Cover 2,15.879478827361563,Defense
+Matt Eberflus,Cover 2,19.577735124760075,Defense
+Zach Orr,Cover 2,15.528396836808051,Defense
+Jeff Hafley,Cover 2,21.468034727703238,Defense
+Chris Shula,Cover 2,18.16254416961131,Defense
+Jesse Minter,Cover 2,13.96103896103896,Defense
+Anthony Weaver,Cover 2,26.528854435831178,Defense
+Dennard Wilson,Cover 2,11.687087653157398,Defense
+Joe Whitt Jr.,Cover 2,17.964693665628246,Defense
+Vance Joseph,Cover 3,33.42075683776695,Defense
+Mike Macdonald,Cover 3,29.53257790368272,Defense
+Lou Anarumo,Cover 3,31.281455671699575,Defense
+Joe Woods,Cover 3,30.61699650756694,Defense
+Dan Quinn,Cover 3,28.6740692357936,Defense
+Ejiro Evero,Cover 3,47.97031863814928,Defense
+Aaron Glenn,Cover 3,25.420375865479723,Defense
+Joe Barry,Cover 3,37.66891891891892,Defense
+Gus Bradley,Cover 3,46.93992139247614,Defense
+Mike Caldwell,Cover 3,37.2093023255814,Defense
+Steve Spagnuolo,Cover 3,17.988668555240793,Defense
+Raheem Morris,Cover 3,47.20252167060678,Defense
+Brandon Staley,Cover 3,36.41207815275311,Defense
+Patrick Graham,Cover 3,34.352744030163386,Defense
+Bill Belichick,Cover 3,32.27597145122918,Defense
+Dennis Allen,Cover 3,25.451180009254976,Defense
+Don Martindale,Cover 3,27.209302325581397,Defense
+Jeff Ulbrich,Cover 3,29.383886255924168,Defense
+Teryl Austin,Cover 3,32.59518259518259,Defense
+Clint Hurtt,Cover 3,40,Defense
+DeMeco Ryans,Cover 3,32.79192273924495,Defense
+Todd Bowles,Cover 3,39.254062038404726,Defense
+Shane Bowen,Cover 3,28.32544123977615,Defense
+Jack Del Rio,Cover 3,22.5615763546798,Defense
+Nick Rallis,Cover 3,28.588030214991285,Defense
+Ryan Nielsen,Cover 3,17.842323651452283,Defense
+Sean McDermott,Cover 3,26.505404014410704,Defense
+Jim Schwartz,Cover 3,29.681978798586574,Defense
+Vic Fangio,Cover 3,33.219010289073985,Defense
+Brian Flores,Cover 3,27.795698924731184,Defense
+Steve Wilks,Cover 3,29.64169381107492,Defense
+Matt Eberflus,Cover 3,38.00383877159309,Defense
+Zach Orr,Cover 3,30.4097771387491,Defense
+Jeff Hafley,Cover 3,33.22809786898185,Defense
+Chris Shula,Cover 3,32.791519434628974,Defense
+Jesse Minter,Cover 3,30.600649350649352,Defense
+Anthony Weaver,Cover 3,28.251507321274765,Defense
+Dennard Wilson,Cover 3,30.16022620169651,Defense
+Joe Whitt Jr.,Cover 3,27.82969885773624,Defense
+Vance Joseph,Cover 6,10.415886099662796,Defense
+Mike Macdonald,Cover 6,14.022662889518415,Defense
+Lou Anarumo,Cover 6,7.239643825009678,Defense
+Joe Woods,Cover 6,6.635622817229336,Defense
+Dan Quinn,Cover 6,3.3311561071195297,Defense
+Ejiro Evero,Cover 6,14.884329986905282,Defense
+Aaron Glenn,Cover 6,5.143422354104846,Defense
+Joe Barry,Cover 6,12.58445945945946,Defense
+Gus Bradley,Cover 6,6.513194834362718,Defense
+Mike Caldwell,Cover 6,9.156976744186046,Defense
+Steve Spagnuolo,Cover 6,5.701133144475921,Defense
+Raheem Morris,Cover 6,14.026792750197007,Defense
+Brandon Staley,Cover 6,15.689757252812313,Defense
+Patrick Graham,Cover 6,5.111018014243821,Defense
+Bill Belichick,Cover 6,2.4583663758921492,Defense
+Dennis Allen,Cover 6,3.146691346598797,Defense
+Don Martindale,Cover 6,6.434108527131784,Defense
+Jeff Ulbrich,Cover 6,9.780267126238689,Defense
+Teryl Austin,Cover 6,6.371406371406371,Defense
+Clint Hurtt,Cover 6,19.760956175298805,Defense
+DeMeco Ryans,Cover 6,9.13081650570676,Defense
+Todd Bowles,Cover 6,4.83751846381093,Defense
+Shane Bowen,Cover 6,3.745157124408093,Defense
+Jack Del Rio,Cover 6,7.192118226600986,Defense
+Nick Rallis,Cover 6,6.159209761766415,Defense
+Ryan Nielsen,Cover 6,11.20331950207469,Defense
+Sean McDermott,Cover 6,11.116829644879052,Defense
+Jim Schwartz,Cover 6,6.18374558303887,Defense
+Vic Fangio,Cover 6,20.23517883390495,Defense
+Brian Flores,Cover 6,4.89247311827957,Defense
+Steve Wilks,Cover 6,2.3615635179153096,Defense
+Matt Eberflus,Cover 6,4.222648752399232,Defense
+Zach Orr,Cover 6,8.770668583752697,Defense
+Jeff Hafley,Cover 6,13.180741910023677,Defense
+Chris Shula,Cover 6,10.812720848056538,Defense
+Jesse Minter,Cover 6,10.795454545454545,Defense
+Anthony Weaver,Cover 6,6.890611541774333,Defense
+Dennard Wilson,Cover 6,9.707822808671066,Defense
+Joe Whitt Jr.,Cover 6,7.061266874350987,Defense
+Vance Joseph,Shell rotation,26.998924345643598,Defense
+Mike Macdonald,Shell rotation,36.04299630500504,Defense
+Lou Anarumo,Shell rotation,24.38305709023941,Defense
+Joe Woods,Shell rotation,32.92134831460674,Defense
+Dan Quinn,Shell rotation,28.000000000000004,Defense
+Ejiro Evero,Shell rotation,46.451070978580425,Defense
+Aaron Glenn,Shell rotation,30.82671648762261,Defense
+Joe Barry,Shell rotation,28.57142857142857,Defense
+Gus Bradley,Shell rotation,24.850462207721588,Defense
+Mike Caldwell,Shell rotation,26.192121630960607,Defense
+Steve Spagnuolo,Shell rotation,28.135368281353685,Defense
+Raheem Morris,Shell rotation,50.30257186081695,Defense
+Brandon Staley,Shell rotation,33.92045454545455,Defense
+Patrick Graham,Shell rotation,32.69307723089236,Defense
+Bill Belichick,Shell rotation,30.205949656750576,Defense
+Dennis Allen,Shell rotation,28.408091468777485,Defense
+Don Martindale,Shell rotation,18.41317365269461,Defense
+Jeff Ulbrich,Shell rotation,26.113608500204332,Defense
+Teryl Austin,Shell rotation,29.59910078681154,Defense
+Clint Hurtt,Shell rotation,19.893697798025816,Defense
+DeMeco Ryans,Shell rotation,21.82274247491639,Defense
+Todd Bowles,Shell rotation,29.646643109540637,Defense
+Shane Bowen,Shell rotation,30.721649484536083,Defense
+Jack Del Rio,Shell rotation,28.31608654750706,Defense
+Nick Rallis,Shell rotation,33.33333333333333,Defense
+Ryan Nielsen,Shell rotation,26.938136256851998,Defense
+Sean McDermott,Shell rotation,36.78832116788321,Defense
+Jim Schwartz,Shell rotation,22.12837837837838,Defense
+Vic Fangio,Shell rotation,38.285980437820214,Defense
+Brian Flores,Shell rotation,30.19648397104447,Defense
+Steve Wilks,Shell rotation,23.63356428021555,Defense
+Matt Eberflus,Shell rotation,28.189550425273392,Defense
+Zach Orr,Shell rotation,41.86684969114619,Defense
+Jeff Hafley,Shell rotation,31.428571428571427,Defense
+Chris Shula,Shell rotation,47.357723577235774,Defense
+Jesse Minter,Shell rotation,30.616907844630614,Defense
+Anthony Weaver,Shell rotation,38.63261943986821,Defense
+Dennard Wilson,Shell rotation,38.19139596136962,Defense
+Joe Whitt Jr.,Shell rotation,29.446640316205535,Defense
