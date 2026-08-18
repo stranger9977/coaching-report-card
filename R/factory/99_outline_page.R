@@ -23,6 +23,11 @@ gap <- function(txt) sprintf('<p class="gap">%s</p>', txt)
 idea <- function(txt) sprintf('<li>%s</li>', txt)
 # neutral note, for answering a question rather than flagging a hole
 note <- function(txt) sprintf('<p class="note">%s</p>', txt)
+# Animated explainers live as HTML partials on disk. Inlining them in R means
+# escaping braces, percent signs and quotes through sprintf, which is how the
+# page got mangled twice before.
+partial <- function(name) paste(readLines(file.path("docs/partials", name), warn = FALSE),
+                                collapse = "\n")
 
 css <- '
 :root{--bg:#fbfbfa;--ink:#1e2126;--ink2:#4a5058;--ink3:#778089;--accent:#2B8CBE;--card:#fff;--line:#e3e5e8;--warn:#b26a00;--warnbg:#fdf3e3}
@@ -213,8 +218,14 @@ sec('Same look, different play',
     fig(file.path(FIG,'disguise_same_look.png'),
         'How much each play-caller pre-snap look gives away, and whether it repeats across seasons',
         'It repeats hard (r = +0.79), and it is the man rather than his formation menu, which explains only 5%. Matt LaFleur and Sean McVay hide the most from the same looks everyone else uses. Being readable does not visibly cost offense (r = +0.12, p = 0.37), so this describes style more than it grades it.')),
+sec('Static before the snap, moving after it',
+    note('Michael: <i>"I think the Seahawks defense was very predictable in terms of formation. They ran Nickel like the whole time and did not give af what the offense was doing. But their unpredictability came when the ball was snapped."</i> Both halves check out, and they are close to independent measures (r = -0.17), so this is a real two-axis idea.'),
+    fig(file.path(FIG,'presnap_postsnap.png'),
+        'Pre-snap personnel responsiveness against post-snap shell rotation, by defensive coordinator',
+        'Macdonald plays nickel on 82% of snaps against 11 personnel and 56% against heavy. That 26-point gap is well below the league average of 44 and ranks him 34th of 44 for adapting his personnel. Then he rotates the shell 5.7 points more than his situations call for. Pre-snap responsiveness is itself a repeatable trait (r = +0.79).')),
 sec('Defense: showing one coverage and playing another',
     note('This is the defensive half, and it comes from <b>SumerSports</b> charting, which records the middle-of-field shell both <b>before</b> the snap and as <b>actually played</b>. The shell rotates on 30% of charted snaps. Showing two-high and dropping to one is the common lie; the reverse is about a third as frequent.'),
+    partial('disguise_explainer.html'),
     fig(file.path(FIG,'disguise_defense.png'),
         'Shell rotation rate above expected by defensive play-caller, and whether it repeats across seasons',
         'The strongest trait measured anywhere on this project: r = +0.90 across seasons. Vic Fangio +7.4 and Don Martindale -11.6 land where football people would put them, which is a good outside check. Macdonald is +5.5.'),
