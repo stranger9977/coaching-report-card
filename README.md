@@ -101,6 +101,8 @@ the new work.
 | Cadence is closer to a real weapon | flags drawn persist r = +0.31; Zac Taylor #1: ~86 free yards + 6.5 free first downs/season; McVay top-3 both directions |
 | The YAC factory runs on broken tackles | Shanahan's +0.76 = +0.20 clean (5th, CI spans zero) + 0.56 contact (1st); Deebo 10th of 265 in tackles beaten/catch |
 | The scheme-space crown is Johnson's | 1st of 37 before contact, 50/50 split, spread across 19 players; channels correlate only r = 0.60 |
+| "25 plays seem like 250," composited | 5th-fewest pictures + personnel held 84% (1st) + 4th-most play variety inside stretches + largest interval-backed motion effect |
+| McVay's pistol experiment | 0% -> 7.7% (2023-24) -> 10.6% (2024-25), ~2x league both years, killed to 0.7% in 2025-26 |
 
 ## Scripts
 
@@ -144,6 +146,7 @@ figures and derived CSVs.
 | `R/38_qb_movement.R` | qb_movement.png |
 | `R/39_discipline.R` | discipline.png |
 | `R/40_yac_mechanism.R` | yac_mechanism.png |
+| `R/42_mcvay_formula.R` | mcvay_formula.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done

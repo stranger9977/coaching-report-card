@@ -346,7 +346,7 @@ pB <- ggplot(both, aes(H_variety, leak)) +
            fontface = "italic", colour = "grey45", label = "few looks, none of them tip anything") +
   annotate("text", x = max(both$H_variety), y = min(both$leak), hjust = 1, vjust = 0, size = 2.85,
            fontface = "italic", colour = "grey45", label = "many looks, and the variety is the camouflage") +
-  labs(subtitle = "Showing many different looks does not automatically hide the play.\nx = how many different pre-snap looks a caller shows; y = how much the look tips run vs pass beyond down, distance, score and clock.",
+  labs(subtitle = "Showing many different looks does not automatically hide the play.\nx = how many different pre-snap looks a caller shows; y = how much the look tips run vs pass beyond down and distance (garbage time excluded).",
        x = "variety of pre-snap looks (bits)", y = "how much the look tips run vs pass (bits)") +
   theme_coach(grid = "none")
 
@@ -359,11 +359,11 @@ TITLE_B <- sprintf("McVay: looks-variety #%d of %d, look-tips-the-play #%d of %d
 p_final <- pB + plot_annotation(
   title = TITLE_B,
   caption = fig_caption(
-    "Sumer play and player charting 2022-2025, play-caller attribution from samhoppen/NFL_public",
+    "Sumer play and player charting, 2022-23 through 2025-26 seasons, play-caller attribution from samhoppen/NFL_public",
     sprintf("%d qualified callers (%d+ plays), %s plays, picture built from RB/FB/TE/WR/SWR alignment only.",
             nrow(both), QUAL_MIN, format(nrow(dq), big.mark = ",")),
     paste0("\nNeither Sumer nor any other source in this repo tags motion type, so this is not a motion count. It measures the variety of pre-snap looks a caller shows and whether\n",
-           "those looks give away run or pass on top of what the down, distance, score and clock already tell a defense. Both axes are empirical-Bayes shrunk (K=15) so thin\n",
+           "those looks give away run or pass on top of what down and distance already tell a defense (garbage time excluded; score and clock enter only through that filter). Both axes are empirical-Bayes shrunk (K=15) so thin\n",
            "cells cannot manufacture either a varied or a deceptive caller. Note for the record: R/14 found Ben Johnson hides his play mix well from a COARSE look (QB spot, backfield\n",
            "count, motion); on this richer per-player look he does not repeat that pattern; he shows an above-median mix of looks and they tip the play more than a typical caller's. Built by R/25.")
   ),
