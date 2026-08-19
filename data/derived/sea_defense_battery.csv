@@ -1,0 +1,84 @@
+claim,metric,team,team_role,scope,season,def_caller,n,value,league_avg,rank_of_32,rank_direction,verdict
+1 nickel rate,nickel_rate_pct,SEA,primary,pooled,NA,"Seattle 2024-2025 (Macdonald, HC/DC)",2037,73.5886,62.5608,5,1 = highest rate,"confirmed, a lot"
+1 nickel rate,nickel_rate_pct,BAL,context,pooled,NA,"Baltimore 2022-2023 (Macdonald, DC)",2073,69.9469,64.0773,10,1 = highest rate,NA
+1 nickel rate,nickel_rate_pct,SF,secondary,pooled,NA,"San Francisco 2022-2025 (mis-attribution, kept for reference only)",3861,74.7216,63.3278,2,1 = highest rate,NA
+1 nickel rate,nickel_rate_pct,SEA,primary,2024,2024,Mike Macdonald,1043,70.5657,NA,12,1 = highest rate,NA
+1 nickel rate,nickel_rate_pct,SEA,primary,2025,2025,Mike Macdonald,994,76.7606,NA,2,1 = highest rate,NA
+1 nickel rate,nickel_rate_pct,BAL,context,2022,2022,Mike Macdonald,1027,60.37,NA,22,1 = highest rate,NA
+1 nickel rate,nickel_rate_pct,BAL,context,2023,2023,Mike Macdonald,1046,79.3499,NA,5,1 = highest rate,NA
+1 nickel rate,nickel_rate_pct,SF,secondary,2022,2022,DeMeco Ryans,942,69.1083,NA,9,1 = highest rate,NA
+1 nickel rate,nickel_rate_pct,SF,secondary,2023,2023,Steve Wilks,956,79.8117,NA,4,1 = highest rate,NA
+1 nickel rate,nickel_rate_pct,SF,secondary,2024,2024,Nick Sorensen,979,70.9908,NA,11,1 = highest rate,NA
+1 nickel rate,nickel_rate_pct,SF,secondary,2025,2025,Robert Saleh,984,78.8618,NA,1,1 = highest rate,NA
+2 zone rate,zone_rate_pct,SEA,primary,pooled,NA,"Seattle 2024-2025 (Macdonald, HC/DC)",1217,75.7601,73.5633,16,1 = highest rate,"not clearly confirmed pooled (dead average); confirmed in 2025 alone, not in 2024"
+2 zone rate,zone_rate_pct,BAL,context,pooled,NA,"Baltimore 2022-2023 (Macdonald, DC)",1245,75.743,74.3921,15,1 = highest rate,NA
+2 zone rate,zone_rate_pct,SF,secondary,pooled,NA,"San Francisco 2022-2025 (mis-attribution, kept for reference only)",2273,78.2226,73.9651,10,1 = highest rate,NA
+2 zone rate,zone_rate_pct,SEA,primary,2024,2024,Mike Macdonald,597,69.5142,NA,21,1 = highest rate,NA
+2 zone rate,zone_rate_pct,SEA,primary,2025,2025,Mike Macdonald,620,81.7742,NA,6,1 = highest rate,NA
+2 zone rate,zone_rate_pct,BAL,context,2022,2022,Mike Macdonald,600,76.5,NA,13,1 = highest rate,NA
+2 zone rate,zone_rate_pct,BAL,context,2023,2023,Mike Macdonald,645,75.0388,NA,19,1 = highest rate,NA
+2 zone rate,zone_rate_pct,SF,secondary,2022,2022,DeMeco Ryans,577,79.896,NA,9,1 = highest rate,NA
+2 zone rate,zone_rate_pct,SF,secondary,2023,2023,Steve Wilks,613,77.3246,NA,13,1 = highest rate,NA
+2 zone rate,zone_rate_pct,SF,secondary,2024,2024,Nick Sorensen,520,75.7692,NA,14,1 = highest rate,NA
+2 zone rate,zone_rate_pct,SF,secondary,2025,2025,Robert Saleh,563,79.7513,NA,12,1 = highest rate,NA
+3a blitz frequency,blitz_rate_pct,SEA,primary,pooled,NA,"Seattle 2024-2025 (Macdonald, HC/DC)",1291,22.6181,26.2499,11,1 = fewest blitzes,"confirmed, mildly"
+3a blitz frequency,blitz_rate_pct,BAL,context,pooled,NA,"Baltimore 2022-2023 (Macdonald, DC)",1334,22.039,26.3688,11,1 = fewest blitzes,NA
+3a blitz frequency,blitz_rate_pct,SF,secondary,pooled,NA,"San Francisco 2022-2025 (mis-attribution, kept for reference only)",2389,21.599,26.2929,9,1 = fewest blitzes,NA
+3a blitz frequency,blitz_rate_pct,SEA,primary,2024,2024,Mike Macdonald,637,22.9199,NA,12,1 = fewest blitzes,NA
+3a blitz frequency,blitz_rate_pct,SEA,primary,2025,2025,Mike Macdonald,654,22.3242,NA,10,1 = fewest blitzes,NA
+3a blitz frequency,blitz_rate_pct,BAL,context,2022,2022,Mike Macdonald,648,24.2284,NA,14,1 = fewest blitzes,NA
+3a blitz frequency,blitz_rate_pct,BAL,context,2023,2023,Mike Macdonald,686,19.9708,NA,5,1 = fewest blitzes,NA
+3a blitz frequency,blitz_rate_pct,SF,secondary,2022,2022,DeMeco Ryans,607,23.5585,NA,13,1 = fewest blitzes,NA
+3a blitz frequency,blitz_rate_pct,SF,secondary,2023,2023,Steve Wilks,641,21.9969,NA,14,1 = fewest blitzes,NA
+3a blitz frequency,blitz_rate_pct,SF,secondary,2024,2024,Nick Sorensen,546,18.4982,NA,5,1 = fewest blitzes,NA
+3a blitz frequency,blitz_rate_pct,SF,secondary,2025,2025,Robert Saleh,595,22.0168,NA,9,1 = fewest blitzes,NA
+3b blitz danger,blitz_epa_allowed,SEA,primary,pooled,NA,"Seattle 2024-2025 (Macdonald, HC/DC)",292,-0.149,0.0273,1,1 = lowest EPA allowed (most dangerous),confirmed
+3b blitz danger,blitz_epa_allowed,BAL,context,pooled,NA,"Baltimore 2022-2023 (Macdonald, DC)",294,-0.1974,-0.0319,4,1 = lowest EPA allowed (most dangerous),NA
+3b blitz danger,blitz_epa_allowed,SF,secondary,pooled,NA,"San Francisco 2022-2025 (mis-attribution, kept for reference only)",516,0.0856,-0.002,27,1 = lowest EPA allowed (most dangerous),NA
+3b blitz danger,blitz_epa_allowed,SEA,primary,2024,2024,Mike Macdonald,146,0.0905,NA,22,1 = lowest EPA allowed (most dangerous),NA
+3b blitz danger,blitz_epa_allowed,SEA,primary,2025,2025,Mike Macdonald,146,-0.3886,NA,1,1 = lowest EPA allowed (most dangerous),NA
+3b blitz danger,blitz_epa_allowed,BAL,context,2022,2022,Mike Macdonald,157,-0.0943,NA,11,1 = lowest EPA allowed (most dangerous),NA
+3b blitz danger,blitz_epa_allowed,BAL,context,2023,2023,Mike Macdonald,137,-0.3156,NA,2,1 = lowest EPA allowed (most dangerous),NA
+3b blitz danger,blitz_epa_allowed,SF,secondary,2022,2022,DeMeco Ryans,143,0.1396,NA,28,1 = lowest EPA allowed (most dangerous),NA
+3b blitz danger,blitz_epa_allowed,SF,secondary,2023,2023,Steve Wilks,141,-0.0748,NA,12,1 = lowest EPA allowed (most dangerous),NA
+3b blitz danger,blitz_epa_allowed,SF,secondary,2024,2024,Nick Sorensen,101,0.1526,NA,27,1 = lowest EPA allowed (most dangerous),NA
+3b blitz danger,blitz_epa_allowed,SF,secondary,2025,2025,Robert Saleh,131,0.1475,NA,23,1 = lowest EPA allowed (most dangerous),NA
+3b blitz danger,blitz_pressure_rate_pct,SEA,primary,pooled,NA,"Seattle 2024-2025 (Macdonald, HC/DC)",292,43.4932,37.6916,2,1 = highest pressure rate,NA
+3b blitz danger,blitz_pressure_rate_pct,BAL,context,pooled,NA,"Baltimore 2022-2023 (Macdonald, DC)",294,38.7755,38.1699,13,1 = highest pressure rate,NA
+3b blitz danger,blitz_pressure_rate_pct,SF,secondary,pooled,NA,"San Francisco 2022-2025 (mis-attribution, kept for reference only)",516,37.4031,37.833,15,1 = highest pressure rate,NA
+3b blitz danger,blitz_pressure_rate_pct,SEA,primary,2024,2024,Mike Macdonald,146,39.0411,NA,10,1 = highest pressure rate,NA
+3b blitz danger,blitz_pressure_rate_pct,SEA,primary,2025,2025,Mike Macdonald,146,47.9452,NA,1,1 = highest pressure rate,NA
+3b blitz danger,blitz_pressure_rate_pct,BAL,context,2022,2022,Mike Macdonald,157,35.0318,NA,22,1 = highest pressure rate,NA
+3b blitz danger,blitz_pressure_rate_pct,BAL,context,2023,2023,Mike Macdonald,137,43.0657,NA,9,1 = highest pressure rate,NA
+3b blitz danger,blitz_pressure_rate_pct,SF,secondary,2022,2022,DeMeco Ryans,143,35.6643,NA,19,1 = highest pressure rate,NA
+3b blitz danger,blitz_pressure_rate_pct,SF,secondary,2023,2023,Steve Wilks,141,47.5177,NA,3,1 = highest pressure rate,NA
+3b blitz danger,blitz_pressure_rate_pct,SF,secondary,2024,2024,Nick Sorensen,101,30.6931,NA,29,1 = highest pressure rate,NA
+3b blitz danger,blitz_pressure_rate_pct,SF,secondary,2025,2025,Robert Saleh,131,33.5878,NA,28,1 = highest pressure rate,NA
+3c blitz mechanism,blitz_unblocked_rate_pct,SEA,primary,pooled,NA,"Seattle 2024-2025 (Macdonald, HC/DC)",292,25.34,17.51,NA,"n/a -- decomposition, not a team-ranked rate",NA
+3c blitz mechanism,blitz_epa_when_unblocked,SEA,primary,pooled,NA,"Seattle 2024-2025 (Macdonald, HC/DC)",74,-0.9957,NA,NA,"n/a -- decomposition, not a team-ranked rate",NA
+3c blitz mechanism,blitz_epa_when_no_unblocked,SEA,primary,pooled,NA,"Seattle 2024-2025 (Macdonald, HC/DC)",218,0.1384,NA,NA,"n/a -- decomposition, not a team-ranked rate",NA
+3c blitz mechanism,blitz_unblocked_rate_pct,BAL,context,pooled,NA,"Baltimore 2022-2023 (Macdonald, DC)",294,18.37,16.67,NA,"n/a -- decomposition, not a team-ranked rate",NA
+3c blitz mechanism,blitz_epa_when_unblocked,BAL,context,pooled,NA,"Baltimore 2022-2023 (Macdonald, DC)",54,-0.8054,NA,NA,"n/a -- decomposition, not a team-ranked rate",NA
+3c blitz mechanism,blitz_epa_when_no_unblocked,BAL,context,pooled,NA,"Baltimore 2022-2023 (Macdonald, DC)",240,-0.0606,NA,NA,"n/a -- decomposition, not a team-ranked rate",NA
+4 explosive allowed (20+ any),explosive_rate_pct,SEA,primary,pooled,NA,"Seattle 2024-2025 (Macdonald, HC/DC)",2037,5.1055,5.8074,4,1 = fewest allowed,"confirmed -- top 5, essentially what he bet"
+4 explosive allowed (20+ any),explosive_rate_pct,BAL,context,pooled,NA,"Baltimore 2022-2023 (Macdonald, DC)",2073,5.1616,5.8161,5,1 = fewest allowed,NA
+4 explosive allowed (20+ any),explosive_rate_pct,SF,secondary,pooled,NA,"San Francisco 2022-2025 (mis-attribution, kept for reference only)",3861,5.2577,5.8134,4,1 = fewest allowed,NA
+4 explosive allowed (20+ any),explosive_rate_pct,SEA,primary,2024,2024,Mike Macdonald,1043,5.465,NA,11,1 = fewest allowed,NA
+4 explosive allowed (20+ any),explosive_rate_pct,SEA,primary,2025,2025,Mike Macdonald,994,4.7284,NA,6,1 = fewest allowed,NA
+4 explosive allowed (20+ any),explosive_rate_pct,BAL,context,2022,2022,Mike Macdonald,1027,5.258,NA,11,1 = fewest allowed,NA
+4 explosive allowed (20+ any),explosive_rate_pct,BAL,context,2023,2023,Mike Macdonald,1046,5.0669,NA,6,1 = fewest allowed,NA
+4 explosive allowed (20+ any),explosive_rate_pct,SF,secondary,2022,2022,DeMeco Ryans,942,5.0955,NA,6,1 = fewest allowed,NA
+4 explosive allowed (20+ any),explosive_rate_pct,SF,secondary,2023,2023,Steve Wilks,956,5.4393,NA,8,1 = fewest allowed,NA
+4 explosive allowed (20+ any),explosive_rate_pct,SF,secondary,2024,2024,Nick Sorensen,979,5.0051,NA,3,1 = fewest allowed,NA
+4 explosive allowed (20+ any),explosive_rate_pct,SF,secondary,2025,2025,Robert Saleh,984,5.4878,NA,13,1 = fewest allowed,NA
+4 explosive allowed (15+ rush/20+ pass robustness),explosive_rate_robust_pct,SEA,primary,pooled,NA,"Seattle 2024-2025 (Macdonald, HC/DC)",2037,5.6456,6.8498,3,1 = fewest allowed,NA
+4 explosive allowed (15+ rush/20+ pass robustness),explosive_rate_robust_pct,BAL,context,pooled,NA,"Baltimore 2022-2023 (Macdonald, DC)",2073,6.0781,6.8543,6,1 = fewest allowed,NA
+4 explosive allowed (15+ rush/20+ pass robustness),explosive_rate_robust_pct,SF,secondary,pooled,NA,"San Francisco 2022-2025 (mis-attribution, kept for reference only)",3861,6.0865,6.8542,4,1 = fewest allowed,NA
+4 explosive allowed (15+ rush/20+ pass robustness),explosive_rate_robust_pct,SEA,primary,2024,2024,Mike Macdonald,1043,6.232,NA,7,1 = fewest allowed,NA
+4 explosive allowed (15+ rush/20+ pass robustness),explosive_rate_robust_pct,SEA,primary,2025,2025,Mike Macdonald,994,5.0302,NA,2,1 = fewest allowed,NA
+4 explosive allowed (15+ rush/20+ pass robustness),explosive_rate_robust_pct,BAL,context,2022,2022,Mike Macdonald,1027,6.3291,NA,9,1 = fewest allowed,NA
+4 explosive allowed (15+ rush/20+ pass robustness),explosive_rate_robust_pct,BAL,context,2023,2023,Mike Macdonald,1046,5.8317,NA,6,1 = fewest allowed,NA
+4 explosive allowed (15+ rush/20+ pass robustness),explosive_rate_robust_pct,SF,secondary,2022,2022,DeMeco Ryans,942,5.9448,NA,5,1 = fewest allowed,NA
+4 explosive allowed (15+ rush/20+ pass robustness),explosive_rate_robust_pct,SF,secondary,2023,2023,Steve Wilks,956,6.1715,NA,8,1 = fewest allowed,NA
+4 explosive allowed (15+ rush/20+ pass robustness),explosive_rate_robust_pct,SF,secondary,2024,2024,Nick Sorensen,979,5.8223,NA,1,1 = fewest allowed,NA
+4 explosive allowed (15+ rush/20+ pass robustness),explosive_rate_robust_pct,SF,secondary,2025,2025,Robert Saleh,984,6.4024,NA,14,1 = fewest allowed,NA

@@ -83,6 +83,10 @@ the new work.
 | Inverted run geometries | Shanahan 46% outside zone (3rd) vs McVay 50% man; the bounce folklore is null for everyone |
 | The mismatch machine | CMC covered by LB/S 81% (league RB 82%, SF WRs 34%) at WR1 volume; hunting soft coverage pays at every depth |
 | Matchup hunting ranks | Johnson 1st of 41, Shanahan 5th, McVay 37th |
+| The sequencing rumor is McVay's | Shanahan holds personnel 28th of 37 (below league); McVay 1st at 84% snap-to-snap |
+| Watch-then-strike fails in reverse | repeated looks get MORE repetitive league-wide; nobody gains EPA on later showings |
+| SEA defense read: 3 of 4 confirmed | nickel 5th (2nd in 2025), blitz 11th-fewest, explosives 4th-fewest; zone dead-average pooled |
+| Why the rare blitz is dangerous | 1 in 4 SEA blitzes springs a free rusher (45% above league); those allow -0.996 EPA, the rest are ordinary |
 
 ## Scripts
 
@@ -118,6 +122,8 @@ figures and derived CSVs.
 | `R/30_brady_confound.R` | brady_confound.png |
 | `R/31_kyle_yac_cutback.R` | kyle_yac.png, kyle_cutback.png |
 | `R/32_matchup_hunting.R` | cmc_mismatch.png, matchup_hunting.png |
+| `R/33_hold_and_vary.R` | hold_personnel.png, one_play_many_ways.png |
+| `R/34_sea_defense_battery.R` | sea_defense_battery.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
