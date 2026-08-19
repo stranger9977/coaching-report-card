@@ -378,7 +378,7 @@ p2 <- ggplot(plot4, aes(structure_pctile, exploit_pctile)) +
   geom_text_repel(data = lab4, aes(label = name), size = 3.4, fontface = "bold",
                    colour = "#8a3d00", seed = 3, box.padding = 0.7, min.segment.length = 0, max.overlaps = 30) +
   annotate("text", x = 0.75, y = 0.04, hjust = 0.5, vjust = 0, size = 3, fontface = "italic",
-           colour = "#2B6E8C", label = "Michael's ideal quadrant:\nclear identity, hard to exploit") +
+           colour = "#2B6E8C", label = "the theory's ideal quadrant:\nclear identity, hard to exploit") +
   scale_shape_manual(values = c("Offense" = 16, "Defense (analogue)" = 17), name = NULL) +
   scale_x_continuous(labels = percent, limits = c(0, 1)) +
   scale_y_continuous(labels = percent, limits = c(0, 1)) +

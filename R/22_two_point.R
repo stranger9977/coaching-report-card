@@ -312,9 +312,9 @@ p <- ggplot(merged_overall, aes(fourth_shrunk, overall_shrunk)) +
   annotate("text", x = -Inf, y = Inf, hjust = -0.08, vjust = 1.4, size = 2.9, fontface = "bold",
            colour = "grey45", label = "cowardly on 4th,\nbrave on 2pt") +
   annotate("text", x = Inf, y = -Inf, hjust = 1.05, vjust = -0.6, size = 2.9, fontface = "bold",
-           colour = "#8a3d00", label = "brave on 4th,\ncowardly on 2pt\n(Nick says empty)") +
+           colour = "#8a3d00", label = "brave on 4th,\ncowardly on 2pt\n(predicted empty)") +
   labs(
-    title = sprintf("Nick's hunch doesn't clear the bar: r = %.2f between 4th-down bravery and 2pt aggressiveness (n = %d coaches)",
+    title = sprintf("The two braveries barely correlate: r = %.2f between 4th-down and 2pt aggressiveness (n = %d coaches)",
                      ct_overall$estimate, nrow(merged_overall)),
     subtitle = sprintf("Each dot a head coach, 2018 to 2025. X: era-shrunk go rate on R/19's clear-cut fourth downs. Y: era-shrunk overall 2-point attempt rate (any score margin).\n95%% CI on r: [%.2f, %.2f], p = %.2f. %d coach(es) (orange) sit in an off-diagonal quadrant.",
                        ct_overall$conf.int[1], ct_overall$conf.int[2], ct_overall$p.value, nrow(rule_break)),

@@ -217,12 +217,12 @@ p <- ggplot() +
                    segment.colour = "grey55", segment.size = 0.3, min.segment.length = 0,
                    nudge_y = -0.34, direction = "both", seed = 23, max.overlaps = Inf,
                    box.padding = 0.3) +
-  annotate("text", x = 3.5, y = 3.46, label = "Michael's guess: 3-4 wins/season",
+  annotate("text", x = 3.5, y = 3.46, label = "the hypothesis: 3-4 wins/season",
            fontface = "bold", colour = "#B35806", size = 3.3, vjust = 0) +
   scale_y_continuous(breaks = y_pos, labels = names(y_pos), limits = c(0.35, 3.75)) +
   coord_cartesian(xlim = c(-2.6, 4.7), clip = "off") +
   labs(
-    title = "Michael's 3-4-win coach shows up only in the measure that controls for the least",
+    title = "The 3-4-win coach shows up only in the measure that controls for the least",
     subtitle = paste0(
       "Three independent estimates of a coach's wins per season above expectation, sorted loosest control\n",
       "(top) to strictest (bottom). Grey dots are every eligible head coach; the black bar is each measure's own elite tier."

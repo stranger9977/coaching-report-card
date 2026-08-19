@@ -218,13 +218,13 @@ cat("\nwrote data/derived/sea_twohigh.csv\n")
 
 # ---------------------------------------------------------------- chart: verification card
 chart_df <- rbindlist(list(
-  data.table(stat = "Two-high pre-snap\n(all downs)", source = "Michael's number", pct = verify$his_pct[1]),
+  data.table(stat = "Two-high pre-snap\n(all downs)", source = "The claimed number", pct = verify$his_pct[1]),
   data.table(stat = "Two-high pre-snap\n(all downs)", source = "SumerSports (ours)", pct = verify$our_pct[1]),
-  data.table(stat = "Two-high pre-snap\n(1st down)", source = "Michael's number", pct = verify$his_pct[2]),
+  data.table(stat = "Two-high pre-snap\n(1st down)", source = "The claimed number", pct = verify$his_pct[2]),
   data.table(stat = "Two-high pre-snap\n(1st down)", source = "SumerSports (ours)", pct = verify$our_pct[2]),
-  data.table(stat = "Cover 1 rate", source = "Michael's number", pct = verify$his_pct[3]),
+  data.table(stat = "Cover 1 rate", source = "The claimed number", pct = verify$his_pct[3]),
   data.table(stat = "Cover 1 rate", source = "SumerSports (ours)", pct = verify$our_pct[3]),
-  data.table(stat = "Cover 3 rate", source = "Michael's number", pct = verify$his_pct[4]),
+  data.table(stat = "Cover 3 rate", source = "The claimed number", pct = verify$his_pct[4]),
   data.table(stat = "Cover 3 rate", source = "SumerSports (ours)", pct = verify$our_pct[4])
 ))
 rank_lbl <- c("Two-high pre-snap\n(all downs)" = sprintf("claimed 1st  |  measured %d of 32", s_all$rank),
@@ -232,7 +232,7 @@ rank_lbl <- c("Two-high pre-snap\n(all downs)" = sprintf("claimed 1st  |  measur
               "Cover 1 rate" = sprintf("claimed 29th  |  measured %d of 32", s_c1$rank),
               "Cover 3 rate" = sprintf("claimed 31st  |  measured %d of 32", s_c3$rank))
 chart_df[, stat := factor(stat, levels = rev(unique(stat)))]
-chart_df[, source := factor(source, levels = c("Michael's number", "SumerSports (ours)"))]
+chart_df[, source := factor(source, levels = c("The claimed number", "SumerSports (ours)"))]
 chart_df[, rank_txt := rank_lbl[as.character(stat)]]
 
 p <- ggplot(chart_df, aes(pct, stat, fill = source)) +
@@ -243,7 +243,7 @@ p <- ggplot(chart_df, aes(pct, stat, fill = source)) +
   geom_text(data = unique(chart_df[, .(stat, rank_txt)]),
             aes(x = -2, y = stat, label = rank_txt), inherit.aes = FALSE,
             hjust = 1, size = 2.75, colour = "grey40", fontface = "italic") +
-  scale_fill_manual(values = c("Michael's number" = "#9db6c9", "SumerSports (ours)" = "#6b4c9a")) +
+  scale_fill_manual(values = c("The claimed number" = "#9db6c9", "SumerSports (ours)" = "#6b4c9a")) +
   scale_x_continuous(limits = c(-22, 100), breaks = seq(0, 100, 25),
                      labels = function(x) paste0(x, "%")) +
   coord_cartesian(clip = "off") +
