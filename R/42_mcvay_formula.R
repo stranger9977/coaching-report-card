@@ -115,10 +115,10 @@ p3 <- strip_panel(instr, "instr_H", "off_caller",
   sprintf("McVay: %s-most", scales::ordinal(mcv$ins$instr_rank)))
 
 p4 <- strip_panel(motion, "gap", "off_play_caller",
-  "4. And when someone moves, the run/pass tell dies: the league's largest interval-backed motion effect",
+  "4. And when someone moves, the run/pass tell dies: the biggest motion effect in football that is clearly real, not noise",
   "how much harder run vs pass is to guess on his motion snaps (log-loss gap; bigger = right)",
-  "McVay: +0.124, interval clear of zero",
-  second = "Kyle Shanahan", second_lab = "Shanahan: the only other clear effect, a third the size")
+  "McVay: +0.124, clearly real",
+  second = "Kyle Shanahan", second_lab = "Shanahan: the only other clearly real effect, a third the size")
 
 title_txt <- 'The quote is "he makes 25 plays seem like 250." The four measurements that agree'
 sub_txt <- paste0(
@@ -129,8 +129,8 @@ cap <- fig_caption(
   "Nothing new is computed here: each panel replots its source script's shipped numbers",
   paste0("\nPanel 1: variety of pre-snap pictures (skill-player alignment sets), down-and-distance-controlled and shrunk; his static pictures also TIP run/pass more than anyone's, which is\n",
          "the paradox the motion panel resolves (R/25). Panel 2 and 3: same-personnel rate on back-to-back snaps and play variety inside those stretches (R/33). Panel 4: how\n",
-         "much a pre-snap model's run/pass guess degrades on motion snaps, FTN motion flag; by raw size he is 6th of 37 but the three larger gaps carry no interval; only his\n",
-         "and Shanahan's clear zero (R/15). Context from the fingerprint grid: trick looks on 10.3% of snaps, about double the league, 4th of 36. Built by R/42."))
+         "much a pre-snap model's run/pass guess degrades on motion snaps, FTN motion flag; three callers show bigger raw gaps but on samples too thin to trust\n",
+         "(their uncertainty bands include zero); only his and Shanahan's effects are clearly more than noise (R/15). Context from the fingerprint grid: trick looks on 10.3% of snaps, about double the league, 4th of 36. Built by R/42."))
 
 p_final <- p1 / p2 / p3 / p4 +
   plot_annotation(title = title_txt, subtitle = sub_txt, caption = cap,

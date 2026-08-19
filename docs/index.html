@@ -109,7 +109,7 @@
 
   <div class="prose">
     <p style="font-size:14.5px;color:var(--ink-3);border:1px solid var(--line);border-radius:10px;padding:12px 16px;background:var(--card)"><strong style="color:var(--ink)">Finding the new stuff.</strong> The board grows downward by date, newest at the top. Jump to a day:
-    <a href="#afternoon-19">Aug 19 afternoon texts</a> (the 25-plays-like-250 composite, the pistol memory) ·
+    <a href="#afternoon-19">Aug 19 afternoon texts</a> (the 25-plays-like-250 composite, the tip explained on his own looks, menu vs wardrobe, the pistol memory) ·
     <a href="#dig-19">Aug 19 evening dig</a> (bootleg folklore, the penalty ledger, what the YAC edge is made of) ·
     <a href="#morning-19">Aug 19 morning thread</a> (sequencing rumor, Seattle defense battery, rotation hunt) ·
     <a href="#kyle-file">Aug 19 Kyle file</a> (YAC factory, mismatch machine, article check) ·
@@ -138,12 +138,34 @@
     <div class="card">
       <div class="card-head"><span class="t">"He makes 25 plays seem like 250," in one graphic</span><span class="pill ship">Four measurements agree</span></div>
       <p class="row"><span class="lab">Michael:</span> "I found some quotes of players and DCs saying that McVay makes 25 plays seem like 250. Is there anything we have to show for that? Haha"</p>
-      <p class="row found"><span class="lab">Four findings already on the board line up behind the quote, so they now live in one chart.</span> He shows the 5th-fewest pre-snap pictures in football; he keeps the same personnel on back-to-back snaps 84% of the time, first by a mile over a 58% league; inside those held stretches he runs the 4th-most play variety in the league (the quote, almost verbatim: same picture, different plays); and when someone moves, run-vs-pass becomes measurably harder to guess, the largest interval-backed motion effect in the league (Shanahan owns the only other one, a third the size). The twist worth saying on camera: the raw picture hides nothing. His static looks tip run/pass more than anyone's. The "seems like 250" happens through what moves inside the picture, not through picture count. He is not hiding the play; he is making the tell expire late.</p>
+      <p class="row found"><span class="lab">Four findings already on the board line up behind the quote, so they now live in one chart.</span> He shows the 5th-fewest pre-snap pictures in football; he keeps the same personnel on back-to-back snaps 84% of the time, first by a mile over a 58% league; inside those held stretches he runs the 4th-most play variety in the league (the quote, almost verbatim: same picture, different plays); and when someone moves, run-vs-pass becomes measurably harder to guess, the biggest motion effect in football that is clearly real rather than noise (Shanahan owns the only other one, a third the size). The twist worth saying on camera: the raw picture hides nothing. His static looks tip run/pass more than anyone's. The "seems like 250" happens through what moves inside the picture, not through picture count. He is not hiding the play; he is making the tell expire late.</p>
       <figure>
         <img src="figures/mcvay_formula.png" alt="Four stacked strip charts: picture variety with McVay 5th-fewest, same-personnel rate with McVay first at 84 percent, play variety within held stretches with McVay 4th, and motion effect on run-pass guessability with McVay the largest interval-backed effect.">
         <figcaption>The composite: every panel replots its source script's shipped numbers (R/25, R/33, R/15). Built by R/42.</figcaption>
       </figure>
-      <p class="row"><span class="lab">The catch:</span> panel 1 is 5th-fewest, not 1st-fewest, and panel 4's raw rank is 6th (the three larger raw gaps carry no interval, so "largest interval-backed" is the defensible phrasing); the direct menu-versus-wardrobe test of the quote itself, counting his actual play menu and the dressings each play wears, is building now as R/41.</p>
+      <p class="row"><span class="lab">The catch:</span> panel 1 is 5th-fewest, not 1st-fewest, and panel 4's raw rank is 6th: three callers show bigger raw motion gaps, but on samples too thin for the data to stand behind, so "biggest clearly-real effect" is the defensible phrasing.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">"How does their formation tip run/pass?" Shown on his own looks</span><span class="pill ship">The tell is the QB's feet</span></div>
+      <p class="row"><span class="lab">Michael:</span> "Can you try to explain that further? Because that point is helpful for what is happening here… Is it 'in 13 personnel they run it 75% of the time when two tight ends are on the right' or what? Need depth there if you can"</p>
+      <p class="row found"><span class="lab">It is exactly that sentence, so here it is computed on McVay's ten most-used looks.</span> For each look, two dots: what the down-and-distance mix on those snaps says the pass rate should be, and what he actually calls. No model anywhere, just counting twice. The biggest tell: out of 11 personnel, 3x2, shotgun, he throws it 96% of the time when the situation alone said 67%. And the pattern that jumps out of the ten rows: every shotgun look throws more than expected (+6 to +29 points), every under-center look runs more (&minus;4 to &minus;19). Most of his run/pass tell is the quarterback's own feet, not the receivers' arrangement. Which restates the paradox cleanly: the picture announces run or pass, and he wins anyway, because knowing which half of the playbook is coming is not the same as knowing the play.</p>
+      <figure>
+        <img src="figures/tip_explainer.png" alt="Dumbbell chart of ten McVay pre-snap looks comparing situation-expected pass rate to actual pass rate, shotgun looks all passing more than expected and under-center looks all running more.">
+        <figcaption>The tip, made concrete: expected against actual, look by look. Built by R/43.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> this explainer uses the readable look (personnel, receiver split, QB alignment) so each row can be said out loud; the board's leak ranking (R/25) runs the same exercise on the finer picture of every skill player's alignment with rare-look shrinkage, which is why its scale is in bits rather than percentage points.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">The quote's direct test: menu against wardrobe</span><span class="pill work">Half confirmed, and the miss is the insight</span></div>
+      <p class="row"><span class="lab">The test:</span> if "25 plays seem like 250" is literally true, McVay should have a small play menu and dress each play many ways. Count both: how many distinct plays cover 80% of a caller's snaps (runs by concept and side, passes by the three deepest routes), and how many different pre-snap dressings the average core play wears, with every caller cut to the same 1,200-play sample so busy callers do not look artificially rich.</p>
+      <p class="row found"><span class="lab">The menu half is real; the wardrobe half belongs to Ben Johnson.</span> McVay runs the 3rd-smallest play menu of 36 callers, 47 plays to cover 80% of his snaps against a league median of 56. But he does NOT dress them up more than everyone else: 27th of 36 in dressings per play. He sits in the "few plays, worn the same way every time" corner, which is not a contradiction of the quote; it is the mechanism the composite chart already found. His disguise is not a static wardrobe, it is the motion inside the look and the play variety inside held personnel. The caller who actually fits the full folklore profile is Ben Johnson: 5th-smallest menu AND 6th-biggest wardrobe. Both measures are strongly stable traits (menu r = +0.81, wardrobe r = +0.72 across season splits), so this is identity, not one stretch of tape.</p>
+      <figure>
+        <img src="figures/menu_wardrobe.png" alt="Scatter of 36 callers by play-menu size against dressings per core play, McVay in the few-plays-same-dressing corner, Ben Johnson in the few-plays-many-disguises corner, Shanahan near league median on both.">
+        <figcaption>Menu size against wardrobe size, everyone cut to the same sample. The folklore corner belongs to Johnson. Built by R/41.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> Sumer has no play-level pass concept, so a pass "play" here is the three deepest charted routes (87% of dropbacks have three or more charted; the rest fall back to coarser labels), and a "dressing" cannot include motion because no source in this repo tags motion type; if his 250 lives specifically in motion variations, this test could not see it, which is consistent with where the other charts say his disguise lives.</p>
     </div>
 
     <div class="card">

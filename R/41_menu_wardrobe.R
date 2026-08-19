@@ -401,13 +401,17 @@ SUB <- paste0(
 p_final <- p + labs(title = TITLE, subtitle = SUB,
   caption = fig_caption(
     "SumerSports play and player charting, 2022-23 through 2025-26 season, non-garbage-time, season_type==0",
-    sprintf("%d qualifying callers (>= %d offensive scrimmage plays each). A play = run_concept + called side for runs, the 3 deepest-charted route runners' routes for dropbacks (no play-level pass concept exists in Sumer's schema).",
+    sprintf(paste0("%d qualifying callers (>= %d offensive scrimmage plays each).\n",
+                   "A play = run_concept plus the called side for runs; the 3 deepest-charted route runners' routes for dropbacks\n",
+                   "(Sumer's schema has no play-level pass concept). A dressing = formation x personnel package x QB alignment\n",
+                   "(Sumer has no motion field)."),
             n_q, QUAL_MIN),
-    paste0("A dressing = formation x personnel package x QB alignment (Sumer has no motion field). Both axes rarefied: every caller cut down to the same 1,200-play draw, 200 draws averaged,\n",
-           "so busy callers cannot look artificially richer just from more charted snaps. Persistence (odd vs even season halves, rarefied within each half, n=", nrow(half_dt), " callers): ",
-           sprintf("menu size r = %+.2f [%+.2f, %+.2f], wardrobe r = %+.2f [%+.2f, %+.2f]. Built by R/41.",
-                   ct_menu$estimate, ct_menu$conf.int[1], ct_menu$conf.int[2],
-                   ct_ward$estimate, ct_ward$conf.int[1], ct_ward$conf.int[2]))
+    sprintf(paste0("\nBoth axes rarefied: every caller cut down to the same %d-play draw, %d draws averaged, so callers with more\n",
+                   "charted snaps do not look artificially richer. Persistence (odd vs even season halves, rarefied within each half,\n",
+                   "n=%d callers): menu size r = %+.2f [%+.2f, %+.2f], wardrobe r = %+.2f [%+.2f, %+.2f]. Built by R/41."),
+            RAREFY_N, N_ITER, nrow(half_dt),
+            ct_menu$estimate, ct_menu$conf.int[1], ct_menu$conf.int[2],
+            ct_ward$estimate, ct_ward$conf.int[1], ct_ward$conf.int[2])
   )) +
   theme(plot.margin = margin(10, 14, 8, 10))
 
