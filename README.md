@@ -72,6 +72,9 @@ the new work.
 | McVay's pictures are few and leaky | variety rank 32/36, leak rank 1/36, 55% bunch; his motion (rank 6/37 model-scramble) buys the leak back |
 | Shanahan: deception by menu | picture variety rank 3/36, leak mid-pack; below-median motion effect |
 | Johnson's coarse-look camouflage does not repeat on the rich picture | above-median variety AND leak per-player; R/14 vs R/25 contrast disclosed |
+| Scheme and execution, split | Shanahan exec #2 / design #5, Johnson #5/#3, McVay median on both; same-play grades rejected as 11x outcome-contaminated |
+| The mental-tax theory dies on the clock too | 0 of 7 QB outcomes move after controls; the PA prediction runs backwards (p = 0.0003) |
+| Macdonald's pressure is scheme | #2 of 41 in unblocked rushers, #24 winning blocks, #26 blitz rate; a free rusher is worth 3x a won rush |
 
 ## Scripts
 
@@ -100,6 +103,9 @@ figures and derived CSVs.
 | `R/23_coach_war.R` | coach_war.png |
 | `R/24_heavy_playbook.R` | rams_13_playbook.png, kyle_heavy.png, shanahan_2025.png |
 | `R/25_presnap_structure.R` | presnap_variety.png, presnap_lie.png |
+| `R/26_scheme_vs_execution.R` | scheme_vs_execution.png |
+| `R/27_rotation_clock.R` | rotation_clock.png |
+| `R/28_free_rushers.R` | free_rushers.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done

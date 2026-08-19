@@ -282,7 +282,42 @@
     </div>
 
     <div class="tgroup">
-      <h3>The evening texts, 18 August</h3>
+      <h3>Deeper into the vault, 18 August</h3>
+      <p class="grouphint">Nick: "we have all this sumer data… can you come up with more creative ways to use [it]?" Three never-used field families, three new instruments: the player grades, the QB clock, and the free-rusher flags. One completes an argument, one kills a theory, one solves the Macdonald puzzle.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Scheme and execution, finally split</span><span class="pill ship">The untangling tool</span></div>
+      <p class="row"><span class="lab">Michael:</span> "It's so entangled that it's obviously very hard to know or tell"</p>
+      <p class="row found"><span class="lab">Sumer grades every player on every play, and that separates the two.</span> One trap had to be dodged first: the same-play grade is mostly the outcome relabeled (it correlates 0.54 with the play's EPA), so each play is scored instead by its players' grades on all their other plays that season. Then every caller gets two coordinates: how well his players play, and the EPA left over after situation and execution are both priced, which is design. Shanahan is second in execution and fifth in design; Ben Johnson fifth and third; both elite twice over, which is the data's answer to "it's just the talent." McVay sits at the league median on both, one more sign his value lives in the motion and the calls, not in a design residual. The quadrants tell stories on their own: Zac Taylor's design carrying an ordinary roster, O'Connell and Payton with good players and no design edge, Hackett at the bottom of both.</p>
+      <figure>
+        <img src="figures/scheme_vs_execution.png" alt="Two-axis chart of player execution level against design value per caller, with Shanahan and Johnson elite on both axes and McVay at the league median on both.">
+        <figcaption>Execution against design, 37 callers, with the leave-one-out grade dodging the outcome-contamination trap. Built by R/26.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> design value persists odd-versus-even seasons at r = 0.38, real but not settled as a trait; both axes correlate with career EPA, so they explain where a caller's EPA comes from rather than revealing new coaches; and the grade is three-level, so the execution axis is coarse.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">The mental tax, tested on its own terms</span><span class="pill block">The clock is a null too</span></div>
+      <p class="row"><span class="lab">Michael:</span> "There's a lot more pressure post snap…and a lot less time…by shifting at this moment, it adds another mental task in a highly constrained environment. The later you can delay this, the better…(kirk cousins video)"</p>
+      <p class="row found"><span class="lab">His theory is about time, so we tested time, and it joins the EPA null.</span> Seven outcomes: time to throw, sacks, scrambles, throwaways, leaving the pocket, hurries, and time to pressure. After controlling for the real confound (rotated snaps simply see less play action and more blitzing), zero of seven move in the tax direction; pressure actually arrives slightly faster on rotated snaps and the QB does not hold it longer anyway. And his sharpest prediction, that play action should carry the biggest tax because the QB's back is turned, runs confidently backwards: the clock gap is smaller under play action, not bigger. One faint echo survives, thirty to sixty milliseconds against man coverage and blitzes, and it cashes out in nothing measurable.</p>
+      <figure>
+        <img src="figures/rotation_clock.png" alt="Battery of seven QB outcomes on rotated versus static shells, every controlled interval spanning zero.">
+        <figcaption>The mental-tax battery, controlled. Every interval spans zero. Built by R/27.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> time to throw only exists when the ball was thrown, so a tax that showed up purely as sacks and scrambles would hide from that one metric; that is exactly why the full battery runs on all dropbacks, and it is null too. Rotation remains what R/18 said it was: real, rising, stylistically persistent, and unproven to cost anyone anything.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Macdonald's pressure comes from nowhere</span><span class="pill ship">The puzzle, solved</span></div>
+      <p class="row"><span class="lab">The puzzle:</span> he blitzes below the league's rate in all six situations, and his defenses finish second in the league in year two, twice. Where does the pressure come from?</p>
+      <p class="row found"><span class="lab">From rushers nobody blocks.</span> Sumer flags whether a pressure came from a rusher who beat his block or a rusher who was never blocked at all. Macdonald ranks second of 41 coordinators at manufacturing unblocked rushers, above what his situations predict, while ranking 24th at winning one-on-ones and 26th in blitz rate. The free rusher is also the more valuable kind by a factor of three: minus 0.50 EPA to the offense against minus 0.16 for a won rush, and a won block only even turns into pressure 62% of the time, because the ball comes out. A standard four-man rush springs someone free on 2.9% of snaps; showing five and sending four doubles that; actually sending five triples it again. Macdonald's result is the interesting one precisely because he gets his free runners without pulling that lever.</p>
+      <figure>
+        <img src="figures/free_rushers.png" alt="Two-axis chart of coordinators by won-rush pressure against schemed unblocked pressure, with Macdonald near the top of the scheme axis and average on talent, Fangio the opposite.">
+        <figcaption>Schemed pressure against won pressure, 41 coordinators. Fangio wins with the front; Macdonald manufactures free runners. Built by R/28.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> manufacturing free rushers does not confirm as a repeatable league-wide trait (odd-even r = 0.02, honest non-confirmation), though Macdonald's own rate has risen every season he has called a defense, 2022 through 2025. His story is strong; the general skill is unproven.</p>
+    </div>
       <p class="grouphint">Four asks from the same afternoon: verify his Seahawks numbers, add the Rams to the 13-personnel picture, build the going-for-2 view, and check his guess at what a coach is worth. Two of his numbers verified, one got corrected into a better stat, and one hunch on each side of this conversation died.</p>
     </div>
 
