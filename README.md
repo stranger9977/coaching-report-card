@@ -69,6 +69,9 @@ the new work.
 | Kyle's heavy is 21, not 13 | 8 snaps of 13 all year; out of 21 he throws MORE than league and play-fakes less; 69% extra-blocker runs, 2.2x the league |
 | The league really is bad out of 13 | league-13 passing negative, running well underwater; LA positive on both (p = 0.0003 / 0.01) |
 | Shanahan did not adapt in 2025 | all three same-caller transitions at the 4th-17th pctile of league drift; McVay's pivot at the 98th |
+| McVay's pictures are few and leaky | variety rank 32/36, leak rank 1/36, 55% bunch; his motion (rank 6/37 model-scramble) buys the leak back |
+| Shanahan: deception by menu | picture variety rank 3/36, leak mid-pack; below-median motion effect |
+| Johnson's coarse-look camouflage does not repeat on the rich picture | above-median variety AND leak per-player; R/14 vs R/25 contrast disclosed |
 
 ## Scripts
 
@@ -96,6 +99,7 @@ figures and derived CSVs.
 | `R/22_two_point.R` | two_point.png |
 | `R/23_coach_war.R` | coach_war.png |
 | `R/24_heavy_playbook.R` | rams_13_playbook.png, kyle_heavy.png, shanahan_2025.png |
+| `R/25_presnap_structure.R` | presnap_variety.png, presnap_lie.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
