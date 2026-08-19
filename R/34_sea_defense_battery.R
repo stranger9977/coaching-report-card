@@ -432,9 +432,9 @@ sea_season_pts[, row := factor(row, levels = rev(row_key))]
 
 callouts <- rbindlist(list(
   data.table(row = "zone", season = 2024L,
-             lab = "2024: below average (21st); 2025 alone ranks 6th"),
+             lab = "2024-25 season: below average (21st); 2025-26 alone ranks 6th"),
   data.table(row = "blitz_d", season = 2024L,
-             lab = "2024: rank 22nd; 2025 alone is #1 in the NFL")
+             lab = "2024-25 season: rank 22nd; 2025-26 alone is #1 in the NFL")
 ))
 callouts[, row := factor(row, levels = rev(row_key))]
 callouts <- merge(callouts, sea_season_pts, by = c("row","season"))
@@ -454,19 +454,19 @@ p <- ggplot() +
             size = 2.6, fontface = "bold") +
   geom_text(data = callouts, aes(rank, row, label = lab, hjust = hj), size = 2.6, colour = "grey30",
             fontface = "italic", vjust = -1.5) +
-  scale_colour_manual(values = verdict_col, name = "Seattle, pooled 2024-2025 (Macdonald)") +
+  scale_colour_manual(values = verdict_col, name = "Seattle, Macdonald's two seasons pooled (2024-25 + 2025-26)") +
   scale_y_discrete(labels = row_lab) +
   scale_x_continuous(limits = c(1, 32), breaks = c(1, 8, 16.5, 24, 32),
                      labels = c("1", "8", "16.5\nleague avg", "24", "32")) +
-  labs(title = "Checking the Seattle defense read against SumerSports charting, 2024-2025",
-       subtitle = "Claim-direction rank of 32 teams: 1 = Seattle at the extreme that would make his claim true.\nGrey diamond = Mike Macdonald's prior stop, Baltimore 2022-2023, same test, for reference. Grey bar = Seattle's 2024-to-2025 range.",
+  labs(title = "Checking the Seattle defense read against SumerSports charting, both Macdonald seasons",
+       subtitle = "Blue/grey dot = Seattle pooled across the 2024-25 AND 2025-26 seasons (his whole Seattle tenure); the italic notes flag where the two seasons disagree.\nClaim-direction rank of 32 teams: 1 = Seattle at the extreme that would make his claim true.\nGrey diamond = Mike Macdonald's prior stop, Baltimore (2022-23 and 2023-24 seasons), same test, for reference. Grey bar = Seattle's season-to-season range.",
        x = "Claim-direction rank of 32 (see subtitle)", y = NULL,
        caption = fig_caption(
-         "SumerSports play charting, 2022-2025 regular seasons",
-         sprintf("SEA (2024-2025) non-garbage-time snaps: %s total, %s dropbacks. Rank convention flips per row so 1 always means \"confirms the claim\"; see script header.",
+         "SumerSports play charting, four regular seasons, 2022-23 through 2025-26",
+         sprintf("SEA pooled non-garbage snaps: %s total, %s dropbacks. Rank convention flips per row so 1 always means \"confirms the claim\".",
                  format(nrow(scrim[def_team=="SEA" & season %in% 2024:2025]), big.mark=","),
                  format(nrow(db[def_team=="SEA" & season %in% 2024:2025]), big.mark=",")),
-         sprintf("\nNickel, blitz frequency and explosive-play prevention: confirmed, all comfortably above average, and Baltimore under the same coordinator lands in the same range.\nZone is the one mixed read: dead average pooled (matches R/20's Cover 3 rank of 16th), driven by an average 2024 and an above-average 2025, not a consistent identity.\nBlitz danger is the standout: Seattle's blitzes allowed the LEAST offensive EPA of any defense in football pooled, entirely on the strength of 2025 (#1); 2024 was below\naverage. WHY: a Seattle blitz springs a free, unblocked rusher %.0f%% of the time (league %.0f%%); that slice alone allows %+.2f EPA (a near-disaster for the offense) while the\nother three in four Seattle blitzes allow %+.2f (unremarkable) -- confirms R/28's finding that his pressure is schemed, not sent. Built by R/34.",
+         sprintf("\nNickel, blitz frequency and explosive-play prevention: confirmed, all comfortably above average, and Baltimore under the same coordinator lands in the same range.\nZone is the one mixed read: dead average pooled (matches R/20's Cover 3 rank of 16th), driven by an average 2024-25 and an above-average 2025-26, not a consistent identity.\nBlitz danger is the standout: Seattle's blitzes allowed the LEAST offensive EPA of any defense in football pooled, entirely on the strength of 2025-26 (#1); 2024-25 was\nbelow average. WHY: a Seattle blitz springs a free, unblocked rusher %.0f%% of the time (league %.0f%%); that slice alone allows %+.2f EPA (a near-disaster for the offense) while\nthe other three in four Seattle blitzes allow %+.2f (unremarkable) -- confirms R/28's finding that his pressure is schemed, not sent. Built by R/34.",
                  100 * sea_mech$rate, 100 * sea_mech$lg_rate, epa_yes_sea, epa_no_sea))) +
   theme_coach(grid = "none") +
   theme(legend.position = "top", legend.justification = "left",
