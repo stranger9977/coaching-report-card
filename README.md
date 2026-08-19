@@ -92,6 +92,7 @@ the new work.
 | Hunting and cashing mismatches are different skills | Shanahan #5/#8 (does both), Johnson #1 hunt but median cash, McVay bottom on both |
 | The Hudl article, fact-checked | 4 of 11 claims confirm (run-look setup a bullseye), 3 close, 4 contradicted (TE-attached runs backwards; "tied narrowest" holds for McVay only) |
 | Rotation's null is uniform | no xpass gradient (interaction p = 0.82); 0 of 15 screened cells confirm vs 0.75 expected by chance; no situation where rotating pays |
+| Blitz volume and payoff are independent | r = 0.04 across 41 DCs; Macdonald's rare-but-lethal corner (10th-fewest, danger #1, CI clear) is his own, not a trend |
 
 ## Scripts
 
@@ -131,6 +132,7 @@ figures and derived CSVs.
 | `R/34_sea_defense_battery.R` | sea_defense_battery.png |
 | `R/35_open_and_mismatch.R` | schemed_open.png, mismatch_category.png |
 | `R/36_rotation_xpass.R` | rotation_xpass.png |
+| `R/37_blitz_rate_danger.R` | blitz_rate_danger.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
