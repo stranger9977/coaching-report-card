@@ -109,6 +109,7 @@
 
   <div class="prose">
     <p style="font-size:14.5px;color:var(--ink-3);border:1px solid var(--line);border-radius:10px;padding:12px 16px;background:var(--card)"><strong style="color:var(--ink)">Finding the new stuff.</strong> The board grows downward by date, newest at the top. Jump to a day:
+    <a href="#dig-19">Aug 19 evening dig</a> (bootleg folklore, the penalty ledger, what the YAC edge is made of) ·
     <a href="#morning-19">Aug 19 morning thread</a> (sequencing rumor, Seattle defense battery, rotation hunt) ·
     <a href="#kyle-file">Aug 19 Kyle file</a> (YAC factory, mismatch machine, article check) ·
     <a href="#late-asks-18">Aug 18 late asks</a> (Hawks ledger, Shanahan dossier) ·
@@ -126,6 +127,44 @@
   </div>
 
   <div class="board">
+
+    <div class="tgroup">
+      <h3 id="dig-19">The unprompted dig, 19 August</h3>
+      <p class="grouphint">Nick: "keep looking for interesting stuff from sumer." Three field families the board had never touched: the dropback-type charting, the full penalty log, and the yards-after-contact split. One kills a piece of coaching folklore with its own namesake, one finds a weapon hiding next to a stat that turns out not to be a skill, and one opens up the YAC factory to see what it actually runs on.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">"Boot off wide zone," tested against the charting</span><span class="pill block">The pairing isn't there</span></div>
+      <p class="row"><span class="lab">The puzzle:</span> the Shanahan tree's reputation is built on the bootleg — the quarterback rolling out off outside-zone run action. Sumer charts every dropback's type (straight drop, designed rollout, and so on), and the board had never opened that field.</p>
+      <p class="row found"><span class="lab">The folklore fails on its own namesake.</span> Across 37 callers, a caller's outside-zone run rate has no relationship at all with how often he rolls his quarterback out (r = &minus;0.01), and Shanahan is the counterexample himself: one of the league's highest outside-zone rates at 39.9%, and a below-median 6.9% rollout rate. The tree doesn't even cluster on movement volume — situation-adjusted, McVay ranks 4th of 37 but Johnson is 20th, Shanahan 26th, LaFleur 32nd, and the disciples (Kubiak 5th, Waldron 7th) out-roll the originators. The real signature is on the other axis: all four sit above the league's median <em>payoff</em> on the rollouts they do call. They don't call it more; when they call it, it works. And the league-wide mechanics are sharper than the folklore too: the play fake is what pays (+0.06 with it, on a rollout or a straight drop alike), while a rollout <em>without</em> the fake costs &minus;0.22 points per play. Movement's one clean, distinct benefit is sacks — roughly halved (3.9&ndash;4.0% against 6.1&ndash;6.6%) while pressure rate barely moves and the ball actually comes out later. A moving quarterback isn't harder to reach; he's harder to bring down.</p>
+      <figure>
+        <img src="figures/qb_movement.png" alt="Two panels: designed-movement rate versus situation expectation for 37 callers with McVay 4th and the rest of the Shanahan tree at or below median, and movement rate versus its own payoff with all four tree members above the median payoff line.">
+        <figcaption>Movement rate against expectation, and rate against payoff. The tree's signature is in the right panel, not the left. Built by R/38.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> designed movement is a rare event (7.4% of dropbacks, so per-caller payoff intervals are wide and the payoff ranks are soft), and Sumer's <code>quarterback_left_pocket</code> flag turned out to be a pressure symptom rather than a design label — it fires equally on straight drops and rollouts — so everything here leans on the charted dropback type, the one field that behaves like a real design flag. The rate itself is one of the most stable identities on the board: odd-versus-even season persistence r = +0.76.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">The penalty ledger: a scoreboard and a weapon</span><span class="pill work">One real edge, one mirage</span></div>
+      <p class="row"><span class="lab">The puzzle:</span> pre-snap penalties are the most coach-flavored stat in football — false starts are blamed on discipline, drawn offsides get credited to cadence. The full penalty log had never been opened. (Opening it required bypassing the board's own loader, which silently deletes essentially every pre-snap penalty because a false start is, by definition, a play that never happened.)</p>
+      <p class="row found"><span class="lab">Discipline tracks winning but doesn't behave like a skill; drawing flags looks closer to one.</span> The discipline leaderboard passes every eye test — Dan Campbell's teams commit the fewest pre-snap penalties against expectation, Daboll's the most, and the rate correlates with point differential at r = &minus;0.43. But it barely persists within the same coach (r = +0.15 across season splits, interval spanning zero): last year's clean team tells you almost nothing about this year's, so it reads as a symptom of good teams, not a trait you can hire. The cadence weapon is the better story: how many defensive pre-snap flags an offense <em>draws</em> is twice as persistent (r = +0.31, just short of the board's bar) and it pays in real currency — Zac Taylor leads the league, worth about 86 free yards and 6.5 free first downs a season, with McDaniel and McVay behind him. McVay is the only name in the league's top three on <em>both</em> lists: third-fewest committed, third-most drawn. He wins the pre-snap game in both directions.</p>
+      <figure>
+        <img src="figures/discipline.png" alt="Leaderboard of 39 head coaches by season-adjusted presnap-offense penalty rate, Dan Campbell most disciplined on the left, Brian Daboll least on the right, with persistence noted as unresolved.">
+        <figcaption>The discipline leaderboard, season-adjusted and shrunk. The subtitle carries the honest part: it barely repeats. Built by R/39.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> both persistence tests land in the unresolved band (the cadence one at p = 0.07), so neither is a settled trait by the board's own rule; and the league's pre-snap penalty rate rose 31% from 2022 to 2024 with no rule change, so every number here is measured against its own season's average, not a fixed baseline.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">What the YAC factory actually runs on</span><span class="pill ship">73% broken tackles</span></div>
+      <p class="row"><span class="lab">The puzzle:</span> the Kyle file's flagship number — his receivers gain +0.76 more yards after the catch than the throw depth and situation predict, first in football — never said <em>how</em>. Scheme space and broken tackles look identical in a total. Sumer charts yards after first contact on every completion, which splits the credit: yardage gained before any defender touched the receiver, and yardage earned through the hit.</p>
+      <p class="row found"><span class="lab">Shanahan's edge is mostly his receivers beating tackles.</span> Of his +0.76, only +0.20 comes before contact (5th of 37, and the interval crosses zero — not clearly better than an average scheme at creating room) while +0.56 comes after contact, first in football with the cleanest interval on the board. The knock "his guys are always wide open" has the mechanism backwards: the factory runs on Deebo Samuel (10th of 265 players in tackles beaten per catch), McCaffrey, Kittle and Jennings turning ordinary catches into long gains — his top three weapons carry half the contact edge. The scheme-space crown belongs to Ben Johnson: first of 37 on the before-contact channel, with a genuine 50/50 split between the two and his edge spread across 19 different players, which is what a scheme signature should look like. McVay's small YAC total is all contact and none of it conclusive. League-wide the two channels only correlate at r = 0.60 — creating space and rostering tackle-breakers are related but different jobs.</p>
+      <figure>
+        <img src="figures/yac_mechanism.png" alt="Diverging stacked bars for 37 callers splitting each caller's YAC edge into before-contact and after-contact shares, with Shanahan first overall and mostly after-contact, Ben Johnson third with an even split, and McVay mid-pack.">
+        <figcaption>Every caller's YAC edge, split at first contact. Blue is the scheme's room, red is the receiver's fight. Built by R/40.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> the two yardage fields are charted independently, so on 12.9% of completions the contact yardage exceeds the total and gets capped — the three named callers all sit in the same narrow band on that anomaly, so it isn't driving the contrast; the split reconciles exactly to the shipped +0.76; and the player leaderboard has no position control, so checkdown-heavy backs run hot on tackles beaten.</p>
+    </div>
 
     <div class="tgroup">
       <h3 id="seq-file">The sequencing file, 18 August</h3>

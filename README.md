@@ -93,6 +93,14 @@ the new work.
 | The Hudl article, fact-checked | 4 of 11 claims confirm (run-look setup a bullseye), 3 close, 4 contradicted (TE-attached runs backwards; "tied narrowest" holds for McVay only) |
 | Rotation's null is uniform | no xpass gradient (interaction p = 0.82); 0 of 15 screened cells confirm vs 0.75 expected by chance; no situation where rotating pays |
 | Blitz volume and payoff are independent | r = 0.04 across 41 DCs; Macdonald's rare-but-lethal corner (10th-fewest, danger #1, CI clear) is his own, not a trend |
+| "Boot off wide zone" is folklore | outside-zone rate vs rollout rate r = -0.01 across 37 callers; Shanahan: 39.9% OZ, 6.9% rollouts (below median) |
+| The tree's movement signature is payoff, not volume | adjusted volume: McVay 4, Johnson 20, Shanahan 26, LaFleur 32; all four above median payoff; usage persists r = +0.76 |
+| The fake pays, not the movement | rollout without play action: -0.22 EPA/play; with it, indistinguishable from a PA straight drop |
+| Movement's clean benefit is sacks | rollout sack rate 3.9-4.0% vs standard 6.1-6.6%; pressure rate barely moves; ball comes out later |
+| Pre-snap discipline is a scoreboard, not a skill | vs point diff r = -0.43, but same-coach persistence r = +0.15 (CI spans zero) |
+| Cadence is closer to a real weapon | flags drawn persist r = +0.31; Zac Taylor #1: ~86 free yards + 6.5 free first downs/season; McVay top-3 both directions |
+| The YAC factory runs on broken tackles | Shanahan's +0.76 = +0.20 clean (5th, CI spans zero) + 0.56 contact (1st); Deebo 10th of 265 in tackles beaten/catch |
+| The scheme-space crown is Johnson's | 1st of 37 before contact, 50/50 split, spread across 19 players; channels correlate only r = 0.60 |
 
 ## Scripts
 
@@ -133,6 +141,9 @@ figures and derived CSVs.
 | `R/35_open_and_mismatch.R` | schemed_open.png, mismatch_category.png |
 | `R/36_rotation_xpass.R` | rotation_xpass.png |
 | `R/37_blitz_rate_danger.R` | blitz_rate_danger.png |
+| `R/38_qb_movement.R` | qb_movement.png |
+| `R/39_discipline.R` | discipline.png |
+| `R/40_yac_mechanism.R` | yac_mechanism.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
