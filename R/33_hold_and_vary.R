@@ -677,7 +677,8 @@ pC <- ggplot(claim3, aes(y = claim_lab)) +
     x = "rank of 32 teams (1 = most extreme in claimed direction)", y = NULL,
     caption = fig_caption(
       "SumerSports play charting, 2023 regular season (article's own vintage) + 2022-2025 pooled context",
-      sprintf("%s All 32 teams, no caller-qualification filter (this is a team identity, not a caller one).", verdict3),
+      sprintf("%d of %d claims confirm outright, %d land in the right direction but off on magnitude, %d are contradicted outright.\nAll 32 teams, no caller-qualification filter (this is a team identity, not a caller one).",
+              n_confirmed, nrow(claim3), n_close, n_off),
       "\nGreen = confirmed (within 1 rank). Amber = right direction, wrong magnitude. Red = contradicted or not reproduced. TE-attached rate runs backwards from the article's claim; the 'tied\nnarrowest with McVay' claim holds for McVay alone (he is genuinely #1) but not for the SF half of the pairing. Built by R/33_hold_and_vary.R."
     )
   ) +

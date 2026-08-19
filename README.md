@@ -87,6 +87,9 @@ the new work.
 | Watch-then-strike fails in reverse | repeated looks get MORE repetitive league-wide; nobody gains EPA on later showings |
 | SEA defense read: 3 of 4 confirmed | nickel 5th (2nd in 2025), blitz 11th-fewest, explosives 4th-fewest; zone dead-average pooled |
 | Why the rare blitz is dangerous | 1 in 4 SEA blitzes springs a free rusher (45% above league); those allow -0.996 EPA, the rest are ordinary |
+| "Always wide open," checked | Shanahan above median on both openness proxies, top-third on neither; last 3 years comp-over-expected rank 9 (+3pp) |
+| Same system, easy throws for both | Purdy +4.7pp and Jones +3.9pp completions over expected, p = 0.81 |
+| Hunting and cashing mismatches are different skills | Shanahan #5/#8 (does both), Johnson #1 hunt but median cash, McVay bottom on both |
 
 ## Scripts
 
@@ -124,6 +127,7 @@ figures and derived CSVs.
 | `R/32_matchup_hunting.R` | cmc_mismatch.png, matchup_hunting.png |
 | `R/33_hold_and_vary.R` | hold_personnel.png, one_play_many_ways.png |
 | `R/34_sea_defense_battery.R` | sea_defense_battery.png |
+| `R/35_open_and_mismatch.R` | schemed_open.png, mismatch_category.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
