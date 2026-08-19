@@ -90,6 +90,7 @@ the new work.
 | "Always wide open," checked | Shanahan above median on both openness proxies, top-third on neither; last 3 years comp-over-expected rank 9 (+3pp) |
 | Same system, easy throws for both | Purdy +4.7pp and Jones +3.9pp completions over expected, p = 0.81 |
 | Hunting and cashing mismatches are different skills | Shanahan #5/#8 (does both), Johnson #1 hunt but median cash, McVay bottom on both |
+| The Hudl article, fact-checked | 4 of 11 claims confirm (run-look setup a bullseye), 3 close, 4 contradicted (TE-attached runs backwards; "tied narrowest" holds for McVay only) |
 
 ## Scripts
 

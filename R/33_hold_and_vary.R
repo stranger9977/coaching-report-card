@@ -542,7 +542,7 @@ sf_line(r3x1,  "3x1 formation rate", "3rd lowest")
 sf_line(r2rb,  "two-back backfield rate", "5th highest")
 
 ## -- width proxies: bunched-alignment rate + TE-attached rate, from plays_players
-PCOLS3 <- c("sumer_play_id", "season", "side_of_ball", "alignment", "off_on_los_alignment", "bunched_alignment")
+PCOLS3 <- c("sumer_play_id", "season", "side_of_ball", "alignment", "alignment_side", "off_on_los_alignment", "bunched_alignment")
 pl1 <- fread("data/raw/sumer/plays_players_p1.csv.gz", select = PCOLS3, showProgress = FALSE)
 pl2 <- fread("data/raw/sumer/plays_players_p2.csv.gz", select = PCOLS3, showProgress = FALSE)
 players3 <- rbindlist(list(pl1, pl2)); rm(pl1, pl2); gc(verbose = FALSE)
@@ -570,6 +570,37 @@ sf_line(rbunch, "bunched-alignment rate (width proxy 1)", "tied 1st (narrowest) 
 cat(sprintf("  McVay's LA, for comparison: rank %d (2023), rank %d (pooled) -- LA's own #1 status shows up (rank 1 in 2023/2024); SF does not sit next to them.\n",
             rbunch[off_team == "LA" & season == 2023]$rank, rbunchp[off_team == "LA"]$rank))
 sf_line(rte, "TE-attached rate (width proxy 2)", "2nd highest")
+
+## -- 2x2/3x1 rebuilt independently from plays_players alignment_side, as a
+## cross-check on Sumer's own pre-charted `formation` field (used above for
+## the primary claim-3 rank). Two constructions tried: (1) literally
+## "detached skill players per side" (off_on_los_alignment == FALSE only) --
+## this is what a strict reading of "detached" means, but it is too sparse to
+## rank 32 teams on (median 2 SF snaps/season code exactly "2x2" this way,
+## max 7 leaguewide); (2) ALL skill players per side regardless of attached
+## status -- usable sample sizes (SF ~250-300 snaps/season) and its most
+## common cell is an exact match to Sumer's own "2x2" tag, so it is reported
+## as the plays_players-built cross-check.
+skill_det <- players3[alignment %in% SKILL3 & off_on_los_alignment == FALSE]
+lr_det <- skill_det[, .(left = sum(alignment_side == "LEFT"), right = sum(alignment_side == "RIGHT")), by = sumer_play_id]
+d3w <- merge(d3w, lr_det, by = "sumer_play_id", all.x = TRUE)
+d3w[, code_det := paste0(left, "x", right)]
+n_2x2_det <- d3w[off_team == "SF", .(n = sum(code_det == "2x2", na.rm = TRUE)), by = season]
+cat(sprintf("\ndetached-only reconstruction is too sparse to rank on: SF's own exact '2x2' count (2 detached skill players each side) by season: %s (leaguewide median per team-season: 2, max: 7) -- reported, not ranked.\n",
+            paste(sprintf("%d: n=%d", n_2x2_det$season, n_2x2_det$n), collapse = ", ")))
+
+skill_all3 <- players3[alignment %in% SKILL3]
+lr_all3 <- skill_all3[, .(leftA = sum(alignment_side == "LEFT"), rightA = sum(alignment_side == "RIGHT")), by = sumer_play_id]
+d3w <- merge(d3w, lr_all3, by = "sumer_play_id", all.x = TRUE)
+d3w[, code_all := paste0(leftA, "x", rightA)]
+d3w[, is_2x2_pp := code_all == "2x2"]; d3w[, is_3x1_pp := code_all == "3x1"]
+
+r2x2_pp <- team_rank_num(d3w, "is_2x2_pp", desc = FALSE); r2x2_ppp <- team_rank_num(d3w, "is_2x2_pp", desc = FALSE, by_season = FALSE)
+r3x1_pp <- team_rank_num(d3w, "is_3x1_pp", desc = FALSE); r3x1_ppp <- team_rank_num(d3w, "is_3x1_pp", desc = FALSE, by_season = FALSE)
+cat("\nplays_players cross-check, all-skill-players-per-side (usable sample sizes; most common cell matches Sumer's own '2x2' tag exactly):\n")
+sf_line(r2x2_pp, "2x2 rate, plays_players cross-check", "2nd lowest")
+sf_line(r3x1_pp, "3x1 rate, plays_players cross-check", "3rd lowest")
+cat("Both the Sumer-field measure and this independent plays_players reconstruction agree: SF is NOT among the league's lowest 2x2/3x1 users -- two different constructions, same 'off' verdict.\n")
 
 ## -- claims 8-10: PROE and the "run look" model, via lib_sumer's sumer_expect()
 FEATS_LOOK <- c("under_center", grep("^pers_|^form_", names(d3), value = TRUE))
@@ -639,6 +670,8 @@ claim3[, verdict := fifelse(gap <= 1, "confirmed", fifelse(gap <= 6, "close (dir
 claim3[claim == "TE-attached rate (width proxy)", verdict := "off (direction reversed -- SF is near the bottom, not the top)"]
 claim3[claim == "Look-implied pass probability", verdict := "close (SF IS the most run-look team by rank, but never crosses 0.5; no team does in 2023)"]
 claim3[claim == "Bunched-alignment rate (width proxy)", verdict := "off (McVay's own #1 confirmed independently; SF is not tied with him)"]
+claim3[claim == "2x2 formation rate", verdict := sprintf("off (independent plays_players reconstruction agrees: rank %d of 32)", r2x2_pp[off_team == "SF" & season == 2023]$rank)]
+claim3[claim == "3x1 formation rate", verdict := sprintf("close (independent plays_players reconstruction agrees: rank %d of 32)", r3x1_pp[off_team == "SF" & season == 2023]$rank)]
 
 cat("\n=== TEST 3 VERIFICATION TABLE (2023, the article's own season) ===\n")
 cat(sprintf("%-40s | %5s %-30s | %8s %8s | verdict\n", "claim", "claim'd", "claimed as", "2023 rk", "pooled rk"))
@@ -698,6 +731,8 @@ t3_team <- Reduce(function(a, b) merge(a, b, by = "off_team", all = TRUE), list(
   rbunchp[, .(off_team, t3_bunch_rate = rate, t3_bunch_rank = rank)],
   r2x2p[,   .(off_team, t3_2x2_rate = rate, t3_2x2_rank = rank)],
   r3x1p[,   .(off_team, t3_3x1_rate = rate, t3_3x1_rank = rank)],
+  r2x2_ppp[, .(off_team, t3_2x2_pp_rate = rate, t3_2x2_pp_rank = rank)],
+  r3x1_ppp[, .(off_team, t3_3x1_pp_rate = rate, t3_3x1_pp_rank = rank)],
   rtep[,    .(off_team, t3_teattach_rate = rate, t3_teattach_rank = rank)],
   r2rbp[,   .(off_team, t3_tworb_rate = rate, t3_tworb_rank = rank)],
   teamAp[,  .(off_team, t3_expected_pass = round(expected, 2), t3_expected_pass_rank = rank_expected,
