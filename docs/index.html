@@ -107,6 +107,18 @@
     <p>Everything below is one board. Each card is a line from our texts, then what the data says, then the chart that answers that exact question sitting under it. Open questions say so and name the next move.</p>
   </div>
 
+  <div class="prose">
+    <p style="font-size:14.5px;color:var(--ink-3);border:1px solid var(--line);border-radius:10px;padding:12px 16px;background:var(--card)"><strong style="color:var(--ink)">Finding the new stuff.</strong> The board grows downward by date, newest at the top. Jump to a day:
+    <a href="#morning-19">Aug 19 morning thread</a> (sequencing rumor, Seattle defense battery, rotation hunt) ·
+    <a href="#kyle-file">Aug 19 Kyle file</a> (YAC factory, mismatch machine, article check) ·
+    <a href="#late-asks-18">Aug 18 late asks</a> (Hawks ledger, Shanahan dossier) ·
+    <a href="#vault-18">Aug 18 vault</a> (scheme vs execution, QB clock, free rushers) ·
+    <a href="#seq-file">Aug 18 sequencing file</a> ·
+    <a href="#rebuilt-17">Aug 17 rebuild</a> ·
+    <a href="#feedback-13">Aug 13 feedback</a>.
+    Every chart is a PNG in <a href="figures/">figures/</a>, every script prints its numbers, and the <a href="outline.html">outline page</a> maps the same findings onto the script structure.</p>
+  </div>
+
   <hr class="actdivider">
   <div class="actintro">
     <div class="actnum">Working board</div>
@@ -116,7 +128,7 @@
   <div class="board">
 
     <div class="tgroup">
-      <h3>The sequencing file, 18 August</h3>
+      <h3 id="seq-file">The sequencing file, 18 August</h3>
       <p class="grouphint">Nick's theory: "we have a theory that ben johsnons play sequencing is unique." Plus Michael's pre-snap question, his U-shape theory, his post-snap rotation questions, and the defensive side. What survived: the chain finding, the play-action volume, a McVay-only motion effect, a rising-rotation trend, and two leaderboards. The dead tests stay on the board with the evidence.</p>
     </div>
 
@@ -282,7 +294,7 @@
     </div>
 
     <div class="tgroup">
-      <h3>The morning thread, 19 August</h3>
+      <h3 id="morning-19">The morning thread, 19 August</h3>
       <p class="grouphint">The sequencing rumor, checked; the Seattle defense read, verified claim by claim; and the blitz-danger number traced to its mechanism.</p>
     </div>
 
@@ -332,10 +344,18 @@
         <img src="figures/rotation_xpass.png" alt="Two forest panels: the rotation effect across five pass-probability bands and ten named situations, every interval crossing zero, with the screening math in the caption.">
         <figcaption>The gradient and the situation hunt, every interval crossing zero. Fifteen cells screened, 0.75 significant expected by chance, none confirmed. Built by R/36.</figcaption>
       </figure>
+      <p class="row"><span class="lab">The fair pushback, kept on the card:</span> the pooled point estimate of -0.011 EPA a play is not trivial in proportion; against an average offensive play around +0.038, it would be roughly a quarter of the play's value if it were real. "The interval cannot confirm it" and "it is zero" are different sentences, and the honest one is the first. What the data rules out is a large effect and any situation where it concentrates; a small, real, everywhere-at-once benefit of about this size remains compatible with everything measured, it just cannot be proven from four seasons of charting.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">The McVay paradox, in one place</span><span class="pill ship">He is not dumb. It is genuinely weird.</span></div>
+      <p class="row"><span class="lab">Michael:</span> "So he is both highly predictable in terms of formation type (doesn't [run] many different types of personnel) and for the y-axis he is predictable in terms of run/pass? That's insane and super counterintuitive if true. Am I dumb?"</p>
+      <p class="row found"><span class="lab">Read correctly, and the paradox is real. It resolves in three steps, all already on this board.</span> One: yes, McVay shows the fewest different pre-snap looks in football, holds the same personnel longer than anyone (84% snap-to-snap, first of 37), and his looks tip run versus pass more than any caller's. Two: that costs less than intuition says, because predictability is not what kills offenses; across every measure on this board, more predictable callers run better offenses, and the elite tier is full of readable schemes executed well. Three: what deception McVay does need, he buys a different way: his motion is the one in the league that measurably scrambles a pre-snap model, and the held personnel attacks play identification through matchups and conditioning rather than through variety. The formula is one look, held people, motion inside it, and calls good enough to survive being guessed. Counterintuitive, verified, and exactly the kind of thing the video is for.</p>
+      <p class="row"><span class="lab">Where each piece lives:</span> the looks and tipping on the looks-and-movement card above; the personnel holding on the sequencing-rumor card; the motion effect on the motion card in the sequencing file; the predictability-pays finding on the playcalling cards below.</p>
     </div>
 
     <div class="tgroup">
-      <h3>The Kyle file, 19 August</h3>
+      <h3 id="kyle-file">The Kyle file, 19 August</h3>
       <p class="grouphint">"What makes Schanahan special… Besides just 'scheme'. Like we have a lot of ammo for Ben Johnson… and a ton for McVay. But what do we have for Kyle?" Three mechanical signatures, from the last unmined Sumer fields.</p>
     </div>
 
@@ -386,7 +406,7 @@
     </div>
 
     <div class="tgroup">
-      <h3>His two late asks, 18 August</h3>
+      <h3 id="late-asks-18">His two late asks, 18 August</h3>
       <p class="grouphint">"Where did the Hawks rank in all that?" and the Shanahan dossier. Both of his Shanahan claims checked out, one of them more decisively than he guessed.</p>
     </div>
 
@@ -413,7 +433,7 @@
     </div>
 
     <div class="tgroup">
-      <h3>Deeper into the vault, 18 August</h3>
+      <h3 id="vault-18">Deeper into the vault, 18 August</h3>
       <p class="grouphint">Nick: "we have all this sumer data… can you come up with more creative ways to use [it]?" Three never-used field families, three new instruments: the player grades, the QB clock, and the free-rusher flags. One completes an argument, one kills a theory, one solves the Macdonald puzzle.</p>
     </div>
 
@@ -526,7 +546,7 @@
     </div>
 
     <div class="tgroup">
-      <h3>Rebuilt properly, 17 August</h3>
+      <h3 id="rebuilt-17">Rebuilt properly, 17 August</h3>
       <p class="grouphint">Everything above stands. This is the same set of questions run through a proper modeling setup, so where a card up there and a card down here disagree, trust this one. Full diagnostics live on the <a href="models.html">Model Factory</a> tab.</p>
     </div>
 
@@ -640,7 +660,7 @@
     </div>
 
     <div class="tgroup">
-      <h3>His feedback, 13 August</h3>
+      <h3 id="feedback-13">His feedback, 13 August</h3>
       <p class="grouphint">Michael read the board and pushed on the word "predictable" three separate ways, caught a data-freshness problem, and added a new question. All of it is answered here.</p>
     </div>
 
