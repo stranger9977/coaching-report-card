@@ -248,10 +248,10 @@ p <- ggplot(chart_df, aes(pct, stat, fill = source)) +
                      labels = function(x) paste0(x, "%")) +
   coord_cartesian(clip = "off") +
   labs(title = "Checking the Seahawks pre-snap numbers against SumerSports charting",
-       subtitle = "Claimed value against measured value, 2025 regular season, Seattle defense",
+       subtitle = "Claimed value against measured value, Seattle defense, 2025 season (Sept 2025 - Jan 2026)",
        x = NULL, y = NULL,
        caption = fig_caption(
-         "SumerSports play charting, 2025 regular season",
+         "SumerSports play charting, 2025 regular season (the games of Sept 2025 - Jan 2026)",
          sprintf("SEA %s charted dropbacks, non-garbage-time. Rank 1 = highest rate of 32 teams.",
                  format(sum(dp[def_team=="SEA" & has_shell==TRUE]$has_shell), big.mark=",")),
          paste0("\nTwo-high and Cover 1 agree in direction (Seattle plays a lot of two-high, almost no Cover 1) but run ",
