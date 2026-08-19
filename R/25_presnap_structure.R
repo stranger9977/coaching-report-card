@@ -312,9 +312,9 @@ pA <- ggplot(variety, aes(reorder(off_caller, H_variety), H_variety)) +
   geom_text_repel(data = lab_a, aes(label = lab), size = 3.0, fontface = "bold",
                    colour = "#8a3d00", lineheight = 0.9, seed = 5,
                    box.padding = 0.5, min.segment.length = 0, max.overlaps = 20) +
-  labs(title = "How many different pre-snap pictures a caller shows",
-       subtitle = "Each dot is one qualified caller's plays-weighted picture entropy, controlled for down and distance",
-       x = NULL, y = "picture variety (bits, EB-shrunk toward the league)") +
+  labs(title = "How many different pre-snap looks each play-caller shows",
+       subtitle = "Variety of distinct pre-snap alignments (every skill player's spot), measured within down and distance",
+       x = NULL, y = "variety of pre-snap looks (bits, shrunk toward the league)") +
   theme_coach(grid = "y") +
   theme(axis.text.x = element_blank())
 
@@ -339,19 +339,18 @@ pB <- ggplot(both, aes(H_variety, leak)) +
                    size = 2.9, colour = ifelse(lab_b$hl, "#8a3d00", "#1d6a99"), seed = 9,
                    box.padding = 0.42, min.segment.length = 0, max.overlaps = 25) +
   annotate("text", x = min(both$H_variety), y = max(both$leak), hjust = 0, vjust = 1, size = 2.85,
-           fontface = "italic", colour = "grey45", label = "few pictures, and they leak") +
+           fontface = "italic", colour = "grey45", label = "few looks, and they tip the play") +
   annotate("text", x = max(both$H_variety), y = max(both$leak), hjust = 1, vjust = 1, size = 2.85,
-           fontface = "italic", colour = "grey45", label = "many pictures, and they still leak") +
+           fontface = "italic", colour = "grey45", label = "many looks, and they still tip the play") +
   annotate("text", x = min(both$H_variety), y = min(both$leak), hjust = 0, vjust = 0, size = 2.85,
-           fontface = "italic", colour = "grey45", label = "few pictures, but none of them mean anything") +
+           fontface = "italic", colour = "grey45", label = "few looks, none of them tip anything") +
   annotate("text", x = max(both$H_variety), y = min(both$leak), hjust = 1, vjust = 0, size = 2.85,
-           fontface = "italic", colour = "grey45", label = "many pictures, and variety is the camouflage") +
-  labs(title = "Picture variety does not automatically buy disguise",
-       subtitle = "x = how many different pictures a caller shows (test 1); y = how much the picture reveals run vs pass beyond the situation (test 3)",
-       x = "picture variety (bits)", y = "picture leak (bits, positive = tells you more than the situation alone)") +
+           fontface = "italic", colour = "grey45", label = "many looks, and the variety is the camouflage") +
+  labs(subtitle = "Showing many different looks does not automatically hide the play.\nx = how many different pre-snap looks a caller shows; y = how much the look tips run vs pass beyond down, distance, score and clock.",
+       x = "variety of pre-snap looks (bits)", y = "how much the look tips run vs pass (bits)") +
   theme_coach(grid = "none")
 
-TITLE_B <- sprintf("McVay ranks #%d of %d on variety and #%d of %d on leak; Shanahan #%d and #%d; Ben Johnson #%d and #%d",
+TITLE_B <- sprintf("McVay: looks-variety #%d of %d, look-tips-the-play #%d of %d; Shanahan #%d and #%d; Ben Johnson #%d and #%d",
                     variety[off_caller == "Sean McVay", rank], nrow(variety),
                     tip[off_caller == "Sean McVay", leak_rank], nrow(tip),
                     variety[off_caller == "Kyle Shanahan", rank], tip[off_caller == "Kyle Shanahan", leak_rank],
@@ -363,10 +362,10 @@ p_final <- pB + plot_annotation(
     "Sumer play and player charting 2022-2025, play-caller attribution from samhoppen/NFL_public",
     sprintf("%d qualified callers (%d+ plays), %s plays, picture built from RB/FB/TE/WR/SWR alignment only.",
             nrow(both), QUAL_MIN, format(nrow(dq), big.mark = ",")),
-    paste0("\nNeither Sumer nor any other source in this repo tags motion type, so this is not a motion count. It measures the variety of pre-snap PICTURES a caller shows and whether\n",
-           "those pictures give away run or pass on top of what the down, distance, score and clock already tell a defense. Both axes are empirical-Bayes shrunk (K=15) so thin\n",
+    paste0("\nNeither Sumer nor any other source in this repo tags motion type, so this is not a motion count. It measures the variety of pre-snap looks a caller shows and whether\n",
+           "those looks give away run or pass on top of what the down, distance, score and clock already tell a defense. Both axes are empirical-Bayes shrunk (K=15) so thin\n",
            "cells cannot manufacture either a varied or a deceptive caller. Note for the record: R/14 found Ben Johnson hides his play mix well from a COARSE look (QB spot, backfield\n",
-           "count, motion); on this richer per-player picture he does not repeat that pattern; he shows an above-median mix of pictures and they leak more than a typical caller's. Built by R/25.")
+           "count, motion); on this richer per-player look he does not repeat that pattern; he shows an above-median mix of looks and they tip the play more than a typical caller's. Built by R/25.")
   ),
   theme = theme_coach(grid = "none")
 )
