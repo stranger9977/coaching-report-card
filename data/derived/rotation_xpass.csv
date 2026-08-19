@@ -1,0 +1,17 @@
+test,cell,mean_xpass,n_rotate,n_static,diff,lo,hi,p,significant
+xpass_gradient,Obvious run lean (<0.4),0.313,2131,7781,9.8e-4,-0.06521,0.06718,0.9768,FALSE
+xpass_gradient,Leaning run (0.4-0.5),0.448,5220,13988,-0.03759,-0.08099,0.0058,0.08948,FALSE
+xpass_gradient,Coin flip (0.5-0.6),0.554,2384,5876,0.01879,-0.04469,0.08228,0.56168,FALSE
+xpass_gradient,Leaning pass (0.6-0.8),0.702,8207,18957,-0.00645,-0.04446,0.03156,0.73937,FALSE
+xpass_gradient,Obvious pass (0.8+),0.878,11433,19497,-0.0097,-0.05341,0.03402,0.66374,FALSE
+situation_hunt,"Third-and-long (3rd, 7+)",NA,5944,8149,-0.0185,-0.08288,0.04588,0.57326,FALSE
+situation_hunt,Red zone,NA,1777,10652,0.02576,-0.06125,0.11277,0.56161,FALSE
+situation_hunt,Two-minute drill,NA,4292,9714,-6.1e-4,-0.04615,0.04493,0.9791,FALSE
+situation_hunt,"Late and close (Q4+, 1 score)",NA,4295,9926,-0.01513,-0.07072,0.04045,0.59356,FALSE
+situation_hunt,First-and-10,NA,8756,22204,-0.03144,-0.06295,7e-5,0.05053,FALSE
+situation_hunt,Play action,NA,6003,17792,-0.01228,-0.05509,0.03053,0.57387,FALSE
+situation_hunt,Man coverage played,NA,7329,17097,0.00249,-0.04678,0.05177,0.92104,FALSE
+situation_hunt,Zone coverage played,NA,21611,44956,-0.01592,-0.04049,0.00865,0.20416,FALSE
+situation_hunt,Blitz,NA,8450,16870,-0.00582,-0.05047,0.03883,0.79834,FALSE
+situation_hunt,No blitz,NA,20925,49229,-0.01248,-0.03773,0.01278,0.33289,FALSE
+interaction,rotate x xpass (continuous),NA,29375,66099,0.01264,-0.09915,0.12444,0.82456,FALSE

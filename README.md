@@ -91,6 +91,7 @@ the new work.
 | Same system, easy throws for both | Purdy +4.7pp and Jones +3.9pp completions over expected, p = 0.81 |
 | Hunting and cashing mismatches are different skills | Shanahan #5/#8 (does both), Johnson #1 hunt but median cash, McVay bottom on both |
 | The Hudl article, fact-checked | 4 of 11 claims confirm (run-look setup a bullseye), 3 close, 4 contradicted (TE-attached runs backwards; "tied narrowest" holds for McVay only) |
+| Rotation's null is uniform | no xpass gradient (interaction p = 0.82); 0 of 15 screened cells confirm vs 0.75 expected by chance; no situation where rotating pays |
 
 ## Scripts
 
@@ -129,6 +130,7 @@ figures and derived CSVs.
 | `R/33_hold_and_vary.R` | hold_personnel.png, one_play_many_ways.png |
 | `R/34_sea_defense_battery.R` | sea_defense_battery.png |
 | `R/35_open_and_mismatch.R` | schemed_open.png, mismatch_category.png |
+| `R/36_rotation_xpass.R` | rotation_xpass.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
