@@ -1,0 +1,17 @@
+group,measure,value,value_label,rank,n,source_csv,pct,rank_label
+Macdonald's defense,"Free-rusher scheme (unblocked pressure, career)",2.0299162659487036,+2.03pp above expected,2,41,free_rushers.csv,97.5,2 of 41
+Macdonald's defense,Shell rotation rate (career),5.951207422128424,+6.0pp above expected,9,41,rotation_dcs.csv,80,9 of 41
+Macdonald's defense,Personnel shapeshifting (SEA 2025),0.2785660476463636,"rank 62 of 121, dead median",62,121,def_shapeshift.csv,49.16666666666667,62 of 121
+Macdonald's defense,"Pass-rush talent (won blocks, career)",-0.5243189253960833,-0.52pp above expected,24,41,free_rushers.csv,42.50000000000001,24 of 41
+Macdonald's defense,"Blitz rate (career, vs expected)",-3.4137886554598498,"-3.41pp vs expected, rank 26 of 41",26,41,free_rushers.csv,37.5,26 of 41
+Macdonald's defense,"Situational blitz-rate range (career, low = one game plan)",0.024363740016732735,"rank 33 of 42, calls it the same everywhere",33,42,def_seq_callers.csv,21.95121951219512,33 of 42
+Macdonald's defense,"Blitz sequence hot-hand (career, low = mixes it up)",0.021727991642159192,"rank 35 of 44, low = unpredictable",35,44,def_seq_callers.csv,20.93023255813954,35 of 44
+Team overachievement,Performance above draft pedigree (2025),11.125512268783293,+11.13 pts/g above pedigree,1,32,team_talent.csv,100,1 of 32
+Team overachievement,Performance above payroll (2025),14.312459111964117,+14.31 pts/g above payroll,1,32,contract_talent.csv,100,1 of 32
+Team overachievement,"Career market rate (wins/17, above expectation)",2.3674725883306964,+2.37 wins/17,3,157,coach_market.csv,98.71794871794873,3 of 157
+Team overachievement,Wins above Madden-predicted (2025),6.543298575284647,+6.54 wins above predicted,2,32,madden_team_seasons.csv,96.7741935483871,2 of 32
+Team overachievement,2025 wins above market expectation,3.2222365629863656,+3.22 wins,3,32,market_seasons.csv,93.5483870967742,3 of 32
+Team overachievement,Halftime adjustment (career),0.025929967598592264,"rank 46 of 170, mid-pack",46,170,halftime_coach.csv,73.37278106508876,46 of 170
+Team overachievement,Roster draft pedigree (2025),17510,19th of 32 by draft value,19,32,team_talent.csv,41.93548387096774,19 of 32
+Team overachievement,Madden 26 roster rating (2025),-0.5883871855042089,23rd of 32 rated,23,32,madden_team_seasons.csv,29.032258064516125,23 of 32
+Team overachievement,"Paid roster talent (2025, cap share)",0.733,30th of 32 by paid talent,30,32,contract_talent.csv,6.451612903225811,30 of 32

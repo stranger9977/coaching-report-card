@@ -75,6 +75,9 @@ the new work.
 | Scheme and execution, split | Shanahan exec #2 / design #5, Johnson #5/#3, McVay median on both; same-play grades rejected as 11x outcome-contaminated |
 | The mental-tax theory dies on the clock too | 0 of 7 QB outcomes move after controls; the PA prediction runs backwards (p = 0.0003) |
 | Macdonald's pressure is scheme | #2 of 41 in unblocked rushers, #24 winning blocks, #26 blitz rate; a free rusher is worth 3x a won rush |
+| The Hawks ledger | 1st above pedigree, 1st above payroll, 2nd above Madden, 3rd vs market; halftime mid-pack is the one nothing-special row |
+| CMC was the WR1 | 143 targets, +46% over Jennings; 1,029 receiving yards |
+| Jones was as good as Purdy | EPA/dropback +0.009 in Jones's favor, p = 0.94, on 334 vs 363 dropbacks; suggestive, not proof |
 
 ## Scripts
 
@@ -106,6 +109,7 @@ figures and derived CSVs.
 | `R/26_scheme_vs_execution.R` | scheme_vs_execution.png |
 | `R/27_rotation_clock.R` | rotation_clock.png |
 | `R/28_free_rushers.R` | free_rushers.png |
+| `R/29_hawks_and_kyle.R` | hawks_ledger.png, sf_wr1_qb.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done

@@ -1,0 +1,11 @@
+claim,player,position,targets,receptions,yards,receiving_epa,rank,dropbacks,attempts,completions,comp_pct,y_per_att,epa_total,epa_per_db,sacks
+wr1_is_a_running_back,Christian McCaffrey,RB,143,113,1029,79.83,1,NA,NA,NA,NA,NA,NA,NA,NA
+wr1_is_a_running_back,Jauan Jennings,WR,98,58,711,65.39,2,NA,NA,NA,NA,NA,NA,NA,NA
+wr1_is_a_running_back,George Kittle,TE,71,58,634,54.04,3,NA,NA,NA,NA,NA,NA,NA,NA
+wr1_is_a_running_back,Jake Tonges,TE,60,44,413,34.16,4,NA,NA,NA,NA,NA,NA,NA,NA
+wr1_is_a_running_back,Ricky Pearsall,WR,59,39,570,57.9,5,NA,NA,NA,NA,NA,NA,NA,NA
+wr1_is_a_running_back,Kendrick Bourne,WR,55,37,551,39.2,6,NA,NA,NA,NA,NA,NA,NA,NA
+wr1_is_a_running_back,Demarcus Robinson,WR,51,36,482,35.65,7,NA,NA,NA,NA,NA,NA,NA,NA
+wr1_is_a_running_back,Kyle Juszczyk,FB,33,29,273,17.53,8,NA,NA,NA,NA,NA,NA,NA,NA
+jones_as_good_as_purdy,Purdy,NA,NA,NA,2635,NA,NA,363,349,235,67.3,7.55,30.76,0.0847,14
+jones_as_good_as_purdy,Jones,NA,NA,NA,2364,NA,NA,334,316,220,69.6,7.48,31.22,0.0935,18
