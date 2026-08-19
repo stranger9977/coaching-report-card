@@ -46,6 +46,7 @@
 
 suppressMessages({
   library(data.table); library(readr); library(ggplot2); library(scales)
+  library(patchwork)
 })
 source("R/lib/theme_coach.R")
 source("R/factory/lib_sumer.R")
@@ -247,8 +248,7 @@ p <- ggplot(chart_df, aes(pct, stat, fill = source)) +
   scale_x_continuous(limits = c(-22, 100), breaks = seq(0, 100, 25),
                      labels = function(x) paste0(x, "%")) +
   coord_cartesian(clip = "off") +
-  labs(title = "Checking the Seahawks pre-snap numbers against SumerSports charting",
-       subtitle = "Claimed value against measured value, Seattle defense, 2025 season (Sept 2025 - Jan 2026)",
+  labs(subtitle = "The claim, checked: claimed value against measured value, 2025-26 only",
        x = NULL, y = NULL,
        caption = fig_caption(
          "SumerSports play charting, 2025 regular season (the games of Sept 2025 - Jan 2026)",
@@ -258,12 +258,57 @@ p <- ggplot(chart_df, aes(pct, stat, fill = source)) +
                 sprintf("%.0f-%.0f points off in level; Seattle ranks 2nd in two-high here, not 1st\n", 7, 11),
                 "(Philadelphia leads). Cover 3's level nearly matches (33% claimed, 29.6% measured) but the rank does not: 31st claimed, 16th measured, dead center of the league.\n",
                 "Four universe variants (all dropbacks, non-garbage-time, penalties excluded, both) agreed with each other within a point or two and none closed the gap to his\n",
-                "numbers, so the discrepancy reads as a different charting source or coverage definition rather than a universe choice. Built by R/20."))) +
+                "numbers, so the discrepancy reads as a different charting source or coverage definition rather than a universe choice.\n",
+                "Top panel: Seattle showed two-high at a league-average 59-61% (ranks 14 and 17) in 2022-23 and 2023-24 under the previous staff, jumped to 77.5% (5th)\n",
+                "in Macdonald's first season and 85.5% (2nd) in his second, while the league average barely moved (59.8% to 63.0%). Built by R/20."))) +
   theme_coach(grid = "none") +
   theme(legend.position = "top", legend.title = element_blank(),
         legend.justification = "left", legend.text = element_text(size = rel(0.85)),
         axis.text.y = element_text(size = rel(0.9), face = "bold"),
         axis.text.x = element_text(size = rel(0.8)))
-save_fig("docs/figures/sea_twohigh.png", p, w = 12.5, h = 7)
+# ---------------------------------------------------------------- era panel
+# Added after the single-season chart was read as last year's data: show WHERE
+# 2025-26 sits in Seattle's own history, so the coordinator change is visible
+# instead of implied. Same universe as the headline row (non-garbage-time).
+da <- load_sumer(seasons = 2022:2025)
+da <- da[season_type == 0 & is_dropback == TRUE & garbage_time == FALSE]
+da[, has_shell := middle_of_field_coverage_look %in% c("OPEN", "CLOSED")]
+da[, two_high  := as.integer(middle_of_field_coverage_look == "OPEN")]
+tr <- da[has_shell == TRUE, .(n = .N, k = sum(two_high)), by = .(season, def_team)]
+tr[, rate := 100 * k / n]
+tr[, rank := frank(-rate, ties.method = "min"), by = season]
+sea_tr <- tr[def_team == "SEA"][order(season)]
+lg_tr  <- tr[, .(league = mean(rate)), by = season][order(season)]
+cat("\n=== era panel: SEA two-high show rate by season (non-garbage) ===\n")
+print(sea_tr[, .(season, n, rate = round(rate, 1), rank)])
+print(lg_tr[, .(season, league = round(league, 1))])
+
+ord_lbl <- function(r) paste0(r, c("st","nd","rd",rep("th",17))[pmin(r,20)])
+sea_tr[, lbl := sprintf("%.1f%%\n%s of 32", rate, ord_lbl(rank))]
+season_lbls <- c("2022" = "2022-23", "2023" = "2023-24",
+                 "2024" = "2024-25", "2025" = "2025-26")
+
+p_trend <- ggplot() +
+  geom_vline(xintercept = 2023.5, linetype = "dashed", colour = "grey55") +
+  geom_line(data = lg_tr, aes(season, league), colour = "grey65", linewidth = 0.8) +
+  geom_line(data = sea_tr, aes(season, rate), colour = "#6b4c9a", linewidth = 1.3) +
+  geom_point(data = sea_tr, aes(season, rate), colour = "#6b4c9a", size = 3) +
+  geom_text(data = sea_tr, aes(season, rate, label = lbl),
+            vjust = -0.55, size = 3.1, fontface = "bold", colour = "#6b4c9a", lineheight = 0.95) +
+  annotate("text", x = 2023.54, y = 92, hjust = 0, size = 3.1, colour = "grey35",
+           fontface = "italic", label = "Macdonald arrives") +
+  annotate("text", x = 2025.02, y = lg_tr[season == 2025]$league - 4.5, hjust = 1,
+           size = 3, colour = "grey50", label = "league average") +
+  scale_x_continuous(breaks = 2022:2025, labels = season_lbls, limits = c(2021.85, 2025.15)) +
+  scale_y_continuous(limits = c(50, 100), breaks = seq(50, 100, 10),
+                     labels = function(x) paste0(x, "%")) +
+  labs(title = "Checking the Seahawks pre-snap numbers against SumerSports charting",
+       subtitle = "Seattle's two-high show rate by season: league-average under the previous staff, top-five the year Macdonald arrived, 2nd in the league by year two",
+       x = NULL, y = NULL) +
+  theme_coach(grid = "y") +
+  theme(axis.text.x = element_text(size = rel(0.95), face = "bold"))
+
+p_final <- p_trend / p + plot_layout(heights = c(1, 1.5))
+save_fig("docs/figures/sea_twohigh.png", p_final, w = 12.5, h = 11)
 
 cat("\nOut: docs/figures/sea_twohigh.png, data/derived/sea_twohigh.csv\n")
