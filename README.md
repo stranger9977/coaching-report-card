@@ -78,6 +78,7 @@ the new work.
 | The Hawks ledger | 1st above pedigree, 1st above payroll, 2nd above Madden, 3rd vs market; halftime mid-pack is the one nothing-special row |
 | CMC was the WR1 | 143 targets, +46% over Jennings; 1,029 receiving yards |
 | Jones was as good as Purdy | EPA/dropback +0.009 in Jones's favor, p = 0.94, on 334 vs 363 dropbacks; suggestive, not proof |
+| Belichick's +4.16 is a Brady effect | with Brady +4.9; post-Brady (29-38) +0.5 to -0.4 depending on QB control, at/below the +1.01 market floor |
 
 ## Scripts
 
@@ -110,6 +111,7 @@ figures and derived CSVs.
 | `R/27_rotation_clock.R` | rotation_clock.png |
 | `R/28_free_rushers.R` | free_rushers.png |
 | `R/29_hawks_and_kyle.R` | hawks_ledger.png, sf_wr1_qb.png |
+| `R/30_brady_confound.R` | brady_confound.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
