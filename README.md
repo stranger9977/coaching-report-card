@@ -79,6 +79,10 @@ the new work.
 | CMC was the WR1 | 143 targets, +46% over Jennings; 1,029 receiving yards |
 | Jones was as good as Purdy | EPA/dropback +0.009 in Jones's favor, p = 0.94, on 334 vs 363 dropbacks; suggestive, not proof |
 | Belichick's +4.16 is a Brady effect | with Brady +4.9; post-Brady (29-38) +0.5 to -0.4 depending on QB control, at/below the +1.01 market floor |
+| The YAC factory | Shanahan +0.76 YAC/completion over expected, 1st of 37, at ordinary throw depth (16th); Johnson 3rd, McVay 11th |
+| Inverted run geometries | Shanahan 46% outside zone (3rd) vs McVay 50% man; the bounce folklore is null for everyone |
+| The mismatch machine | CMC covered by LB/S 81% (league RB 82%, SF WRs 34%) at WR1 volume; hunting soft coverage pays at every depth |
+| Matchup hunting ranks | Johnson 1st of 41, Shanahan 5th, McVay 37th |
 
 ## Scripts
 
@@ -112,6 +116,8 @@ figures and derived CSVs.
 | `R/28_free_rushers.R` | free_rushers.png |
 | `R/29_hawks_and_kyle.R` | hawks_ledger.png, sf_wr1_qb.png |
 | `R/30_brady_confound.R` | brady_confound.png |
+| `R/31_kyle_yac_cutback.R` | kyle_yac.png, kyle_cutback.png |
+| `R/32_matchup_hunting.R` | cmc_mismatch.png, matchup_hunting.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
