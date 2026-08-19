@@ -116,7 +116,7 @@ p3 <- strip_panel(instr, "instr_H", "off_caller",
 
 p4 <- strip_panel(motion, "gap", "off_play_caller",
   "4. And when someone moves, the run/pass tell dies: the biggest motion effect in football that is clearly real, not noise",
-  "how much harder run vs pass is to guess on his motion snaps (log-loss gap; bigger = right)",
+  "how much harder run vs pass gets when he motions. He motions on 62% of snaps (4th of 37; league median 46%), so the comparison is his own other 38%",
   "McVay: +0.124, clearly real",
   second = "Kyle Shanahan", second_lab = "Shanahan: the only other clearly real effect, a third the size")
 
@@ -129,7 +129,7 @@ cap <- fig_caption(
   "Nothing new is computed here: each panel replots its source script's shipped numbers",
   paste0("\nPanel 1: variety of pre-snap pictures (skill-player alignment sets), down-and-distance-controlled and shrunk; his static pictures also TIP run/pass more than anyone's, which is\n",
          "the paradox the motion panel resolves (R/25). Panel 2 and 3: same-personnel rate on back-to-back snaps and play variety inside those stretches (R/33). Panel 4: how\n",
-         "much a pre-snap model's run/pass guess degrades on motion snaps, FTN motion flag; three callers show bigger raw gaps but on samples too thin to trust\n",
+         "much a pre-snap model's run/pass guess degrades on motion snaps (FTN's any-motion flag, the offense's own movement, nothing to do with defensive shell rotation); three callers show bigger raw gaps but on samples too thin to trust\n",
          "(their uncertainty bands include zero); only his and Shanahan's effects are clearly more than noise (R/15). Context from the fingerprint grid: trick looks on 10.3% of snaps, about double the league, 4th of 36. Built by R/42."))
 
 p_final <- p1 / p2 / p3 / p4 +
