@@ -148,6 +148,21 @@
     </div>
 
     <div class="card">
+      <div class="card-head"><span class="t">The worst fourth-down calls of 2025-26, and the bravery spread</span><span class="pill ship">Two asks, two charts</span></div>
+      <p class="row"><span class="lab">Michael:</span> "What were the worst 4th down decisions for 2025? And in the playoffs?" / "For the coach bravery, how much do coaches vary? I know you have a few things on this but I am wondering if there is an easier way to visualize."</p>
+      <p class="row found"><span class="lab">The worst call of the season belongs to Kevin Stefanski, who owns three of the twelve.</span> Cleveland punting on 4th-and-1 at Pittsburgh, down late in week 17, cost 7.4 win-probability points by the recommendation model; McVay's 4th-and-1 punt against the 49ers (7.0) and a Tomlin punt (6.9) are next, and eleven of the twelve are punts. No playoff decision cracks the list; the worst three in January were a Chargers punt on 4th-and-4 (4.1), a Bears punt on 4th-and-2 (2.9), and a Steelers field goal on 4th-and-3 (2.7). The simpler bravery view is one dot per coach: go rate on clear-cut chances against the league of his own seasons, Kingsbury +10 to Jim Harbaugh &minus;18, a 28-point spread on the same class of decision, and it repeats season to season (r = 0.76).</p>
+      <figure>
+        <img src="figures/worst_fourth.png" alt="Ledger of the twelve costliest fourth-down decisions of 2025-26 with game, spot, choice, head coach, and win-probability cost, Stefanski appearing three times.">
+        <figcaption>The season's costliest choices, priced at the moment of decision. Built by R/59.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/bravery_simple.png" alt="One dot per head coach showing go rate on clear-cut fourth downs versus the league, from Kingsbury plus ten to Jim Harbaugh minus eighteen.">
+        <figcaption>The bravery spread, one axis. Built by R/59.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> cost prices the choice with a public recommendation model, and models disagree at the margins; the ledger keeps only snaps that ended in a real choice, so a penalty-aborted fourth down cannot appear.</p>
+    </div>
+
+    <div class="card">
       <div class="card-head"><span class="t">The Ben Johnson three: Caleb's sacks, the fake, the early runs</span><span class="pill ship">Three asks, three charts</span></div>
       <p class="row"><span class="lab">Michael:</span> "why do you think sack rate seemingly disappeared for Caleb?" / "What is their play action rate compared to the league and his EPA per pass on PA vs. regular?" / "what about on early downs as it relates to running... what does Ben Johnson do?"</p>
       <p class="row found"><span class="lab">Caleb first, because the mechanism is beautiful.</span> His sack rate fell from 9.9% to 3.4% while his pressure rate stayed identical (30.2% to 30.4%): the pressure did not go away, it stopped converting. The share of pressured snaps ending in a sack collapsed from 33% to 11%, and the levers are visible: play action doubled (17% to 35%), designed rollouts doubled (5.9% to 10.7%). The protection was not fixed; the pressure was made useless, which is the league-wide movement mechanism applied to one quarterback. The fake: he play-fakes on 32% of dropbacks, 2nd in football (league 25%), his play-action dropbacks average +0.25 points against +0.10 without, and both halves beat the league. And the early downs are the honest surprise: he RUNS on 50% of early downs, 12th-most of 45 callers, run-heavier than the analytics narrative would guess, with the usual ledger (his early runs &minus;0.03, his early passes +0.15). His unpredictability lives in the sequencing and the fake, not in passing more.</p>
