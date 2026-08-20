@@ -65,76 +65,80 @@ cat(sprintf("P4 motion effect on run/pass guessability: %.3f [%.3f, %.3f], raw r
             mcv$mot$gap, mcv$mot$lo, mcv$mot$hi, mcv$mot$rank, nrow(motion),
             paste(motion[lo > 0][order(-gap)]$off_play_caller, collapse = ", ")))
 
-# ---------------------------------------------------------------- strip panel
-strip_panel <- function(dt, xcol, name_col, title, xlab, mc_lab,
-                        second = NULL, second_lab = NULL, xpct = FALSE) {
-  dt <- copy(dt)[, x := get(xcol)][, nm := get(name_col)]
-  mc <- dt[nm == "Sean McVay"]
-  med <- median(dt$x)
-  p <- ggplot(dt, aes(x, y = 0)) +
-    geom_vline(xintercept = med, linetype = "dotted", colour = "grey55") +
-    geom_point(colour = GREY, size = 2.4, alpha = 0.75,
-               position = position_jitter(height = 0.16, width = 0, seed = 7)) +
-    geom_point(data = mc, aes(x, 0), colour = ORANGE, size = 4.6) +
-    geom_text(data = mc, aes(x, 0, label = mc_lab), colour = ORANGE,
-              fontface = "bold", size = 3.15, vjust = -1.7, lineheight = 0.95) +
-    annotate("text", x = med, y = 0.62, label = "league median",
-             size = 2.6, colour = "grey50", hjust = -0.05)
-  if (!is.null(second)) {
-    sc <- dt[nm == second]
-    p <- p + geom_point(data = sc, aes(x, 0), colour = BLUE, size = 3.2) +
-      geom_text(data = sc, aes(x, 0, label = second_lab), colour = BLUE,
-                size = 2.8, vjust = 2.6)
-  }
-  p +
-    scale_x_continuous(labels = if (xpct) function(v) paste0(v, "%") else waiver()) +
-    scale_y_continuous(limits = c(-0.8, 0.9)) +
-    labs(subtitle = title, x = xlab, y = NULL) +
-    theme_coach(grid = "none") +
-    theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(),
-          plot.subtitle = element_text(face = "bold", size = rel(0.98), colour = "grey15"),
-          axis.title.x = element_text(size = rel(0.78), colour = "grey40", hjust = 0))
+# ---------------------------------------------------------------- one shared scale
+# Redesign after feedback that four separate panels with raw units read
+# unclearly: every measurement becomes "his place among all callers" on one
+# 0-100 scale, oriented so the direction the claim describes is always to
+# the RIGHT. Four rows, one axis, no units to decode.
+
+pctl <- function(v) 100 * (frank(v) - 1) / (length(v) - 1)
+
+rows <- rbindlist(list(
+  variety[, .(nm = off_caller, x = pctl(-H_variety), row = "r1")],
+  hold[,    .(nm = off_caller, x = pctl(hold_rate),  row = "r2")],
+  instr[,   .(nm = off_caller, x = pctl(instr_H),    row = "r3")],
+  motion[,  .(nm = off_play_caller, x = pctl(gap),   row = "r4")]
+))
+
+row_titles <- c(
+  r1 = sprintf("Shows FEWER different pre-snap pictures than almost anyone (%s-fewest of %d)",
+               scales::ordinal(nrow(variety) - mcv$var$variety_rank + 1), nrow(variety)),
+  r2 = sprintf("Keeps the same players on the field snap after snap (%.0f%% of the time, 1st of %d; league %.0f%%)",
+               mcv$hold$hold_rate, nrow(hold), median(hold$hold_rate)),
+  r3 = sprintf("But runs almost the most DIFFERENT plays inside those stretches (%s of %d)",
+               scales::ordinal(mcv$ins$instr_rank), nrow(instr)),
+  r4 = "And when a player goes in motion, run vs pass gets harder to guess: the biggest effect in the league that is clearly real"
+)
+rows[, row_f := factor(row, levels = rev(c("r1","r2","r3","r4")))]
+
+mc  <- rows[nm == "Sean McVay"]
+sha <- rows[nm == "Kyle Shanahan" & row == "r4"]
+thin <- rows[row == "r4" & nm %in% motion[lo <= 0 & gap > mcv$mot$gap]$off_play_caller]
+
+p <- ggplot(rows, aes(x, row_f)) +
+  geom_point(colour = GREY, size = 2.6, alpha = 0.75,
+             position = position_jitter(height = 0.14, width = 0, seed = 7)) +
+  geom_point(data = thin, shape = 21, colour = "grey45", fill = "white", stroke = 0.9, size = 2.8) +
+  geom_text(data = thin[1], aes(label = "open dots: bigger raw numbers, samples too thin to trust"),
+            colour = "grey45", size = 2.7, vjust = 2.6, hjust = 0.85) +
+  geom_point(data = sha, colour = BLUE, size = 3.4) +
+  geom_text(data = sha, aes(label = "Shanahan: the only other clearly real one"),
+            colour = BLUE, size = 2.8, vjust = -1.4, hjust = 0.6) +
+  geom_point(data = mc, colour = ORANGE, size = 5) +
+  geom_text(data = mc, aes(label = "McVay"), colour = ORANGE,
+            fontface = "bold", size = 3.3, vjust = -1.5) +
+  scale_x_continuous(limits = c(-3, 103), breaks = c(2, 98),
+                     labels = c("least of what the line says", "most of what the line says")) +
+  scale_y_discrete(labels = NULL) +
+  coord_cartesian(clip = "off") +
+  labs(x = NULL, y = NULL) +
+  theme_coach(grid = "none") +
+  theme(axis.ticks = element_blank(),
+        axis.text.x = element_text(size = rel(0.9), face = "italic", colour = "grey45"))
+
+# row titles drawn above each strip
+for (rr in c("r1","r2","r3","r4")) {
+  p <- p + annotate("text", x = -2, y = which(levels(rows$row_f) == rr) + 0.42,
+                    label = paste0(match(rr, c("r1","r2","r3","r4")), ". ", row_titles[[rr]]),
+                    hjust = 0, size = 3.4, fontface = "bold", colour = "grey15")
 }
 
-p1 <- strip_panel(variety, "H_variety", "off_caller",
-  sprintf("1. He shows among the fewest pre-snap pictures in football: %s-fewest of %d",
-          scales::ordinal(nrow(variety) - mcv$var$variety_rank + 1), nrow(variety)),
-  "how many different pre-snap pictures a caller shows (fewer = further left; each dot is one caller)",
-  sprintf("McVay: %s-fewest", scales::ordinal(nrow(variety) - mcv$var$variety_rank + 1)))
-
-p2 <- strip_panel(hold, "hold_rate", "off_caller",
-  sprintf("2. And he holds the picture: same personnel on back-to-back snaps %.0f%% of the time, 1st of %d (league %.0f%%)",
-          mcv$hold$hold_rate, nrow(hold), median(hold$hold_rate)),
-  "share of snaps keeping the previous snap's personnel group on the field",
-  "McVay: 84%, 1st", xpct = TRUE)
-
-p3 <- strip_panel(instr, "instr_H", "off_caller",
-  sprintf("3. Inside those held stretches, close to the most different plays in the league: %s of %d",
-          scales::ordinal(mcv$ins$instr_rank), nrow(instr)),
-  "how many different plays come out of those held stretches (more = further right)",
-  sprintf("McVay: %s-most", scales::ordinal(mcv$ins$instr_rank)))
-
-p4 <- strip_panel(motion, "gap", "off_play_caller",
-  "4. And when someone moves, the run/pass tell dies: the biggest motion effect in football that is clearly real, not noise",
-  "how much harder run vs pass gets when he motions. He motions on 62% of snaps (4th of 37; league median 46%), so the comparison is his own other 38%",
-  "McVay: +0.124, clearly real",
-  second = "Kyle Shanahan", second_lab = "Shanahan: the only other clearly real effect, a third the size")
-
-title_txt <- 'The quote is "he makes 25 plays seem like 250." The four measurements that agree'
+title_txt <- 'The quote is "he makes 25 plays seem like 250." Four measurements agree'
 sub_txt <- paste0(
-  "Each strip is every qualified play-caller (2022-23 through 2025-26 seasons); the orange dot is Sean McVay.\n",
-  "The method the four panels add up to: a handful of pictures, held on the field for stretches, with the play menu and the movement doing the disguising inside them.")
+  "Every grey dot is one NFL play-caller (2022-23 through 2025-26 seasons); the orange dot is Sean McVay.\n",
+  "All four rows share one scale: his place among all callers, from least to most of what each line says.\n",
+  "Read together: a handful of pictures, held on the field, with the play menu and the movement doing the disguising inside them.")
 
 cap <- fig_caption(
-  "Nothing new is computed here: each panel replots its source script's shipped numbers",
-  paste0("\nPanel 1: variety of pre-snap pictures (skill-player alignment sets), down-and-distance-controlled and shrunk; his static pictures also TIP run/pass more than anyone's, which is\n",
-         "the paradox the motion panel resolves (R/25). Panel 2 and 3: same-personnel rate on back-to-back snaps and play variety inside those stretches (R/33). Panel 4: how\n",
-         "much a pre-snap model's run/pass guess degrades on motion snaps (FTN's any-motion flag, the offense's own movement, nothing to do with defensive shell rotation); three callers show bigger raw gaps but on samples too thin to trust\n",
-         "(their uncertainty bands include zero); only his and Shanahan's effects are clearly more than noise (R/15). Context from the fingerprint grid: trick looks on 10.3% of snaps, about double the league, 4th of 36. Built by R/42."))
+  "Each row replots numbers already shipped by this project's earlier charts; nothing new is computed here",
+  paste0("\nRow 1: how many different pre-snap pictures (where the skill players line up) a caller shows, compared within the same downs and distances (R/25). His static\n",
+         "pictures also TIP run vs pass more than anyone's, which is the puzzle row 4 answers. Rows 2 and 3: keeping the same personnel on back-to-back snaps, and how\n",
+         "many different plays come out of those stretches (R/33). Row 4: how much harder a run/pass guess gets on his motion snaps; he motions on 62% of snaps (4th of 37,\n",
+         "league median 46%), so the comparison is his own other 38%; this is the offense's own movement, nothing to do with defensive safety rotation. Three callers show\n",
+         "bigger raw motion numbers but on samples too thin to trust; only his and Shanahan's are clearly real (R/15). Built by R/42."))
 
-p_final <- p1 / p2 / p3 / p4 +
-  plot_annotation(title = title_txt, subtitle = sub_txt, caption = cap,
-                  theme = theme_coach(grid = "none"))
+p_final <- p + labs(title = title_txt, subtitle = sub_txt, caption = cap) +
+  theme(plot.margin = margin(10, 16, 8, 10))
 
-save_fig("docs/figures/mcvay_formula.png", p_final, w = 12.5, h = 12)
+save_fig("docs/figures/mcvay_formula.png", p_final, w = 12.5, h = 8)
 cat("\nOut: docs/figures/mcvay_formula.png\n")
