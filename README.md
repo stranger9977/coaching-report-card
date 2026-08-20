@@ -108,6 +108,9 @@ the new work.
 | WR openness by tier | Johnson's WR3 most open in football (1/28), WR2 top-10; McVay WR2 3rd/WR3 5th but converts poorly; Shanahan's openness is TE (#2) + RB (#6), not WRs |
 | Ferguson stretches 13p vertically | 18.6-yd avg target depth, 3.1x next Rams TE; 28% explosive; on/off +0.24 vs +0.15 (n=89, underpowered) |
 | Blocking-TE specialists barely exist | Saubert ran routes on 71% of pass snaps; 1 of 76 qualified TEs under a 60% route rate |
+| Caleb's sacks: pressure stopped converting | sack 9.9->3.4% w/ pressure flat (30.2->30.4); sack-per-pressure 33->11%; PA 17->35%, rollouts 5.9->10.7% |
+| Johnson play-fakes 2nd in football | 32% of dropbacks (league 25%); PA +0.25 vs no-PA +0.10, both beat league (+0.09/-0.03) |
+| Johnson runs early MORE than most | 50% early-down runs, 12th-most of 45; his early runs -0.03 vs passes +0.15 |
 | Macdonald stunts backwards from the league | league stunts more on blitzes (29 vs 25%); he is 3rd-most on regular rushes, 34/39 on blitzes; Ryans the mirror |
 | Super Bowl sims, clock-stamped | 3 sims all Q3, all won (Emmanwori 3rd&3 -2.1; Witherspoon 3rd&4 -1.8, 2nd&10 -0.7); SF wk1's three all lost |
 | Macdonald stunts, a lot | 42% of passing-down dropbacks (7th of 44; league 37%); sims on passing downs league-average volume (25/48) |
@@ -179,6 +182,7 @@ figures and derived CSVs.
 | `R/54_stunt_rate.R` | stunt_rate.png |
 | `R/55_stunt_when.R` | stunt_when.png |
 | `R/56_sim_reel.R` | sim_reel.png |
+| `R/58_bj_file.R` | caleb_sacks.png, bj_pa.png, bj_earlyruns.png |
 | `R/50_blitz_vs_free.R` | blitz_vs_free.png |
 
 ```sh
