@@ -159,6 +159,39 @@ p4 <- ggplot(m4, aes(gap, nm2)) +
         plot.subtitle = element_text(lineheight = 1.12))
 save_fig("docs/figures/mcvay_formula_motion.png", p4, w = 9.5, h = 8.6)
 
+# chart 4a: how often is he actually in motion? (the "is it every play?" answer)
+mr <- copy(motion)[, nm2 := off_play_caller][, mrate := 100 * motion_rate]
+setorder(mr, mrate)
+mr[, nm2 := factor(nm2, levels = nm2)]
+mcr <- mr[nm2 == "Sean McVay"]
+pr <- ggplot(mr, aes(mrate, nm2)) +
+  geom_segment(aes(x = 0, xend = mrate, y = nm2, yend = nm2), colour = "grey88", linewidth = 1.6) +
+  geom_point(colour = "grey60", size = 2.3) +
+  geom_vline(xintercept = 100, colour = "grey35", linewidth = 0.5, linetype = "dashed") +
+  annotate("text", x = 99, y = 4.5, label = "every play\nwould be here", hjust = 1,
+           size = 3, colour = "grey40", fontface = "italic", lineheight = 0.95) +
+  geom_vline(xintercept = median(mr$mrate), colour = "grey70", linewidth = 0.4, linetype = "dotted") +
+  annotate("text", x = median(mr$mrate) + 1, y = 2.1, label = "league middle",
+           hjust = 0, size = 2.9, colour = "grey55") +
+  geom_segment(data = mcr, aes(x = 0, xend = mrate, y = nm2, yend = nm2),
+               colour = "#f3c7a8", linewidth = 1.6) +
+  geom_point(data = mcr, colour = ORANGE, size = 4) +
+  geom_text(data = mcr, aes(label = "Sean McVay: 62%"), colour = ORANGE,
+            fontface = "bold", size = 3.4, hjust = -0.1) +
+  scale_x_continuous(limits = c(0, 104), breaks = seq(0, 100, 25),
+                     labels = function(v) paste0(v, "%")) +
+  labs(title = "How often is a player actually in motion? A lot, and nowhere near every play",
+       subtitle = paste0("Share of snaps with a player in motion before the snap: McVay 62% (4th of 37), league middle 46%, nobody past 74%.\n",
+                         "So the motion chart compares his 62% motion snaps against his own 38% still snaps, about 1,600 plays."),
+       x = "share of snaps with pre-snap motion", y = NULL,
+       caption = fig_caption(
+         "This is the OFFENSE's own player moving before the snap",
+         "\nIt has nothing to do with the defensive \"shell\" talk elsewhere on this board, which is about the defense's safeties changing the coverage picture after the snap.\nFTN charting, 2022-23 through 2025-26 regular seasons. Built by R/42.")) +
+  theme_coach(grid = "none") +
+  theme(axis.text.y = element_text(size = rel(0.62), colour = "grey45"),
+        plot.subtitle = element_text(lineheight = 1.12))
+save_fig("docs/figures/mcvay_formula_motionrate.png", pr, w = 9.5, h = 8.6)
+
 # ---------------------------------------------------------------- the diagram
 bx <- function(x1, x2, y1, y2, fill) annotate("rect", xmin = x1, xmax = x2, ymin = y1, ymax = y2,
                                               fill = fill, colour = NA)
