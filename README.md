@@ -108,6 +108,8 @@ the new work.
 | WR openness by tier | Johnson's WR3 most open in football (1/28), WR2 top-10; McVay WR2 3rd/WR3 5th but converts poorly; Shanahan's openness is TE (#2) + RB (#6), not WRs |
 | Ferguson stretches 13p vertically | 18.6-yd avg target depth, 3.1x next Rams TE; 28% explosive; on/off +0.24 vs +0.15 (n=89, underpowered) |
 | Blocking-TE specialists barely exist | Saubert ran routes on 71% of pass snaps; 1 of 76 qualified TEs under a 60% route rate |
+| Macdonald stunts backwards from the league | league stunts more on blitzes (29 vs 25%); he is 3rd-most on regular rushes, 34/39 on blitzes; Ryans the mirror |
+| Super Bowl sims, clock-stamped | 3 sims all Q3, all won (Emmanwori 3rd&3 -2.1; Witherspoon 3rd&4 -1.8, 2nd&10 -0.7); SF wk1's three all lost |
 | Macdonald stunts, a lot | 42% of passing-down dropbacks (7th of 44; league 37%); sims on passing downs league-average volume (25/48) |
 | Sim pressure springs free rushers | standard 3.1% -> sim 8.5% (2.7x) -> blitz 17.1%; 41 of 41 DCs individually confirm; Macdonald's sim: 16.7%, volume rank 19 |
 | The Macdonald outlier chart | blitz 22% (10th-fewest of 41) x free-rusher pressure 9.3% (2nd); only Martindale higher, bought with 43% blitzing |
@@ -175,6 +177,7 @@ figures and derived CSVs.
 | `R/52_wr_open_by_tier.R` | wr_open_by_tier.png |
 | `R/53_open_allowed.R` | open_allowed.png |
 | `R/54_stunt_rate.R` | stunt_rate.png |
+| `R/55_stunt_when.R` | stunt_when.png |
 | `R/50_blitz_vs_free.R` | blitz_vs_free.png |
 
 ```sh
