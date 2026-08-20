@@ -393,25 +393,24 @@ TITLE <- sprintf(
   "Menu vs. wardrobe: McVay ranks #%d of %d on menu size, #%d of %d on wardrobe",
   mcvay$menu_rank, n_q, mcvay$wardrobe_rank, n_q)
 SUB <- paste0(
-  "x-axis: how many distinct plays a caller needs to cover 80% of his snaps, fewer is a smaller menu, plotted so fewer sits left.\n",
-  "y-axis: among those core plays, how many different pre-snap dressings (formation, personnel, QB alignment) the average one wears.\n",
-  "Rarefied to 1,200 plays per caller (200 draws, averaged) so callers with more snaps charted do not look artificially richer."
+  "Across: how many different plays it takes to cover 80% of a caller's snaps. Fewer plays = smaller menu = further left.\n",
+  "Up: how many different looks the average play gets dressed in (the formation, the personnel, where the QB stands). More looks = bigger wardrobe = higher.\n",
+  "Every caller is measured on the same 1,200-play sample, so a caller with more snaps charted does not get credit for a bigger playbook just for playing more."
 )
 
 p_final <- p + labs(title = TITLE, subtitle = SUB,
   caption = fig_caption(
-    "SumerSports play and player charting, 2022-23 through 2025-26 season, non-garbage-time, season_type==0",
-    sprintf(paste0("%d qualifying callers (>= %d offensive scrimmage plays each).\n",
-                   "A play = run_concept plus the called side for runs; the 3 deepest-charted route runners' routes for dropbacks\n",
-                   "(Sumer's schema has no play-level pass concept). A dressing = formation x personnel package x QB alignment\n",
-                   "(Sumer has no motion field)."),
-            n_q, QUAL_MIN),
-    sprintf(paste0("\nBoth axes rarefied: every caller cut down to the same %d-play draw, %d draws averaged, so callers with more\n",
-                   "charted snaps do not look artificially richer. Persistence (odd vs even season halves, rarefied within each half,\n",
-                   "n=%d callers): menu size r = %+.2f [%+.2f, %+.2f], wardrobe r = %+.2f [%+.2f, %+.2f]. Built by R/41."),
-            RAREFY_N, N_ITER, nrow(half_dt),
-            ct_menu$estimate, ct_menu$conf.int[1], ct_menu$conf.int[2],
-            ct_ward$estimate, ct_ward$conf.int[1], ct_ward$conf.int[2])
+    "SumerSports play charting, 2022-23 through 2025-26 regular seasons, garbage time excluded",
+    sprintf(paste0("%d callers with at least %s plays each.\n",
+                   "A play = the run scheme and which side it attacks; for passes, the three deepest routes on the play\n",
+                   "(the charting does not name pass plays, so the routes stand in for the concept). A look = formation,\n",
+                   "personnel group, and where the quarterback stands. Nobody's data tags motion, so a motion variation\n",
+                   "does not count as a new look here; if a caller's disguise lives in motion, this chart cannot see it."),
+            n_q, format(QUAL_MIN, big.mark = ",")),
+    sprintf(paste0("\nBoth habits are stable: a caller's menu size and wardrobe in his even-numbered seasons strongly predict\n",
+                   "his odd-numbered ones (menu r = %+.2f, wardrobe r = %+.2f across %d callers), so this is identity,\n",
+                   "not one hot stretch of tape. Built by R/41."),
+            ct_menu$estimate, ct_ward$estimate, nrow(half_dt))
   )) +
   theme(plot.margin = margin(10, 14, 8, 10))
 

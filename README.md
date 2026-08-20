@@ -104,7 +104,7 @@ the new work.
 | "25 plays seem like 250," composited | 5th-fewest pictures + personnel held 84% (1st) + 4th-most play variety inside stretches + largest interval-backed motion effect |
 | McVay's pistol experiment | 0% -> 7.7% (2023-24) -> 10.6% (2024-25), ~2x league both years, killed to 0.7% in 2025-26 |
 | Rotation null, 4th cut: by coordinator | 43 DCs tested, 2 clear 95% (2.1 expected by luck), one each direction; Macdonald -0.09 CI spans zero |
-| One game, one look, 15 plays | Rams at SEA 2022-23 wk13: same look 28 snaps, 15 distinct plays; alternates NO 2025-26 wk9 (20/11), BUF 2024-25 wk14 (16/12) |
+| One game, one look, 11 plays | Rams vs NO 2025-26 wk9: same look 20 snaps, 11 distinct plays, 3 TDs; biggest: SEA 2022-23 wk13 (28/15); BUF 2024-25 wk14 (16/12) |
 | McVay motions on 62% of snaps | 4th of 37, league median 46%; panel-4 comparison is his own other 38% |
 | The tip, made concrete | 11 pers/3x2/shotgun: 96% pass vs 67% expected; every shotgun look +6..+29, every under-center look -4..-19: the tell is the QB's feet |
 | Menu vs wardrobe: quote half-true | McVay menu 3rd-smallest of 36 but wardrobe 27th; Ben Johnson owns the folklore corner (5th + 6th); both traits stable (r=.81/.72) |

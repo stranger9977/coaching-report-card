@@ -99,7 +99,7 @@ strip_panel <- function(dt, xcol, name_col, title, xlab, mc_lab,
 p1 <- strip_panel(variety, "H_variety", "off_caller",
   sprintf("1. He shows among the fewest pre-snap pictures in football: %s-fewest of %d",
           scales::ordinal(nrow(variety) - mcv$var$variety_rank + 1), nrow(variety)),
-  "variety of pre-snap pictures a caller shows (bits; fewer pictures = left)",
+  "how many different pre-snap pictures a caller shows (fewer = further left; each dot is one caller)",
   sprintf("McVay: %s-fewest", scales::ordinal(nrow(variety) - mcv$var$variety_rank + 1)))
 
 p2 <- strip_panel(hold, "hold_rate", "off_caller",
@@ -111,7 +111,7 @@ p2 <- strip_panel(hold, "hold_rate", "off_caller",
 p3 <- strip_panel(instr, "instr_H", "off_caller",
   sprintf("3. Inside those held stretches, close to the most different plays in the league: %s of %d",
           scales::ordinal(mcv$ins$instr_rank), nrow(instr)),
-  "play variety within same-personnel stretches (bits; more different plays = right)",
+  "how many different plays come out of those held stretches (more = further right)",
   sprintf("McVay: %s-most", scales::ordinal(mcv$ins$instr_rank)))
 
 p4 <- strip_panel(motion, "gap", "off_play_caller",

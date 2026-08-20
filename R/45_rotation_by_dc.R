@@ -121,10 +121,11 @@ p <- ggplot(res, aes(diff, nm)) +
                 colour = col), hjust = -0.12, size = 3, fontface = "bold") +
   scale_x_continuous(labels = label_number(style_positive = "plus")) +
   coord_cartesian(clip = "off") +
-  labs(title = "Does rotating the shell pay for ANYBODY? Coordinator by coordinator: no",
+  labs(title = "Does rotating the shell pay for anybody? Nobody clears the bar, and the bar is high",
        subtitle = paste0(
          "Offense's EPA per play on his rotated snaps minus his static snaps, after the situation is priced out, one row per defensive caller.\n",
-         "Negative = his rotation coincides with better defense. ", verdict_txt),
+         "Negative = his rotation coincides with better defense. ", verdict_txt, "\n",
+         "The honest limit: per-coach samples are wide enough that a real effect worth about 20 points (nearly a win) a season could hide inside most of these intervals."),
        x = "offense EPA/play, rotated minus static, situation-controlled (negative = rotation helps his defense)",
        y = NULL,
        caption = fig_caption(
@@ -133,7 +134,9 @@ p <- ggplot(res, aes(diff, nm)) +
          paste0("\nSame machinery as the pooled null: EPA compared against an out-of-sample situation-only expectation (down, distance, field position, quarter, score, clock),\n",
                 "so the bars are what rotation adds beyond the moment. This is the fourth cut at the same question (pooled, by coverage and blitz, by pass probability and\n",
                 "ten named situations, now by coordinator) and the fourth null. What stays real about rotation: the league trend is rising and WHO rotates is one of the most\n",
-                "stable coach traits measured here. The camera loves it; the scoreboard shrugs. Built by R/45."))) +
+                "stable coach traits measured here. Statistically unproven is not the same as small: Macdonald rotates on about 236 dropbacks a season, so his -0.09 point estimate\n",
+                "would be worth about 22 points (nearly a win) a season IF real; his interval runs from saving 51 points to giving away 8. The league-wide pooled test IS precise\n",
+                "(66,000 snaps) and pins the average effect near zero; what stays open is whether individual coaches profit. Built by R/45."))) +
   theme_coach(grid = "none") +
   theme(axis.text.y = element_text(size = rel(0.72)))
 
