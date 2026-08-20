@@ -180,7 +180,7 @@ pr <- ggplot(mr, aes(mrate, nm2)) +
             fontface = "bold", size = 3.4, hjust = -0.1) +
   scale_x_continuous(limits = c(0, 104), breaks = seq(0, 100, 25),
                      labels = function(v) paste0(v, "%")) +
-  labs(title = "How often is a player actually in motion? A lot, and nowhere near every play",
+  labs(title = "How often is a player actually in motion? For McVay, 62% of snaps",
        subtitle = paste0("Share of snaps with a player in motion before the snap: McVay 62% (4th of 37), league middle 46%, nobody past 74%.\n",
                          "So the motion chart compares his 62% motion snaps against his own 38% still snaps, about 1,600 plays."),
        x = "share of snaps with pre-snap motion", y = NULL,
