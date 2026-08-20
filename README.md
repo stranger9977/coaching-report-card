@@ -103,6 +103,7 @@ the new work.
 | The scheme-space crown is Johnson's | 1st of 37 before contact, 50/50 split, spread across 19 players; channels correlate only r = 0.60 |
 | "25 plays seem like 250," composited | 5th-fewest pictures + personnel held 84% (1st) + 4th-most play variety inside stretches + largest interval-backed motion effect |
 | McVay's pistol experiment | 0% -> 7.7% (2023-24) -> 10.6% (2024-25), ~2x league both years, killed to 0.7% in 2025-26 |
+| Rotation null, 4th cut: by coordinator | 43 DCs tested, 2 clear 95% (2.1 expected by luck), one each direction; Macdonald -0.09 CI spans zero |
 | One game, one look, 15 plays | Rams at SEA 2022-23 wk13: same look 28 snaps, 15 distinct plays; alternates NO 2025-26 wk9 (20/11), BUF 2024-25 wk14 (16/12) |
 | McVay motions on 62% of snaps | 4th of 37, league median 46%; panel-4 comparison is his own other 38% |
 | The tip, made concrete | 11 pers/3x2/shotgun: 96% pass vs 67% expected; every shotgun look +6..+29, every under-center look -4..-19: the tell is the QB's feet |
@@ -154,6 +155,7 @@ figures and derived CSVs.
 | `R/42_mcvay_formula.R` | mcvay_formula.png |
 | `R/43_tip_explainer.R` | tip_explainer.png |
 | `R/44_one_look_one_game.R` | one_look_one_game.png |
+| `R/45_rotation_by_dc.R` | rotation_by_dc.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
