@@ -34,9 +34,17 @@ source("R/factory/lib_sumer.R")
 
 d <- load_sumer(seasons = 2022:2025)
 d <- d[season_type == 0 & off_caller == "Sean McVay" & run_pass %in% c("P", "R")]
-d <- d[offensive_personnel_basic != "" & formation != "" & quarterback_alignment != ""]
-d[, look := sprintf("%s personnel | %s | %s", offensive_personnel_basic,
-                    formation, tolower(quarterback_alignment))]
+# THE STRICT PICTURE, after film review showed the coarse look (personnel x
+# receiver split x QB spot) mixes formations: every skill player's charted
+# alignment (position type, side of field, on or off the line) must be
+# IDENTICAL for two snaps to count as the same picture.
+pp <- rbindlist(list(fread("data/raw/sumer/plays_players_p1.csv.gz"),
+                     fread("data/raw/sumer/plays_players_p2.csv.gz")), fill = TRUE)
+sk <- pp[side_of_ball == "offense" & alignment %in% c("RB","FB","TE","WR","SWR") &
+         sumer_play_id %in% d$sumer_play_id]
+sk[, part := paste(alignment, alignment_side, off_on_los_alignment, sep = ":")]
+sig <- sk[, .(look = paste(sort(part), collapse = "|"), n_skill = .N), by = sumer_play_id]
+d <- merge(d, sig[n_skill >= 4], by = "sumer_play_id")
 
 # readable, film-ready play label
 d[, depth_b := fifelse(is.na(depth_of_target), "throw",
@@ -56,8 +64,8 @@ cand <- d[, .(snaps = .N, plays = uniqueN(play_lbl)),
           by = .(season, week, def_team, look)][snaps >= 8][order(-plays, -snaps)]
 cat("top single-game same-look candidates:\n"); print(cand[1:8])
 
-SHOW <- list(season = 2025L, week = 9L, look = "13 personnel | 2x2 | under center")
-g <- d[season == SHOW$season & week == SHOW$week & def_team == "NO" & look == SHOW$look]
+show_sig <- cand[season == 2024 & week == 1 & def_team == "DET"][1]$look
+g <- d[season == 2024 & week == 1 & def_team == "DET" & look == show_sig]
 setorder(g, quarter, -clock)
 g[, snap_no := .I]
 g[, dd := sprintf("%s & %s", down, distance)]
@@ -65,7 +73,7 @@ g[, result := paste0(fifelse(expected_points_added >= 0, "+", ""),
                      sprintf("%.1f", expected_points_added),
                      fifelse(is_touchdown == TRUE, "  TD",
                      fifelse(rushing_first_down == TRUE | passing_first_down == TRUE, "  first down", "")))]
-cat(sprintf("\nshowcase: 2025 wk9 vs NO, %d snaps, %d distinct plays\n",
+cat(sprintf("\nshowcase: 2024 wk1 at DET, strict picture, %d snaps, %d distinct plays\n",
             nrow(g), uniqueN(g$play_lbl)))
 
 write_csv(as.data.frame(g[, .(snap_no, quarter, clock, down, distance, play_lbl,
@@ -93,15 +101,15 @@ p <- ggplot(tab, aes(y = y)) +
   scale_y_continuous(limits = c(min(tab$y) - 1, 1)) +
   labs(title = sprintf("One game, one look, %d different plays", n_plays),
        subtitle = paste0(
-         sprintf("Rams vs New Orleans, week 9 of this past season (2025-26). McVay showed the exact same picture %d times: 13 personnel (three tight ends),\n", nrow(tab)),
-         sprintf("receivers 2x2, quarterback under center. Out of it he called %d different plays. This is \"same formation, different plays\" on one film reel.", n_plays)),
+         sprintf("Rams at Detroit, week 1 of the 2024-25 season. On %d snaps, every skill player lined up IDENTICALLY: same spots, same sides of the field,\n", nrow(tab)),
+         sprintf("same men on or off the line. Out of that one picture he called %d different plays. The strictest same-picture cut the charting allows.", n_plays)),
        x = NULL, y = NULL,
        caption = fig_caption(
          "SumerSports play charting",
-         "\nA look = the personnel group, the receiver split, and where the QB stands. A play = the run scheme and its side for runs; play action or not, plus throw depth, for passes.",
+         "\nSame picture = every skill player's charted alignment identical (position, side, on or off the line); spacing within a spot can still vary on film.\nA play = the run scheme and its side for runs; play action or not, plus throw depth, for passes.",
          paste0("\nThat labeling UNDERCOUNTS variety: two different deep concepts read as one row here. Result is points added on the play, with first downs and touchdowns marked.\n",
-                "The biggest example in the four charted seasons, if an older game is fine: at Seattle, week 13 of 2022-23, the 11-personnel under-center look, 28 snaps,\n",
-                "15 different plays. Another recent one: the week 14 shootout at Buffalo in 2024-25, 16 snaps, 12 different plays from one look. Built by R/44."))) +
+                "This past season's best strict-picture example: week 9 against New Orleans, one exact 13-personnel picture 8 times, 5 different plays;\n",
+                "week 16 at Seattle runs 6-for-5. Built by R/44."))) +
   theme_coach(grid = "none") +
   theme(axis.text = element_blank(), axis.ticks = element_blank(),
         plot.subtitle = element_text(lineheight = 1.15))
