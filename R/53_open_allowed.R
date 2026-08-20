@@ -89,6 +89,9 @@ MIN_CAREER <- 700   # R/28's DC floor, on charted dropbacks
 MIN_CELL   <- 150   # targets per (def_caller x rush_type) cell
 MACDONALD  <- "Mike Macdonald"
 
+season_span <- function(seasons) sprintf("%d-%02d through %d-%02d", min(seasons), (min(seasons) + 1) %% 100,
+                                          max(seasons), (max(seasons) + 1) %% 100)
+
 ordinal_lite <- function(n) {
   suf <- if (n %% 100 %in% 11:13) "th" else switch(as.character(n %% 10), "1" = "st", "2" = "nd", "3" = "rd", "th")
   sprintf("%d%s", n, suf)
@@ -377,17 +380,17 @@ p <- ggplot(wide) +
   scale_colour_manual(values = c("regular rush" = "#2B8CBE", "blitz (5+ rushers)" = "#D55E00"), name = NULL) +
   scale_x_continuous(labels = function(x) paste0(ifelse(x > 0, "+", ""), round(x, 0), "pp")) +
   labs(
-    title = sprintf("Blitzing leaves the league %.1f points more open than a regular rush; on blitzes, %s ranks #%d of %d",
-                     gap_a, MACDONALD, mac_blz$rank_open, n_blz),
+    title = sprintf("Blitzing %s coverage leaguewide by %.1f points; on blitzes, %s ranks #%d of %d for openness allowed",
+                     gap_a_word, abs(gap_a), MACDONALD, mac_blz$rank_open, n_blz),
     subtitle = sprintf(paste0("Uncontested-target rate, era-adjusted against the league facing the same rush type in the same season. Higher = more receivers get a\n",
                                "free look at the catch point. Dashed lines mark the league median on each rush type. %d defensive callers with >= %d charted dropbacks\n",
-                               "and >= %d targets on both splits, %d-23 through %d-%d regular seasons."),
-                        n_both, MIN_CAREER, MIN_CELL, min(SEASONS), max(SEASONS) - 1, max(SEASONS)),
+                               "and >= %d targets on both splits, %s regular seasons."),
+                        n_both, MIN_CAREER, MIN_CELL, season_span(SEASONS)),
     x = "uncontested-target rate vs league expectation for that rush type (percentage points)",
     y = NULL,
     caption = fig_caption(
       "plays_players_p1/p2.csv.gz (contested_target) + load_sumer() dropback/blitz flags, SumerSports play charting",
-      sprintf("%d defensive callers, regular-season non-garbage-time targets, %d-23 through %d-%d.", n_both, min(SEASONS), max(SEASONS) - 1, max(SEASONS)),
+      sprintf("%d defensive callers, regular-season non-garbage-time targets, %s.", n_both, season_span(SEASONS)),
       "\nSumer has no separation-distance metric; uncontested-target rate is the closest honest proxy for 'left open,' not a direct measure of it.\nA second proxy, completions allowed over a depth-and-situation model, corroborates in data/derived/open_allowed.csv. Built by R/53."
     )
   ) +
@@ -413,8 +416,9 @@ cat(sprintf("wrote data/derived/open_allowed.csv (%d rows, one per def_caller x 
 cat("\n================= SUMMARY =================\n")
 cat("No separation-distance metric exists in Sumer; uncontested-target rate and completion-over-expected\n")
 cat("are the closest honest proxies for 'left open,' used throughout, not a direct openness measure.\n\n")
-cat(sprintf("LEAGUEWIDE: blitzing leaves receivers %+.1fpp more uncontested and %+.2fpp more completions over\n", gap_a, gap_b))
-cat("expected than a regular rush. Sending extra rushers costs the coverage behind them, across the league.\n\n")
+cat(sprintf("LEAGUEWIDE: blitzing %s coverage -- uncontested rate moves %+.1fpp and completion-over-expected\n", gap_a_word, gap_a))
+cat(sprintf("moves %+.2fpp on blitzes vs a regular rush, across the league. %s\n\n",
+            gap_b, if (gap_a <= 0 && gap_b <= 0) "Extra rushers buy tighter coverage on average, not looser -- the opposite of the starting assumption." else "Sending extra rushers costs the coverage behind them."))
 cat(sprintf("%s, REGULAR RUSH: uncontested rank #%d of %d (%+.1fpp era-adj) -- %s.\n",
             MACDONALD, mac_reg$rank_open, n_reg, mac_reg$uncontested_era_adj, verdict_reg))
 cat(sprintf("%s, BLITZ:        uncontested rank #%d of %d (%+.1fpp era-adj) -- %s.\n",

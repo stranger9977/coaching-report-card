@@ -298,7 +298,7 @@ wr_tab <- if (chosen_proxy == "contested") {
   comp_oe[tier %in% c("WR1", "WR2", "WR3"),
           .(off_caller, tier, value = comp_oe, n, rank = rank_comp, n_in_tier)]
 }
-proxy_label <- if (chosen_proxy == "contested") "contested-target rate, era-adjusted and shrunk\n(lower = receivers get a more open look)" else
+proxy_label <- if (chosen_proxy == "contested") "share of targets contested at the catch point, measured against that season's league level\n(lower = receivers get a more open look; small samples pulled toward average)" else
   "completion rate over a depth-and-situation model,\npercentage points (higher = easier throws than expected)"
 proxy_axis_fmt <- if (chosen_proxy == "contested") function(x) paste0(x, "pp") else function(x) paste0(ifelse(x > 0, "+", ""), x, "pp")
 
@@ -317,15 +317,12 @@ lab_wr <- wr_tab[hl == TRUE]
 hl_colour <- setNames(c("#7a1a1a", "#8a3d00", "#08306b"), THREE)
 lab_wr[, colour := hl_colour[as.character(off_caller)]]
 
-kyle_wr2 <- wr_tab[off_caller == KYLE & tier == "WR2"]
+bj_wr3 <- wr_tab[off_caller == "Ben Johnson" & tier == "WR3"]
 kyle_wr1 <- wr_tab[off_caller == KYLE & tier == "WR1"]
-title_txt <- if (nrow(kyle_wr2) && nrow(kyle_wr1)) {
-  sprintf("Shanahan: %s of %d most open on WR2, %s of %d on WR1",
-          ordinal_lite(kyle_wr2$rank), kyle_wr2$n_in_tier, ordinal_lite(kyle_wr1$rank), kyle_wr1$n_in_tier)
+title_txt <- if (nrow(bj_wr3) && nrow(kyle_wr1)) {
+  sprintf("Who gets the SECONDARY receivers open: Ben Johnson's WR3 is the most open in football (%s of %d)",
+          ordinal_lite(bj_wr3$rank), bj_wr3$n_in_tier)
 } else "Openness by receiver tier, per play-caller"
-if (chosen_proxy == "comp_oe") {
-  title_txt <- gsub("most open", "most completions over expected", title_txt)
-}
 
 p <- ggplot(wr_tab, aes(value, off_caller)) +
   geom_vline(data = med_lines, aes(xintercept = med), colour = ink_baseline, linetype = "dashed", linewidth = 0.35) +
@@ -341,8 +338,9 @@ p <- ggplot(wr_tab, aes(value, off_caller)) +
     title = title_txt,
     subtitle = paste0(
       "Each dot is one play-caller's ", if (chosen_proxy == "contested") "contested-target rate" else "completion rate over a depth-and-situation model",
-      " for that receiver tier (", format(sum(off_n[off_caller %in% qualified]$N), big.mark = ","), " qualified-caller offensive plays, ",
-      min(SEASONS), "-", max(SEASONS), ").\nDashed line = league median for that tier. Same callers, same order, all three panels, sorted by the WR2 value."),
+      " for that receiver tier. WR1/WR2/WR3 = each team-season's most-, second-, and third-targeted wide receiver.\n",
+      "Dashed line = league middle for that tier. Same callers, same order in all three panels, sorted by the WR2 value.\n",
+      "McVay and Johnson get their second and third receivers open looks; Shanahan does not, because his openness lives at tight end and running back instead."),
     x = proxy_label, y = NULL) +
   theme_coach(grid = "none") +
   theme(axis.text.y = element_text(size = rel(0.55), colour = ink_body),
@@ -353,12 +351,12 @@ fig_note <- paste0(
   "Sumer has no separation-distance metric; contested-target rate (who gets contested at the catch point) and ",
   "completion rate over a depth-and-situation model (who completes more than throw depth predicts) are the closest ",
   "honest proxies for 'open,' not direct measures of it (see R/35). Tight end and running back context rows (each ",
-  "team-season's most-targeted player at that position) are in the CSV, not charted here to keep this figure readable.")
+  "team-season's most-targeted player at that position) are in the CSV, not charted here to keep this figure readable. Built by R/52.")
 
 p_full <- p + labs(caption = paste(strwrap(fig_caption(
-  "plays_players_p1/p2.csv.gz (contested_target) + load_sumer() completion model (depth_of_target + situation, leave-one-season-out xgboost)",
-  sprintf("%d callers with >= %d offensive plays, >= %d targets in a tier cell, regular season, non-garbage-time, %d-%d.",
-          uniqueN(wr_tab$off_caller), MIN_OFF_PLAYS, MIN_CELL, min(SEASONS), max(SEASONS)),
+  "SumerSports player charting, 2022-23 through 2025-26 regular seasons, garbage time excluded",
+  sprintf("%d callers with at least %s offensive plays and %d targets in a tier cell.",
+          uniqueN(wr_tab$off_caller), format(MIN_OFF_PLAYS, big.mark = ","), MIN_CELL),
   fig_note
 ), width = 150), collapse = "\n"))
 
