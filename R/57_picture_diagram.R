@@ -52,3 +52,43 @@ p <- ggplot(pl, aes(x, y)) +
   theme(axis.text = element_blank(), axis.ticks = element_blank())
 save_fig("docs/figures/picture_diagram.png", p, w = 9.5, h = 5.6)
 cat("Out: docs/figures/picture_diagram.png\n")
+
+# ---------------------------------------------------------------- the NO picture
+# The New Orleans film card's bucket (13 personnel | 2x2 | under center, 20
+# snaps) is NOT one alignment: it contains 7 charted variants (5/4/4/3/2/1/1
+# snaps), and the top two are mirror images. This draws the most-used one.
+# In 13 personnel the flexed slot/wide spots are tight ends by roster.
+pl2 <- data.table(
+  x    = c(-1.0, -0.5, 0, 0.5, 1.0,   0,    0,   -3.9, -2.6,  1.6,  2.6),
+  y    = c(0.35, 0.35, 0.35, 0.35, 0.35, -0.35, -1.25, 0.35, -0.25, 0.35, -0.25),
+  lab  = c("T","G","C","G","T",  "QB", "RB",  "WR", "TE\nslot", "TE", "TE\nflex"),
+  role = c(rep("ol",5), "qb", "rb", "wr", "te", "te", "te")
+)
+p2 <- ggplot(pl2, aes(x, y)) +
+  geom_hline(yintercept = 0.72, colour = "grey30", linewidth = 0.7) +
+  annotate("text", x = 4.35, y = 0.9, label = "line of scrimmage", hjust = 1,
+           size = 2.9, colour = "grey45", fontface = "italic") +
+  geom_point(aes(fill = role), shape = 21, size = 12, colour = "grey25", stroke = 0.8,
+             show.legend = FALSE) +
+  scale_fill_manual(values = c(ol = "grey85", qb = "#f3c7a8", rb = "#D55E00",
+                               wr = "#2B8CBE", te = "#08306b")) +
+  geom_text(aes(label = lab), size = 2.7, fontface = "bold", lineheight = 0.85,
+            colour = c(rep("grey30",5), "grey20", "white", "white", "white", "white", "white")) +
+  annotate("text", x = -3.2, y = 1.35, label = "receiver wide on the line,\na tight end flexed to the slot",
+           size = 3, colour = "#1d6a99", fontface = "bold", lineheight = 1) +
+  annotate("text", x = 2.1, y = 1.35, label = "two tight ends right:\none on the line, one flexed off",
+           size = 3, colour = "#08306b", fontface = "bold", lineheight = 1) +
+  annotate("text", x = 1.2, y = -1.25, label = "under center, back deep behind",
+           hjust = 0, size = 3, colour = "grey40", fontface = "italic") +
+  coord_fixed(ratio = 0.62, xlim = c(-4.6, 4.6), ylim = c(-1.8, 1.75)) +
+  labs(title = "The most-used picture inside the New Orleans card: 13 personnel, tight ends flexed",
+       subtitle = paste0("The film card's 20 snaps were one BUCKET (13 personnel, two receivers each side, under center), not one alignment: the charting shows\n",
+                         "7 variants inside it, 5/4/4/3/2/1/1 snaps, and the top two are mirror images of each other. This is the most-used one (5 snaps)."),
+       x = NULL, y = NULL,
+       caption = fig_caption(
+         "SumerSports player charting, Rams vs New Orleans, week 9 of 2025-26",
+         "\nIn 13 personnel the flexed slot and wide spots are tight ends by roster; the charting records position, side, and on-or-off the line,\nnot exact splits, so spacing is illustrative. The strict same-alignment version of this game: one exact picture 8 times, 5 plays. Built by R/57.")) +
+  theme_coach(grid = "none") +
+  theme(axis.text = element_blank(), axis.ticks = element_blank())
+save_fig("docs/figures/picture_diagram_no.png", p2, w = 9.5, h = 5.8)
+cat("Out: docs/figures/picture_diagram_no.png\n")
