@@ -154,7 +154,7 @@ figures and derived CSVs.
 | `R/39_discipline.R` | discipline.png |
 | `R/40_yac_mechanism.R` | yac_mechanism.png |
 | `R/41_menu_wardrobe.R` | menu_wardrobe.png |
-| `R/42_mcvay_formula.R` | mcvay_formula.png |
+| `R/42_mcvay_formula.R` | mcvay_formula_diagram.png + _pictures/_hold/_variety/_motion.png |
 | `R/43_tip_explainer.R` | tip_explainer.png |
 | `R/44_one_look_one_game.R` | one_look_one_game.png |
 | `R/45_rotation_by_dc.R` | rotation_by_dc.png |
