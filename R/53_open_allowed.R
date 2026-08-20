@@ -389,9 +389,9 @@ p <- ggplot(wide) +
     x = "uncontested-target rate vs league expectation for that rush type (percentage points)",
     y = NULL,
     caption = fig_caption(
-      "plays_players_p1/p2.csv.gz (contested_target) + load_sumer() dropback/blitz flags, SumerSports play charting",
-      sprintf("%d defensive callers, regular-season non-garbage-time targets, %s.", n_both, season_span(SEASONS)),
-      "\nSumer has no separation-distance metric; uncontested-target rate is the closest honest proxy for 'left open,' not a direct measure of it.\nA second proxy, completions allowed over a depth-and-situation model, corroborates in data/derived/open_allowed.csv. Built by R/53."
+      "SumerSports play and player charting",
+      sprintf("%d defensive callers, regular-season targets, garbage time excluded, %s.", n_both, season_span(SEASONS)),
+      "\nSumer has no separation-distance metric; uncontested-target rate is the closest honest proxy for 'left open,' not a direct measure of it.\nA second proxy, completions allowed over a depth-and-situation model, corroborates (in the saved table). Built by R/53."
     )
   ) +
   theme_coach(grid = "none") +
