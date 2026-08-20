@@ -103,6 +103,8 @@ the new work.
 | The scheme-space crown is Johnson's | 1st of 37 before contact, 50/50 split, spread across 19 players; channels correlate only r = 0.60 |
 | "25 plays seem like 250," composited | 5th-fewest pictures + personnel held 84% (1st) + 4th-most play variety inside stretches + largest interval-backed motion effect |
 | McVay's pistol experiment | 0% -> 7.7% (2023-24) -> 10.6% (2024-25), ~2x league both years, killed to 0.7% in 2025-26 |
+| Blitzing TIGHTENS coverage league-wide | uncontested rate -1.0pp on blitzes (p=.002), completions -2.8pp vs expected; the hurried throw costs more than the free look |
+| SEA openness allowed, split | regular rush: tighter than average (26/39); his blitzes: 11th-most open of 39, the price of the free-rusher designs |
 | WR openness by tier | Johnson's WR3 most open in football (1/28), WR2 top-10; McVay WR2 3rd/WR3 5th but converts poorly; Shanahan's openness is TE (#2) + RB (#6), not WRs |
 | Ferguson stretches 13p vertically | 18.6-yd avg target depth, 3.1x next Rams TE; 28% explosive; on/off +0.24 vs +0.15 (n=89, underpowered) |
 | Blocking-TE specialists barely exist | Saubert ran routes on 71% of pass snaps; 1 of 76 qualified TEs under a 60% route rate |
@@ -170,6 +172,7 @@ figures and derived CSVs.
 | `R/49_sim_pressure.R` | sim_pressure.png |
 | `R/51_te_specialists.R` | te_specialists.png |
 | `R/52_wr_open_by_tier.R` | wr_open_by_tier.png |
+| `R/53_open_allowed.R` | open_allowed.png |
 | `R/50_blitz_vs_free.R` | blitz_vs_free.png |
 
 ```sh
