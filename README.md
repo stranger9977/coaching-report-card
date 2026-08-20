@@ -103,6 +103,7 @@ the new work.
 | The scheme-space crown is Johnson's | 1st of 37 before contact, 50/50 split, spread across 19 players; channels correlate only r = 0.60 |
 | "25 plays seem like 250," composited | 5th-fewest pictures + personnel held 84% (1st) + 4th-most play variety inside stretches + largest interval-backed motion effect |
 | McVay's pistol experiment | 0% -> 7.7% (2023-24) -> 10.6% (2024-25), ~2x league both years, killed to 0.7% in 2025-26 |
+| The Macdonald outlier chart | blitz 22% (10th-fewest of 41) x free-rusher pressure 9.3% (2nd); only Martindale higher, bought with 43% blitzing |
 | Motion in held mode: the asked split | McVay 62% motion in one-picture mode, 4th of 36, +20 over held-mode median; everyone motions less when personnel holds |
 | FTN-Sumer bridge join works | no shared ids; season/week/off/qtr/clock/down/dist key is 100% unique both sides, 98.4% match |
 | Guess the play: McVay is EASY to guess | 33rd of 36 hardest at play level (2 independent play defs); look adds +1.3 vs league +0.7; guessability != quality |
@@ -162,6 +163,7 @@ figures and derived CSVs.
 | `R/45_rotation_by_dc.R` | rotation_by_dc.png |
 | `R/46_guess_the_play.R` | guess_the_play.png |
 | `R/48_motion_when_held.R` | motion_when_held.png |
+| `R/50_blitz_vs_free.R` | blitz_vs_free.png |
 
 ```sh
 for f in R/0*.R; do Rscript "$f"; done
