@@ -178,6 +178,7 @@ figures and derived CSVs.
 | `R/53_open_allowed.R` | open_allowed.png |
 | `R/54_stunt_rate.R` | stunt_rate.png |
 | `R/55_stunt_when.R` | stunt_when.png |
+| `R/56_sim_reel.R` | sim_reel.png |
 | `R/50_blitz_vs_free.R` | blitz_vs_free.png |
 
 ```sh
