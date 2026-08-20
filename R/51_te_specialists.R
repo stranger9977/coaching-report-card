@@ -322,7 +322,7 @@ p_right <- ggplot(depth_df, aes(name, avg_depth, fill = is_ferg)) +
             size = 3.2, fontface = "bold", colour = "grey20") +
   scale_fill_manual(values = c(`TRUE` = "#003594", `FALSE` = "#9db6c9"), guide = "none") +
   coord_flip(clip = "off") +
-  labs(subtitle = "Average depth of target,\nRams tight ends, 2025",
+  labs(subtitle = "Average depth of target,\nRams tight ends, 2025-26",
        x = NULL, y = "yards past the line of scrimmage") +
   theme_coach(grid = "y")
 
@@ -334,12 +334,12 @@ layout <- (p_left | p_right) + plot_layout(widths = c(1, 1.3)) +
   plot_annotation(
     title = title_chart,
     subtitle = sprintf(
-      "Left: EPA per play out of the Rams' 13 personnel with Terrance Ferguson on vs. off the field, 2025 regular season, garbage time excluded (difference not\nstatistically significant, n=%d off-field snaps). Right: average depth of target by Rams tight end, 2025 (target count in parens; small samples, especially\nFerguson's %d targets). Of Ferguson's targets, %d of %d (%.0f%%) went for 20+ yards -- explosive often, not always.",
+      "Left: EPA per play out of the Rams' 13 personnel with Terrance Ferguson on vs. off the field, 2025-26 regular season, garbage time excluded (difference not\nstatistically significant, n=%d off-field snaps). Right: average depth of target by Rams tight end, 2025-26 (target count in parens; small samples, especially\nFerguson's %d targets). Of Ferguson's targets, %d of %d (%.0f%%) went for 20+ yards -- explosive often, not always.",
       off_stat$n, n_tgt, n_explosive, n_tgt, 100 * n_explosive / n_tgt),
     caption = paste(strwrap(fig_caption(
       "SumerSports play and player charting, 2025 regular season",
-      "13-personnel universe: LA offensive snaps, non-garbage-time. Depth-of-target universe: all personnel groupings, targeted throws only.",
-      "Route/block/target participation comes from the player-charting role field, joined by sumer_play_id. Built by R/51_te_specialists.R."
+      "13-personnel universe: LA offensive snaps, garbage time excluded. Depth-of-target universe: all personnel groupings, targeted throws only.",
+      "Route/block/target participation comes from the play-by-play charting of what each player did. Built by R/51_te_specialists.R."
     ), width = 150), collapse = "\n"),
     theme = theme(plot.title = element_text(face = "bold", size = rel(1.15), colour = ink_title),
                   plot.subtitle = element_text(colour = ink_subtitle, size = rel(0.78), margin = margin(b = 10)),
