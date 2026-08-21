@@ -63,12 +63,12 @@ p <- ggplot(t, aes(pos_b, adj, group = who, colour = who)) +
   labs(title = "Give them the look, then strike: Shanahan's 21 personnel peaks on the 3rd straight snap",
        subtitle = paste0("Points per play above what the down and distance predicts, by how many consecutive snaps the same personnel group has\n",
                          "been on the field. The league is flat: showing a look repeatedly neither builds nor burns value. Shanahan's 21 personnel\n",
-                         "climbs to +0.28 on the third straight look before fading, the shape the give-them-a-look theory predicts."),
+                         "Shanahan's 21 personnel climbs to +0.28 on the third straight look before fading, exactly the give-them-a-look shape."),
        x = "consecutive snaps with the same personnel group on the field",
-       y = "points per play above the down-and-distance expectation",
+       y = "points per play vs the league average, same down and distance",
        caption = fig_caption(
          "SumerSports play charting, 2022-23 through 2025-26 regular seasons, garbage time excluded",
-         "\nHonest limit: deep-streak snaps are survivor-flavored, a personnel group stays out partly because the drive stayed alive, and the down-and-distance\nadjustment absorbs only part of that. League-wide, changing personnel vs staying is worth about nothing (-0.01 vs +0.01). Built by R/64.")) +
+         "\nNothing is modeled: a play's value is its points minus the league average for its down-and-distance bucket. Honest limit: deep-streak snaps are\nsurvivor-flavored, a personnel group stays out partly because the drive stayed alive, and the bucket comparison absorbs only part of that. League-wide, changing personnel vs staying is worth about nothing (-0.01 vs +0.01). Built by R/64.")) +
   theme_coach(grid = "y") +
   theme(legend.position = "top", legend.justification = "left",
         plot.subtitle = element_text(lineheight = 1.12))
