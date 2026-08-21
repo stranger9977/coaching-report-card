@@ -139,7 +139,7 @@ p3 <- ggplot(t3, aes(y = dd)) +
        x = "points per dropback", y = NULL,
        caption = fig_caption(
          "SumerSports play charting, 2022-23 through 2025-26 regular seasons, garbage time excluded",
-         "\nSame-down-and-distance comparison, so the fake is not credited for being called in better spots. Built by R/63.")) +
+         "\nSame-down-and-distance comparison. Checked for survivorship: the fake flag is charted on 98.5%+ of every outcome, so sacks and scrambles stay in the fake\ncolumn. The remaining bias is selection: coaches choose when to fake, and if anything they fake into run-respecting boxes, which lean AGAINST the fake. Built by R/63.")) +
   theme_coach(grid = "none") +
   theme(axis.text.y = element_text(size = rel(0.95), face = "bold", colour = "grey25"),
         plot.subtitle = element_text(lineheight = 1.12),
