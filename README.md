@@ -108,6 +108,8 @@ the new work.
 | WR openness by tier | Johnson's WR3 most open in football (1/28), WR2 top-10; McVay WR2 3rd/WR3 5th but converts poorly; Shanahan's openness is TE (#2) + RB (#6), not WRs |
 | Ferguson stretches 13p vertically | 18.6-yd avg target depth, 3.1x next Rams TE; 28% explosive; on/off +0.24 vs +0.15 (n=89, underpowered) |
 | Blocking-TE specialists barely exist | Saubert ran routes on 71% of pass snaps; 1 of 76 qualified TEs under a 60% route rate |
+| The broken-pocket menu, priced | sack -1.9, throwaway -0.9, quick throw -0.1, extend+throw +0.0, escape +0.4 (24k pressured dropbacks) |
+| Caleb's sacks became extends | pressured-snap sack share 33->11%; extend-and-throw 18->34%; throwaways flat 14->17% |
 | Worst 4th-down calls of 2025-26 | Stefanski owns 3 of 12 (worst: CLE punt 4th&1 wk17, -7.4 WP); 11 of 12 are punts; playoffs clean (worst -4.1) |
 | Bravery spread, one axis | Kingsbury +10 to Jim Harbaugh -18 on clear-cut go chances; 28-pt spread, repeats r=0.76 |
 | Caleb's sacks: pressure stopped converting | sack 9.9->3.4% w/ pressure flat (30.2->30.4); sack-per-pressure 33->11%; PA 17->35%, rollouts 5.9->10.7% |
@@ -186,6 +188,7 @@ figures and derived CSVs.
 | `R/56_sim_reel.R` | sim_reel.png |
 | `R/58_bj_file.R` | caleb_sacks.png, bj_pa.png, bj_earlyruns.png |
 | `R/59_worst_fourth.R` | worst_fourth.png, bravery_simple.png |
+| `R/60_throwaways.R` | pressure_menu.png, caleb_menu.png |
 | `R/50_blitz_vs_free.R` | blitz_vs_free.png |
 
 ```sh
