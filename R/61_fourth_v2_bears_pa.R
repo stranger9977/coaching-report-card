@@ -26,8 +26,10 @@ fd[posteam != sub(" .*", "", yrdln), yl := as.integer(sub(".* ", "", yrdln))]
 fd[, dist_b := fifelse(ydstogo == 1, "and 1", fifelse(ydstogo == 2, "and 2", fifelse(ydstogo <= 5, "and 3 to 5", "and 6 plus")))]
 fd[, zone := fifelse(yl >= 80, "own deep", fifelse(yl >= 60, "own side", fifelse(yl >= 45, "midfield", fifelse(yl >= 38, "plus territory", "kick range"))))]
 fd[, st := fifelse(score_differential <= -9, "down big", fifelse(score_differential < 0, "down 1 score", fifelse(score_differential == 0, "tied", fifelse(score_differential <= 8, "up 1 score", "up big"))))]
+fd[, clock_s := as.integer(sub(':.*','',time))*60 + as.integer(sub('.*:','',time))]
+fd[, half_end := (qtr %in% c(2,4)) & clock_s <= 40]
 fd[, late := qtr >= 4]
-fd[, bucket := paste(dist_b, zone, st, late)]
+fd[, bucket := paste(dist_b, zone, st, late, half_end)]
 peers <- fd[, .(peer_go = mean(went), n_bucket = .N), by = bucket]
 fd <- merge(fd, peers, by = "bucket")
 
