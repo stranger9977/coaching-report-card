@@ -61,8 +61,8 @@ p <- ggplot(t, aes(pos_b, adj, group = who, colour = who)) +
                                  "Shanahan in 21 personnel" = "#D55E00"), name = NULL) +
   scale_y_continuous(labels = label_number(style_positive = "plus")) +
   labs(title = "Give them the look, then strike: Shanahan's 21 personnel peaks on the 3rd straight snap",
-       subtitle = paste0("Points per play above what the down and distance predicts, by how many consecutive snaps the same personnel group has\n",
-                         "been on the field. The league is flat: showing a look repeatedly neither builds nor burns value. Shanahan's 21 personnel\n",
+       subtitle = paste0("Points per play compared with the league average for the same down and distance, by how many consecutive snaps the\n",
+                         "same personnel group has been on the field. The league is flat: showing a look repeatedly neither builds nor burns value.\n",
                          "Shanahan's 21 personnel climbs to +0.28 on the third straight look before fading, exactly the give-them-a-look shape."),
        x = "consecutive snaps with the same personnel group on the field",
        y = "points per play vs the league average, same down and distance",
