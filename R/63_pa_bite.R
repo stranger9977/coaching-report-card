@@ -101,34 +101,48 @@ db[, dd := fifelse(down == 1, "1st and 10",
           fifelse(down == 3 & distance <= 7, "3rd and medium",
           fifelse(down == 3, "3rd and long", NA_character_)))))))]
 t3 <- db[!is.na(dd), .(n_pa = sum(play_action),
-                       lift = mean(expected_points_added[play_action == TRUE], na.rm = TRUE) -
-                              mean(expected_points_added[play_action == FALSE], na.rm = TRUE)), by = dd]
+                       pa_epa = mean(expected_points_added[play_action == TRUE], na.rm = TRUE),
+                       no_epa = mean(expected_points_added[play_action == FALSE], na.rm = TRUE)), by = dd]
+t3[, lift := pa_epa - no_epa]
 ordr <- c("1st and 10", "2nd and short", "2nd and medium", "2nd and long", "3rd and short", "3rd and medium", "3rd and long")
 t3[, dd := factor(dd, levels = rev(ordr))]
 setorder(t3, dd)
 cat("\nPA lift by down and distance:\n"); print(t3[order(-dd)])
 
-p3 <- ggplot(t3, aes(lift, dd)) +
-  geom_vline(xintercept = 0, colour = "grey40", linewidth = 0.4) +
-  geom_segment(aes(x = 0, xend = lift, y = dd, yend = dd),
-               colour = fifelse(t3$lift > 0, "#a8cbe0", "#e3b3b1"), linewidth = 6, lineend = "round") +
-  geom_text(aes(label = sprintf("%+.2f", lift), x = lift + fifelse(lift > 0, 0.02, -0.02),
-                hjust = fifelse(lift > 0, 0, 1)),
-            size = 3.3, fontface = "bold", colour = fifelse(t3$lift > 0, "#2B8CBE", "#C0504D")) +
-  geom_text(aes(x = fifelse(lift > 0, -0.012, 0.012), hjust = fifelse(lift > 0, 1, 0),
-                label = comma(n_pa)), size = 2.7, colour = "grey55") +
+p3 <- ggplot(t3, aes(y = dd)) +
+  geom_vline(xintercept = 0, colour = "grey75", linewidth = 0.4) +
+  geom_segment(aes(x = no_epa, xend = pa_epa, y = dd, yend = dd),
+               colour = "grey78", linewidth = 1.3,
+               arrow = arrow(length = unit(7, "pt"), type = "closed")) +
+  geom_point(aes(x = no_epa), colour = "grey45", size = 4) +
+  geom_point(aes(x = pa_epa), colour = "#D55E00", size = 4.6) +
+  geom_text(aes(x = pa_epa, label = sprintf("%+.2f", pa_epa),
+                hjust = fifelse(pa_epa >= no_epa, -0.35, 1.35)),
+            size = 3.2, fontface = "bold", colour = "#D55E00") +
+  geom_text(aes(x = no_epa, label = sprintf("%+.2f", no_epa),
+                hjust = fifelse(pa_epa >= no_epa, 1.35, -0.35)),
+            size = 3, colour = "grey45") +
+  geom_text(aes(x = pmax(pa_epa, no_epa) + 0.055,
+                label = sprintf("fake adds %+.2f  (%s fakes)", lift, comma(n_pa))),
+            hjust = 0, size = 2.9, colour = fifelse(t3$lift > 0, "#1d6a99", "#a04340"), fontface = "italic") +
+  annotate("text", x = c(t3[dd == "1st and 10"]$no_epa, t3[dd == "1st and 10"]$pa_epa),
+           y = 7.55, label = c("no fake", "with a play fake"),
+           size = 3.1, fontface = "bold", colour = c("grey45", "#D55E00"),
+           hjust = c(1.1, -0.1)) +
   scale_x_continuous(labels = label_number(style_positive = "plus"),
-                     expand = expansion(mult = c(0.12, 0.14))) +
-  labs(title = "Where the bite dies: the fake's payoff by down and distance",
-       subtitle = paste0("What a play fake adds over a no-fake dropback in the same down and distance, in points per play. The fake pays most\n",
-                         "where a run is believable: 3rd and short (+0.17) and 1st and 10 (+0.12). In pass-obvious spots the answer is subtler than the\n",
-                         "guess: callers nearly stop faking at all (107 fakes on 3rd and long in four seasons), so the bite there is untestable."),
-       x = "what the play fake adds, points per dropback (fake counts labeled left)", y = NULL,
+                     expand = expansion(mult = c(0.08, 0.34))) +
+  coord_cartesian(clip = "off") +
+  labs(title = "Where the fake pays: with and without a play fake, down by down",
+       subtitle = paste0("Grey dot = points per dropback WITHOUT a fake in that down and distance. Orange dot = WITH a fake. The arrow is what the\n",
+                         "fake adds. It pays most where a run is believable (3rd and short, 1st and 10); on 3rd and long callers barely fake at all\n",
+                         "(107 fakes in four seasons), so whether anyone still bites there is essentially untestable."),
+       x = "points per dropback", y = NULL,
        caption = fig_caption(
          "SumerSports play charting, 2022-23 through 2025-26 regular seasons, garbage time excluded",
          "\nSame-down-and-distance comparison, so the fake is not credited for being called in better spots. Built by R/63.")) +
   theme_coach(grid = "none") +
   theme(axis.text.y = element_text(size = rel(0.95), face = "bold", colour = "grey25"),
-        plot.subtitle = element_text(lineheight = 1.12))
+        plot.subtitle = element_text(lineheight = 1.12),
+        plot.margin = margin(24, 14, 8, 10))
 save_fig("docs/figures/pa_when_bite.png", p3, w = 10.5, h = 6.4)
 cat("\nOut: pa_bite_runs.png, pa_elite_rb.png, pa_when_bite.png\n")
