@@ -79,4 +79,37 @@ p <- ggplot(p25, aes(100 * peer_go, si)) +
          "\nAll 2025-26 punts, regular season and playoffs. The two metrics agree on the headliners and disagree on purpose everywhere else:\nthe Surrender Index only sees punts and worships the clock; the peer test sees every kick and ignores the clock beyond the quarter. Built by R/62.")) +
   theme_coach(grid = "none")
 save_fig("docs/figures/surrender_cross.png", p, w = 11.5, h = 7.8)
-cat("\nOut: surrender_cross.png\n")
+
+# ---------------------------------------------------------------- the SI ledger
+w <- p25[order(-si)][1:10]
+w[, row := .I]
+w[, y := -row]
+w[, situ := sprintf("Q%d %s, 4th & %d, own %d yard line", qtr, time, ydstogo, pmin(yfog, 50) * fifelse(yfog <= 50, 1L, 1L))]
+w[yfog > 50, situ := sprintf("Q%d %s, 4th & %d, opponent %d yard line", qtr, time, ydstogo, 100 - yfog)]
+w[, score_lab := sprintf("%d-%d", posteam_score, defteam_score)]
+w[, si_lab := sprintf("%.0f", si)]
+w[, coach_l := coach]
+
+p2 <- ggplot(w, aes(y = y)) +
+  geom_text(aes(x = 0.00, label = game), hjust = 0, size = 2.9, colour = "grey35") +
+  geom_text(aes(x = 0.19, label = situ), hjust = 0, size = 2.85, colour = "grey45") +
+  geom_text(aes(x = 0.50, label = score_lab), hjust = 0, size = 2.9, colour = "grey45") +
+  geom_text(aes(x = 0.60, label = coach_l), hjust = 0, size = 2.9, colour = "grey35") +
+  geom_text(aes(x = 0.80, label = si_lab), hjust = 0, size = 3.2, fontface = "bold", colour = "#D55E00") +
+  geom_text(aes(x = 0.93, label = sprintf("%d%% go", round(100 * peer_go))), hjust = 0, size = 2.8, colour = "grey55") +
+  annotate("text", x = c(0.00, 0.19, 0.50, 0.60, 0.80, 0.93), y = 0,
+           label = c("GAME", "THE SPOT", "SCORE", "HEAD COACH", "SURRENDER INDEX", "PEERS"),
+           hjust = 0, size = 2.6, fontface = "bold", colour = "grey55") +
+  scale_x_continuous(limits = c(0, 1.06)) +
+  scale_y_continuous(limits = c(min(w$y) - 1, 1)) +
+  labs(title = "The most cowardly punts of 2025-26, by the Surrender Index",
+       subtitle = "Jon Bois's deliberately arbitrary punt-cowardice score, computed for every punt of the season with the public bot formula.\nHigher = more shameful. The peer test rides along in the last column so the two metrics can disagree in public.",
+       x = NULL, y = NULL,
+       caption = fig_caption(
+         "nflverse play data; Surrender Index formula: field position x yards to go x score state x a late-game clock term that compounds when trailing",
+         "\nAll 2025-26 punts, regular season and playoffs. The score column is the game score at the snap, punting team first. Built by R/62.")) +
+  theme_coach(grid = "none") +
+  theme(axis.text = element_blank(), axis.ticks = element_blank(),
+        plot.subtitle = element_text(lineheight = 1.12))
+save_fig("docs/figures/worst_surrender.png", p2, w = 12.5, h = 5.2)
+cat("\nOut: surrender_cross.png, worst_surrender.png\n")

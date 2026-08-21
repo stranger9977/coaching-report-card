@@ -43,18 +43,20 @@ print(worst[, .(coach, posteam, defteam, week, qtr, time, ydstogo, zone, st, pla
 worst[, row := .I]
 worst[, y := -row]
 worst[, game := fifelse(week == 22, sprintf("SUPER BOWL: %s vs %s", posteam, defteam), fifelse(week > 18, sprintf("PLAYOFFS: %s vs %s", posteam, defteam), sprintf("%s vs %s, wk %d", posteam, defteam, week)))]
-worst[, situ := sprintf("Q%d %s, 4th %s, %s, %s", qtr, time, dist_b, zone, st)]
+worst[, situ := sprintf("Q%d %s, 4th %s, %s", qtr, time, dist_b, zone)]
+worst[, score_lab := sprintf("%d-%d", posteam_score, defteam_score)]
 worst[, did := fifelse(play_type == "punt", "punted", "kicked the field goal")]
 worst[, peer_lab := sprintf("%d%% of coaches go there", round(100 * peer_go))]
 
 p1 <- ggplot(worst, aes(y = y)) +
   geom_text(aes(x = 0.00, label = game), hjust = 0, size = 2.9, colour = "grey35") +
   geom_text(aes(x = 0.17, label = situ), hjust = 0, size = 2.85, colour = "grey45") +
+  geom_text(aes(x = 0.43, label = score_lab), hjust = 0, size = 2.9, colour = "grey45") +
   geom_text(aes(x = 0.52, label = did), hjust = 0, size = 3, fontface = "bold", colour = "#1d6a99") +
   geom_text(aes(x = 0.66, label = coach), hjust = 0, size = 2.9, colour = "grey35") +
   geom_text(aes(x = 0.84, label = peer_lab), hjust = 0, size = 3, fontface = "bold", colour = "#D55E00") +
-  annotate("text", x = c(0.00, 0.17, 0.52, 0.66, 0.84), y = 0,
-           label = c("GAME", "THE SPOT", "THE CHOICE", "HEAD COACH", "THE PEER TEST"),
+  annotate("text", x = c(0.00, 0.17, 0.43, 0.52, 0.66, 0.84), y = 0,
+           label = c("GAME", "THE SPOT", "SCORE", "THE CHOICE", "HEAD COACH", "THE PEER TEST"),
            hjust = 0, size = 2.6, fontface = "bold", colour = "grey55") +
   scale_x_continuous(limits = c(0, 1.06)) +
   scale_y_continuous(limits = c(min(worst$y) - 1, 1)) +
