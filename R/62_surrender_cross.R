@@ -40,8 +40,8 @@ p25[, fp_score := fifelse(yfog <= 50, pmax(1, 1.1^(yfog - 40)), 1.2^(yfog - 50) 
 p25[, ytg_mult := fifelse(ydstogo >= 10, 0.2, fifelse(ydstogo >= 7, 0.4, fifelse(ydstogo >= 4, 0.6, fifelse(ydstogo >= 2, 0.8, 1.0))))]
 p25[, sc_mult := fifelse(score_differential > 0, 1, fifelse(score_differential == 0, 2, fifelse(score_differential >= -8, 4, 3)))]
 p25[, clock_s := as.integer(sub(":.*", "", time)) * 60 + as.integer(sub(".*:", "", time))]
-p25[, since_half := pmax(0, (pmin(qtr, 4) - 3) * 900 + (900 - clock_s))]
-p25[, ck_mult := fifelse(qtr >= 3 & score_differential < 0, (since_half * 0.001)^3 + 1, 1)]
+p25[, since_half := pmax(0, fifelse(qtr >= 5, 1800 + (600 - clock_s), (qtr - 3) * 900 + (900 - clock_s)))]
+p25[, ck_mult := fifelse(qtr >= 3 & score_differential <= 0, (since_half * 0.001)^3 + 1, 1)]
 p25[, si := fp_score * ytg_mult * sc_mult * ck_mult]
 p25[, coach := fifelse(posteam == home_team, home_coach, away_coach)]
 p25[, game := fifelse(week == 22, sprintf("SUPER BOWL %s-%s", posteam, defteam),
@@ -106,7 +106,7 @@ p2 <- ggplot(w, aes(y = y)) +
        subtitle = "Jon Bois's deliberately arbitrary punt-cowardice score, computed for every punt of the season with the public bot formula.\nHigher = more shameful. The peer test rides along in the last column so the two metrics can disagree in public.",
        x = NULL, y = NULL,
        caption = fig_caption(
-         "nflverse play data; Surrender Index formula: field position x yards to go x score state x a late-game clock term that compounds when trailing",
+         "nflverse play data; Surrender Index formula verbatim from the public bot code: field position x yards to go x score state x a second-half clock term that compounds when tied or trailing",
          "\nAll 2025-26 punts, regular season and playoffs. The score column is the game score at the snap, punting team first. Built by R/62.")) +
   theme_coach(grid = "none") +
   theme(axis.text = element_blank(), axis.ticks = element_blank(),
