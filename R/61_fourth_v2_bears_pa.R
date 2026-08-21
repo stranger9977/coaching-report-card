@@ -64,7 +64,7 @@ p1 <- ggplot(worst, aes(y = y)) +
                          "league go for it? A kick where nine of ten coaches go is a sin regardless of the clock."),
        x = NULL, y = NULL,
        caption = fig_caption(
-         "nflverse play data, spots bucketed by distance, field zone, score state, and quarter; peer rates from all 4th downs, 2018-19 through 2025-26",
+         "nflverse play data; the recommendation model is Ben Baldwin's nfl4th, the engine behind his 4th-down bot; peer rates from all 4th downs, 2018-19 through 2025-26",
          "\nKept: kicks in buckets with 40+ league decisions where the recommendation model also favors going. Game within reach (win probability 5% to 95%).\nThe old No. 1, a 4th-and-1 punt from a team's own 19 protecting a lead late, drops off entirely: zero percent of coaches go there. Built by R/61.")) +
   theme_coach(grid = "none") +
   theme(axis.text = element_blank(), axis.ticks = element_blank(),

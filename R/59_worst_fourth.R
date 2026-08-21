@@ -102,7 +102,7 @@ p2 <- ggplot(bc, aes(era_shrunk, nm)) +
                           hi$coach, hi$era_shrunk, lo$coach, lo$era_shrunk, hi$era_shrunk - lo$era_shrunk),
        x = "go rate on clear-cut fourth downs, points above or below the league", y = NULL,
        caption = fig_caption(
-         "nflverse play data, 2018-19 through 2025-26 seasons; the same clear-cut universe as the brave and cowardly boards",
+         "nflverse play data with Ben Baldwin's nfl4th recommendation model (the engine behind his 4th-down bot); the same clear-cut universe as the brave and cowardly boards",
          "\nClear-cut = the recommendation model says going is worth at least 1.5 win-probability points, game within reach, 20+ such decisions per coach;\nsmall samples pulled toward zero. Going for it more repeats coach to coach across seasons (r = 0.76), one of the most stable traits on this board. Built by R/59.")) +
   theme_coach(grid = "none") +
   theme(axis.text.y = element_text(size = rel(0.62),
