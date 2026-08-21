@@ -108,6 +108,7 @@ the new work.
 | WR openness by tier | Johnson's WR3 most open in football (1/28), WR2 top-10; McVay WR2 3rd/WR3 5th but converts poorly; Shanahan's openness is TE (#2) + RB (#6), not WRs |
 | Ferguson stretches 13p vertically | 18.6-yd avg target depth, 3.1x next Rams TE; 28% explosive; on/off +0.24 vs +0.15 (n=89, underpowered) |
 | Blocking-TE specialists barely exist | Saubert ran routes on 71% of pass snaps; 1 of 76 qualified TEs under a 60% route rate |
+| Look-then-strike: a Shanahan-21 signature | league flat by nth same-personnel snap; Shanahan 21: +0.07/+0.11/+0.28 on 3rd look then fades; change-vs-stay ~0 |
 | PA bite: cold from snap one | fake's edge exists at 0 prior runs, flat across counts; defenders bite the fake, not the memory |
 | PA doesn't need an elite RB | r=0.04 across 128 team-seasons between rush quality and fake payoff |
 | Where the fake pays | 3rd&short +0.17, 1st&10 +0.12; 3rd&long essentially untested (107 fakes in 4 seasons) |
@@ -197,6 +198,7 @@ figures and derived CSVs.
 | `R/61_fourth_v2_bears_pa.R` | worst_fourth_v2.png, bears_pa.png |
 | `R/62_surrender_cross.R` | surrender_cross.png, worst_surrender.png |
 | `R/63_pa_bite.R` | pa_bite_runs.png, pa_elite_rb.png, pa_when_bite.png |
+| `R/64_look_then_strike.R` | look_then_strike.png |
 | `R/50_blitz_vs_free.R` | blitz_vs_free.png |
 
 ```sh
