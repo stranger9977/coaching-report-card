@@ -108,6 +108,7 @@ the new work.
 | WR openness by tier | Johnson's WR3 most open in football (1/28), WR2 top-10; McVay WR2 3rd/WR3 5th but converts poorly; Shanahan's openness is TE (#2) + RB (#6), not WRs |
 | Ferguson stretches 13p vertically | 18.6-yd avg target depth, 3.1x next Rams TE; 28% explosive; on/off +0.24 vs +0.15 (n=89, underpowered) |
 | Blocking-TE specialists barely exist | Saubert ran routes on 71% of pass snaps; 1 of 76 qualified TEs under a 60% route rate |
+| Surrender Index x peer test | r=0.43 on all 2,034 punts of 2025-26; comedy metric worships the clock + only sees punts; peer test owns the early-game sins |
 | The broken-pocket menu, priced | sack -1.9, throwaway -0.9, quick throw -0.1, extend+throw +0.0, escape +0.4 (24k pressured dropbacks) |
 | Caleb's sacks became extends | pressured-snap sack share 33->11%; extend-and-throw 18->34%; throwaways flat 14->17% |
 | Worst 4th downs, v2: the peer test | WP-cost version crowned leverage, not sin (old #1 = a punt 0% of coaches skip); rebuilt by peer behavior: Reid FG down big (93% go), Vrabel SB punt (86% go), Ryans 3x |
@@ -191,6 +192,7 @@ figures and derived CSVs.
 | `R/59_worst_fourth.R` | worst_fourth.png, bravery_simple.png |
 | `R/60_throwaways.R` | pressure_menu.png, caleb_menu.png |
 | `R/61_fourth_v2_bears_pa.R` | worst_fourth_v2.png, bears_pa.png |
+| `R/62_surrender_cross.R` | surrender_cross.png |
 | `R/50_blitz_vs_free.R` | blitz_vs_free.png |
 
 ```sh
