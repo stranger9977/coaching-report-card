@@ -74,28 +74,40 @@ bc[, nm := factor(coach, levels = rev(bc$coach))]
 hi <- bc[1]; lo <- bc[.N]
 cat(sprintf("\nbravery spread: %s %+.0f to %s %+.0f, %d coaches\n", hi$coach, hi$era_shrunk, lo$coach, lo$era_shrunk, nrow(bc)))
 
+notable <- c("Kliff Kingsbury","Sean McDermott","Dan Campbell","Matt LaFleur",
+             "Jim Harbaugh","Matt Patricia","DeMeco Ryans","Mike Tomlin",
+             "Mike Macdonald","Sean McVay","Ben Johnson","Kyle Shanahan","Bill Belichick","Andy Reid")
+bc[, hl := coach %in% notable]
+bc[, stem := fifelse(era_shrunk > 0, "#a8cbe0", "#e3b3b1")]
+bc[, dot := fifelse(era_shrunk > 0, "#2B8CBE", "#C0504D")]
+ends <- bc[c(1:4, (.N-3):.N)]
+
 p2 <- ggplot(bc, aes(era_shrunk, nm)) +
-  geom_vline(xintercept = 0, colour = "grey40", linewidth = 0.4) +
-  geom_segment(aes(x = 0, xend = era_shrunk, y = nm, yend = nm,
-                   colour = era_shrunk > 0), linewidth = 1.6, show.legend = FALSE) +
-  geom_point(aes(colour = era_shrunk > 0), size = 2.6, show.legend = FALSE) +
-  scale_colour_manual(values = c(`TRUE` = "#2B8CBE", `FALSE` = "#C0504D")) +
-  annotate("text", x = max(bc$era_shrunk) - 1, y = nrow(bc) - 9, hjust = 1,
-           label = "goes for it MORE than the league\non the same clear-cut chances", size = 3, colour = "#1d6a99", fontface = "italic", lineheight = 1) +
-  annotate("text", x = min(bc$era_shrunk), y = 1.5, hjust = 0,
-           label = "kicks it away more", size = 3, colour = "#a04340", fontface = "italic") +
-  scale_x_continuous(labels = function(v) sprintf("%+.0f", v)) +
+  geom_vline(xintercept = 0, colour = "grey35", linewidth = 0.5) +
+  geom_segment(aes(x = 0, xend = era_shrunk, y = nm, yend = nm),
+               colour = bc$stem, linewidth = 1.7, lineend = "round") +
+  geom_point(colour = bc$dot, size = 2.7) +
+  geom_text(data = ends, aes(x = era_shrunk + fifelse(era_shrunk > 0, 0.4, -0.4), label = sprintf("%+.0f", era_shrunk), hjust = fifelse(era_shrunk > 0, 0, 1)),
+            colour = ends$dot, size = 3, fontface = "bold") +
+  annotate("text", x = -13, y = nrow(bc) - 2.5, hjust = 0, size = 3.6, colour = "#2B8CBE",
+           fontface = "bold", lineheight = 1.05,
+           label = "goes for it MORE\nthan the league") +
+  annotate("text", x = 6.5, y = 6.5, hjust = 0, size = 3.6, colour = "#C0504D",
+           fontface = "bold", lineheight = 1.05,
+           label = "kicks it away\nmore than the league") +
+  scale_x_continuous(labels = function(v) sprintf("%+.0f", v), limits = c(-19.5, 11.5)) +
   labs(title = "How much do coaches vary on clear go-for-it chances? Enormously",
-       subtitle = sprintf(paste0("One number per head coach: how much more or less often he goes for it on clear-cut fourth downs than the league\n",
-                                 "in his own seasons, in percentage points, small samples pulled toward zero. %s (%+.0f) and %s (%+.0f)\n",
-                                 "are %.0f points apart on the SAME class of decision."),
+       subtitle = sprintf(paste0("One number per head coach: how much more or less often he goes for it on clear-cut fourth downs than the league of his\n",
+                                 "own seasons, in percentage points. %s (%+.0f) and %s (%+.0f) are %.0f points apart on the SAME class of decision."),
                           hi$coach, hi$era_shrunk, lo$coach, lo$era_shrunk, hi$era_shrunk - lo$era_shrunk),
        x = "go rate on clear-cut fourth downs, points above or below the league", y = NULL,
        caption = fig_caption(
          "nflverse play data, 2018-19 through 2025-26 seasons; the same clear-cut universe as the brave and cowardly boards",
-         "\nClear-cut = the recommendation model says going is worth at least 1.5 win-probability points, game within reach, 20+ such decisions per coach.\nGoing for it more repeats coach to coach across seasons (r = 0.76), one of the most stable traits on this board. Built by R/59.")) +
+         "\nClear-cut = the recommendation model says going is worth at least 1.5 win-probability points, game within reach, 20+ such decisions per coach;\nsmall samples pulled toward zero. Going for it more repeats coach to coach across seasons (r = 0.76), one of the most stable traits on this board. Built by R/59.")) +
   theme_coach(grid = "none") +
-  theme(axis.text.y = element_text(size = rel(0.6), colour = "grey45"),
-        plot.subtitle = element_text(lineheight = 1.12))
+  theme(axis.text.y = element_text(size = rel(0.62),
+                                   colour = fifelse(rev(bc$hl), "grey15", "grey55"),
+                                   face = fifelse(rev(bc$hl), "bold", "plain")),
+        plot.subtitle = element_text(lineheight = 1.15))
 save_fig("docs/figures/bravery_simple.png", p2, w = 10, h = 9.5)
 cat("\nOut: worst_fourth.png, bravery_simple.png\n")
