@@ -110,7 +110,8 @@ the new work.
 | Blocking-TE specialists barely exist | Saubert ran routes on 71% of pass snaps; 1 of 76 qualified TEs under a 60% route rate |
 | The broken-pocket menu, priced | sack -1.9, throwaway -0.9, quick throw -0.1, extend+throw +0.0, escape +0.4 (24k pressured dropbacks) |
 | Caleb's sacks became extends | pressured-snap sack share 33->11%; extend-and-throw 18->34%; throwaways flat 14->17% |
-| Worst 4th-down calls of 2025-26 | Stefanski owns 3 of 12 (worst: CLE punt 4th&1 wk17, -7.4 WP); 11 of 12 are punts; playoffs clean (worst -4.1) |
+| Worst 4th downs, v2: the peer test | WP-cost version crowned leverage, not sin (old #1 = a punt 0% of coaches skip); rebuilt by peer behavior: Reid FG down big (93% go), Vrabel SB punt (86% go), Ryans 3x |
+| Bears PA before Johnson | 34% (4th) -> 27% (5th) -> 17% (30th of 32) -> Johnson: 35% (2nd) |
 | Bravery spread, one axis | Kingsbury +10 to Jim Harbaugh -18 on clear-cut go chances; 28-pt spread, repeats r=0.76 |
 | Caleb's sacks: pressure stopped converting | sack 9.9->3.4% w/ pressure flat (30.2->30.4); sack-per-pressure 33->11%; PA 17->35%, rollouts 5.9->10.7% |
 | Johnson play-fakes 2nd in football | 32% of dropbacks (league 25%); PA +0.25 vs no-PA +0.10, both beat league (+0.09/-0.03) |
@@ -189,6 +190,7 @@ figures and derived CSVs.
 | `R/58_bj_file.R` | caleb_sacks.png, bj_pa.png, bj_earlyruns.png |
 | `R/59_worst_fourth.R` | worst_fourth.png, bravery_simple.png |
 | `R/60_throwaways.R` | pressure_menu.png, caleb_menu.png |
+| `R/61_fourth_v2_bears_pa.R` | worst_fourth_v2.png, bears_pa.png |
 | `R/50_blitz_vs_free.R` | blitz_vs_free.png |
 
 ```sh

@@ -165,10 +165,10 @@
     <div class="card">
       <div class="card-head"><span class="t">The worst fourth-down calls of 2025-26, and the bravery spread</span><span class="pill ship">Two asks, two charts</span></div>
       <p class="row"><span class="lab">Michael:</span> "What were the worst 4th down decisions for 2025? And in the playoffs?" / "For the coach bravery, how much do coaches vary? I know you have a few things on this but I am wondering if there is an easier way to visualize."</p>
-      <p class="row found"><span class="lab">The worst call of the season belongs to Kevin Stefanski, who owns three of the twelve.</span> Cleveland punting on 4th-and-1 at Pittsburgh, down late in week 17, cost 7.4 win-probability points by the recommendation model; McVay's 4th-and-1 punt against the 49ers (7.0) and a Tomlin punt (6.9) are next, and eleven of the twelve are punts. No playoff decision cracks the list; the worst three in January were a Chargers punt on 4th-and-4 (4.1), a Bears punt on 4th-and-2 (2.9), and a Steelers field goal on 4th-and-3 (2.7). The simpler bravery view is one dot per coach: go rate on clear-cut chances against the league of his own seasons, Kingsbury +10 to Jim Harbaugh &minus;18, a 28-point spread on the same class of decision, and it repeats season to season (r = 0.76).</p>
+      <p class="row found"><span class="lab">The first version of this list was wrong in an instructive way, and the film check caught it.</span> Ranked by raw win-probability cost, the "worst" calls were all late-game punts in one-score games, including a 4th-and-1 punt from a team's own 19 protecting a lead, a spot where literally zero percent of coaches go. The model was not miscomputed (it reproduces fresh); the metric conflates how wrong a choice is with how big the moment is. The rebuilt ledger asks the fairer question: in this exact spot, distance, field zone, score state, and quarter, how often did the REST of the league go for it? Now the list reads like film sense: Andy Reid kicking a field goal on 4th-and-1 down big (93% of coaches go there), DeMeco Ryans appearing three times, and Mike Vrabel punting from midfield down big in the third quarter of the Super Bowl (86% go). The bravery spread stays: Kingsbury +10 to Jim Harbaugh &minus;18 on the same class of decision, repeating at r = 0.76.</p>
       <figure>
-        <img src="figures/worst_fourth.png" alt="Ledger of the twelve costliest fourth-down decisions of 2025-26 with game, spot, choice, head coach, and win-probability cost, Stefanski appearing three times.">
-        <figcaption>The season's costliest choices, priced at the moment of decision. Built by R/59.</figcaption>
+        <img src="figures/worst_fourth_v2.png" alt="Ledger of the ten most indefensible fourth-down kicks of 2025-26 judged by peer behavior, Andy Reid first at 93 percent of coaches going, Vrabel's Super Bowl punt included.">
+        <figcaption>The rebuilt ledger: judged by what every other coach does in the same spot. Built by R/61.</figcaption>
       </figure>
       <figure>
         <img src="figures/bravery_simple.png" alt="One dot per head coach showing go rate on clear-cut fourth downs versus the league, from Kingsbury plus ten to Jim Harbaugh minus eighteen.">
@@ -184,6 +184,10 @@
       <figure>
         <img src="figures/caleb_sacks.png" alt="Paired bars for Chicago dropbacks before and under Ben Johnson: sack rate 9.9 to 3.4 percent, pressure rate unchanged, share of pressured snaps ending in a sack 33 to 11 percent.">
         <figcaption>The sacks vanished without the pressure vanishing. Built by R/58.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/bears_pa.png" alt="Bears play-fake rate by season: 34 percent then 27 then 17 percent and 30th of 32 the year before Ben Johnson, jumping to 35 percent and 2nd of 32 in his first season.">
+        <figcaption>The Bears before him: 30th of 32. His first year: 2nd. Built by R/61.</figcaption>
       </figure>
       <figure>
         <img src="figures/bj_pa.png" alt="Play-fake rate leaderboard, Ben Johnson second at 32 percent against a league middle of 25, with the payoff numbers in the subtitle.">
