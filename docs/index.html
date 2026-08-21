@@ -148,6 +148,25 @@
     </div>
 
     <div class="card">
+      <div class="card-head"><span class="t">The play-action bite, three ways</span><span class="pill ship">Cold from snap one, RB-agnostic, and rarely tested where it matters</span></div>
+      <p class="row"><span class="lab">Michael:</span> "there was a study a while back from 538 that looked at how much linebackers bite on play action. Like on the 9th vs. 1st run" / "if PA works better when you have an elite running back" / "at what point do linebackers and safeties bite less? Like 3rd and 10 they probably aren't biting as much?"</p>
+      <p class="row found"><span class="lab">Three questions, three clean answers, one honest limit up front: nobody's data here has player tracking, so these are payoff versions, not measured linebacker steps.</span> First, the 9th-run-vs-1st question: the fake's edge exists before the offense has run a single time and never grows with run count; defenders bite on the fake itself, not the memory of runs, which matches the board's sequencing null. Second, the elite-back question: across 128 team-seasons, the quality of a team's actual run game and the payoff of its fakes correlate at r = 0.04, nothing; the fake needs a believable situation, not a feared runner. Third, his 3rd-and-10 guess: the fake pays most exactly where a run is believable (3rd-and-short +0.17, 1st-and-10 +0.12), and in pass-obvious spots the answer is subtler than the guess: callers nearly stop faking at all (107 fakes on 3rd-and-long in four seasons), so whether anyone still bites there is essentially untestable.</p>
+      <figure>
+        <img src="figures/pa_bite_runs.png" alt="Points per dropback with and without a play fake by number of prior runs in the game, the gap present at zero runs and flat across run counts.">
+        <figcaption>The 538 question, payoff version: the fake pays from the first snap. Built by R/63.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/pa_elite_rb.png" alt="Scatter of 128 team-seasons, run-game quality against play-fake payoff, correlation 0.04, flat fit line.">
+        <figcaption>The elite-back question: r = 0.04, the fake does not care. Built by R/63.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/pa_when_bite.png" alt="Play-fake payoff by down and distance, biggest on third and short and first and ten, small samples in pass-obvious spots.">
+        <figcaption>Where the fake pays, same down and distance compared. Built by R/63.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The catch:</span> without tracking, a defender who bites but recovers is invisible here; the 538 study measured steps, this measures points, and the two can disagree on mechanism while agreeing on outcome.</p>
+    </div>
+
+    <div class="card">
       <div class="card-head"><span class="t">The Surrender Index, crossed with the peer test</span><span class="pill ship">The comedy metric agrees on the headliners</span></div>
       <p class="row"><span class="lab">Nick:</span> "how does it relate to the surrender index" (Jon Bois's deliberately arbitrary punt-cowardice score, automated by the public Surrender-Index bot)</p>
       <p class="row found"><span class="lab">Same soul, opposite failure modes, and the crossover chart shows both.</span> Every 2025-26 punt scored both ways: the Surrender Index up, the peer test across. They correlate at r = 0.43 and agree on headliners like Stefanski's late punts. The differences are structural: the comedy formula only sees punts (Andy Reid's field goal, our peer-test No. 1, is invisible to it), and it cubes the late-game clock, so its tallest scores are desperation punts nobody disputes, the exact leverage-worship our first ledger suffered from before the rebuild. The far right of the chart is the peer test's own turf: first-half short-yardage punts where 80%+ of coaches go, which the Surrender Index barely notices because the clock multiplier has not woken up yet.</p>
