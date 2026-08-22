@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coaching WAR</title>
+<style>
+  :root {
+    --bg: #fbfbfa; --ink: #1e2126; --ink-2: #4a5058; --ink-3: #778089;
+    --accent: #2B8CBE; --accent-deep: #045A8D; --card: #ffffff;
+    --line: #e3e5e8; --tile-bg: #f1f4f7; --draft: #b26a00; --draft-bg: #fdf3e3;
+    --run: #D55E00; --pass: #2B8CBE;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c; --ink: #e8eaed; --ink-2: #b3b9c0; --ink-3: #848b94;
+      --accent: #62aed4; --accent-deep: #8fc6e2; --card: #1e2126;
+      --line: #2e3238; --tile-bg: #23262c; --draft: #e0a458; --draft-bg: #2a2114;
+      --run: #f08a3c; --pass: #62aed4;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6; font-size: 18px; }
+  main { max-width: 1000px; margin: 0 auto; padding: 0 20px 90px; }
+  .draftbar { background: var(--draft-bg); color: var(--draft); border-bottom: 1px solid var(--line);
+    font-size: 13.5px; text-align: center; padding: 9px 16px; }
+  .draftbar a { color: var(--draft); }
+  header { padding: 60px 0 10px; text-align: center; }
+  .kicker { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  h1 { font-size: clamp(34px, 6vw, 58px); line-height: 1.05; margin: 14px auto 16px; max-width: 820px; letter-spacing: -0.02em; }
+  .dek { font-size: clamp(19px, 2.4vw, 24px); color: var(--ink-2); max-width: 680px; margin: 0 auto; }
+  h2 { font-size: clamp(28px, 4vw, 40px); line-height: 1.1; letter-spacing: -0.01em; margin: 0 0 10px; }
+  h3 { font-size: 20px; margin: 30px 0 8px; }
+  p { color: var(--ink-2); margin: 0 0 16px; }
+  p strong, h1, h2, h3 { color: var(--ink); }
+  a { color: var(--accent); }
+  .big { font-size: clamp(22px, 2.8vw, 28px); line-height: 1.35; color: var(--ink); max-width: 760px; margin: 0 auto 18px; text-align: center; }
+  section { padding: 56px 0 10px; border-top: 1px solid var(--line); margin-top: 40px; }
+  section:first-of-type { border-top: none; margin-top: 0; }
+  .step { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); font-weight: 700; text-align: center; margin-bottom: 8px; }
+  .center { text-align: center; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; margin: 24px 0; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 10px 0 16px; }
+  button { font: inherit; font-size: 16px; font-weight: 650; padding: 10px 18px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--tile-bg); color: var(--ink); cursor: pointer; }
+  button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  button:disabled { opacity: 0.45; cursor: default; }
+  select { font: inherit; font-size: 16px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; min-height: 40px; margin: 8px 0 14px; }
+  .chip { padding: 6px 11px; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 650; white-space: nowrap; }
+  .chip.run { background: var(--run); } .chip.pass { background: var(--pass); }
+  .bars { display: grid; grid-template-columns: 150px 1fr 60px; gap: 6px 10px; align-items: center; font-size: 15px; }
+  .bars .lab { color: var(--ink-2); text-align: right; }
+  .bars .bar { height: 18px; border-radius: 4px; background: var(--tile-bg); position: relative; overflow: hidden; }
+  .bars .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; transition: width .35s; }
+  .bars .bar i.run { background: var(--run); } .bars .bar i.pass { background: var(--pass); }
+  .bars .bar i.ghost { background: transparent; border: 2px dashed var(--ink-3); box-sizing: border-box; }
+  .bars .val { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .diagram { width: 100%; max-width: 720px; margin: 10px auto; display: block; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .two { grid-template-columns: 1fr; } .bars { grid-template-columns: 110px 1fr 50px; } }
+  .note { font-size: 14px; color: var(--ink-3); line-height: 1.5; }
+  .score { font-size: 30px; font-weight: 700; color: var(--ink); }
+  .guessgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0; }
+  @media (max-width: 600px) { .guessgrid { grid-template-columns: repeat(2, 1fr); } }
+  .guessgrid button { border-radius: 10px; padding: 12px 6px; font-size: 15px; }
+  .guessgrid button.run { border-color: var(--run); } .guessgrid button.pass { border-color: var(--pass); }
+  .guessgrid button.hit { background: #1c7a43; color: #fff; } .guessgrid button.miss { background: #b23a3a; color: #fff; }
+  .last { font-size: 22px; margin: 6px 0 12px; }
+  figure { margin: 26px 0 10px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px; }
+  figure img { width: 100%; height: auto; display: block; border-radius: 6px; }
+  figcaption { font-size: 13.5px; color: var(--ink-3); padding: 12px 8px 4px; line-height: 1.5; }
+  .finding { font-size: 17px; }
+  .finding b { color: var(--ink); }
+  .kpi { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 18px 0; }
+  .kpi.six { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 760px) { .kpi { grid-template-columns: repeat(2, 1fr); } }
+  .kpi div { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; text-align: center; }
+  .kpi .n { font-size: 30px; font-weight: 750; color: var(--ink); line-height: 1.1; }
+  .kpi .l { font-size: 13px; color: var(--ink-3); margin-top: 6px; line-height: 1.35; }
+  footer { border-top: 1px solid var(--line); margin-top: 60px; padding-top: 20px; font-size: 14px; color: var(--ink-3); }
+</style>
+<style>
+  table.board { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+  table.board th, table.board td { padding: 8px 8px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  table.board th:nth-child(2), table.board td:nth-child(2), table.board th:nth-child(3), table.board td:nth-child(3) { text-align: left; }
+  table.board th { cursor: pointer; color: var(--ink); background: var(--tile-bg); position: sticky; top: 0; user-select: none; }
+  table.board th:hover { color: var(--accent); }
+  table.board th .arrow { color: var(--accent); font-size: 11px; margin-left: 3px; }
+  table.board tbody tr:hover { background: var(--tile-bg); }
+  .tablewrap { overflow-x: auto; margin: 18px 0; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+  .skeptic { border-left: 3px solid var(--accent); padding-left: 16px; margin: 22px 0; }
+  .skeptic .q { font-weight: 650; color: var(--ink); margin-bottom: 6px; }
+  .skeptic p { margin-bottom: 8px; }
+  .skeptic .open { color: var(--draft); font-weight: 650; }
+</style>
+</head>
+<body>
+<div class="draftbar"><a href="index.html"><b>&larr; The working board</b></a> &nbsp;·&nbsp; <a href="models.html"><b>Model Factory</b></a> &nbsp;·&nbsp; <a href="outline.html"><b>Script Outline</b></a> &nbsp;·&nbsp; <a href="sequencing.html"><b>Play Sequencing</b></a> &nbsp;·&nbsp; <b>Coaching WAR</b> &nbsp;·&nbsp; built by R/71</div>
+<main>
+  <header>
+    <div class="kicker">The coaching WAR tab</div>
+    <h1>How many wins is a head coach worth?</h1>
+    <p class="dek">One number per coach: wins per season added above what a fresh hire would have delivered, after the payroll he was handed, last season's quarterback, and the franchise he works in. With the uncertainty left on, which turns out to be the story.</p>
+  </header>
+
+  <section>
+    <div class="step">The short version</div>
+    <h2 class="center">The familiar names are at the top. None of them is clear of the pack.</h2>
+    <div class="kpi">
+      <div><div class="n">+1.13</div><div class="l">wins per season for Bill Belichick, the top of the board, over 12 seasons in the window</div></div>
+      <div><div class="n">0 of 50</div><div class="l">eligible coaches whose 95% interval sits entirely above replacement</div></div>
+      <div><div class="n">0.08</div><div class="l">reliability of the coach number across odd and even seasons; the bar it needed to clear was 0.30</div></div>
+      <div><div class="n">24 of 50</div><div class="l">coaches who move 10 or more places when the quarterback's play in the same season is also taken out</div></div>
+    </div>
+    <p class="finding"><b>What it says.</b> Over 2012-2025, the head coaches whose teams won the most above what their payroll, last season's quarterback and franchise predicted are Belichick (+1.13 wins a season), Bruce Arians (+1.08), Sean McDermott (+1.08), Mike Vrabel (+1.01) and Sean Payton (+0.95). The bottom is Dennis Allen (-0.36), Lovie Smith (-0.30), Doug Marrone (-0.25), Gus Bradley (-0.25) and Mike McCoy (-0.23). That ordering is about what a fan would guess, which is a point in its favour. The honest part is everything around the point estimates: Belichick's interval runs from -0.21 to +2.47, nobody's lower bound clears zero, the number does not predict next season better than last season's win total does, and a coach and his quarterback cannot be cleanly pulled apart. The measure says who won above their resources. It cannot yet prove that the man, rather than the pairing of man, quarterback and building, is the reason.</p>
+  </section>
+
+  <section>
+    <div class="step">What the number means</div>
+    <h2 class="center">Wins above a first-season hire, per season</h2>
+    <p>Take a coach's team in one season. The closing point spreads on its games imply a number of wins the betting market expected. Part of that expectation is explained by things the coach did not create: the payroll of the top 25 contracts, how much of the cap the starting quarterback eats, and how well that quarterback played the season before. Call that part <i>talent</i>. What the team actually won minus talent is <i>wins above talent</i>, and it is the raw material for everything on this page. Everything is scaled to 17 games so seasons of different lengths add up.</p>
+    <p>Wins above talent splits cleanly into two pieces. The <i>premium</i> is what the market credited the team beyond its priced talent before kickoff; a coach with a reputation gets some of that, but so does a cheap quarterback playing above his contract and any talent the payroll control cannot see. The <i>surprise</i> is what the team did beyond the spread once the games were played. The two add up to wins above talent exactly, though the shrunk versions of each shown in the table come from separate fits and can differ from the total by up to 0.26 wins (Jim Schwartz is the widest case).</p>
+    <p>The coach's number comes from a mixed model of wins above talent with three random terms: coach, franchise and season. The franchise term soaks up the owner, the front office and anything about a building that outlasts the man in it. The coach term is identified by coaches changing teams and teams changing coaches. Because it is a random effect it is shrunk toward zero, and a short career is shrunk hardest. That is why the raw averages (the hollow circles in the chart) sit to the right of the filled dots.</p>
+    <p>WAR is the coach effect minus a replacement line, explained next. One unit is one win per season over 17 games.</p>
+  </section>
+
+  <section>
+    <div class="step">Replacement level</div>
+    <h2 class="center">A replacement coach is the coach you actually get</h2>
+    <p>In baseball, replacement level is the freely available player. Here it is the coach a franchise hires when it does not keep the one it has. So the replacement line is measured, not assumed: the average of what first-season head coaches delivered, net of the franchise and season terms, on the 99 first-season rows in the window where the coach was in place in week 1. Interim coaches who took over midseason are a different thing (their first-season rows average -1.20 wins) and are left out.</p>
+    <p>That line comes out at -0.19 wins against the average sitting coach, with a standard error of 0.25. So a new hire is slightly worse than the average incumbent, but not by much, and not by an amount the data can pin down. Because the line is close to zero, WAR and wins above average are nearly the same thing here; the difference is 0.19 for everybody.</p>
+    <p>Two details the skeptics pushed on, both true. First, the pooled line hides a split: a first-time head coach averages +0.04 (n = 66, in other words league average), while a coach on his second or later job averages -0.64 (n = 33). The difference has a Wilcoxon p of 0.26, so it is inside the noise, and the pooled line was kept; the first-timers-only line (+0.03) would lower every WAR by 0.21 and is carried as a column in the CSV. Second, the line drifts across the window: +0.08 in 2012-2018, -0.45 in 2019-2025. That gap is 0.54 wins, but its standard error is 0.59 (p = 0.37), and a board built with a separate line for each half moves nobody in the top 12 (rank correlation 0.922 with the main board; the biggest mover is Kliff Kingsbury, 35 to 23).</p>
+  </section>
+
+  <section>
+    <div class="step">What it controls for</div>
+    <h2 class="center">Payroll, last season's quarterback, and the building. Not the roster.</h2>
+    <p>The talent control explains 36% of the market's expectation (R2 0.359 on 451 coach-seasons). It is payroll plus the quarterback's cap share plus his EPA per dropback the season before. It is deliberately the previous season's quarterback, on the argument that a coach shapes the quarterback he has; the cost of that choice is that a quarterback playing better than he did last year, or better than he is paid, counts for the coach.</p>
+    <p>That cost is not small. Same-season quarterback play explains 39% of the variation in wins above talent on its own (+1.87 wins per standard deviation), and the market premium correlates 0.61 with it. Across the 50 eligible coaches, the published coach effect correlates 0.58 with the average same-season quarterback play the coach had. When the quarterback's same-season play is added as a control, the spread between coaches shrinks by 19%, the rank correlation with the main board falls to 0.59, only 5 of the top 10 survive, and 24 of 50 coaches move 10 or more places. Jeff Fisher goes from 45th to 10th; Andy Reid from 11th to 39th. That rank is printed for every coach in the table as "QB-controlled rank". The two boards are not upper and lower bounds on anything; they are two different questions, and the page shows both.</p>
+    <p>Roster quality beyond payroll is not controlled. Madden ratings, where they exist (2017 onward), still predict wins above talent at +0.68 wins per standard deviation after the payroll controls (t = 4.0). They were not put in the main model because a control that switches on mid-window would grade the same coach on two different scales. A version with Madden in the talent fit has a rank correlation of 0.981 with the main board and the same top 10 less one, so the ordering survives it, but the earlier wording "separated from his roster" did not, and it is gone.</p>
+    <p>The franchise term is the control that matters most for who is on top, and it is the one that can hurt the coaches who never left. A nested fit that asks how much of the coach effect travels with him across teams puts the portable part at 0.01 wins (95% interval 0.00 to 1.13) against a coach-within-team part of 1.26 (0.51 to 1.66). On this data the number is what a coach-team pairing delivered, not a trait that demonstrably moves with the man. Mike Tomlin and John Harbaugh are 100% of their franchise's rows in the window, Belichick is 86%, Reid 93%, Pete Carroll 86%; for those five the franchise term is set by one or two seasons of somebody else, and the table label on the chart shows what happens to their number when that other coach's season is dropped. Belichick without Mike Vrabel's 2025 New England season is +1.41 instead of +1.13; Reid without Romeo Crennel's 2012 Kansas City season is +0.49 instead of +0.81.</p>
+  </section>
+
+  <section>
+    <div class="step">The leaderboard</div>
+    <h2 class="center">Fifty head coaches with at least four seasons, 2012-2025</h2>
+    <figure>
+      <img src="figures/coaching_war_leaderboard.png" alt="Dot and interval chart of coaching WAR per season for the top 25 eligible head coaches, 2012-2025, with raw averages as hollow circles, 95% intervals, and a low-coach-spread version as blue crosses.">
+      <figcaption>Top 25 of the 50 eligible coaches. Filled dot is the shrunk estimate, hollow circle the raw average, bar the 95% interval, blue cross the same board with the coach spread held at 0.40 wins (the value the split-half reliability supports; Belichick is +0.50 there). Labels give the rank once same-season quarterback play is controlled, and what the number becomes without the single most influential season, without elite-quarterback seasons, or without cheap-quarterback seasons, wherever one of those moves the coach effect by more than 0.3. Built by R/71.</figcaption>
+    </figure>
+    <p>Click a column header to sort. "Seasons" counts seasons in the 2012-2025 window; coaches hired before 2012 are marked with their real hire year, since their early seasons are missing and veterans as a group average +0.19 more than in-window hires (p = 0.12). The interval is 95%, from a parametric bootstrap of the model's own prediction error with the coach spread drawn from its likelihood. Premium and surprise are the shrunk per-season components. "QB-controlled rank" is this coach's rank when the quarterback's same-season play is also removed. "P(above avg)" is the probability the coach's true effect is above the average sitting coach; nobody reaches 0.95.</p>
+    <div class="tablewrap">
+    <table class="board" id="board">
+      <thead><tr>
+        <th data-k="n">Rank</th><th data-k="s">Coach</th><th data-k="s">Seasons (teams)</th><th data-k="n">WAR / season</th><th data-k="s">95% interval</th><th data-k="n">Premium</th><th data-k="n">Surprise</th><th data-k="n">QB-controlled rank</th><th data-k="n">P(above avg)</th>
+      </tr></thead>
+      <tbody>
+<tr><td>1</td><td>Bill Belichick</td><td>12 (NE, hired 2000)</td><td data-v="1.132">+1.13</td><td>-0.21 to +2.47</td><td data-v="0.895">+0.89</td><td data-v="0.073">+0.07</td><td>1</td><td data-v="0.921">0.92</td></tr>
+<tr><td>2</td><td>Bruce Arians</td><td>8 (ARI/TB)</td><td data-v="1.085">+1.08</td><td>-0.29 to +2.46</td><td data-v="0.504">+0.50</td><td data-v="0.277">+0.28</td><td>4</td><td data-v="0.905">0.91</td></tr>
+<tr><td>3</td><td>Sean McDermott</td><td>9 (BUF)</td><td data-v="1.075">+1.08</td><td>-0.28 to +2.43</td><td data-v="0.478">+0.48</td><td data-v="0.343">+0.34</td><td>15</td><td data-v="0.901">0.90</td></tr>
+<tr><td>4</td><td>Mike Vrabel</td><td>7 (TEN/NE)</td><td data-v="1.014">+1.01</td><td>-0.32 to +2.34</td><td data-v="0.224">+0.22</td><td data-v="0.355">+0.35</td><td>13</td><td data-v="0.907">0.91</td></tr>
+<tr><td>5</td><td>Sean Payton</td><td>12 (NO/DEN, hired 2006)</td><td data-v="0.950">+0.95</td><td>-0.37 to +2.27</td><td data-v="0.337">+0.34</td><td data-v="0.308">+0.31</td><td>22</td><td data-v="0.875">0.88</td></tr>
+<tr><td>6</td><td>Nick Sirianni</td><td>5 (PHI)</td><td data-v="0.883">+0.88</td><td>-0.56 to +2.33</td><td data-v="0.365">+0.37</td><td data-v="0.224">+0.22</td><td>17</td><td data-v="0.823">0.82</td></tr>
+<tr><td>7</td><td>Mike Tomlin</td><td>14 (PIT, hired 2007)</td><td data-v="0.867">+0.87</td><td>-0.59 to +2.32</td><td data-v="0.236">+0.24</td><td data-v="0.385">+0.39</td><td>3</td><td data-v="0.823">0.82</td></tr>
+<tr><td>8</td><td>John Harbaugh</td><td>14 (BAL, hired 2008)</td><td data-v="0.860">+0.86</td><td>-0.52 to +2.25</td><td data-v="0.615">+0.61</td><td data-v="0.038">+0.04</td><td>5</td><td data-v="0.848">0.85</td></tr>
+<tr><td>9</td><td>Sean McVay</td><td>9 (LA)</td><td data-v="0.847">+0.85</td><td>-0.57 to +2.26</td><td data-v="0.545">+0.54</td><td data-v="0.134">+0.13</td><td>20</td><td data-v="0.824">0.82</td></tr>
+<tr><td>10</td><td>Jim Harbaugh</td><td>5 (SF/LAC, hired 2011)</td><td data-v="0.824">+0.82</td><td>-0.56 to +2.20</td><td data-v="0.360">+0.36</td><td data-v="0.171">+0.17</td><td>7</td><td data-v="0.844">0.84</td></tr>
+<tr><td>11</td><td>Andy Reid</td><td>14 (PHI/KC, hired 1999)</td><td data-v="0.809">+0.81</td><td>-0.55 to +2.17</td><td data-v="0.294">+0.29</td><td data-v="0.281">+0.28</td><td>39</td><td data-v="0.840">0.84</td></tr>
+<tr><td>12</td><td>Chuck Pagano</td><td>6 (IND)</td><td data-v="0.709">+0.71</td><td>-0.76 to +2.17</td><td data-v="0.090">+0.09</td><td data-v="0.276">+0.28</td><td>6</td><td data-v="0.753">0.75</td></tr>
+<tr><td>13</td><td>Kevin O'Connell</td><td>4 (MIN)</td><td data-v="0.684">+0.68</td><td>-0.76 to +2.12</td><td data-v="0.093">+0.09</td><td data-v="0.286">+0.29</td><td>2</td><td data-v="0.782">0.78</td></tr>
+<tr><td>14</td><td>Matt LaFleur</td><td>7 (GB)</td><td data-v="0.651">+0.65</td><td>-0.80 to +2.10</td><td data-v="0.091">+0.09</td><td data-v="0.244">+0.24</td><td>33</td><td data-v="0.753">0.75</td></tr>
+<tr><td>15</td><td>Bill O'Brien</td><td>6 (HOU)</td><td data-v="0.617">+0.62</td><td>-0.85 to +2.08</td><td data-v="0.141">+0.14</td><td data-v="0.192">+0.19</td><td>8</td><td data-v="0.709">0.71</td></tr>
+<tr><td>16</td><td>Jason Garrett</td><td>8 (DAL, hired 2010)</td><td data-v="0.614">+0.61</td><td>-0.84 to +2.07</td><td data-v="0.339">+0.34</td><td data-v="0.094">+0.09</td><td>21</td><td data-v="0.730">0.73</td></tr>
+<tr><td>17</td><td>Jim Caldwell</td><td>4 (DET, hired 2009)</td><td data-v="0.598">+0.60</td><td>-0.91 to +2.10</td><td data-v="0.150">+0.15</td><td data-v="0.160">+0.16</td><td>16</td><td data-v="0.739">0.74</td></tr>
+<tr><td>18</td><td>Marvin Lewis</td><td>7 (CIN, hired 2003)</td><td data-v="0.559">+0.56</td><td>-0.94 to +2.06</td><td data-v="0.161">+0.16</td><td data-v="0.153">+0.15</td><td>14</td><td data-v="0.707">0.71</td></tr>
+<tr><td>19</td><td>Kyle Shanahan</td><td>9 (SF)</td><td data-v="0.540">+0.54</td><td>-0.81 to +1.89</td><td data-v="0.447">+0.45</td><td data-v="-0.054">-0.05</td><td>41</td><td data-v="0.708">0.71</td></tr>
+<tr><td>20</td><td>Dan Campbell</td><td>5 (DET)</td><td data-v="0.490">+0.49</td><td>-0.92 to +1.90</td><td data-v="-0.057">-0.06</td><td data-v="0.203">+0.20</td><td>40</td><td data-v="0.667">0.67</td></tr>
+<tr><td>21</td><td>Matt Nagy</td><td>4 (CHI)</td><td data-v="0.454">+0.45</td><td>-1.04 to +1.95</td><td data-v="0.035">+0.04</td><td data-v="0.125">+0.12</td><td>9</td><td data-v="0.639">0.64</td></tr>
+<tr><td>22</td><td>Pete Carroll</td><td>13 (SEA/LV, hired 1999)</td><td data-v="0.449">+0.45</td><td>-0.87 to +1.76</td><td data-v="0.202">+0.20</td><td data-v="0.121">+0.12</td><td>29</td><td data-v="0.662">0.66</td></tr>
+<tr><td>23</td><td>Ron Rivera</td><td>12 (CAR/WAS, hired 2011)</td><td data-v="0.437">+0.44</td><td>-0.86 to +1.73</td><td data-v="0.124">+0.12</td><td data-v="0.126">+0.13</td><td>11</td><td data-v="0.637">0.64</td></tr>
+<tr><td>24</td><td>Mike McCarthy</td><td>12 (GB/DAL, hired 2006)</td><td data-v="0.348">+0.35</td><td>-0.95 to +1.64</td><td data-v="0.175">+0.17</td><td data-v="0.014">+0.01</td><td>31</td><td data-v="0.598">0.60</td></tr>
+<tr><td>25</td><td>John Fox</td><td>6 (DEN/CHI, hired 2002)</td><td data-v="0.304">+0.30</td><td>-1.08 to +1.68</td><td data-v="0.101">+0.10</td><td data-v="0.012">+0.01</td><td>46</td><td data-v="0.539">0.54</td></tr>
+<tr><td>26</td><td>Gary Kubiak</td><td>4 (HOU/DEN, hired 2006)</td><td data-v="0.295">+0.30</td><td>-1.19 to +1.78</td><td data-v="0.264">+0.26</td><td data-v="-0.058">-0.06</td><td>12</td><td data-v="0.551">0.55</td></tr>
+<tr><td>27</td><td>Mike Zimmer</td><td>8 (MIN)</td><td data-v="0.269">+0.27</td><td>-1.19 to +1.73</td><td data-v="0.036">+0.04</td><td data-v="0.108">+0.11</td><td>32</td><td data-v="0.581">0.58</td></tr>
+<tr><td>28</td><td>Anthony Lynn</td><td>4 (LAC)</td><td data-v="0.240">+0.24</td><td>-1.27 to +1.75</td><td data-v="0.227">+0.23</td><td data-v="-0.103">-0.10</td><td>42</td><td data-v="0.522">0.52</td></tr>
+<tr><td>29</td><td>Dan Quinn</td><td>7 (ATL/WAS)</td><td data-v="0.216">+0.22</td><td>-1.11 to +1.54</td><td data-v="-0.025">-0.02</td><td data-v="0.021">+0.02</td><td>49</td><td data-v="0.522">0.52</td></tr>
+<tr><td>30</td><td>Todd Bowles</td><td>8 (NYJ/TB, hired 2011)</td><td data-v="0.204">+0.20</td><td>-1.14 to +1.55</td><td data-v="0.074">+0.07</td><td data-v="-0.079">-0.08</td><td>38</td><td data-v="0.504">0.50</td></tr>
+<tr><td>31</td><td>Tom Coughlin</td><td>4 (NYG, hired 1999)</td><td data-v="0.184">+0.18</td><td>-1.38 to +1.75</td><td data-v="0.198">+0.20</td><td data-v="-0.104">-0.10</td><td>34</td><td data-v="0.504">0.50</td></tr>
+<tr><td>32</td><td>Frank Reich</td><td>6 (IND/CAR)</td><td data-v="0.126">+0.13</td><td>-1.31 to +1.56</td><td data-v="0.183">+0.18</td><td data-v="-0.116">-0.12</td><td>23</td><td data-v="0.451">0.45</td></tr>
+<tr><td>33</td><td>Kevin Stefanski</td><td>6 (CLE)</td><td data-v="0.122">+0.12</td><td>-1.33 to +1.58</td><td data-v="-0.186">-0.19</td><td data-v="-0.030">-0.03</td><td>19</td><td data-v="0.483">0.48</td></tr>
+<tr><td>34</td><td>Chip Kelly</td><td>4 (PHI/SF)</td><td data-v="0.106">+0.11</td><td>-1.32 to +1.53</td><td data-v="0.190">+0.19</td><td data-v="-0.141">-0.14</td><td>28</td><td data-v="0.436">0.44</td></tr>
+<tr><td>35</td><td>Kliff Kingsbury</td><td>4 (ARI)</td><td data-v="0.098">+0.10</td><td>-1.40 to +1.59</td><td data-v="0.095">+0.09</td><td data-v="-0.084">-0.08</td><td>36</td><td data-v="0.467">0.47</td></tr>
+<tr><td>36</td><td>Joe Philbin</td><td>4 (MIA)</td><td data-v="0.040">+0.04</td><td>-1.40 to +1.48</td><td data-v="0.070">+0.07</td><td data-v="-0.081">-0.08</td><td>27</td><td data-v="0.399">0.40</td></tr>
+<tr><td>37</td><td>Mike McDaniel</td><td>4 (MIA)</td><td data-v="0.016">+0.02</td><td>-1.46 to +1.49</td><td data-v="-0.036">-0.04</td><td data-v="-0.044">-0.04</td><td>47</td><td data-v="0.388">0.39</td></tr>
+<tr><td>38</td><td>Rex Ryan</td><td>5 (NYJ/BUF, hired 2009)</td><td data-v="0.011">+0.01</td><td>-1.45 to +1.47</td><td data-v="-0.060">-0.06</td><td data-v="-0.076">-0.08</td><td>25</td><td data-v="0.412">0.41</td></tr>
+<tr><td>39</td><td>Adam Gase</td><td>5 (MIA/NYJ)</td><td data-v="-0.007">-0.01</td><td>-1.48 to +1.46</td><td data-v="-0.503">-0.50</td><td data-v="0.149">+0.15</td><td>18</td><td data-v="0.366">0.37</td></tr>
+<tr><td>40</td><td>Jay Gruden</td><td>5 (WAS)</td><td data-v="-0.035">-0.03</td><td>-1.51 to +1.44</td><td data-v="-0.303">-0.30</td><td data-v="0.034">+0.03</td><td>44</td><td data-v="0.384">0.38</td></tr>
+<tr><td>41</td><td>Brian Daboll</td><td>4 (NYG)</td><td data-v="-0.068">-0.07</td><td>-1.53 to +1.39</td><td data-v="-0.277">-0.28</td><td data-v="-0.025">-0.02</td><td>35</td><td data-v="0.334">0.33</td></tr>
+<tr><td>42</td><td>Robert Saleh</td><td>4 (NYJ)</td><td data-v="-0.083">-0.08</td><td>-1.60 to +1.43</td><td data-v="-0.084">-0.08</td><td data-v="-0.133">-0.13</td><td>24</td><td data-v="0.341">0.34</td></tr>
+<tr><td>43</td><td>Doug Pederson</td><td>8 (PHI/JAX)</td><td data-v="-0.091">-0.09</td><td>-1.43 to +1.25</td><td data-v="-0.236">-0.24</td><td data-v="-0.076">-0.08</td><td>45</td><td data-v="0.320">0.32</td></tr>
+<tr><td>44</td><td>Zac Taylor</td><td>7 (CIN)</td><td data-v="-0.186">-0.19</td><td>-1.66 to +1.28</td><td data-v="-0.225">-0.23</td><td data-v="-0.101">-0.10</td><td>48</td><td data-v="0.283">0.28</td></tr>
+<tr><td>45</td><td>Jeff Fisher</td><td>5 (LA, hired 1999)</td><td data-v="-0.213">-0.21</td><td>-1.64 to +1.22</td><td data-v="-0.443">-0.44</td><td data-v="-0.007">-0.01</td><td>10</td><td data-v="0.238">0.24</td></tr>
+<tr><td>46</td><td>Mike McCoy</td><td>4 (LAC)</td><td data-v="-0.231">-0.23</td><td>-1.74 to +1.28</td><td data-v="-0.293">-0.29</td><td data-v="-0.127">-0.13</td><td>50</td><td data-v="0.275">0.28</td></tr>
+<tr><td>47</td><td>Gus Bradley</td><td>4 (JAX)</td><td data-v="-0.247">-0.25</td><td>-1.73 to +1.23</td><td data-v="-0.102">-0.10</td><td data-v="-0.235">-0.23</td><td>26</td><td data-v="0.279">0.28</td></tr>
+<tr><td>48</td><td>Doug Marrone</td><td>6 (BUF/JAX)</td><td data-v="-0.251">-0.25</td><td>-1.67 to +1.16</td><td data-v="-0.237">-0.24</td><td data-v="-0.167">-0.17</td><td>30</td><td data-v="0.256">0.26</td></tr>
+<tr><td>49</td><td>Lovie Smith</td><td>4 (CHI/TB/HOU, hired 2004)</td><td data-v="-0.303">-0.30</td><td>-1.78 to +1.17</td><td data-v="-0.223">-0.22</td><td data-v="-0.194">-0.19</td><td>37</td><td data-v="0.227">0.23</td></tr>
+<tr><td>50</td><td>Dennis Allen</td><td>5 (LV/NO)</td><td data-v="-0.360">-0.36</td><td>-1.80 to +1.08</td><td data-v="-0.166">-0.17</td><td data-v="-0.240">-0.24</td><td>43</td><td data-v="0.230">0.23</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">The 56 coaches with fewer than four seasons in the window are in the CSV with a number but no rank; with one to three seasons the shrinkage leaves almost nothing of the raw record, and the figure for them is mostly the prior. WAR per season correlates 0.54 with seasons coached among the eligible, because the bottom of this board is the worst of the coaches who survived long enough to be graded, not the worst coaches. Equalising exposure to each coach's first three seasons keeps a rank correlation of only 0.668 with this board and moves 16 coaches 10 or more places (Payton falls from 5 to 42, Reid from 11 to 45, Chuck Pagano rises from 12 to 1).</p>
+  </section>
+
+  <section>
+    <div class="step">What the skeptics tried to break</div>
+    <h2 class="center">Three rounds, forty objections, and what was done about each</h2>
+    <p>Every version of this measure went to three reviewers whose job was to knock it down. The objections below are grouped by theme. The pattern was the same each round: most objections were right, the fix was made, the top of the board did not move, and the claims around it got narrower. Nothing in the first round's write-up about tenure being "earned" or coaches being "clear of replacement" survived.</p>
+
+    <div class="skeptic"><div class="q">The intervals were too tight, and the "top-5 in 66% of resamples" claim was an artefact.</div>
+      <p>Right. The original bootstrap resampled within each coach, which pulls toward the raw mean. It was replaced with a parametric bootstrap of the model's prediction error. Afterwards, P(above average) for the top five sits between 0.88 and 0.92, nobody reaches 0.95, nobody's lower bound is above zero (2.7 would by chance), and P(top 5) for the top five is 0.26 to 0.42 rather than 0.17 to 0.66. The 90% rank range for Belichick is 1 to 31.</p></div>
+
+    <div class="skeptic"><div class="q">The coach spread that drives every shrunk number is not pinned down, and the data's own split-half contradicts it.</div>
+      <p>Right on the first part. The model's coach standard deviation is 0.84 wins with a 95% profile interval from 0.00 to 1.32; fit on odd seasons only it is 0.65, on even seasons 1.33. A likelihood-ratio test that the coach term is needed at all gives p = 0.031 (the franchise term alone is also p = 0.031; both together p = 0.00002). The coach rank across odd and even seasons correlates 0.085 (interval -0.14 to 0.30), well under the 0.30 the project set as the gate before any prediction test. Panels simulated from the fitted model give a median split-half of 0.34, so the observed 0.085 is at the 6th percentile of what the model expects of itself, inside the range rather than below it as the skeptic predicted, because 65 of 200 simulated panels put one half's coach spread at zero. The board was then rebuilt with the spread held at 0.40, the value the reliability supports: Belichick is +0.50 there, with P(above average) 0.75. Averaged over every spread the likelihood allows, he is +1.04 (-0.13 to +2.69), P(above average) 0.87. The gate is not cleared, and the chart title says so.</p></div>
+
+    <div class="skeptic"><div class="q">The quarterback control only covers last season's quarterback. Same-season quarterback play is inside the coach number.</div>
+      <p>Right, and it is the single biggest thing on this page. The numbers are in the controls section above: 24 of 50 coaches move 10 or more places. A related objection: the cap-share control treats a quarterback playing above a cheap contract as coach value. 45 of 451 coach-seasons have a starter paid below average and playing above average; they average +2.79 wins above talent against -0.32 for the rest, and 10 of the top 12 coaches have at least one. Refitting without each coach's cheap-quarterback seasons moves six coaches by more than 0.3: Vrabel (+1.01 becomes +0.54), Sean McVay (+0.85 becomes +0.53), Dan Quinn, Todd Bowles, Doug Pederson and Zac Taylor, the last four downward. The coach effect rises 0.31 wins per standard deviation of how far the quarterback outplayed his pay (p = 0.009).</p></div>
+
+    <div class="skeptic"><div class="q">Belichick is a Brady number, and Arians is a second Brady number with no disclosure.</div>
+      <p>Right. Refit without the 2012-2019 New England seasons, Belichick's coach effect is +0.09 instead of +0.95. The check was generalised to ten elite quarterbacks outside their rookie deals, for every coach. Without those seasons, Belichick is +0.28 (8 seasons dropped), Arians +0.74 (2 dropped), Tomlin +0.41 (11 dropped), Matt LaFleur +0.33 (4 dropped), John Fox -0.44 (3 dropped). The number in the chart label is the WAR without those seasons. A partnership that never ends cannot be separated by this or any model; the page presents those as partnership numbers.</p></div>
+
+    <div class="skeptic"><div class="q">Vrabel's rank is one season (2025 New England).</div>
+      <p>Right, and he is not alone. Leave-one-season-out refits were run for every row. Twelve of the 50 eligible coaches move by more than 0.3 on a single season, in both directions: Vrabel's coach effect 0.83 to 0.48 without 2025; Reid 0.62 to 1.15 without 2012 Philadelphia; McVay 0.66 to 1.03 without 2022; Kevin O'Connell 0.50 to 0.18 without 2024; Dan Campbell 0.30 to 0.62 without 2021; Matt Nagy 0.27 to -0.05 without 2018. The skeptic's claim that no other top-10 coach had such a season was wrong: McVay's and Reid's single seasons cut them rather than carry them.</p></div>
+
+    <div class="skeptic"><div class="q">The replacement line is lifted by a franchise term that is itself made of fired coaches.</div>
+      <p>Partly right. The franchise effect correlates -0.72 with the number of head coaches a team used. But the skeptic's -0.385 did not subtract the model intercept that the coach effects are centred on; net of that, the franchise term moves the line by 0.16, not 0.3. A franchise term estimated only from years three and later gives a line of -0.37; refitting the franchise term without each coach's own spell gives -0.19, the published value, so no first-season row credits itself. The interim rule was also wrong in round one (it dropped first-year hires fired midseason, such as Urban Meyer 2021 and Nathaniel Hackett 2022, as if they were interims); fixing it moved the line from -0.07 to -0.19 and raised every WAR by about 0.11, with the order unchanged. Both moves are under one standard error of the line.</p></div>
+
+    <div class="skeptic"><div class="q">"Tenure is earned" has no power against the simpler story that owners fire on wins.</div>
+      <p>Right. The first write-up said coaches who lasted five or more seasons were already +3 wins better in their first two years and called that earned. The gap is real (spell-level Wilcoxon shift +3.73, interval +2.55 to +4.81, p &lt; 0.001, 21 spells against 31), but a simulated world with no coaching skill at all, where owners fire on wins above talent, produces a median gap of +2.24 (95% range +1.24 to +3.34). The observed +3.51 is above that band (one-sided P = 0.012). So was a world with the fitted coaching trait: its median is only +2.52 (P = 0.038). Both worlds find the gap unusual, which means the simulated firing rule understates real selection and the simulation cannot say how much of the gap is firing and how much is skill. The direct test, whether a coach's early edge persists into years three and beyond, has no power at this sample: observed r = +0.30 (61 spells), no-skill range -0.15 to +0.38. Coding the 8 voluntary exits (Belichick, Payton, Carroll, Arians twice, Kubiak, Jim Harbaugh, Fox) as censored rather than fired made the gap larger, +3.67, not smaller. The word "earned" was removed.</p></div>
+
+    <div class="skeptic"><div class="q">The reported reliability was team-season consistency, not coach reliability.</div>
+      <p>Right. The odd/even-games split of 0.42 (Spearman-Brown 0.59) is mostly the team: the same split with the coach ignored is 0.316 on 435 team-seasons, and net of the franchise effect the coach version is 0.288. The coach reliability the project is judged on is the odd/even-seasons split, 0.085.</p></div>
+
+    <div class="skeptic"><div class="q">The out-of-sample test was asserted without intervals and misquoted its own slope.</div>
+      <p>Right. The slope 0.94 existed only in a report; the script and figure say 0.89 on all rows and 0.83 on the 250 rows where last season's wins also exist. Added: a coach-cluster bootstrap of r(WAR) minus r(last season's wins), which is -0.089 with interval -0.204 to +0.035, and of r(WAR) alone, 0.028 to 0.211. Refitting the spread-to-wins model inside each holdout changes r by 0.0016. Two-way clustering by coach and season takes the t for WAR alone from 2.5 to 1.8, and to 0.7 once last season's wins are in the model. The holdout also scores only coaches who survived into the next season; the 73 coach-seasons of coaches fired or gone averaged +0.05 WAR through the prior year against +0.34 for the scored, so the low end of the test is truncated. The direction of that effect on r is not claimed.</p></div>
+
+    <div class="skeptic"><div class="q">Smaller things, all fixed.</div>
+      <p>Eighteen seasons with a missing quarterback cap share were set to league average, including Brady 2018 and Brees 2017; sixteen were filled from the same quarterback's nearest season (top-10 order unchanged, Belichick 1.03 to 1.02). Lagged quarterback EPA was filled with the league mean for 68 new starters; a new-starter indicator shows the market prices them 1.22 wins below that fill, and the board built with it correlates 0.993 with this one. Hazard and out-of-sample p-values now use coach-clustered standard errors. The survivorship Wilcoxon was on rows rather than spells and is now on spells. Calling your own plays does not show up: own play-callers average +0.26 against +0.23 for the rest (difference +0.03, interval -0.21 to +0.27, p = 0.80). Several chart titles and captions overstated things (the components chart called the market premium the coaches' edge; the validation caption asserted a bias direction) and were rewritten.</p></div>
+
+    <div class="skeptic"><div class="q"><span class="open">Still open.</span></div>
+      <p>The reliability gate (0.30 across odd and even seasons) is not cleared and may not be clearable with 14 seasons and about 105 coaches; the model's own simulation says the observed 0.085 is unusual but not impossible for a true coach spread of 0.84. The portable coach effect across teams is 0.01 with an interval running to 1.13, which is to say unknown. Whether the survivorship gap is firing or skill cannot be settled by simulation at this sample size. The roster beyond payroll is not controlled in the main measure. Coordinators and general managers are invisible. The main board and the same-season-quarterback board disagree on 24 of 50 coaches, and there is no principled way to pick one; the page shows both and makes no claim about which is the truth.</p></div>
+  </section>
+
+  <section>
+    <div class="step">What it still cannot do</div>
+    <h2 class="center">It does not predict. That was the test it had to pass.</h2>
+    <figure>
+      <img src="figures/coaching_war_validation.png" alt="Scatter of each coach's WAR through the previous season against his wins above talent in the held-out season, 267 coach-seasons 2016-2025, with a fitted line of slope 0.89 and r = 0.13.">
+      <figcaption>Each point is a coach-season 2016-2025. The model was refit on 2012 to the season before, then asked to predict that coach's wins above talent in the held-out season. Grey line is slope 1. Built by R/71.</figcaption>
+    </figure>
+    <p>The project set one bar before any of this was built: out of sample, a coach's WAR through last season should predict his team's wins above talent next season at r of at least 0.30, with the interval above zero, and should beat a baseline that uses only last season's record. It fails both the prespecified bar and the weak one. Across 267 held-out coach-seasons, r is 0.129 (interval 0.009 to 0.245) with a slope of 0.89, so the number is calibrated in scale but weak. Last season's raw win total alone predicts at r = 0.21. On the 250 rows where both exist, WAR's r minus last season's r is -0.089 with a cluster-bootstrap interval of -0.204 to +0.035: neither distinguishably better nor worse. Once last season's wins are in the model, WAR adds nothing (t = 0.7 with two-way clustering, p = 0.48).</p>
+    <p>The reason is visible in the sensitivity rows. Adding the franchise effect back into the prediction lifts r to 0.216: the building carries as much signal forward as the man. Of the two components, the market premium persists year to year at r = 0.35 and the surprise at r = 0.06; the premium is the part the market had already priced, and it correlates 0.61 with same-season quarterback play. The thing that repeats is mostly not the coach.</p>
+    <figure>
+      <img src="figures/coaching_war_survivorship.png" alt="Strip chart of wins above talent in a coach's first two seasons with a team, grouped by whether he was gone within two seasons, lasted three to four, or lasted five or more; group means -2.26, -0.42 and +0.91.">
+      <figcaption>Raw wins above talent per 17 games in years one and two of each spell begun 2012 or later, grouped by what happened afterwards. Means: -2.26 (n = 48 coach-seasons), -0.42 (n = 54), +0.91 (n = 42). Interim stints and spells still running with fewer than five seasons are excluded. Built by R/71.</figcaption>
+    </figure>
+    <p>The strongest positive finding is the survivorship chart: coaches who went on to five or more seasons were already winning above their talent in years one and two, by about three and a half wins per season against those gone within two. But as the skeptic section explains, a world where owners simply fire on wins produces most of that gap on its own, and the test that would separate firing from skill has no power at this sample. Tenure is consistent with being earned; it is not shown to be.</p>
+    <p class="finding"><b>How to read the board, then.</b> The ranking is a fair description of who won above the resources the model can see, and the famous names sit where a fan would put them. It is not a measurement of how many wins a coach would carry to his next job, because the data cannot tell a coach from his building and cannot tell a coach from his quarterback. A coach whose WAR is +1.0 is roughly 88 to 92% likely to be better than an average sitting coach, and that is the strongest sentence the numbers support.</p>
+  </section>
+
+  <footer>
+    Data: nflverse schedules and closing spreads 1999-2025; OverTheCap contracts via nflreadr 2012-2025; nflfastR play by play for quarterback EPA; Madden launch ratings 2017-2025 as a check only. Panel: 451 coach-seasons, 2012-2025, 106 head coaches, 50 with at least four seasons of at least eight games. Script: <code>R/71_coaching_war.R</code>. Every number on this page is in <code>data/derived/coaching_war.csv</code>, <code>coaching_war_validation.csv</code>, <code>coaching_war_survivorship.csv</code> or <code>coaching_war_sensitivity.csv</code>.
+  </footer>
+</main>
+<script>
+(function () {
+  const table = document.getElementById('board');
+  const heads = [...table.querySelectorAll('th')];
+  let sortCol = 0, asc = true;
+  function val(tr, i) {
+    const td = tr.children[i];
+    if (td.dataset.v !== undefined) return parseFloat(td.dataset.v);
+    const t = td.textContent.trim();
+    return heads[i].dataset.k === 'n' ? parseFloat(t) : t.toLowerCase();
+  }
+  function sortBy(i) {
+    if (sortCol === i) asc = !asc; else { sortCol = i; asc = heads[i].dataset.k === 's' || i === 0 ? true : false; }
+    const rows = [...table.tBodies[0].rows];
+    rows.sort((a, b) => { const x = val(a, i), y = val(b, i); return (x < y ? -1 : x > y ? 1 : 0) * (asc ? 1 : -1); });
+    rows.forEach(r => table.tBodies[0].appendChild(r));
+    heads.forEach((h, k) => { const a = h.querySelector('.arrow'); if (a) a.remove(); if (k === i) { const s = document.createElement('span'); s.className = 'arrow'; s.textContent = asc ? '▲' : '▼'; h.appendChild(s); } });
+  }
+  heads.forEach((h, i) => h.addEventListener('click', () => sortBy(i)));
+})();
+</script>
+</body>
+</html>

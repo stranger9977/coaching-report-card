@@ -84,7 +84,7 @@
 </style>
 </head>
 <body>
-<div class="draftbar">Working notes, not published. Every chart here is built from public play-by-play and charting data and is real. The open questions are marked as open. &nbsp;·&nbsp; <a href="models.html"><b>Model Factory &rarr;</b></a> &nbsp;·&nbsp; <a href="outline.html"><b>Script Outline &rarr;</b></a> &nbsp;·&nbsp; <a href="sequencing.html"><b>Play Sequencing &rarr;</b></a></div>
+<div class="draftbar">Working notes, not published. Every chart here is built from public play-by-play and charting data and is real. The open questions are marked as open. &nbsp;·&nbsp; <a href="models.html"><b>Model Factory &rarr;</b></a> &nbsp;·&nbsp; <a href="outline.html"><b>Script Outline &rarr;</b></a> &nbsp;·&nbsp; <a href="sequencing.html"><b>Play Sequencing &rarr;</b></a> &nbsp;·&nbsp; <a href="war.html"><b>Coaching WAR &rarr;</b></a></div>
 <main>
   <header>
     <div class="kicker">Working board for the next video</div>
@@ -109,6 +109,7 @@
 
   <div class="prose">
     <p style="font-size:14.5px;color:var(--ink-3);border:1px solid var(--line);border-radius:10px;padding:12px 16px;background:var(--card)"><strong style="color:var(--ink)">Finding the new stuff.</strong> The board grows downward by date, newest at the top. Jump to a day:
+    <a href="#war-22">Aug 22 Coaching WAR</a> (the leaderboard, the skeptic log, the honest verdict) ·
     <a href="#markov-22">Aug 22 Markov chains</a> (sequencing as a chain, the signature-package streaks in EPA and win probability, the Niners film reel) ·
     <a href="#groupchat-20">Aug 20 group chat</a> (the Macdonald outlier chart, sim pressure, the tight-end claims) ·
     <a href="#afternoon-19">Aug 19 afternoon texts</a> (guess-the-play, the 25-plays-like-250 composite, the rotation double-check, the one-game film card, the tip explained, menu vs wardrobe, the pistol memory) ·
@@ -131,6 +132,22 @@
   </div>
 
   <div class="board">
+
+    <div class="tgroup">
+      <h3 id="war-22">Coaching WAR, 22 August</h3>
+      <p class="grouphint">"one last tab where we create a coaching WAR leaderboard ... the skeptic should poke holes in like survivorship bias and bad statistics practices ... the best coaches who win games should be at the top but dont fudge it." Built as a judged design, one script, and three rounds of adversarial review. The tab is <a href="war.html">Coaching WAR</a>.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Coaching WAR: the familiar names are on top, and none of them is clear of the pack</span><span class="pill open">Honest, not flattering</span></div>
+      <p class="row found"><span class="lab">What the number is.</span> Wins per season a head coach delivered above what a fresh hire would have, after the payroll he was handed, last season's quarterback and the franchise he works in, 2012-2025, 50 coaches with 4+ seasons. Belichick +1.13, Arians +1.08, McDermott +1.08, Vrabel +1.01, Payton +0.95, then Sirianni, Tomlin, John Harbaugh, McVay, Jim Harbaugh. Bottom: Dennis Allen, Lovie Smith, Marrone, Bradley, McCoy. The order is what a fan would guess, which is a point in its favour.</p>
+      <p class="row found"><span class="lab">What the skeptics found, and it stands.</span> Zero of 50 coaches have a 95% interval that clears replacement. The coach number's split-half reliability is 0.08 against a prespecified bar of 0.30. Out of sample it predicts next season's wins above talent at r = 0.13, no better than last season's win total (r = 0.21). Control for the quarterback's play in the same season and 24 of 50 coaches move ten or more places (Jeff Fisher 45th to 10th, Andy Reid 11th to 39th); the coach effect correlates 0.58 with the quarterback play he had. Belichick without his elite-QB seasons is +0.28. Replacement level came out at -0.19 wins, so WAR and wins above average are nearly the same thing. Coaches who lasted 5+ seasons were +3.5 wins better in years 1-2 than coaches gone within 2, but a simulated league with no coaching skill and owners who fire on wins produces most of that gap, so tenure cannot be called earned.</p>
+      <figure>
+        <img src="figures/coaching_war_leaderboard.png" alt="Top 25 head coaches by WAR per season with 95% intervals, hollow circles for raw averages and blue crosses for the reliability-supported scale; every interval crosses zero.">
+        <figcaption>The leaderboard with the uncertainty left on. Built by R/71.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The one-sentence version for the video:</span> the data can tell you who won above their resources; it cannot yet prove the man, rather than the pairing of man, quarterback and building, is the reason. Full method, the skeptic log, and the sortable table: <a href="war.html">the Coaching WAR tab</a>.</p>
+    </div>
 
     <div class="tgroup">
       <h3 id="markov-22">Markov chains, 22 August</h3>

@@ -1,0 +1,217 @@
+test,statistic,n,lo,hi,p,note
+talent_fit_r2,0.359332327058563,451,,,,R2 of market expectation on payroll + QB cap + lagged QB EPA
+residual_roster_madden_coef,0.683889052028066,291,,,7.46940758878402e-05,"wins/17 per SD of Madden top-25 OVR left in wat17 after payroll + QB controls; t = 4.02. Known residual roster: the control is payroll and QB, not the full roster"
+same_season_qb_coef_on_wat17,1.86998046337026,451,,,,wins/17 per SD of same-season QB EPA; R2 0.387. The main measure controls LAST season's QB only
+cor_premium_same_season_qb,0.605710184215902,451,,,,market premium vs same-season QB EPA z
+cor_premium_madden,0.367493977775213,291,,,,"market premium vs Madden talent z, 2017-2025"
+cor_premium_prev_team_wat,0.316057485669196,419,,,,market premium vs the team's previous-season wins above talent
+varcomp_M_wat_coach,0.840644059146793,451,,,,SD in wins per 17 games
+varcomp_M_wat_team,0.764457100192179,451,,,,SD in wins per 17 games
+varcomp_M_wat_season,0,451,,,,SD in wins per 17 games
+varcomp_M_wat_Residual,2.66718737719371,451,,,,SD in wins per 17 games
+varcomp_M_prem_coach,0.500311091512869,451,,,,SD in wins per 17 games
+varcomp_M_prem_team,0.513616416385083,451,,,,SD in wins per 17 games
+varcomp_M_prem_season,0,451,,,,SD in wins per 17 games
+varcomp_M_prem_Residual,1.38361371836768,451,,,,SD in wins per 17 games
+varcomp_M_wae_coach,0.405086798148813,451,,,,SD in wins per 17 games
+varcomp_M_wae_team,0.248262841615018,451,,,,SD in wins per 17 games
+varcomp_M_wae_season,0,451,,,,SD in wins per 17 games
+varcomp_M_wae_Residual,1.84004267338199,451,,,,SD in wins per 17 games
+varcomp_M_wat_no_team_coach,1.10471665023908,451,,,,SD in wins per 17 games
+varcomp_M_wat_no_team_season,0,451,,,,SD in wins per 17 games
+varcomp_M_wat_no_team_Residual,2.67866870284133,451,,,,SD in wins per 17 games
+varcomp_M_wat_inherit_pd_coach,0.866215415516365,451,,,,SD in wins per 17 games
+varcomp_M_wat_inherit_pd_team,0.80834184371359,451,,,,SD in wins per 17 games
+varcomp_M_wat_inherit_pd_season,3.185648081794e-05,451,,,,SD in wins per 17 games
+varcomp_M_wat_inherit_pd_Residual,2.66612528091009,451,,,,SD in wins per 17 games
+varcomp_M_wat_nested_coach:team,1.25896870647627,451,,,,SD in wins per 17 games
+varcomp_M_wat_nested_coach,0.00500428790771846,451,,,,SD in wins per 17 games
+varcomp_M_wat_nested_season,0,451,,,,SD in wins per 17 games
+varcomp_M_wat_nested_Residual,2.61398611327242,451,,,,SD in wins per 17 games
+lrt_coach_variance_p,0.0311959324089607,451,,,,"REML LRT dropping (1|coach) from M_wat, statistic 3.47, 0.5 chi-square-1 mixture"
+lrt_team_variance_p,0.0305577946206106,451,,,,"REML LRT dropping (1|team) from M_wat, statistic 3.51"
+lrt_coach_plus_team_p,2.17921889508102e-05,451,,,,"REML LRT dropping both (1|coach) and (1|team), statistic 19.29, 0.25/0.5/0.25 chi0/chi1/chi2 mixture"
+profile_ci_coach_sd,0.840644059146793,451,0,1.31807329626915,,"REML coach SD with 95% profile CI (lo, hi)"
+profile_ci_team_sd,0.764457100192179,451,0,1.23940594878302,,REML team SD with 95% profile CI
+profile_ci_nested_coach_sd,0.00500428790771846,451,0,1.13188127794384,,"portable coach SD, (1|coach)+(1|coach:team), 95% profile CI"
+profile_ci_nested_coach_team_sd,1.25896870647627,451,0.507835749453292,1.65999403231603,,"coach-within-team SD, 95% profile CI"
+coach_sd_odd_seasons,0.646896747873918,225,,,,REML coach SD on odd seasons only
+coach_sd_even_seasons,1.32606605451981,226,,,,REML coach SD on even seasons only
+decomp_mean_wat17,0.0293450491968566,451,,,,season-weighted mean of wat17
+decomp_intercept_M_wat,-0.144684763446868,451,,,,fixed intercept of M_wat
+rep_offset_old_full_season_rule,-0.0715180984438565,96,,,,"round-1 primary: first-season rows with games == team games; excluded Meyer 2021, Hackett 2022, Reich 2023"
+rep_offset_primary,-0.186336294095129,99,,,,"first-season rows, interims excluded"
+rep_offset_first_all,-0.248298672572173,109,,,,all first-season rows incl. interims
+rep_offset_interim_only,-1.19720824010632,10,,,,interim first-season rows only
+rep_offset_no_returnee,0.0267818779372687,69,,,,"first-season rows, coaches with a prior HC spell excluded"
+rep_offset_one_and_done,-1.71232299515626,59,,,,spell <= 2 seasons and ended; survivorship-contaminated
+rep_offset_fired_early_yr1,-1.75886377091287,40,,,,first season of spells that ended within 2
+rep_offset_first_time_hc,0.0406813530309797,66,,,,"first-season rows of coaches with no prior HC spell (1999+), interims excluded"
+rep_offset_retread,-0.642922348427414,33,,,,"first-season rows of coaches with a prior HC spell, interims excluded"
+rep_offset_retread_vs_first_time_wilcoxon,-0.79942366304989,99,-2.15582308910221,0.617392296371254,0.263944825704345,"retread minus first-timer location shift, first-season rows"
+rep_offset_se_naive,0.294886855957702,99,,,,weighted SD of resid_plus_coach on the primary pool / sqrt(n)
+rep_offset_era_2012_2018,0.0830773149585702,50,,,,"primary pool, seasons 2012-2018"
+rep_offset_era_2019_2025,-0.453082441673049,49,,,,"primary pool, seasons 2019-2025"
+rep_offset_era_diff,-0.53615975663162,99,-1.69910235405706,0.626782840793817,0.36842880757832,"lm(resid_plus_coach ~ I(season >= 2019), weights = w) on the primary pool; SE 0.593; linear-in-season slope -0.021/yr (p = 0.78)"
+rep_offset_no_franchise_term,-0.351612597621579,99,,,,"first-season rows, wat17 minus intercept and season effect only (franchise term not removed)"
+rep_offset_team_from_yr3plus,-0.365327674498898,99,,,,first-season rows net of a franchise term estimated on spell_yr >= 3 rows only
+rep_offset_leave_one_spell_out,-0.192119868950203,99,,,,first-season rows net of a franchise term refit without that coach-team spell
+cor_team_effect_n_coaches,-0.716716883353114,32,,,,franchise BLUP vs number of distinct head coaches used in the window
+rep_offset_se,0.250592562303624,99,,,,SE of the replacement offset from the parametric bootstrap (rep_err); naive SE 0.295; the old-rule vs new-rule difference of 0.11 is under one SE
+boot_tau_true_median,0.78,1000,0.11975,1.33,,"coach SD drawn per bootstrap rep from the profile likelihood (2.5, 97.5 quantiles in lo, hi)"
+boot_tau_hat_boundary_share,0.117,1000,,,,share of bootstrap refits where REML put the coach SD at zero
+boot_centring_max_abs_bias_8plus,0.0463989205933786,16,,,,max |boot_mean - war_per_season| for coaches with >= 8 seasons; parametric bootstrap of the prediction error
+top_coach_war_tau_low,0.501978743582947,1,,,,WAR of the top coach (Bill Belichick) with the coach SD held at 0.40; published +1.13
+top_coach_war_tau_high,1.8787970420285,1,,,,same with the coach SD at the profile upper bound 1.32
+top_coach_prob_above_avg_tau_low,0.745104543490504,1,,,,"P(coach effect > 0) for the top coach at tau 0.40, from the conditional SD"
+rep_offset_tau_low,-0.253271899043582,99,,,,replacement offset with the coach SD held at 0.40
+top_coach_prob_above_avg_tau_marg,0.874230485728073,38,,,,P(coach effect > 0) for Bill Belichick averaged over the coach SD's profile likelihood; bootstrap value 0.92
+top_coach_war_tau_marg,1.0402774451133,38,-0.125100417221273,2.68570095473058,,"WAR of the top coach averaged over the coach SD's profile likelihood (lo, hi = 95% mixture interval)"
+tau_weight_below_0_5,0.176098722760326,38,,,,share of the profile likelihood on a coach SD below 0.5 wins
+influence_other_Andy_Reid,0.31538066700443,14,,,,max |change in coach effect| dropping one row of another coach (Romeo Crennel 2012 KC); effect without it +0.31
+n_franchise_pinned_eligible,5,50,,,,eligible coaches with >= 85% of their franchise's rows in the window
+elite_qb_Bill_Belichick,-0.852751875900305,8,,,,change in coach effect when his 8 elite-QB seasons are dropped; effect without them +0.09
+elite_qb_Bruce_Arians,-0.34372048690849,2,,,,change in coach effect when his 2 elite-QB seasons are dropped; effect without them +0.55
+elite_qb_Mike_Tomlin,-0.457785579535752,11,,,,change in coach effect when his 11 elite-QB seasons are dropped; effect without them +0.22
+elite_qb_Matt_LaFleur,-0.319513562084566,4,,,,change in coach effect when his 4 elite-QB seasons are dropped; effect without them +0.15
+elite_qb_John_Fox,-0.741013941687412,3,,,,change in coach effect when his 3 elite-QB seasons are dropped; effect without them -0.62
+cheap_qb_rows_mean_wat17,2.78992611418022,45,,,,mean wat17 on rows where the starter is paid below average but plays above average; -0.32 on the other 406 rows
+cheap_qb_Mike_Vrabel,-0.4739888994603,2,,,,change in coach effect when his 2 cheap-QB seasons are dropped; effect without them +0.35
+cheap_qb_Sean_McVay,-0.315524545342335,2,,,,change in coach effect when his 2 cheap-QB seasons are dropped; effect without them +0.35
+cheap_qb_Dan_Quinn,-0.310311151305592,1,,,,change in coach effect when his 1 cheap-QB seasons are dropped; effect without them -0.28
+cheap_qb_Todd_Bowles,-0.310549098909047,2,,,,change in coach effect when his 2 cheap-QB seasons are dropped; effect without them -0.29
+cheap_qb_Doug_Pederson,-0.462743998669217,2,,,,change in coach effect when his 2 cheap-QB seasons are dropped; effect without them -0.74
+cheap_qb_Zac_Taylor,-0.530678796639204,2,,,,change in coach effect when his 2 cheap-QB seasons are dropped; effect without them -0.90
+cor_coach_effect_mean_qbcur_z,0.578618495146593,50,,,,"published coach effect vs the coach's mean same-season QB EPA z, eligible coaches"
+coach_effect_on_qb_play_minus_pay,0.308402009825256,50,,,0.00930020055122961,slope of coach effect on mean(qbcur_z - qb_z); t = 2.71
+influence_Mike_Vrabel,0.34770098318582,7,,,,max |change in coach effect| dropping one season (2025 NE); effect without it +0.48
+influence_Sean_McVay,0.373419011290481,9,,,,max |change in coach effect| dropping one season (2022 LA); effect without it +1.03
+influence_Andy_Reid,0.530159961260964,14,,,,max |change in coach effect| dropping one season (2012 PHI); effect without it +1.15
+influence_Kevin_O'Connell,0.317592572849854,4,,,,max |change in coach effect| dropping one season (2024 MIN); effect without it +0.18
+influence_Dan_Campbell,0.318868368253486,5,,,,max |change in coach effect| dropping one season (2021 DET); effect without it +0.62
+influence_Matt_Nagy,0.321766210259866,4,,,,max |change in coach effect| dropping one season (2018 CHI); effect without it -0.05
+influence_Pete_Carroll,0.318562823106545,13,,,,max |change in coach effect| dropping one season (2025 LV); effect without it +0.58
+influence_Gary_Kubiak,0.457418448567377,4,,,,max |change in coach effect| dropping one season (2013 HOU); effect without it +0.57
+influence_Dan_Quinn,0.310311151305592,7,,,,max |change in coach effect| dropping one season (2024 WAS); effect without it -0.28
+influence_Chip_Kelly,0.308566760067366,4,,,,max |change in coach effect| dropping one season (2016 SF); effect without it +0.23
+influence_Kliff_Kingsbury,0.354288416323011,4,,,,max |change in coach effect| dropping one season (2022 ARI); effect without it +0.27
+influence_Lovie_Smith,0.421066068032726,4,,,,max |change in coach effect| dropping one season (2014 TB); effect without it -0.07
+spearman_war_vs_seasons_eligible,0.536689142427547,50,,,,rank correlation of WAR per season with seasons coached among eligible coaches; the bottom of the board is the worst of the survivors
+veteran_vs_inwindow_hire_diff,0.188438771823535,50,-0.0506468263077706,0.427524369954841,0.119116220589028,"mean WAR, eligible coaches hired before 2012 (n = 19, left-truncated: no years 1-2 in panel) minus hired in window (n = 31); Welch"
+playcaller_own_vs_not_diff,0.0307661534517588,50,-0.208175770466632,0.26970807737015,0.79658026631644,"mean WAR, own play-caller (n = 20) minus not (n = 30); this is a head-coach board"
+n_clear_of_replacement,0,106,,,,lo > 0; 2.7 expected by chance
+belichick_effect_full,0.945540109592699,12,,,,"M_wat coach BLUP, all seasons in window"
+belichick_effect_no_brady,0.0927882336923943,4,,,,M_wat refit dropping 2012-2019 NE rows
+oos_unscored_prev_war_mean,0.0481368440955811,73,,,,"mean WAR through t-1 of coaches NOT scored in t (fired/left); scored mean +0.344 (SD 0.429, n 267); the holdout truncates the low end"
+oos_unscored_prev_war_sd,0.396904232560953,73,,,,SD of WAR through t-1 among unscored coaches
+oos_wat_war_through_prev,0.129089623053753,267,0.00918623145649913,0.245333520335733,0.0350072723266523,"WAR through t-1 (all rows) predicting wat; rho 0.168, slope 0.89"
+oos_wat_war_through_prev,0.120736151627569,250,-0.00338150645815736,0.241190277791267,0.0565958927701975,"WAR through t-1 predicting wat; rho 0.158, slope 0.83"
+oos_wat_war_plus_team,0.215520465789119,250,0.0939660158509575,0.33074372168064,0.000601340609009663,"WAR + franchise effect (sensitivity) predicting wat; rho 0.227, slope 0.88"
+oos_wat_raw_wat_through_prev,0.192832407157226,250,0.0704508785472177,0.309495010659099,0.00219524522890821,"(ii) raw wat through t-1, unshrunk predicting wat; rho 0.163, slope 0.30"
+oos_wat_prev_wae,0.115513238439789,250,-0.00867813648541269,0.236195239579021,0.0682458830893414,"(i) previous-season wae17 predicting wat; rho 0.106, slope 0.19"
+oos_wat_prev_raw_wat,0.217928302596877,250,0.0964696150107958,0.332991966981859,0.000519909127890708,"(ii) previous-season raw wat17 predicting wat; rho 0.220, slope 0.23"
+oos_wat_prev_wins,0.209554809738454,250,0.087769715073679,0.325167829364739,0.000856559318053292,"(iii) previous-season wins predicting wat; rho 0.210, slope 0.21"
+oos_wae_war_through_prev,0.0502618169869827,267,-0.0702075429916829,0.169286139766908,0.413386476309475,"WAR through t-1 (all rows) predicting wae; rho 0.087, slope 0.22"
+oos_wae_war_through_prev,0.0439724474577214,250,-0.0805339129498667,0.167127682633164,0.488864514869592,"WAR through t-1 predicting wae; rho 0.075, slope 0.19"
+oos_wae_prev_wae,0.0349885710451309,250,-0.0894668030762835,0.15836811183655,0.581898283954232,"(i) previous-season wae17 predicting wae; rho 0.046, slope 0.04"
+oos_wae_prev_raw_wat,0.0554695083700372,250,-0.0690728518005935,0.178309399770854,0.382484777421421,"(ii) previous-season raw wat17 predicting wae; rho 0.055, slope 0.04"
+oos_wae_prev_wins,0.0704338929720506,250,-0.0541059180321271,0.192815971570067,0.267233978798394,"(iii) previous-season wins predicting wae; rho 0.062, slope 0.04"
+oos_partial_t_war_given_prev_wins,0.538679650765919,250,,,0.590593059020848,t for WAR in realised_wat ~ prev_wins + WAR; p = 0.5906 (plain SE)
+oos_partial_t_war_given_prev_wins_clustered,0.737354656510027,250,,,0.460906702285871,"same, coach-clustered sandwich SE"
+oos_t_war_alone_clustered,2.50093131939555,250,,,0.0123867197425248,"realised_wat ~ WAR, coach-clustered sandwich SE"
+oos_t_war_alone_twoway_clustered,1.79302189186626,250,,,0.0729694236638475,"realised_wat ~ WAR, coach + season two-way clustered SE"
+oos_partial_t_war_given_prev_wins_twoway_clustered,0.709562566664664,250,,,0.47797543970865,"realised_wat ~ prev_wins + WAR, two-way clustered SE"
+oos_wat_usable_war_through_prev,0.13373231580521,173,-0.015782845670423,0.277397677184285,0.079411648483727,"WAR through t-1, usable holdouts predicting wat_usable; rho 0.176, slope 0.83"
+oos_zscore_note,,250,,,,"OOS talent z-scores (contract_z, qb_z, qbp_z) are standardised within season using the season-t cross-section of 32 teams; no outcome from season t is used"
+oos_pass_prespecified,0,250,,,,r >= 0.30 with CI > 0 and beats baseline (ii)
+oos_pass_weak,0,250,,,,r > 0 with CI > 0 and beats baseline (ii)
+oos_seasons_with_boundary_coach_sd,1,10,,,,holdout seasons whose training fit put the coach SD at zero (every prediction identical); with only 5-6 training seasons the coach term is barely identified
+oos_r_diff_war_minus_prev_wins,-0.0888186581108854,250,-0.203864888025454,0.0354778913033713,,"r(WAR -> wat) minus r(prev wins -> wat) on common rows; coach-cluster bootstrap 95% CI in lo, hi (72 clusters, 2000 reps)"
+oos_r_war_cluster_boot_ci,0.120736151627569,250,0.0276670585167505,0.210534176581024,,r(WAR -> wat) on common rows with coach-cluster bootstrap 95% CI
+oos_r_mkt_fit_refit_per_holdout,0.122316019028776,250,,,,headline OOS r with the spread-to-win logistic refit on seasons < t; pooled-fit value 0.121
+split_half_model_implied_median,0.341158547862599,135,0.0372842932727485,0.568392419263189,0.0592592592592593,"odd/even BLUP r implied by the fitted components (coach SD 0.84), sims with both halves identified; observed 0.085; lo/hi are the 2.5/97.5 quantiles; p is the observed value's percentile"
+split_half_model_implied_median_boundary_as_zero,0.244145122994044,200,0,0.551826083206879,0.365,same with the 65 boundary sims counted as r = 0
+split_half_model_implied_boundary_share,0.325,200,,,,share of simulated panels from the fitted model where one half's REML coach SD was zero
+split_half_model_implied_tau_low_median,0.17025801595731,200,-0.146299008848473,0.446478490936736,0.253521126760563,same with the coach SD at 0.40
+split_half_observed_below_model,0,49,,,,1 if the observed odd/even r is below the 2.5% quantile implied by the fitted coach SD (it sits at the 6th percentile); the measure has not cleared the 0.30 reliability gate either way
+across_team_r,-0.0128312191123352,26,-0.39820400542354,0.376391459721996,0.950394608196406,spell-1 vs spell-2 mean wat17 net of team/season effects
+across_team_r_market_only,0.0945263861565101,52,-0.18309715825155,0.358186817086904,0.505050398780191,1999-2025 wae17 spell-1 vs spell-2
+nested_coach_sd,0.00500428790771846,451,,,,portable coach SD from (1|coach)+(1|coach:team)
+nested_coach_team_sd,1.25896870647627,451,,,,coach-within-team SD
+market_learning_r,0.128613735665793,80,-0.0937524752219237,0.33875780682343,0.255546299720765,year-1 wae17 vs years-2+ premium17 within spell
+reliability_odd_even_seasons_blup,0.0849644533075379,49,-0.140133348312579,0.299739629633093,,Spearman-Brown 0.157
+reliability_odd_even_seasons_raw,0.101863250143099,49,-0.111570267693879,0.312990995998078,,Spearman-Brown 0.185
+reliability_odd_even_games,0.421385543942213,76,0.203441575356264,0.605353447365074,,Spearman-Brown 0.593
+reliability_odd_even_games_team_season,0.315925010296362,435,0.235074177443765,0.396614174178125,,Spearman-Brown 0.480
+reliability_odd_even_games_net_of_franchise,0.287951115206546,76,0.0480082054179869,0.50779305760067,,Spearman-Brown 0.447
+reliability_year_to_year_wat17,0.202489845263036,325,0.0958081990579458,0.304572554055251,,Spearman-Brown NA
+reliability_year_to_year_premium17,0.352187752555924,325,0.253092843043284,0.443969179302361,,Spearman-Brown NA
+reliability_year_to_year_wae17,0.0638111382465828,325,-0.0452955464926569,0.171413395614338,,Spearman-Brown NA
+reliability_year_to_year_wae17_1999,-0.0283680470182153,654,-0.104806411638387,0.0484035298210877,,Spearman-Brown NA
+reliability_across_team,-0.0128312191123352,26,-0.39820400542354,0.376391459721996,,Spearman-Brown NA
+reliability_across_team_market_only_1999,0.0945263861565101,52,-0.18309715825155,0.358186817086904,,Spearman-Brown NA
+reliability_market_learning,0.128613735665793,80,-0.0937524752219237,0.33875780682343,,Spearman-Brown NA
+surv_yr12_wat_by_tenure_3-4,-0.417065023289004,27,,,,see coaching_war_survivorship.csv
+surv_yr12_wat_by_tenure_5+,0.907516587483143,21,,,,see coaching_war_survivorship.csv
+surv_yr12_wat_by_tenure_<=2,-2.25560927545874,31,,,,see coaching_war_survivorship.csv
+surv_yr12_wat_5plus_vs_le2_wilcoxon_spell_shift,3.725919687825,52,2.54731739910195,4.81257789015966,5.51264326490647e-07,see coaching_war_survivorship.csv
+surv_yr1_wat_5plus_vs_le2_wilcoxon_shift,3.32611432903527,51,1.29079040125774,4.98959136384097,0.00108704530746073,see coaching_war_survivorship.csv
+surv_yr12_wae_by_tenure_1999_3-4,0.086216553283742,59,,,,see coaching_war_survivorship.csv
+surv_yr12_wae_by_tenure_1999_5+,0.73635649606882,50,,,,see coaching_war_survivorship.csv
+surv_yr12_wae_by_tenure_1999_<=2,-1.30382464270959,51,,,,see coaching_war_survivorship.csv
+surv_yr12_wae_5plus_vs_le2_wilcoxon_1999_spell_shift,2.17469622842433,101,1.5703532409642,2.68892038631168,2.39083772236128e-10,see coaching_war_survivorship.csv
+surv_survivors_late_minus_early_5+,-0.428506649534614,22,-1.60378151830693,0.746768219237703,0.456739117379201,see coaching_war_survivorship.csv
+surv_persistence_early_vs_late_r_3+,0.300515991156827,61,0.0526820254951363,0.513478639037468,0.0186113126992044,see coaching_war_survivorship.csv
+surv_persistence_early_vs_late_r_5+,-0.0322379081529781,22,-0.447760495390713,0.394735697256899,0.88674883200915,see coaching_war_survivorship.csv
+surv_hazard_wae17_coef_1999_all,0.573579425221078,833,,,6.13020319656938e-25,see coaching_war_survivorship.csv
+surv_hazard_wat17_coef_all,0.435983859977085,419,,,3.9386791770562e-14,see coaching_war_survivorship.csv
+surv_hazard_premium_coef_all,0.425353733506147,419,,,0.000122113867443228,see coaching_war_survivorship.csv
+surv_hazard_wae_coef_all,0.454364902382081,419,,,8.39488971137745e-08,see coaching_war_survivorship.csv
+surv_hazard_wins_coef_with_wat_wae_all,0.299730163262685,419,,,0.00774485992893498,see coaching_war_survivorship.csv
+surv_hazard_wat17_coef_given_wins_all,0.159479933250927,419,,,0.29052356853858,see coaching_war_survivorship.csv
+surv_hazard_auc_wins_wat_wae_all,0.816769412790336,419,,,,see coaching_war_survivorship.csv
+surv_hazard_wat17_coef_vol_censored_all,0.465549280824827,411,,,5.11924110324171e-14,see coaching_war_survivorship.csv
+surv_yr12_wat_5plus_vs_le2_wilcoxon_spell_vol_censored_shift,3.79923956911347,51,2.71428597395926,4.88337138338831,1.00473473279106e-07,see coaching_war_survivorship.csv
+surv_observed_shift_spell_mean_diff_vol_censored_5+ minus <=2,3.67027746858898,51,,,,see coaching_war_survivorship.csv
+surv_null_shift_no_trait_median,2.24379489705897,99,1.23522046777817,3.34491377743322,0.012,see coaching_war_survivorship.csv
+surv_null_shift_fitted_trait_median,2.52088135602664,99,1.44518180288205,3.61275703466447,0.038,see coaching_war_survivorship.csv
+surv_null_likelihood_ratio_trait_vs_none_within 0.25 of observed,3,1000,0.029,0.087,,see coaching_war_survivorship.csv
+surv_null_shift_no_trait_vol_censored_median,2.32790229449772,99,1.30637556908015,3.41818623872977,0.007,see coaching_war_survivorship.csv
+surv_null_shift_fitted_trait_vol_censored_median,2.65221671315972,99,1.52511037710876,3.66991123864873,0.025,see coaching_war_survivorship.csv
+surv_null_shift_no_trait_wins_rule_median,2.17997760686726,99,1.1574939160487,3.26564575070305,0.009,see coaching_war_survivorship.csv
+surv_observed_shift_spell_mean_diff_5+ minus <=2,3.50746833063349,52,,,,see coaching_war_survivorship.csv
+surv_null_persistence_r_no_trait_3+,0.114789970564747,50,-0.147073262900006,0.383450577544645,0.107,see coaching_war_survivorship.csv
+surv_null_persistence_r_no_trait_5+,0.168141790061058,24,-0.238742447212427,0.545743889932927,0.821,see coaching_war_survivorship.csv
+surv_null_persistence_r_fitted_trait_3+,0.236235497656066,50,-0.0546983529389298,0.484116424305545,,see coaching_war_survivorship.csv
+surv_null_persistence_r_fitted_trait_5+,0.304113974087058,24,-0.134474705519788,0.624426429306047,,see coaching_war_survivorship.csv
+surv_rep_offset_primary_first_no_interim,-0.186336294095129,99,,,,see coaching_war_survivorship.csv
+surv_rep_offset_no_returnee_no_returnee,0.0267818779372687,69,,,,see coaching_war_survivorship.csv
+surv_rep_offset_fired_early_fired_early,-1.75886377091287,40,,,,see coaching_war_survivorship.csv
+surv_rep_offset_interim_only_interim,-1.19720824010632,10,,,,see coaching_war_survivorship.csv
+surv_stint_year_curve_1,-0.632076667463129,109,-1.2013406116494,-0.0628127232768564,,see coaching_war_survivorship.csv
+surv_stint_year_curve_2,-0.25011208625189,86,-0.859980285229397,0.359756112725616,,see coaching_war_survivorship.csv
+surv_stint_year_curve_3,0.195522390551175,65,-0.509141898369181,0.900186679471531,,see coaching_war_survivorship.csv
+surv_stint_year_curve_4,-0.713496315079733,44,-1.62130183867147,0.194309208512002,,see coaching_war_survivorship.csv
+surv_stint_year_curve_5,0.190817795133984,28,-0.917628568283787,1.29926415855176,,see coaching_war_survivorship.csv
+surv_stint_year_curve_6,-0.593360898860756,21,-1.90842989719035,0.721708099468836,,see coaching_war_survivorship.csv
+surv_stint_year_curve_7,1.06215000234755,16,-0.175176086922356,2.29947609161746,,see coaching_war_survivorship.csv
+surv_stint_year_curve_8,1.13636580355483,82,0.534609497616545,1.73812210949311,,see coaching_war_survivorship.csv
+equal_exposure_spearman,0.667995198079232,50,,,,16 coaches move 10+ places
+varcomp_M_wat_same_season_qb_coach,0.680980148129066,451,,,,coach SD once same-season QB EPA is a fixed effect
+residual_roster_madden_coef_after_madden_in_talent,0.0695215877555952,291,,,,same check after Madden (2017+) enters the talent fit; t = 0.41
+talent_fit_new_starter_coef,-1.22247289375762,68,,,2.79563821301785e-07,market wins/17 for a new starter (no lagged QB EPA) vs the league-mean fill; t = -5.22
+sens_n_move_10plus_same_season_qb,24,50,,,,"eligible coaches whose rank moves 10+ places with the same-season QB control; biggest Jeff Fisher (45 -> 10), Andy Reid (11 -> 39)"
+sens_spearman_rep_era,0.922304921968788,50,,,,"main vs board with the replacement line estimated per era half; biggest movers Kliff Kingsbury 35 -> 23, Gary Kubiak 26 -> 37, John Fox 25 -> 36, Kevin Stefanski 33 -> 22, Brian Daboll 41 -> 32"
+sens_spearman_new_starter,0.99327731092437,50,,,,main vs talent fit with a new-starter indicator; top-10 overlap 10
+sens_spearman_tau_low,0.994621848739496,50,,,,main vs board with coach SD held at 0.40; top-10 overlap 10
+sens_spearman_same_season_qb,0.592412965186075,50,,,,main vs coach model with same-season QB EPA fixed effect (coach gets no credit for his QB)
+sens_spearman_prev_team_wat,0.972821128451381,50,,,,main vs coach model with team's previous-season wat17 fixed effect
+sens_spearman_talent_plus_madden,0.980504201680672,50,,,,main vs talent fit with Madden 2017+ interaction
+sens_top10_overlap_same_season_qb,5,10,,,,"top-10 overlap, main vs same-season QB control"
+sens_top10_common,8,50,,,,top-10 common across three talent controls
+sens_spearman_pd_outcome,0.877551020408163,50,,,,main vs adjusted point differential outcome
+sens_spearman_madden,0.791426950814359,42,,,,main vs Madden talent control 2017-2025
+sens_sign_flips_replacement,20,50,,,,coaches changing sign across rep = first hire / average / one-and-done
+legacy_consistency_spearman,0.715315315315316,36,,,,"main WAR vs EB-shrunk market-only rate 1999-2025, >= 100 games"
+components_max_gap_sum_vs_coach_effect,0.257598788765791,106,,,,max |premium + surprise - coach_effect|; the parts come from separate models and do not sum exactly (Jim Schwartz)
+components_premium_share_top12,0.632899027579107,12,,,,premium share of the top 12 on the summed parts (bars); 0.560 on the coach effect
