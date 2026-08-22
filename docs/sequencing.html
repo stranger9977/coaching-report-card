@@ -75,6 +75,7 @@
   .finding { font-size: 17px; }
   .finding b { color: var(--ink); }
   .kpi { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 18px 0; }
+  .kpi.six { grid-template-columns: repeat(3, 1fr); }
   @media (max-width: 760px) { .kpi { grid-template-columns: repeat(2, 1fr); } }
   .kpi div { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; text-align: center; }
   .kpi .n { font-size: 30px; font-weight: 750; color: var(--ink); line-height: 1.1; }
@@ -114,6 +115,16 @@
     <figure>
       <img src="figures/sequencing_streaks_wpa.png" alt="The same chart in win probability added, percentage points.">
       <figcaption>Same chart in win probability added, in percentage points, from nflverse win probability matched to the charting play by play. Built by R/68.</figcaption>
+    </figure>
+    <p class="finding"><b>Shanahan by season, because 2023-24 was the bet.</b> It was the year the third look paid most: +0.46 EPA on the third straight snap of 21 against the league at the same depth (35 snaps), versus +0.15, +0.21 and +0.30 in the other three seasons. It was also the year his play order gave away the least: his play-family chain carried 0.004 bits beyond situation in 2023-24, a tenth of the league, and it climbed to league-plus in the two seasons since. The hold rate in 21 and the share of snaps in 21 barely moved across the four years. Same look every year; the order of what came out of it was quietest in the year it paid most.</p>
+    <figure>
+      <img src="figures/shanahan_by_season.png" alt="Four panels by season for Shanahan versus the league: play-family sequence information, share of snaps in 21 personnel, hold rate in 21, and third-look payoff in 21.">
+      <figcaption>Four views of one caller, 2022-23 through 2025-26, league in grey. Built by R/70.</figcaption>
+    </figure>
+    <p class="finding"><b>Sequenced vs not.</b> The direct version of the question: does a play where the look <i>stayed</i> earn more than one where it <i>changed</i>? This one has a trap. Repeats are mostly a run after a run, and runs earn less than passes at the same down, so a naive version says "repeating costs you 0.05 a play" and is really saying "you ran again." Score each play against the league at the same down, distance, drive position, score, half <i>and</i> the same play family (or personnel group), and the gap goes away: +0.013 for staying in the personnel group (z = 1.2), −0.003 for repeating the play family (z = −0.2). Per caller, one clears two standard errors on the upside and two on the downside, which is what 32 coin flips produce. Staying in the look is not where the value is; what you do out of it is.</p>
+    <figure>
+      <img src="figures/sequenced_vs_not.png" alt="Per caller, EPA when the look stayed minus when it changed, for personnel group and for play family, with error bars; every caller sits within noise of zero.">
+      <figcaption>Stayed minus changed, per caller, two definitions of "the look." Grey bars are two standard errors. Built by R/69.</figcaption>
     </figure>
     <p class="finding"><b>The earlier version.</b> The chart that went out on Thursday (R/64) counted streaks across a whole game and adjusted for down and distance only. Its numbers are close to these, which is the reassuring part: Shanahan's 21 peaked at +0.28 there and +0.28 here. The film reel for that card, nine straight snaps of 21 personnel against Chicago with eight different plays, is on the <a href="index.html#markov-22">board</a>.</p>
   </section>
@@ -220,7 +231,7 @@
     <h2 class="center">Sequencing is real, tiny, and worth nothing</h2>
     <p class="big">Eight play families as the states. Every same-drive pair of plays, four seasons, 32 callers. Five questions, each tested against a shuffled version of itself so thin cells cannot fake a signal.</p>
 
-    <div class="kpi" id="kpi"></div>
+    <div class="kpi six" id="kpi"></div>
 
     <figure>
       <img src="figures/markov_league_matrix.png" alt="Heatmap of how often each play family follows each other play family, as a multiple of the base rate.">
@@ -245,6 +256,27 @@
       <figcaption>One play back versus two plays back, each beyond situation and drive position, each minus its own shuffle null.</figcaption>
     </figure>
 
+    <p class="finding"><b>3b. Does the chain have to be one play back? Give it the whole drive.</b> A Markov chain conditions on its state, and the state is whatever you define. So the state was widened to a summary of the drive so far: runs so far, play-action fakes so far, and the personnel streak as it stood before the snap. The first pass looked enormous (five times the last play) and was wrong twice over: it leaked the current snap's personnel into the "history," and it knew nothing about the score. A drive full of runs mostly means a lead and a clock to kill. With the current look removed and score and half in the conditioning, the drive's history still carries real information for 28 of 32 callers, about the same size as the last play does (0.02 to 0.06 bits per caller). Nearly all of it is one thing: whether the caller has already faked in this drive. After a fake earlier in the drive, the next play is a run 50% of the time against 44% without one, in one-score games on early downs. Callers fake and then lean on the run they just sold.</p>
+    <figure>
+      <img src="figures/drive_memory.png" alt="Per caller, information from the last play against extra information from a summary of the drive so far, both with score and half controlled.">
+      <figcaption>Last play across, the drive so far up, score and half in the conditioning for both. Built by R/69.</figcaption>
+    </figure>
+
+    <p class="finding"><b>3c. The chain over personnel groups, which is what the streak chart lives on.</b> Redefine the state as the personnel group on the field (11, 12, 13, 21, 22, 10, other) and the chain changes character. It has real memory. The league holds its group on 58% of snaps; hold rates run from 43% (Monken) to 85% (McVay, the stickiest caller in football). The last group predicts the next one for 31 of 32 callers, at 0.13 bits beyond situation, score and half, four times what the play-family chain carries. Its memory half-life is 0.7 plays against 0.15 for a shuffled order. Shanahan is a rotator, not a holder: 52% hold, below the league, which is the point of a 21-personnel look that only shows up when he wants it. Reid is the other extreme: a 46% hold and almost no sequence information, his personnel is close to memoryless.</p>
+    <figure>
+      <img src="figures/personnel_chain.png" alt="Callers plotted by hold rate against personnel sequence information beyond situation.">
+      <figcaption>Hold rate across, information up, league dotted. Built by R/70.</figcaption>
+    </figure>
+    <p class="finding"><b>And the depth of that memory, same three questions.</b> Last group, group two back, the drive so far, all with score and half controlled and all on the same plays. The last group carries 0.13 bits for the league. The group two back adds 0.02 beyond it (13 of 32 callers clear the null). The drive so far adds 0.02 (5 of 32). The personnel chain is first-order: the last group is almost the whole story. The exceptions are worth knowing. McVay's personnel has the deepest memory in the league, both two-back and drive-level clear the null comfortably, and Shanahan's drive history is the second strongest. Johnson's personnel has no memory beyond the last group at all.</p>
+    <figure>
+      <img src="figures/personnel_memory.png" alt="Per caller, bits of information about the next personnel group from the last group, the group two back, and the drive so far.">
+      <figcaption>Three memories for the personnel chain, one line per caller. Built by R/70.</figcaption>
+    </figure>
+    <figure>
+      <img src="figures/personnel_matrix.png" alt="Heatmap of how often each personnel group follows each other personnel group, as a multiple of the base rate; the diagonal is strong.">
+      <figcaption>The league's personnel chain. The diagonal is the hold. Built by R/70.</figcaption>
+    </figure>
+
     <p class="finding"><b>4. Does the setup play change the result of the next one?</b> No. For all 64 play-family pairs, the next play's points were compared with the league average for that down, distance and play family. <span data-s="n_pairs_sig"></span> of 64 pairs clear the noise. Outside zone into a deep shot, the best-looking pair, is +0.11 points on 1,152 snaps and does not clear it either.</p>
     <figure>
       <img src="figures/markov_pair_edge.png" alt="Heatmap of points added on the next play versus expectation, by previous and next play family.">
@@ -260,7 +292,7 @@
   </section>
 
   <footer>
-    Data: SumerSports play charting, 2022-23 through 2025-26 regular seasons, garbage time excluded. Transitions are consecutive called plays inside the same drive. The interactive chains use raw transition matrices (not situation-adjusted), which is why they show a little more memory than the adjusted numbers in the charts. Scripts: <code>R/68_sequencing_streaks.R</code> (Part 1), <code>R/66_markov_sequencing.R</code> (Parts 2 and 3).
+    Data: SumerSports play charting, 2022-23 through 2025-26 regular seasons, garbage time excluded. Transitions are consecutive called plays inside the same drive. The interactive chains use raw transition matrices (not situation-adjusted), which is why they show a little more memory than the adjusted numbers in the charts. Scripts: <code>R/68_sequencing_streaks.R</code>, <code>R/69_drive_memory.R</code>, <code>R/70_personnel_chain.R</code> (Part 1 and the chain extensions), <code>R/66_markov_sequencing.R</code> (Parts 2 and 3).
   </footer>
 </main>
 
@@ -399,6 +431,8 @@
     [sm.mean_guess_gain, 'extra correct guesses per 100 plays a defense gets from it'],
     [sm.median_half_life + ' plays', 'memory half-life of the typical caller\'s chain'],
     [sm.n_pairs_sig + ' of 64', 'play-family pairs where the setup play moved the next play\'s value'],
+    ['0.13 vs 0.04', 'bits of memory in the personnel chain vs the play-family chain'],
+    ['85%', 'McVay\'s hold rate, the stickiest personnel chain in football'],
   ].map(([n, l]) => `<div><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
 })();
 </script>
