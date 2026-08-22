@@ -142,3 +142,31 @@ signal_share <- function(stat, se) {
   list(sd_obs = sd(stat), sd_noise = sqrt(mean(se^2)),
        share = if (tau2 > 0) tau2/var(stat) else 0)
 }
+
+# ---------------------------------------------------------------------------
+# attach_wpa(): Sumer has no win-probability column and no play-level key into
+# nflverse, so win probability added comes from nflfastR matched on
+# (season, week, offense, quarter, clock, down, distance). Keys that repeat on
+# either side (replayed downs after penalties) are dropped rather than guessed.
+# Adds: wpa, vegas_wpa, nfl_epa. Unmatched plays get NA.
+# ---------------------------------------------------------------------------
+NFLA_PBP <- "/Users/nick/stranger9977/nfl-analysis/data"
+attach_wpa <- function(plays, seasons = 2022:2025) {
+  to_s <- function(x) as.integer(sub(":.*", "", x)) * 60 + as.integer(sub(".*:", "", x))
+  pbp <- rbindlist(lapply(seasons, function(y) {
+    fread(file.path(NFLA_PBP, sprintf("play_by_play_%d.csv.gz", y)),
+          select = c("season", "week", "posteam", "qtr", "time", "down", "ydstogo",
+                     "play_type", "wpa", "vegas_wpa", "epa"))
+  }))
+  pbp <- pbp[play_type %in% c("run", "pass") & !is.na(down) & !is.na(time)]
+  pbp[, key := paste(season, week, posteam, qtr, to_s(time), down, ydstogo)]
+  pbp <- pbp[, if (.N == 1) .SD, by = key]
+  plays <- copy(plays)
+  plays[, key := paste(season, week, off_team, quarter, to_s(clock), down, distance)]
+  plays[, dup := .N > 1, by = key]
+  plays[dup == TRUE, key := NA_character_]
+  plays[, dup := NULL]
+  plays <- merge(plays, pbp[, .(key, wpa, vegas_wpa, nfl_epa = epa)], by = "key", all.x = TRUE, sort = FALSE)
+  plays[, key := NULL]
+  plays
+}

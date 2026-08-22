@@ -84,7 +84,7 @@
 </style>
 </head>
 <body>
-<div class="draftbar">Working notes, not published. Every chart here is built from public play-by-play and charting data and is real. The open questions are marked as open. &nbsp;·&nbsp; <a href="models.html"><b>Model Factory &rarr;</b></a> &nbsp;·&nbsp; <a href="outline.html"><b>Script Outline &rarr;</b></a></div>
+<div class="draftbar">Working notes, not published. Every chart here is built from public play-by-play and charting data and is real. The open questions are marked as open. &nbsp;·&nbsp; <a href="models.html"><b>Model Factory &rarr;</b></a> &nbsp;·&nbsp; <a href="outline.html"><b>Script Outline &rarr;</b></a> &nbsp;·&nbsp; <a href="sequencing.html"><b>Play Sequencing &rarr;</b></a></div>
 <main>
   <header>
     <div class="kicker">Working board for the next video</div>
@@ -109,6 +109,7 @@
 
   <div class="prose">
     <p style="font-size:14.5px;color:var(--ink-3);border:1px solid var(--line);border-radius:10px;padding:12px 16px;background:var(--card)"><strong style="color:var(--ink)">Finding the new stuff.</strong> The board grows downward by date, newest at the top. Jump to a day:
+    <a href="#markov-22">Aug 22 Markov chains</a> (sequencing as a chain, the signature-package streaks in EPA and win probability, the Niners film reel) ·
     <a href="#groupchat-20">Aug 20 group chat</a> (the Macdonald outlier chart, sim pressure, the tight-end claims) ·
     <a href="#afternoon-19">Aug 19 afternoon texts</a> (guess-the-play, the 25-plays-like-250 composite, the rotation double-check, the one-game film card, the tip explained, menu vs wardrobe, the pistol memory) ·
     <a href="#dig-19">Aug 19 evening dig</a> (bootleg folklore, the penalty ledger, what the YAC edge is made of) ·
@@ -130,6 +131,47 @@
   </div>
 
   <div class="board">
+
+    <div class="tgroup">
+      <h3 id="markov-22">Markov chains, 22 August</h3>
+      <p class="grouphint">"For play sequencing something we didn't think about was markov chain." Sequencing rebuilt as a chain over eight play families, with an <a href="sequencing.html">interactive explainer</a> on the new Play Sequencing tab. Plus the signature-package streak chart with Ben Johnson and the Rams added, in EPA and in win probability, the all-plays version with the survivorship handled (on the tab), and the run of Niners plays for the film breakdown.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Play sequencing as a Markov chain</span><span class="pill ship">Real, tiny, worth nothing</span></div>
+      <p class="row"><span class="lab">Nick:</span> "a good, robust attempt at using it to measure the effect of play sequencing and trying to figure out if there are certain play sequencing stuff that is an edge and if certain coaches have a play sequencing something"</p>
+      <p class="row found"><span class="lab">Five tests, each against a shuffled version of itself.</span> Eight play families as the states (outside zone, inside zone, gap run, other run, play action, screen, short dropback, deep dropback), every same-drive pair of plays, 32 callers. The previous play does predict the next one beyond down and distance for 27 of 32 callers, but it is small: worth about 0.1 extra correct guesses per 100 plays to a defense, 2.1 at the most. The chain forgets within half a play for everyone. The play two back adds almost nothing. And the setup play does not move the next play's value: 0 of 64 play-family pairs clear the noise, which generalizes the establish-the-run null to every pair there is. No caller earns more than 0.3 points per 100 plays from his sequencing, against a 5-to-8 point gap between good and average callers on situation-adjusted EPA. Sequencing is not where that gap lives.</p>
+      <figure>
+        <img src="figures/markov_pair_edge.png" alt="Heatmap of points added on the next play versus expectation for every pair of previous and next play family; no cell clears the noise.">
+        <figcaption>The setup test for every pair of play families. Nothing clears a shuffle null. Built by R/66.</figcaption>
+      </figure>
+      <p class="row"><span class="lab">The one nuance:</span> in run-vs-pass terms Ben Johnson gives away the least of anyone (the sequencing-file card below); in play-family terms his chain is top-five in structure. He mixes run and pass cleanly while his specific families follow each other in patterns. That is a different kind of unpredictability than random.</p>
+      <p class="xref">The ELI5 version with the interactive chain, the forgetting demo and the guess-the-play game: <a href="sequencing.html">sequencing.html</a>. All five charts live there.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Give them the look, then strike: three signature packages, in EPA and in win probability</span><span class="pill ship">Johnson and the Rams added</span></div>
+      <p class="row"><span class="lab">Michael:</span> "Adding Benny boy here and other personnel packages would be tight...like the Rams in 13...whatever the Bears run...etc etc" &nbsp;·&nbsp; <span class="lab">Nick:</span> "can you use EPA and another version with win probability added"</p>
+      <p class="row found"><span class="lab">Each caller in his signature package, same streak logic.</span> Shanahan's 21 still climbs to +0.28 EPA on the third straight look. McVay's 13 personnel (2025-26 only, 283 snaps) stays above the league at every streak depth and never fades. Ben Johnson's 12 personnel, his second package every year in Detroit and Chicago, is front-loaded: +0.12 on the first snap, then thin and noisy. The win-probability version tells the same story in percentage points: +0.6 for Shanahan's third look, and the Rams' 13 ahead everywhere. Win probability is nflverse's, matched to the charting play by play on 98% of snaps. Michael's follow-up ("what about all their plays thou? to see if in general they are better") and the survivorship worry are answered on the <a href="sequencing.html">Play Sequencing tab</a>: streaks restarted every drive and every play scored against the league at the same drive position and streak depth. Shanahan and Johnson beat the league at all five depths over all their plays, McVay at three; the third-look spike survives only in Shanahan's 21 (+0.28 on 145 snaps).</p>
+      <figure>
+        <img src="figures/look_then_strike.png" alt="EPA per play versus league average by consecutive snaps in the same personnel group, for the league, Shanahan in 21, McVay in 13 and Ben Johnson in 12.">
+        <figcaption>EPA version. Built by R/64.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/look_then_strike_wpa.png" alt="Win probability added per play versus league average by consecutive snaps in the same personnel group, same four lines.">
+        <figcaption>Win probability version, in percentage points. Built by R/64.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">A run of Niners plays for the film breakdown</span><span class="pill ship">Week 17 vs Chicago</span></div>
+      <p class="row"><span class="lab">Michael:</span> "Also for this...do you have like a run of Niners plays in a row I can use"</p>
+      <p class="row found"><span class="lab">Nine straight snaps of 21 personnel, eight different plays, +3.3 points.</span> Week 17 of 2025-26 against Chicago, the longest same-personnel run in four seasons of Shanahan games, with an outside-zone touchdown and a trick play in it. The opponent is Ben Johnson's Bears, which is a nice coincidence for a video that has both men on the streak chart. Runner-up if a second clip helps: week 5 against the Rams, 7 straight for +6.0.</p>
+      <figure>
+        <img src="figures/niners_reel.png" alt="Film card listing nine consecutive San Francisco snaps in 21 personnel against Chicago with quarter, clock, down and distance, play and result.">
+        <figcaption>Every snap of the run, in order, with drive breaks marked. Built by R/65.</figcaption>
+      </figure>
+    </div>
 
     <div class="tgroup">
       <h3 id="groupchat-20">The group chat, 20 August</h3>
@@ -919,9 +961,11 @@
       <p class="row"><span class="lab">Michael (outline):</span> "What Sean McVay did: Led NFL in 11 Personnel... Led NFL in 13 Personnel."</p>
       <p class="row found"><span class="lab">Both true, and never in the same season, which is the story.</span> He ran 11 personnel on 92% and 95% of snaps in 2022 and 2023, the most extreme in football both years. In 2025 he dropped to 61% and put 29% of his plays in 13 personnel, again the most extreme in football, against a league average of 5%. His offense went from -0.09 EPA per play to +0.12, the best of his run. Within 2025 his 13-personnel snaps produced +0.18 against +0.10 from 11.</p>
       <figure>
-        <img src="figures/factory/mcvay_reinvention.png" alt="Sean McVay's 11 and 13 personnel usage by season against the league average, showing a collapse in 11 personnel and a jump to 29 percent 13 personnel in 2025.">
-        <figcaption>McVay's personnel mix against the league, 2022 to 2025. Built by R/factory/60.</figcaption>
+        <img src="figures/mcvay_reinvention_career.png" alt="Sean McVay's 11 and 13 personnel usage by season from 2016 to 2025 against the league average, with his two Super Bowl seasons marked, showing a decade near the top of the league in 11 personnel and a jump to 29 percent 13 personnel in 2025.">
+        <figcaption>McVay's personnel mix against the league, every season he has called plays in the charting era (2016 in Washington, 2017 on with the Rams). Super Bowl seasons marked. Built by R/67; the 2022-2025 original is R/factory/60.</figcaption>
       </figure>
+      <p class="row"><span class="lab">Michael, on the longer view:</span> "can we go further back? Curious how much they ran it in their Super Bowl winning season" and "They were a league leading 90% according to Robert Mays the year they lost the Super Bowl"</p>
+      <p class="row found"><span class="lab">Mays checks out, and the Super Bowl he won was the same offense.</span> 2018, the season he lost to New England: 93% 11 personnel, 1st of 35 callers. 2021, the season he beat Cincinnati: 86%, again 1st. He led the league in 11 personnel in 5 of his 10 charted seasons as a caller and never ran it under 65% until 2025. 13 personnel was under 2% of his plays in every Rams season before the pivot.</p>
       <p class="row"><span class="lab">Why this is the Adaptability section:</span> nobody else in the charting era moves like that. It also explains the swings in his pre-snap tell up above. There is no settled McVay to measure, because he keeps rebuilding.</p>
     </div>
 

@@ -1,0 +1,10 @@
+snap_no,quarter,clock,down,distance,drive,play_lbl,run_pass,epa
+1,1,00:45,1,10,8,pull lead left,R,-0.9386768341064452
+2,2,15:00,2,11,8,dropback intermediate,P,1.6006112098693848
+3,2,14:28,1,10,8,outside zone right,R,1.1790804862976074
+4,2,13:49,1,5,8,outside zone right,R,1.1009774208068848
+5,2,12:13,1,10,10,inside zone right,R,-0.008809804916381836
+6,2,11:36,2,6,10,play-action short,P,1.0205851793289185
+7,2,11:00,1,10,10,outside zone left,R,-0.30678653717041016
+8,2,10:21,2,7,10,trick left,R,0.9788265228271484
+9,2,09:41,1,10,10,play-action throw,P,-1.3651773929595947
