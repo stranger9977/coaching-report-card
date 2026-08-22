@@ -115,6 +115,11 @@
       <div><div class="n">0.08</div><div class="l">reliability of the coach number across odd and even seasons; the bar it needed to clear was 0.30</div></div>
       <div><div class="n">24 of 50</div><div class="l">coaches who move 10 or more places when the quarterback's play in the same season is also taken out</div></div>
     </div>
+
+    <div class="panel" style="margin-top:18px">
+      <h3 style="margin-top:0">How talent is controlled, in one breath</h3>
+      <p>Three things, all measured before the season's games are played: the payroll of the top 25 contracts as a share of the cap, how much of the cap the starting quarterback takes, and how well that quarterback played the season before (EPA per dropback). Together they explain 36% of what the betting market expected from each team. A franchise term in the model absorbs whatever is persistent about the building: owner, front office, scouting. What is not controlled: roster quality beyond what payroll captures (Madden ratings would add to it but only exist from 2017, so they are a sensitivity, not a control), and the quarterback's play in the <i>same</i> season, which is the biggest hole and the reason the table carries a "QB-controlled rank" beside the main one.</p>
+    </div>
     <p class="finding"><b>What it says.</b> Over 2012-2025, the head coaches whose teams won the most above what their payroll, last season's quarterback and franchise predicted are Belichick (+1.13 wins a season), Bruce Arians (+1.08), Sean McDermott (+1.08), Mike Vrabel (+1.01) and Sean Payton (+0.95). The bottom is Dennis Allen (-0.36), Lovie Smith (-0.30), Doug Marrone (-0.25), Gus Bradley (-0.25) and Mike McCoy (-0.23). That ordering is about what a fan would guess, which is a point in its favour. The honest part is everything around the point estimates: Belichick's interval runs from -0.21 to +2.47, nobody's lower bound clears zero, the number does not predict next season better than last season's win total does, and a coach and his quarterback cannot be cleanly pulled apart. The measure says who won above their resources. It cannot yet prove that the man, rather than the pairing of man, quarterback and building, is the reason.</p>
   </section>
 
@@ -145,14 +150,31 @@
   </section>
 
   <section>
+    <div class="step">Active head coaches</div>
+    <h2 class="center">The 32 coaches on a sideline this season</h2>
+    <p class="big">Same numbers, same scale, filtered to the 2026 week-1 head coaches. Mike Vrabel leads the actives at +1.01, then Payton, Sirianni, John Harbaugh and McVay. Fourteen of the 32 have fewer than four seasons in the window, so their number is mostly the prior; six have never been a head coach in it.</p>
+    <figure>
+      <img src="figures/coaching_war_active.png" alt="Dot and interval chart of coaching WAR per season for the 2026 active head coaches, veterans in blue and coaches with under four seasons in grey.">
+      <figcaption>Active head coaches, 2026, on the main board's scale. Grey dots have under four seasons and are mostly the prior. Built by R/73; data/derived/coaching_war_active.csv.</figcaption>
+    </figure>
+  </section>
+
+  <section>
     <div class="step">The leaderboard</div>
     <h2 class="center">Fifty head coaches with at least four seasons, 2012-2025</h2>
+    <figure>
+      <img src="figures/coaching_war_leaderboard_clean.png" alt="Dot and interval chart of coaching WAR per season for the top 25 eligible head coaches, 2012-2025, with 95% intervals; every interval crosses zero.">
+      <figcaption>Top 25 of the 50 eligible coaches. Dot is the shrunk estimate, bar the 95% interval, dotted line replacement level. Built by R/74 from R/71's table.</figcaption>
+    </figure>
+    <details style="margin:8px 0 18px"><summary style="cursor:pointer;color:var(--ink-3);font-size:14px">The annotated version: raw averages, the reliability-supported scale, and every sensitivity in the label</summary>
     <figure>
       <img src="figures/coaching_war_leaderboard.png" alt="Dot and interval chart of coaching WAR per season for the top 25 eligible head coaches, 2012-2025, with raw averages as hollow circles, 95% intervals, and a low-coach-spread version as blue crosses.">
       <figcaption>Top 25 of the 50 eligible coaches. Filled dot is the shrunk estimate, hollow circle the raw average, bar the 95% interval, blue cross the same board with the coach spread held at 0.40 wins (the value the split-half reliability supports; Belichick is +0.50 there). Labels give the rank once same-season quarterback play is controlled, and what the number becomes without the single most influential season, without elite-quarterback seasons, or without cheap-quarterback seasons, wherever one of those moves the coach effect by more than 0.3. Built by R/71.</figcaption>
     </figure>
+    </details>
     <p>Click a column header to sort. "Seasons" counts seasons in the 2012-2025 window; coaches hired before 2012 are marked with their real hire year, since their early seasons are missing and veterans as a group average +0.19 more than in-window hires (p = 0.12). The interval is 95%, from a parametric bootstrap of the model's own prediction error with the coach spread drawn from its likelihood. Premium and surprise are the shrunk per-season components. "QB-controlled rank" is this coach's rank when the quarterback's same-season play is also removed. "P(above avg)" is the probability the coach's true effect is above the average sitting coach; nobody reaches 0.95.</p>
     <div class="tablewrap">
+    <p style="font-size:15px"><label><input type="checkbox" id="activeOnly"> Active head coaches only (2026)</label></p>
     <table class="board" id="board">
       <thead><tr>
         <th data-k="n">Rank</th><th data-k="s">Coach</th><th data-k="s">Seasons (teams)</th><th data-k="n">WAR / season</th><th data-k="s">95% interval</th><th data-k="n">Premium</th><th data-k="n">Surprise</th><th data-k="n">QB-controlled rank</th><th data-k="n">P(above avg)</th>
@@ -293,6 +315,19 @@
     heads.forEach((h, k) => { const a = h.querySelector('.arrow'); if (a) a.remove(); if (k === i) { const s = document.createElement('span'); s.className = 'arrow'; s.textContent = asc ? '▲' : '▼'; h.appendChild(s); } });
   }
   heads.forEach((h, i) => h.addEventListener('click', () => sortBy(i)));
+})();
+</script>
+
+<script>
+(function(){
+  var A = new Set(["Mike LaFleur", "Kevin Stefanski", "Jesse Minter", "Joe Brady", "Dave Canales", "Ben Johnson", "Zac Taylor", "Todd Monken", "Brian Schottenheimer", "Sean Payton", "Dan Campbell", "Matt LaFleur", "DeMeco Ryans", "Shane Steichen", "Liam Coen", "Andy Reid", "Sean McVay", "Jim Harbaugh", "Klint Kubiak", "Jeff Hafley", "Kevin O'Connell", "Mike Vrabel", "Kellen Moore", "John Harbaugh", "Aaron Glenn", "Nick Sirianni", "Mike McCarthy", "Mike Macdonald", "Kyle Shanahan", "Todd Bowles", "Robert Saleh", "Dan Quinn"]);
+  var cb = document.getElementById('activeOnly'); if (!cb) return;
+  cb.addEventListener('change', function(){
+    document.querySelectorAll('#board tbody tr').forEach(function(tr){
+      var name = (tr.cells[1] ? tr.cells[1].textContent : tr.textContent).trim();
+      tr.style.display = (!cb.checked || A.has(name)) ? '' : 'none';
+    });
+  });
 })();
 </script>
 </body>

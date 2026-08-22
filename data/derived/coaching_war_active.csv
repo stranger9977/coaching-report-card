@@ -1,0 +1,33 @@
+team,coach,seasons,first_season,last_season,war_per_season,lo,hi,prob_above_avg,rank_main,active_rank,status
+NE,Mike Vrabel,7,2018,2025,1.01387835841904,-0.315996969761787,2.34375368659986,0.907,4,1,"4+ seasons, ranked on the main board"
+DEN,Sean Payton,12,2013,2025,0.950409164675661,-0.367058094872122,2.26787642422344,0.875,5,2,"4+ seasons, ranked on the main board"
+PHI,Nick Sirianni,5,2021,2025,0.883293831760541,-0.56153988630395,2.32812754982503,0.823,6,3,"4+ seasons, ranked on the main board"
+NYG,John Harbaugh,14,2012,2025,0.860166476819084,-0.524883946304512,2.24521689994268,0.848,8,4,"4+ seasons, ranked on the main board"
+LA,Sean McVay,9,2017,2025,0.847489374318348,-0.567931258900267,2.26291000753696,0.824,9,5,"4+ seasons, ranked on the main board"
+HOU,DeMeco Ryans,3,2023,2025,0.826568466215277,-0.688949224438806,2.34208615686936,0.806,NA,6,"under 4 seasons, mostly prior"
+LAC,Jim Harbaugh,5,2012,2025,0.824221308178341,-0.556185924758323,2.20462854111501,0.844,10,7,"4+ seasons, ranked on the main board"
+KC,Andy Reid,14,2012,2025,0.808876307915143,-0.553391174684719,2.171143790515,0.84,11,8,"4+ seasons, ranked on the main board"
+SEA,Mike Macdonald,2,2024,2025,0.738566934938203,-0.779128029258126,2.25626189913453,0.804,NA,9,"under 4 seasons, mostly prior"
+MIN,Kevin O'Connell,4,2022,2025,0.683860268340411,-0.755807330800256,2.12352786748108,0.782,13,10,"4+ seasons, ranked on the main board"
+GB,Matt LaFleur,7,2019,2025,0.651204825187253,-0.795698282232693,2.0981079326072,0.753,14,11,"4+ seasons, ranked on the main board"
+JAX,Liam Coen,1,2025,2025,0.633341142944945,-1.00346957747541,2.2701518633653,0.712,NA,12,"under 4 seasons, mostly prior"
+SF,Kyle Shanahan,9,2017,2025,0.539831977950766,-0.810487120838493,1.89015107674003,0.708,19,13,"4+ seasons, ranked on the main board"
+CHI,Ben Johnson,1,2025,2025,0.502859698585761,-1.11900077047864,2.12472016765016,0.669,NA,14,"under 4 seasons, mostly prior"
+DET,Dan Campbell,5,2021,2025,0.489910397851134,-0.920926713068392,1.90074750877066,0.667,20,15,"4+ seasons, ranked on the main board"
+PIT,Mike McCarthy,12,2012,2024,0.348012161430623,-0.948449735493276,1.64447405835452,0.598,24,16,"4+ seasons, ranked on the main board"
+IND,Shane Steichen,3,2023,2025,0.251265466460592,-1.21776417764092,1.72029511056211,0.55,NA,17,"under 4 seasons, mostly prior"
+WAS,Dan Quinn,7,2015,2025,0.21640245272165,-1.10955572719837,1.54236063264167,0.522,29,18,"4+ seasons, ranked on the main board"
+TB,Todd Bowles,8,2015,2025,0.203655066178511,-1.14246563293605,1.54977576529307,0.504,30,19,"4+ seasons, ranked on the main board"
+CAR,Dave Canales,2,2024,2025,0.14779970059936,-1.40058170302741,1.69618110422613,0.483,NA,20,"under 4 seasons, mostly prior"
+ATL,Kevin Stefanski,6,2020,2025,0.122343152163868,-1.33284107968941,1.57752738401714,0.483,33,21,"4+ seasons, ranked on the main board"
+NO,Kellen Moore,1,2025,2025,0.0850116100850233,-1.49276985538867,1.66279307555872,0.434,NA,22,"under 4 seasons, mostly prior"
+DAL,Brian Schottenheimer,1,2025,2025,-0.0292870703829606,-1.69988265656431,1.64130851579839,0.39,NA,23,"under 4 seasons, mostly prior"
+NYJ,Aaron Glenn,1,2025,2025,-0.0508793994184217,-1.69234951203111,1.59059071319427,0.394,NA,24,"under 4 seasons, mostly prior"
+TEN,Robert Saleh,4,2021,2024,-0.0826096884336863,-1.5953011218606,1.43008174499323,0.341,42,25,"4+ seasons, ranked on the main board"
+CIN,Zac Taylor,7,2019,2025,-0.186139178981487,-1.65589633813461,1.28361798017163,0.283,44,26,"4+ seasons, ranked on the main board"
+MIA,Jeff Hafley,NA,NA,NA,NA,NA,NA,NA,NA,NA,no head-coaching season in the window
+BAL,Jesse Minter,NA,NA,NA,NA,NA,NA,NA,NA,NA,no head-coaching season in the window
+BUF,Joe Brady,NA,NA,NA,NA,NA,NA,NA,NA,NA,no head-coaching season in the window
+LV,Klint Kubiak,NA,NA,NA,NA,NA,NA,NA,NA,NA,no head-coaching season in the window
+ARI,Mike LaFleur,NA,NA,NA,NA,NA,NA,NA,NA,NA,no head-coaching season in the window
+CLE,Todd Monken,NA,NA,NA,NA,NA,NA,NA,NA,NA,no head-coaching season in the window
