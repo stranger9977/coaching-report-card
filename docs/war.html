@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Coaching WAR</title>
+<title>Coaching Report Card</title>
 <style>
   :root {
     --bg: #fbfbfa; --ink: #1e2126; --ink-2: #4a5058; --ink-3: #778089;
@@ -81,6 +81,15 @@
   .kpi .n { font-size: 30px; font-weight: 750; color: var(--ink); line-height: 1.1; }
   .kpi .l { font-size: 13px; color: var(--ink-3); margin-top: 6px; line-height: 1.35; }
   footer { border-top: 1px solid var(--line); margin-top: 60px; padding-top: 20px; font-size: 14px; color: var(--ink-3); }
+  table.card { width: 100%; border-collapse: collapse; font-size: 14.5px; margin: 10px 0 6px; background: var(--card); border: 1px solid var(--line); }
+  table.card th { text-align: center; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-3); padding: 10px 6px; border-bottom: 2px solid var(--line); cursor: pointer; }
+  table.card td { text-align: center; padding: 7px 6px; border-bottom: 1px solid var(--line); color: var(--ink-2); }
+  table.card td.name { text-align: left; font-weight: 650; color: var(--ink); white-space: nowrap; }
+  table.card td.g { font-weight: 800; font-size: 16px; }
+  table.card td.gA { color: #1B7837; } table.card td.gB { color: #2B8CBE; } table.card td.gC { color: #6b7280; } table.card td.gD { color: #b26a00; } table.card td.gF { color: #b23a3a; }
+  table.card td.inc { color: var(--ink-3); font-style: italic; font-size: 12px; }
+  table.card td.tier { font-size: 12.5px; white-space: nowrap; }
+  table.card td.tdeans { color: #1B7837; font-weight: 700; } table.card td.thonor { color: #2B8CBE; font-weight: 650; } table.card td.tprobation { color: #b23a3a; }
 </style>
 <style>
   table.board { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
@@ -98,16 +107,93 @@
 </style>
 </head>
 <body>
-<div class="draftbar"><a href="index.html"><b>&larr; The working board</b></a> &nbsp;·&nbsp; <a href="models.html"><b>Model Factory</b></a> &nbsp;·&nbsp; <a href="outline.html"><b>Script Outline</b></a> &nbsp;·&nbsp; <a href="sequencing.html"><b>Play Sequencing</b></a> &nbsp;·&nbsp; <b>Coaching WAR</b> &nbsp;·&nbsp; built by R/71 to R/74</div>
+<div class="draftbar"><a href="index.html"><b>&larr; The working board</b></a> &nbsp;·&nbsp; <a href="models.html"><b>Model Factory</b></a> &nbsp;·&nbsp; <a href="outline.html"><b>Script Outline</b></a> &nbsp;·&nbsp; <a href="sequencing.html"><b>Play Sequencing</b></a> &nbsp;·&nbsp; <b>Report Card</b> &nbsp;·&nbsp; built by R/71 to R/77</div>
 <main>
   <header>
-    <div class="kicker">The coaching WAR tab</div>
-    <h1>How many wins is a head coach worth?</h1>
-    <p class="dek">One number per coach: wins per season above what a fresh hire would have delivered, after the payroll he was handed, last season's quarterback and the franchise he works in. The uncertainty is the story.</p>
+    <div class="kicker">The report card</div>
+    <h1>Grading the head coaches</h1>
+    <p class="dek">Seven lines, a letter each, a GPA out of 4.0, and tiers. WAR is one line. Then WAR three ways, and what the skeptics did to it.</p>
   </header>
 
   <section>
-    <div class="step">The short version</div>
+    <div class="step">The report card</div>
+    <h2 class="center">Fifty head coaches, seven lines, one GPA</h2>
+    <p class="finding">Every line is a number this board already built and tested, graded by percentile among these fifty: A is the top fifth, F the bottom fifth. The GPA is the plain average of the letters (A 4, B 3, C 2, D 1, F 0), nothing weighted. A coach needs four lines to get one; a missing line reads Inc. Tiers: dean's list 3.3 and up, honor roll 2.7, passing 2.0, probation below. 1 on the dean's list, 11 on the honor roll, 14 passing, 15 on probation, 9 incomplete.</p>
+    <p class="note"><b>The lines.</b> Fourth downs: win-probability cost of fourth-down choices against the league in his own seasons (2018-2025; lower cost is better). Going for two: how often he goes for two when the chart says to, against his era (10+ chart spots needed). Penalties: penalty rate beyond what the situation predicts. Offense and defense: EPA per play above the talent controls. Beats the spread: wins beyond the closing line, shrunk. Results above resources: the average rank across the three WAR boards below. Click a header to sort.</p>
+    <div style="overflow-x:auto">
+    <table class="card" id="rcard">
+      <thead><tr><th>#</th><th>Coach</th><th>Seasons</th><th>Fourth downs</th><th>Going for two</th><th>Penalties</th><th>Offense above talent</th><th>Defense above talent</th><th>Beats the spread</th><th>Results above resources</th><th>GPA</th><th>Tier</th></tr></thead>
+      <tbody>
+<tr><td>1</td><td class="name">Sean McDermott</td><td>9</td><td class="g gA">A</td><td class="g gC">C</td><td class="g gA">A</td><td class="g gA">A</td><td class="g gB">B</td><td class="g gA">A</td><td class="g gA">A</td><td data-v="3.5714285714285716"><b>3.57</b></td><td class="tier tdeans">Dean's list</td></tr>
+<tr><td>2</td><td class="name">Nick Sirianni</td><td>5</td><td class="g gA">A</td><td class="inc">Inc</td><td class="g gC">C</td><td class="g gB">B</td><td class="g gB">B</td><td class="g gA">A</td><td class="g gB">B</td><td data-v="3.1666666666666665"><b>3.17</b></td><td class="tier thonor">Honor roll</td></tr>
+<tr><td>3</td><td class="name">John Harbaugh</td><td>14</td><td class="g gA">A</td><td class="g gC">C</td><td class="g gC">C</td><td class="g gA">A</td><td class="g gA">A</td><td class="g gC">C</td><td class="g gA">A</td><td data-v="3.142857142857143"><b>3.14</b></td><td class="tier thonor">Honor roll</td></tr>
+<tr><td>4</td><td class="name">Bruce Arians</td><td>8</td><td class="g gF">F</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gB">B</td><td class="g gA">A</td><td class="g gA">A</td><td class="g gA">A</td><td data-v="3.0"><b>3.00</b></td><td class="tier thonor">Honor roll</td></tr>
+<tr><td>5</td><td class="name">Sean McVay</td><td>9</td><td class="g gF">F</td><td class="g gC">C</td><td class="g gA">A</td><td class="g gB">B</td><td class="g gA">A</td><td class="g gB">B</td><td class="g gA">A</td><td data-v="2.857142857142857"><b>2.86</b></td><td class="tier thonor">Honor roll</td></tr>
+<tr><td>6</td><td class="name">Sean Payton</td><td>12</td><td class="g gF">F</td><td class="g gC">C</td><td class="g gA">A</td><td class="g gB">B</td><td class="g gB">B</td><td class="g gA">A</td><td class="g gA">A</td><td data-v="2.857142857142857"><b>2.86</b></td><td class="tier thonor">Honor roll</td></tr>
+<tr><td>7</td><td class="name">Matt Nagy</td><td>4</td><td class="g gA">A</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gF">F</td><td class="g gA">A</td><td class="g gB">B</td><td class="g gB">B</td><td data-v="2.8"><b>2.80</b></td><td class="tier thonor">Honor roll</td></tr>
+<tr><td>8</td><td class="name">Andy Reid</td><td>14</td><td class="g gD">D</td><td class="g gC">C</td><td class="g gA">A</td><td class="g gA">A</td><td class="g gD">D</td><td class="g gA">A</td><td class="g gB">B</td><td data-v="2.7142857142857144"><b>2.71</b></td><td class="tier thonor">Honor roll</td></tr>
+<tr><td>9</td><td class="name">Matt LaFleur</td><td>7</td><td class="g gA">A</td><td class="g gC">C</td><td class="g gC">C</td><td class="g gA">A</td><td class="g gD">D</td><td class="g gA">A</td><td class="g gC">C</td><td data-v="2.7142857142857144"><b>2.71</b></td><td class="tier thonor">Honor roll</td></tr>
+<tr><td>10</td><td class="name">Mike Tomlin</td><td>14</td><td class="g gF">F</td><td class="g gC">C</td><td class="g gA">A</td><td class="g gC">C</td><td class="g gB">B</td><td class="g gA">A</td><td class="g gA">A</td><td data-v="2.7142857142857144"><b>2.71</b></td><td class="tier thonor">Honor roll</td></tr>
+<tr><td>11</td><td class="name">Mike Vrabel</td><td>7</td><td class="g gB">B</td><td class="g gC">C</td><td class="g gD">D</td><td class="g gB">B</td><td class="g gC">C</td><td class="g gA">A</td><td class="g gA">A</td><td data-v="2.7142857142857144"><b>2.71</b></td><td class="tier thonor">Honor roll</td></tr>
+<tr><td>12</td><td class="name">Ron Rivera</td><td>12</td><td class="g gA">A</td><td class="g gC">C</td><td class="g gB">B</td><td class="g gD">D</td><td class="g gB">B</td><td class="g gB">B</td><td class="g gB">B</td><td data-v="2.7142857142857144"><b>2.71</b></td><td class="tier thonor">Honor roll</td></tr>
+<tr><td>13</td><td class="name">Jason Garrett</td><td>8</td><td class="g gC">C</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gA">A</td><td class="g gC">C</td><td class="g gC">C</td><td class="g gB">B</td><td data-v="2.6"><b>2.60</b></td><td class="tier tpassing">Passing</td></tr>
+<tr><td>14</td><td class="name">Kyle Shanahan</td><td>9</td><td class="g gB">B</td><td class="g gC">C</td><td class="g gB">B</td><td class="g gA">A</td><td class="g gB">B</td><td class="g gD">D</td><td class="g gC">C</td><td data-v="2.5714285714285716"><b>2.57</b></td><td class="tier tpassing">Passing</td></tr>
+<tr><td>15</td><td class="name">Dan Campbell</td><td>5</td><td class="g gB">B</td><td class="inc">Inc</td><td class="g gA">A</td><td class="g gB">B</td><td class="g gF">F</td><td class="g gB">B</td><td class="g gC">C</td><td data-v="2.5"><b>2.50</b></td><td class="tier tpassing">Passing</td></tr>
+<tr><td>16</td><td class="name">Jim Harbaugh</td><td>5</td><td class="g gF">F</td><td class="inc">Inc</td><td class="g gB">B</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gB">B</td><td class="g gA">A</td><td data-v="2.5"><b>2.50</b></td><td class="tier tpassing">Passing</td></tr>
+<tr><td>17</td><td class="name">Bill Belichick</td><td>12</td><td class="g gF">F</td><td class="g gC">C</td><td class="g gD">D</td><td class="g gA">A</td><td class="g gA">A</td><td class="g gC">C</td><td class="g gA">A</td><td data-v="2.4285714285714284"><b>2.43</b></td><td class="tier tpassing">Passing</td></tr>
+<tr><td>18</td><td class="name">Bill O'Brien</td><td>6</td><td class="g gD">D</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gD">D</td><td class="g gB">B</td><td class="g gB">B</td><td class="g gA">A</td><td data-v="2.4"><b>2.40</b></td><td class="tier tpassing">Passing</td></tr>
+<tr><td>19</td><td class="name">Mike Zimmer</td><td>8</td><td class="g gC">C</td><td class="g gC">C</td><td class="inc">Inc</td><td class="g gC">C</td><td class="g gA">A</td><td class="g gC">C</td><td class="g gC">C</td><td data-v="2.3333333333333335"><b>2.33</b></td><td class="tier tpassing">Passing</td></tr>
+<tr><td>20</td><td class="name">Mike McCarthy</td><td>12</td><td class="g gB">B</td><td class="g gC">C</td><td class="g gC">C</td><td class="g gB">B</td><td class="g gC">C</td><td class="g gC">C</td><td class="g gC">C</td><td data-v="2.2857142857142856"><b>2.29</b></td><td class="tier tpassing">Passing</td></tr>
+<tr><td>21</td><td class="name">Pete Carroll</td><td>13</td><td class="g gC">C</td><td class="g gC">C</td><td class="g gC">C</td><td class="g gC">C</td><td class="g gC">C</td><td class="g gB">B</td><td class="g gB">B</td><td data-v="2.2857142857142856"><b>2.29</b></td><td class="tier tpassing">Passing</td></tr>
+<tr><td>22</td><td class="name">Marvin Lewis</td><td>7</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gC">C</td><td class="g gD">D</td><td class="g gB">B</td><td class="g gB">B</td><td data-v="2.25"><b>2.25</b></td><td class="tier tpassing">Passing</td></tr>
+<tr><td>23</td><td class="name">Anthony Lynn</td><td>4</td><td class="g gD">D</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gA">A</td><td class="g gB">B</td><td class="g gF">F</td><td class="g gC">C</td><td data-v="2.0"><b>2.00</b></td><td class="tier tpassing">Passing</td></tr>
+<tr><td>24</td><td class="name">Chuck Pagano</td><td>6</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gD">D</td><td class="g gF">F</td><td class="g gA">A</td><td class="g gB">B</td><td data-v="2.0"><b>2.00</b></td><td class="tier tpassing">Passing</td></tr>
+<tr><td>25</td><td class="name">Jim Caldwell</td><td>4</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gD">D</td><td class="g gD">D</td><td class="g gB">B</td><td class="g gB">B</td><td data-v="2.0"><b>2.00</b></td><td class="tier tpassing">Passing</td></tr>
+<tr><td>26</td><td class="name">Todd Bowles</td><td>8</td><td class="g gC">C</td><td class="g gC">C</td><td class="g gB">B</td><td class="g gC">C</td><td class="g gC">C</td><td class="g gD">D</td><td class="g gC">C</td><td data-v="2.0"><b>2.00</b></td><td class="tier tpassing">Passing</td></tr>
+<tr><td>27</td><td class="name">Kevin O'Connell</td><td>4</td><td class="g gF">F</td><td class="inc">Inc</td><td class="g gF">F</td><td class="g gF">F</td><td class="g gA">A</td><td class="g gA">A</td><td class="g gB">B</td><td data-v="1.8333333333333333"><b>1.83</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td>28</td><td class="name">Kliff Kingsbury</td><td>4</td><td class="g gB">B</td><td class="g gC">C</td><td class="inc">Inc</td><td class="g gC">C</td><td class="g gD">D</td><td class="g gD">D</td><td class="g gD">D</td><td data-v="1.6666666666666667"><b>1.67</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td>29</td><td class="name">Adam Gase</td><td>5</td><td class="g gA">A</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gF">F</td><td class="g gF">F</td><td class="g gB">B</td><td class="g gD">D</td><td data-v="1.6"><b>1.60</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td>30</td><td class="name">Dan Quinn</td><td>7</td><td class="g gC">C</td><td class="g gC">C</td><td class="g gD">D</td><td class="g gB">B</td><td class="g gF">F</td><td class="g gC">C</td><td class="g gD">D</td><td data-v="1.5714285714285714"><b>1.57</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td>31</td><td class="name">Kevin Stefanski</td><td>6</td><td class="g gA">A</td><td class="g gC">C</td><td class="g gF">F</td><td class="g gF">F</td><td class="g gC">C</td><td class="g gD">D</td><td class="g gD">D</td><td data-v="1.4285714285714286"><b>1.43</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td>32</td><td class="name">Zac Taylor</td><td>7</td><td class="g gC">C</td><td class="g gC">C</td><td class="g gB">B</td><td class="g gC">C</td><td class="g gF">F</td><td class="g gD">D</td><td class="g gF">F</td><td data-v="1.4285714285714286"><b>1.43</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td>33</td><td class="name">Frank Reich</td><td>6</td><td class="g gD">D</td><td class="g gC">C</td><td class="g gD">D</td><td class="g gD">D</td><td class="g gC">C</td><td class="g gF">F</td><td class="g gC">C</td><td data-v="1.2857142857142858"><b>1.29</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td>34</td><td class="name">John Fox</td><td>6</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gF">F</td><td class="g gD">D</td><td class="g gC">C</td><td class="g gC">C</td><td data-v="1.25"><b>1.25</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td>35</td><td class="name">Dennis Allen</td><td>5</td><td class="g gD">D</td><td class="inc">Inc</td><td class="g gC">C</td><td class="g gF">F</td><td class="g gA">A</td><td class="g gF">F</td><td class="g gF">F</td><td data-v="1.1666666666666667"><b>1.17</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td>36</td><td class="name">Brian Daboll</td><td>4</td><td class="g gC">C</td><td class="inc">Inc</td><td class="g gF">F</td><td class="g gD">D</td><td class="g gF">F</td><td class="g gC">C</td><td class="g gD">D</td><td data-v="1.0"><b>1.00</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td>37</td><td class="name">Jay Gruden</td><td>5</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gC">C</td><td class="g gF">F</td><td class="g gC">C</td><td class="g gF">F</td><td data-v="1.0"><b>1.00</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td>38</td><td class="name">Robert Saleh</td><td>4</td><td class="g gB">B</td><td class="g gC">C</td><td class="g gF">F</td><td class="g gF">F</td><td class="g gD">D</td><td class="g gF">F</td><td class="g gD">D</td><td data-v="1.0"><b>1.00</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td>39</td><td class="name">Doug Pederson</td><td>8</td><td class="g gD">D</td><td class="g gC">C</td><td class="g gD">D</td><td class="g gF">F</td><td class="g gD">D</td><td class="g gD">D</td><td class="g gF">F</td><td data-v="0.8571428571428571"><b>0.86</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td>40</td><td class="name">Mike McDaniel</td><td>4</td><td class="g gB">B</td><td class="inc">Inc</td><td class="g gF">F</td><td class="g gD">D</td><td class="g gF">F</td><td class="g gD">D</td><td class="g gF">F</td><td data-v="0.8333333333333334"><b>0.83</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td>41</td><td class="name">Doug Marrone</td><td>6</td><td class="g gD">D</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gD">D</td><td class="g gC">C</td><td class="g gF">F</td><td class="g gF">F</td><td data-v="0.8"><b>0.80</b></td><td class="tier tprobation">Probation</td></tr>
+<tr><td></td><td class="name">Chip Kelly</td><td>4</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gF">F</td><td class="g gD">D</td><td data-v="-1">Inc</td><td class="tier">Incomplete</td></tr>
+<tr><td></td><td class="name">Gary Kubiak</td><td>4</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gD">D</td><td class="g gC">C</td><td data-v="-1">Inc</td><td class="tier">Incomplete</td></tr>
+<tr><td></td><td class="name">Gus Bradley</td><td>4</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gF">F</td><td class="g gF">F</td><td data-v="-1">Inc</td><td class="tier">Incomplete</td></tr>
+<tr><td></td><td class="name">Jeff Fisher</td><td>5</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gC">C</td><td class="g gF">F</td><td data-v="-1">Inc</td><td class="tier">Incomplete</td></tr>
+<tr><td></td><td class="name">Joe Philbin</td><td>4</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gD">D</td><td class="g gD">D</td><td data-v="-1">Inc</td><td class="tier">Incomplete</td></tr>
+<tr><td></td><td class="name">Lovie Smith</td><td>4</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gF">F</td><td class="g gF">F</td><td data-v="-1">Inc</td><td class="tier">Incomplete</td></tr>
+<tr><td></td><td class="name">Mike McCoy</td><td>4</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gF">F</td><td class="g gF">F</td><td data-v="-1">Inc</td><td class="tier">Incomplete</td></tr>
+<tr><td></td><td class="name">Rex Ryan</td><td>5</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gD">D</td><td class="g gD">D</td><td data-v="-1">Inc</td><td class="tier">Incomplete</td></tr>
+<tr><td></td><td class="name">Tom Coughlin</td><td>4</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="inc">Inc</td><td class="g gF">F</td><td class="g gD">D</td><td data-v="-1">Inc</td><td class="tier">Incomplete</td></tr>
+      </tbody>
+    </table></div>
+    <figure>
+      <img src="figures/report_card_tiers.png" alt="Every graded coach by GPA with tier colours and the seven letter grades in the label.">
+      <figcaption>The card as a chart, with the seven letters in each label. Built by R/76; data/derived/report_card_gpa.csv.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="step">WAR, three ways</div>
+    <h2 class="center">Same fifty coaches, three ways to score them</h2>
+    <p class="finding">The market-anchored board credits a coach with whatever the betting line rated his team above its roster, and with beating that line. It cannot avoid crediting him for a quarterback who outplays his pay. The middle board removes the quarterback's play in the same season, so a coach gets nothing for his quarterback, and the whole scale collapses: the top is +0.38, not +0.92. The right board uses no market at all, point differential above the same talent controls. Belichick, Arians, Jim Harbaugh and Vrabel are top-10 on all three. McDermott, McVay, Payton and Tomlin are top-10 on two; McDermott falls to 17th and McVay to 13th once Allen and Stafford are taken out.</p>
+    <figure>
+      <img src="figures/coaching_war_three_boards.png" alt="Three panels showing the top 15 coaches on the market-anchored board, the same-season-QB-controlled board and the market-free point-differential board, with agreement coloured.">
+      <figcaption>Top 15 on each board; colour marks how many boards a coach is top-10 on. Built by R/77; data/derived/coaching_war_three_boards.csv.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="step">WAR: the short version</div>
     <h2 class="center">The familiar names are on top. None of them is clear of the pack.</h2>
     <div class="kpi">
       <div><div class="n">+0.92</div><div class="l">wins per season for Sean McDermott, top of the board (9 seasons)</div></div>
@@ -236,7 +322,7 @@
   </section>
 
   <footer>
-    Data: nflverse schedules and closing spreads 1999-2025; OverTheCap contracts via nflreadr 2012-2025; Madden launch ratings 2017-2025 in the talent control. Scripts: <code>R/71_coaching_war.R</code> (the model, with the full skeptic log in its header), <code>R/73_war_active.R</code>, <code>R/74_war_clean.R</code>, <code>R/75_war_stints.R</code>. Every number on this page is in <code>data/derived/coaching_war*.csv</code>.
+    Data: nflverse schedules and closing spreads 1999-2025; OverTheCap contracts via nflreadr 2012-2025; Madden launch ratings 2017-2025 in the talent control. Scripts: <code>R/76_report_card_gpa.R</code> (the card), <code>R/77_war_three_boards.R</code>, <code>R/71_coaching_war.R</code> (the WAR model, with the full skeptic log in its header), <code>R/73</code> to <code>R/75</code>. Every number on this page is in <code>data/derived/coaching_war*.csv</code>.
   </footer>
 </main>
 <script>
@@ -268,6 +354,26 @@
     document.querySelectorAll('#board tbody tr').forEach(function(tr){
       var name = (tr.cells[1] ? tr.cells[1].textContent : tr.textContent).trim();
       tr.style.display = (!cb.checked || A.has(name)) ? '' : 'none';
+    });
+  });
+})();
+</script>
+<script>
+(function(){
+  var t = document.getElementById('rcard'); if (!t) return;
+  var pts = {A:4,B:3,C:2,D:1,F:0};
+  t.querySelectorAll('th').forEach(function(th, i){
+    th.addEventListener('click', function(){
+      var rows = [...t.tBodies[0].rows];
+      var asc = th.dataset.asc === '1'; th.dataset.asc = asc ? '0' : '1';
+      rows.sort(function(a, b){
+        var x = a.cells[i], y = b.cells[i];
+        var vx = x.dataset.v !== undefined ? +x.dataset.v : (pts[x.textContent.trim()] !== undefined ? pts[x.textContent.trim()] : (isNaN(+x.textContent) ? x.textContent : +x.textContent));
+        var vy = y.dataset.v !== undefined ? +y.dataset.v : (pts[y.textContent.trim()] !== undefined ? pts[y.textContent.trim()] : (isNaN(+y.textContent) ? y.textContent : +y.textContent));
+        if (x.textContent.trim() === 'Inc' || x.textContent.trim() === '') vx = -99; if (y.textContent.trim() === 'Inc' || y.textContent.trim() === '') vy = -99;
+        return (vx > vy ? 1 : vx < vy ? -1 : 0) * (asc ? 1 : -1);
+      });
+      rows.forEach(function(r){ t.tBodies[0].appendChild(r); });
     });
   });
 })();
