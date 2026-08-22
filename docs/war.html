@@ -98,65 +98,34 @@
 </style>
 </head>
 <body>
-<div class="draftbar"><a href="index.html"><b>&larr; The working board</b></a> &nbsp;·&nbsp; <a href="models.html"><b>Model Factory</b></a> &nbsp;·&nbsp; <a href="outline.html"><b>Script Outline</b></a> &nbsp;·&nbsp; <a href="sequencing.html"><b>Play Sequencing</b></a> &nbsp;·&nbsp; <b>Coaching WAR</b> &nbsp;·&nbsp; built by R/71</div>
+<div class="draftbar"><a href="index.html"><b>&larr; The working board</b></a> &nbsp;·&nbsp; <a href="models.html"><b>Model Factory</b></a> &nbsp;·&nbsp; <a href="outline.html"><b>Script Outline</b></a> &nbsp;·&nbsp; <a href="sequencing.html"><b>Play Sequencing</b></a> &nbsp;·&nbsp; <b>Coaching WAR</b> &nbsp;·&nbsp; built by R/71 to R/74</div>
 <main>
   <header>
     <div class="kicker">The coaching WAR tab</div>
     <h1>How many wins is a head coach worth?</h1>
-    <p class="dek">One number per coach: wins per season added above what a fresh hire would have delivered, after the payroll he was handed, last season's quarterback, and the franchise he works in. With the uncertainty left on, which turns out to be the story.</p>
+    <p class="dek">One number per coach: wins per season above what a fresh hire would have delivered, after the payroll he was handed, last season's quarterback and the franchise he works in. The uncertainty is the story.</p>
   </header>
 
   <section>
     <div class="step">The short version</div>
-    <h2 class="center">The familiar names are at the top. None of them is clear of the pack.</h2>
+    <h2 class="center">The familiar names are on top. None of them is clear of the pack.</h2>
     <div class="kpi">
-      <div><div class="n">+1.13</div><div class="l">wins per season for Bill Belichick, the top of the board, over 12 seasons in the window</div></div>
-      <div><div class="n">0 of 50</div><div class="l">eligible coaches whose 95% interval sits entirely above replacement</div></div>
-      <div><div class="n">0.08</div><div class="l">reliability of the coach number across odd and even seasons; the bar it needed to clear was 0.30</div></div>
-      <div><div class="n">24 of 50</div><div class="l">coaches who move 10 or more places when the quarterback's play in the same season is also taken out</div></div>
+      <div><div class="n">+1.13</div><div class="l">wins per season for Belichick, top of the board (12 seasons)</div></div>
+      <div><div class="n">0 of 50</div><div class="l">coaches whose 95% interval sits entirely above replacement</div></div>
+      <div><div class="n">0.08</div><div class="l">reliability of the coach number across odd and even seasons; the bar was 0.30</div></div>
+      <div><div class="n">24 of 50</div><div class="l">coaches who move 10+ places once same-season quarterback play is also removed</div></div>
     </div>
-
-    <div class="panel" style="margin-top:18px">
-      <h3 style="margin-top:0">How talent is controlled, in one breath</h3>
-      <p>Three things, all measured before the season's games are played: the payroll of the top 25 contracts as a share of the cap, how much of the cap the starting quarterback takes, and how well that quarterback played the season before (EPA per dropback). Together they explain 36% of what the betting market expected from each team. A franchise term in the model absorbs whatever is persistent about the building: owner, front office, scouting. What is not controlled: roster quality beyond what payroll captures (Madden ratings would add to it but only exist from 2017, so they are a sensitivity, not a control), and the quarterback's play in the <i>same</i> season, which is the biggest hole and the reason the table carries a "QB-controlled rank" beside the main one.</p>
-    </div>
-    <p class="finding"><b>What it says.</b> Over 2012-2025, the head coaches whose teams won the most above what their payroll, last season's quarterback and franchise predicted are Belichick (+1.13 wins a season), Bruce Arians (+1.08), Sean McDermott (+1.08), Mike Vrabel (+1.01) and Sean Payton (+0.95). The bottom is Dennis Allen (-0.36), Lovie Smith (-0.30), Doug Marrone (-0.25), Gus Bradley (-0.25) and Mike McCoy (-0.23). That ordering is about what a fan would guess, which is a point in its favour. The honest part is everything around the point estimates: Belichick's interval runs from -0.21 to +2.47, nobody's lower bound clears zero, the number does not predict next season better than last season's win total does, and a coach and his quarterback cannot be cleanly pulled apart. The measure says who won above their resources. It cannot yet prove that the man, rather than the pairing of man, quarterback and building, is the reason.</p>
+    <p class="finding">Over 2012-2025 the head coaches who won the most above their resources are Belichick (+1.13), Arians (+1.08), McDermott (+1.08), Vrabel (+1.01) and Payton (+0.95). The bottom is Dennis Allen (-0.36), Lovie Smith (-0.30), Marrone, Bradley and McCoy. That order is what a fan would guess. The honest part: Belichick's interval runs from -0.21 to +2.47, nobody's lower bound clears zero, the number does not predict next season better than last season's win total does, and a coach cannot be cleanly separated from his quarterback. This measures who won above their resources. It cannot prove the man, rather than the man plus quarterback plus building, is why.</p>
   </section>
 
   <section>
-    <div class="step">What the number means</div>
-    <h2 class="center">Wins above a first-season hire, per season</h2>
-    <p>Take a coach's team in one season. The closing point spreads on its games imply a number of wins the betting market expected. Part of that expectation is explained by things the coach did not create: the payroll of the top 25 contracts, how much of the cap the starting quarterback eats, and how well that quarterback played the season before. Call that part <i>talent</i>. What the team actually won minus talent is <i>wins above talent</i>, and it is the raw material for everything on this page. Everything is scaled to 17 games so seasons of different lengths add up.</p>
-    <p>Wins above talent splits cleanly into two pieces. The <i>premium</i> is what the market credited the team beyond its priced talent before kickoff; a coach with a reputation gets some of that, but so does a cheap quarterback playing above his contract and any talent the payroll control cannot see. The <i>surprise</i> is what the team did beyond the spread once the games were played. The two add up to wins above talent exactly, though the shrunk versions of each shown in the table come from separate fits and can differ from the total by up to 0.26 wins (Jim Schwartz is the widest case).</p>
-    <p>The coach's number comes from a mixed model of wins above talent with three random terms: coach, franchise and season. The franchise term soaks up the owner, the front office and anything about a building that outlasts the man in it. The coach term is identified by coaches changing teams and teams changing coaches. Because it is a random effect it is shrunk toward zero, and a short career is shrunk hardest. That is why the raw averages (the hollow circles in the chart) sit to the right of the filled dots.</p>
-    <p>WAR is the coach effect minus a replacement line, explained next. One unit is one win per season over 17 games.</p>
-  </section>
-
-  <section>
-    <div class="step">Replacement level</div>
-    <h2 class="center">A replacement coach is the coach you actually get</h2>
-    <p>In baseball, replacement level is the freely available player. Here it is the coach a franchise hires when it does not keep the one it has. So the replacement line is measured, not assumed: the average of what first-season head coaches delivered, net of the franchise and season terms, on the 99 first-season rows in the window where the coach was in place in week 1. Interim coaches who took over midseason are a different thing (their first-season rows average -1.20 wins) and are left out.</p>
-    <p>That line comes out at -0.19 wins against the average sitting coach, with a standard error of 0.25. So a new hire is slightly worse than the average incumbent, but not by much, and not by an amount the data can pin down. Because the line is close to zero, WAR and wins above average are nearly the same thing here; the difference is 0.19 for everybody.</p>
-    <p>Two details the skeptics pushed on, both true. First, the pooled line hides a split: a first-time head coach averages +0.04 (n = 66, in other words league average), while a coach on his second or later job averages -0.64 (n = 33). The difference has a Wilcoxon p of 0.26, so it is inside the noise, and the pooled line was kept; the first-timers-only line (+0.03) would lower every WAR by 0.21 and is carried as a column in the CSV. Second, the line drifts across the window: +0.08 in 2012-2018, -0.45 in 2019-2025. That gap is 0.54 wins, but its standard error is 0.59 (p = 0.37), and a board built with a separate line for each half moves nobody in the top 12 (rank correlation 0.922 with the main board; the biggest mover is Kliff Kingsbury, 35 to 23).</p>
-  </section>
-
-  <section>
-    <div class="step">What it controls for</div>
-    <h2 class="center">Payroll, last season's quarterback, and the building. Not the roster.</h2>
-    <p>The talent control explains 36% of the market's expectation (R2 0.359 on 451 coach-seasons). It is payroll plus the quarterback's cap share plus his EPA per dropback the season before. It is deliberately the previous season's quarterback, on the argument that a coach shapes the quarterback he has; the cost of that choice is that a quarterback playing better than he did last year, or better than he is paid, counts for the coach.</p>
-    <p>That cost is not small. Same-season quarterback play explains 39% of the variation in wins above talent on its own (+1.87 wins per standard deviation), and the market premium correlates 0.61 with it. Across the 50 eligible coaches, the published coach effect correlates 0.58 with the average same-season quarterback play the coach had. When the quarterback's same-season play is added as a control, the spread between coaches shrinks by 19%, the rank correlation with the main board falls to 0.59, only 5 of the top 10 survive, and 24 of 50 coaches move 10 or more places. Jeff Fisher goes from 45th to 10th; Andy Reid from 11th to 39th. That rank is printed for every coach in the table as "QB-controlled rank". The two boards are not upper and lower bounds on anything; they are two different questions, and the page shows both.</p>
-    <p>Roster quality beyond payroll is not controlled. Madden ratings, where they exist (2017 onward), still predict wins above talent at +0.68 wins per standard deviation after the payroll controls (t = 4.0). They were not put in the main model because a control that switches on mid-window would grade the same coach on two different scales. A version with Madden in the talent fit has a rank correlation of 0.981 with the main board and the same top 10 less one, so the ordering survives it, but the earlier wording "separated from his roster" did not, and it is gone.</p>
-    <p>The franchise term is the control that matters most for who is on top, and it is the one that can hurt the coaches who never left. A nested fit that asks how much of the coach effect travels with him across teams puts the portable part at 0.01 wins (95% interval 0.00 to 1.13) against a coach-within-team part of 1.26 (0.51 to 1.66). On this data the number is what a coach-team pairing delivered, not a trait that demonstrably moves with the man. Mike Tomlin and John Harbaugh are 100% of their franchise's rows in the window, Belichick is 86%, Reid 93%, Pete Carroll 86%; for those five the franchise term is set by one or two seasons of somebody else, and the table label on the chart shows what happens to their number when that other coach's season is dropped. Belichick without Mike Vrabel's 2025 New England season is +1.41 instead of +1.13; Reid without Romeo Crennel's 2012 Kansas City season is +0.49 instead of +0.81.</p>
-  </section>
-
-  <section>
-    <div class="step">Active head coaches</div>
-    <h2 class="center">The 32 coaches on a sideline this season</h2>
-    <p class="big">Same numbers, same scale, filtered to the 2026 week-1 head coaches. Mike Vrabel leads the actives at +1.01, then Payton, Sirianni, John Harbaugh and McVay. Fourteen of the 32 have fewer than four seasons in the window, so their number is mostly the prior; six have never been a head coach in it.</p>
-    <figure>
-      <img src="figures/coaching_war_active.png" alt="Dot and interval chart of coaching WAR per season for the 2026 active head coaches, veterans in blue and coaches with under four seasons in grey.">
-      <figcaption>Active head coaches, 2026, on the main board's scale. Grey dots have under four seasons and are mostly the prior. Built by R/73; data/derived/coaching_war_active.csv.</figcaption>
-    </figure>
+    <div class="step">How it is built</div>
+    <h2 class="center">Wins above a first-season hire</h2>
+    <p class="finding"><b>Expected wins.</b> The closing point spreads on a team's games imply the wins the betting market expected. The part of that expectation explained by payroll (top 25 contracts as a share of the cap), the starting quarterback's cap share, and his EPA per dropback the season before is called talent. It explains 36% of the market's expectation. Actual wins minus talent is wins above talent, scaled to 17 games.</p>
+    <p class="finding"><b>The coach's share.</b> A mixed model of wins above talent with three random terms: coach, franchise, season. The franchise term absorbs the owner, the front office and whatever outlasts the man. The coach term is shrunk toward zero, hardest for short careers.</p>
+    <p class="finding"><b>Replacement level</b> is measured, not assumed: what week-1 first-season head coaches actually delivered, net of franchise and season, on 99 such seasons. It comes out at -0.19 wins against the average sitting coach (SE 0.25). Interims are excluded (they average -1.20). Because the line is near zero, WAR and wins above average are almost the same thing here.</p>
+    <p class="finding"><b>What is and is not controlled.</b> Payroll, the quarterback's pay and his previous season, the building. Not controlled: roster quality beyond payroll, and the quarterback's play in the same season. That second one is the biggest hole. Same-season QB play explains 39% of wins above talent on its own, and the published coach effect correlates 0.58 with the QB play each coach had. Put it in as a control and 24 of 50 coaches move 10 or more places (Jeff Fisher 45th to 10th, Andy Reid 11th to 39th). The table carries that rank beside the main one.</p>
+    <p class="finding"><b>Madden.</b> Adding Madden ratings to the talent control, where they exist (2017 onward), leaves the board's order 98% intact: McDermott 1st, Vrabel 2nd, Arians 3rd, McVay 4th, Belichick 5th (+0.87), John Harbaugh the one real mover (8th to 17th). Madden does catch roster quality that payroll misses (its leftover signal drops from +0.68 wins per standard deviation to +0.07), but a control that switches on mid-window grades the same coach on two scales, so it is a sensitivity, not the main model.</p>
   </section>
 
   <section>
@@ -164,16 +133,12 @@
     <h2 class="center">Fifty head coaches with at least four seasons, 2012-2025</h2>
     <figure>
       <img src="figures/coaching_war_leaderboard_clean.png" alt="Dot and interval chart of coaching WAR per season for the top 25 eligible head coaches, 2012-2025, with 95% intervals; every interval crosses zero.">
-      <figcaption>Top 25 of the 50 eligible coaches. Dot is the shrunk estimate, bar the 95% interval, dotted line replacement level. Built by R/74 from R/71's table.</figcaption>
+      <figcaption>Top 25 of 50. Dot is the shrunk estimate, bar the 95% interval, dotted line replacement level. Built by R/74 from R/71's table.</figcaption>
     </figure>
-    <details style="margin:8px 0 18px"><summary style="cursor:pointer;color:var(--ink-3);font-size:14px">The annotated version: raw averages, the reliability-supported scale, and every sensitivity in the label</summary>
-    <figure>
-      <img src="figures/coaching_war_leaderboard.png" alt="Dot and interval chart of coaching WAR per season for the top 25 eligible head coaches, 2012-2025, with raw averages as hollow circles, 95% intervals, and a low-coach-spread version as blue crosses.">
-      <figcaption>Top 25 of the 50 eligible coaches. Filled dot is the shrunk estimate, hollow circle the raw average, bar the 95% interval, blue cross the same board with the coach spread held at 0.40 wins (the value the split-half reliability supports; Belichick is +0.50 there). Labels give the rank once same-season quarterback play is controlled, and what the number becomes without the single most influential season, without elite-quarterback seasons, or without cheap-quarterback seasons, wherever one of those moves the coach effect by more than 0.3. Built by R/71.</figcaption>
-    </figure>
+    <details style="margin:8px 0 18px"><summary style="cursor:pointer;color:var(--ink-3);font-size:14px">The annotated version, with raw averages, the reliability-supported scale and every sensitivity in the label</summary>
+      <figure><img src="figures/coaching_war_leaderboard.png" alt="Annotated leaderboard with raw averages, blue crosses for the low-spread version and sensitivity labels."></figure>
     </details>
-    <p>Click a column header to sort. "Seasons" counts seasons in the 2012-2025 window; coaches hired before 2012 are marked with their real hire year, since their early seasons are missing and veterans as a group average +0.19 more than in-window hires (p = 0.12). The interval is 95%, from a parametric bootstrap of the model's own prediction error with the coach spread drawn from its likelihood. Premium and surprise are the shrunk per-season components. "QB-controlled rank" is this coach's rank when the quarterback's same-season play is also removed. "P(above avg)" is the probability the coach's true effect is above the average sitting coach; nobody reaches 0.95.</p>
-    <div class="tablewrap">
+    <p class="note">Click a column header to sort. "Seasons" counts seasons in the 2012-2025 window. "QB-controlled rank" is the rank once same-season quarterback play is also removed. "P(above avg)" is the chance the coach's true effect is above the average sitting coach; nobody reaches 0.95. The 56 coaches with fewer than four seasons are in the CSV without a rank. The bottom of this board is the worst of the survivors, not the worst coaches: WAR correlates 0.54 with seasons coached among the eligible.</p>
     <p style="font-size:15px"><label><input type="checkbox" id="activeOnly"> Active head coaches only (2026)</label></p>
     <table class="board" id="board">
       <thead><tr>
@@ -232,68 +197,46 @@
 <tr><td>50</td><td>Dennis Allen</td><td>5 (LV/NO)</td><td data-v="-0.360">-0.36</td><td>-1.80 to +1.08</td><td data-v="-0.166">-0.17</td><td data-v="-0.240">-0.24</td><td>43</td><td data-v="0.230">0.23</td></tr>
       </tbody>
     </table>
-    </div>
-    <p class="note">The 56 coaches with fewer than four seasons in the window are in the CSV with a number but no rank; with one to three seasons the shrinkage leaves almost nothing of the raw record, and the figure for them is mostly the prior. WAR per season correlates 0.54 with seasons coached among the eligible, because the bottom of this board is the worst of the coaches who survived long enough to be graded, not the worst coaches. Equalising exposure to each coach's first three seasons keeps a rank correlation of only 0.668 with this board and moves 16 coaches 10 or more places (Payton falls from 5 to 42, Reid from 11 to 45, Chuck Pagano rises from 12 to 1).</p>
+  </section>
+
+  <section>
+    <div class="step">Active head coaches</div>
+    <h2 class="center">The 32 coaches on a sideline this season</h2>
+    <p class="finding">Same numbers, filtered to the 2026 week-1 head coaches. Vrabel leads at +1.01, then Payton, Sirianni, John Harbaugh, McVay. Fourteen of the 32 have under four seasons in the window, so their number is mostly the prior; six have never been a head coach in it.</p>
+    <figure>
+      <img src="figures/coaching_war_active.png" alt="Dot and interval chart of coaching WAR per season for the 2026 active head coaches, veterans in blue and coaches with under four seasons in grey.">
+      <figcaption>Active head coaches on the main board's scale. Built by R/73; data/derived/coaching_war_active.csv.</figcaption>
+    </figure>
+    <p class="finding"><b>By stint, because the model says the effect is a pairing.</b> The main number pools every season a coach has had, so Vrabel's seven seasons are six in Tennessee and one in New England, Payton's twelve are nine in New Orleans and three in Denver. Split by team and shrunk with the model's own prior (about four seasons' worth): Vrabel was +0.46 a season in Tennessee and his one New England season, raw +6.9, shrinks to +1.30. Payton was +0.62 in New Orleans, +0.97 in Denver. Reid's one Philadelphia season in the window was -6.2 raw; Kansas City is +1.58 over thirteen. Jim Harbaugh: +0.57 in San Francisco, +0.72 with the Chargers. McCarthy: +0.03 in Green Bay, +0.49 in Dallas. Bowles: -0.78 with the Jets, +0.15 in Tampa. Inside one stint the coach and the building cannot be told apart, so the franchise term is not subtracted here.</p>
+    <figure>
+      <img src="figures/coaching_war_stints_active.png" alt="Active head coaches with one dot per team they have led in the window, wins above talent per season shrunk toward zero, current team in blue and earlier teams in orange.">
+      <figcaption>One dot per coach-team stint, active coaches, ordered by the main board. Built by R/75; every stint for every coach is in data/derived/coaching_war_stints.csv.</figcaption>
+    </figure>
   </section>
 
   <section>
     <div class="step">What the skeptics tried to break</div>
-    <h2 class="center">Three rounds, forty objections, and what was done about each</h2>
-    <p>Every version of this measure went to three reviewers whose job was to knock it down. The objections below are grouped by theme. The pattern was the same each round: most objections were right, the fix was made, the top of the board did not move, and the claims around it got narrower. Nothing in the first round's write-up about tenure being "earned" or coaches being "clear of replacement" survived.</p>
-
-    <div class="skeptic"><div class="q">The intervals were too tight, and the "top-5 in 66% of resamples" claim was an artefact.</div>
-      <p>Right. The original bootstrap resampled within each coach, which pulls toward the raw mean. It was replaced with a parametric bootstrap of the model's prediction error. Afterwards, P(above average) for the top five sits between 0.88 and 0.92, nobody reaches 0.95, nobody's lower bound is above zero (2.7 would by chance), and P(top 5) for the top five is 0.26 to 0.42 rather than 0.17 to 0.66. The 90% rank range for Belichick is 1 to 31.</p></div>
-
-    <div class="skeptic"><div class="q">The coach spread that drives every shrunk number is not pinned down, and the data's own split-half contradicts it.</div>
-      <p>Right on the first part. The model's coach standard deviation is 0.84 wins with a 95% profile interval from 0.00 to 1.32; fit on odd seasons only it is 0.65, on even seasons 1.33. A likelihood-ratio test that the coach term is needed at all gives p = 0.031 (the franchise term alone is also p = 0.031; both together p = 0.00002). The coach rank across odd and even seasons correlates 0.085 (interval -0.14 to 0.30), well under the 0.30 the project set as the gate before any prediction test. Panels simulated from the fitted model give a median split-half of 0.34, so the observed 0.085 is at the 6th percentile of what the model expects of itself, inside the range rather than below it as the skeptic predicted, because 65 of 200 simulated panels put one half's coach spread at zero. The board was then rebuilt with the spread held at 0.40, the value the reliability supports: Belichick is +0.50 there, with P(above average) 0.75. Averaged over every spread the likelihood allows, he is +1.04 (-0.13 to +2.69), P(above average) 0.87. The gate is not cleared, and the chart title says so.</p></div>
-
-    <div class="skeptic"><div class="q">The quarterback control only covers last season's quarterback. Same-season quarterback play is inside the coach number.</div>
-      <p>Right, and it is the single biggest thing on this page. The numbers are in the controls section above: 24 of 50 coaches move 10 or more places. A related objection: the cap-share control treats a quarterback playing above a cheap contract as coach value. 45 of 451 coach-seasons have a starter paid below average and playing above average; they average +2.79 wins above talent against -0.32 for the rest, and 10 of the top 12 coaches have at least one. Refitting without each coach's cheap-quarterback seasons moves six coaches by more than 0.3: Vrabel (+1.01 becomes +0.54), Sean McVay (+0.85 becomes +0.53), Dan Quinn, Todd Bowles, Doug Pederson and Zac Taylor, the last four downward. The coach effect rises 0.31 wins per standard deviation of how far the quarterback outplayed his pay (p = 0.009).</p></div>
-
-    <div class="skeptic"><div class="q">Belichick is a Brady number, and Arians is a second Brady number with no disclosure.</div>
-      <p>Right. Refit without the 2012-2019 New England seasons, Belichick's coach effect is +0.09 instead of +0.95. The check was generalised to ten elite quarterbacks outside their rookie deals, for every coach. Without those seasons, Belichick is +0.28 (8 seasons dropped), Arians +0.74 (2 dropped), Tomlin +0.41 (11 dropped), Matt LaFleur +0.33 (4 dropped), John Fox -0.44 (3 dropped). The number in the chart label is the WAR without those seasons. A partnership that never ends cannot be separated by this or any model; the page presents those as partnership numbers.</p></div>
-
-    <div class="skeptic"><div class="q">Vrabel's rank is one season (2025 New England).</div>
-      <p>Right, and he is not alone. Leave-one-season-out refits were run for every row. Twelve of the 50 eligible coaches move by more than 0.3 on a single season, in both directions: Vrabel's coach effect 0.83 to 0.48 without 2025; Reid 0.62 to 1.15 without 2012 Philadelphia; McVay 0.66 to 1.03 without 2022; Kevin O'Connell 0.50 to 0.18 without 2024; Dan Campbell 0.30 to 0.62 without 2021; Matt Nagy 0.27 to -0.05 without 2018. The skeptic's claim that no other top-10 coach had such a season was wrong: McVay's and Reid's single seasons cut them rather than carry them.</p></div>
-
-    <div class="skeptic"><div class="q">The replacement line is lifted by a franchise term that is itself made of fired coaches.</div>
-      <p>Partly right. The franchise effect correlates -0.72 with the number of head coaches a team used. But the skeptic's -0.385 did not subtract the model intercept that the coach effects are centred on; net of that, the franchise term moves the line by 0.16, not 0.3. A franchise term estimated only from years three and later gives a line of -0.37; refitting the franchise term without each coach's own spell gives -0.19, the published value, so no first-season row credits itself. The interim rule was also wrong in round one (it dropped first-year hires fired midseason, such as Urban Meyer 2021 and Nathaniel Hackett 2022, as if they were interims); fixing it moved the line from -0.07 to -0.19 and raised every WAR by about 0.11, with the order unchanged. Both moves are under one standard error of the line.</p></div>
-
-    <div class="skeptic"><div class="q">"Tenure is earned" has no power against the simpler story that owners fire on wins.</div>
-      <p>Right. The first write-up said coaches who lasted five or more seasons were already +3 wins better in their first two years and called that earned. The gap is real (spell-level Wilcoxon shift +3.73, interval +2.55 to +4.81, p &lt; 0.001, 21 spells against 31), but a simulated world with no coaching skill at all, where owners fire on wins above talent, produces a median gap of +2.24 (95% range +1.24 to +3.34). The observed +3.51 is above that band (one-sided P = 0.012). So was a world with the fitted coaching trait: its median is only +2.52 (P = 0.038). Both worlds find the gap unusual, which means the simulated firing rule understates real selection and the simulation cannot say how much of the gap is firing and how much is skill. The direct test, whether a coach's early edge persists into years three and beyond, has no power at this sample: observed r = +0.30 (61 spells), no-skill range -0.15 to +0.38. Coding the 8 voluntary exits (Belichick, Payton, Carroll, Arians twice, Kubiak, Jim Harbaugh, Fox) as censored rather than fired made the gap larger, +3.67, not smaller. The word "earned" was removed.</p></div>
-
-    <div class="skeptic"><div class="q">The reported reliability was team-season consistency, not coach reliability.</div>
-      <p>Right. The odd/even-games split of 0.42 (Spearman-Brown 0.59) is mostly the team: the same split with the coach ignored is 0.316 on 435 team-seasons, and net of the franchise effect the coach version is 0.288. The coach reliability the project is judged on is the odd/even-seasons split, 0.085.</p></div>
-
-    <div class="skeptic"><div class="q">The out-of-sample test was asserted without intervals and misquoted its own slope.</div>
-      <p>Right. The slope 0.94 existed only in a report; the script and figure say 0.89 on all rows and 0.83 on the 250 rows where last season's wins also exist. Added: a coach-cluster bootstrap of r(WAR) minus r(last season's wins), which is -0.089 with interval -0.204 to +0.035, and of r(WAR) alone, 0.028 to 0.211. Refitting the spread-to-wins model inside each holdout changes r by 0.0016. Two-way clustering by coach and season takes the t for WAR alone from 2.5 to 1.8, and to 0.7 once last season's wins are in the model. The holdout also scores only coaches who survived into the next season; the 73 coach-seasons of coaches fired or gone averaged +0.05 WAR through the prior year against +0.34 for the scored, so the low end of the test is truncated. The direction of that effect on r is not claimed.</p></div>
-
-    <div class="skeptic"><div class="q">Smaller things, all fixed.</div>
-      <p>Eighteen seasons with a missing quarterback cap share were set to league average, including Brady 2018 and Brees 2017; sixteen were filled from the same quarterback's nearest season (top-10 order unchanged, Belichick 1.03 to 1.02). Lagged quarterback EPA was filled with the league mean for 68 new starters; a new-starter indicator shows the market prices them 1.22 wins below that fill, and the board built with it correlates 0.993 with this one. Hazard and out-of-sample p-values now use coach-clustered standard errors. The survivorship Wilcoxon was on rows rather than spells and is now on spells. Calling your own plays does not show up: own play-callers average +0.26 against +0.23 for the rest (difference +0.03, interval -0.21 to +0.27, p = 0.80). Several chart titles and captions overstated things (the components chart called the market premium the coaches' edge; the validation caption asserted a bias direction) and were rewritten.</p></div>
-
-    <div class="skeptic"><div class="q"><span class="open">Still open.</span></div>
-      <p>The reliability gate (0.30 across odd and even seasons) is not cleared and may not be clearable with 14 seasons and about 105 coaches; the model's own simulation says the observed 0.085 is unusual but not impossible for a true coach spread of 0.84. The portable coach effect across teams is 0.01 with an interval running to 1.13, which is to say unknown. Whether the survivorship gap is firing or skill cannot be settled by simulation at this sample size. The roster beyond payroll is not controlled in the main measure. Coordinators and general managers are invisible. The main board and the same-season-quarterback board disagree on 24 of 50 coaches, and there is no principled way to pick one; the page shows both and makes no claim about which is the truth.</p></div>
-  </section>
-
-  <section>
-    <div class="step">What it still cannot do</div>
-    <h2 class="center">It does not predict. That was the test it had to pass.</h2>
+    <h2 class="center">Three rounds, forty objections, and the board did not move</h2>
+    <p class="finding">Three reviewers, each with a different job (survivorship, statistical practice, confounds), took three passes at it. Most objections were right. The fixes were made, the top of the board stayed put, and every claim around it got narrower. What survived, and what did not:</p>
+    <p class="finding"><b>Nobody is clear of replacement.</b> The first bootstrap was too tight. Redone properly, P(above average) for the top five is 0.88 to 0.92, nobody reaches 0.95, and Belichick's 90% rank range is 1 to 31.</p>
+    <p class="finding"><b>The number is not yet reliable.</b> The coach rank across odd and even seasons correlates 0.08, under the project's own 0.30 gate. The coach spread that sets the scale has a 95% interval from 0.00 to 1.32 wins. Held at the 0.40 the reliability supports, Belichick is +0.50.</p>
+    <p class="finding"><b>It does not predict.</b> Fit on earlier seasons, WAR predicts the next season's wins above talent at r = 0.13; last season's raw win total does it at r = 0.21, and WAR adds nothing once that is in the model (p = 0.50).</p>
+    <p class="finding"><b>It is a pairing, not a man.</b> The part of a coach's effect that travels with him across teams is 0.01 wins; the coach-within-team part is 1.26. Belichick without his elite-quarterback seasons is +0.28; Tomlin +0.41; Arians +0.74. Twelve of 50 coaches move more than 0.3 wins on a single season (Vrabel without 2025: +0.67).</p>
+    <p class="finding"><b>Tenure cannot be called earned.</b> Coaches who lasted 5+ seasons were +3.5 wins better in years 1-2 than coaches gone within two. A simulated league with no coaching skill and owners who fire on wins produces most of that gap (median +2.2), so the claim was withdrawn.</p>
+    <p class="finding"><b>Replacement level is soft.</b> First-time head coaches average +0.04, second-job coaches -0.64 (p = 0.26); the line drifts 0.54 wins between halves of the window (p = 0.37). Neither moves anyone in the top 12.</p>
+    <p class="finding"><b>Cheap quarterbacks count for the coach.</b> 45 of 451 coach-seasons have a starter paid below average and playing above it; they average +2.8 wins above talent, and 10 of the top 12 coaches have at least one. Without them Vrabel is +0.54 and McVay +0.53.</p>
     <figure>
-      <img src="figures/coaching_war_validation.png" alt="Scatter of each coach's WAR through the previous season against his wins above talent in the held-out season, 267 coach-seasons 2016-2025, with a fitted line of slope 0.89 and r = 0.13.">
-      <figcaption>Each point is a coach-season 2016-2025. The model was refit on 2012 to the season before, then asked to predict that coach's wins above talent in the held-out season. Grey line is slope 1. Built by R/71.</figcaption>
+      <img src="figures/coaching_war_validation.png" alt="Out-of-sample test: WAR through the previous season against wins above talent in the held-out season, r = 0.13.">
+      <figcaption>The prediction test it failed. Built by R/71.</figcaption>
     </figure>
-    <p>The project set one bar before any of this was built: out of sample, a coach's WAR through last season should predict his team's wins above talent next season at r of at least 0.30, with the interval above zero, and should beat a baseline that uses only last season's record. It fails both the prespecified bar and the weak one. Across 267 held-out coach-seasons, r is 0.129 (interval 0.009 to 0.245) with a slope of 0.89, so the number is calibrated in scale but weak. Last season's raw win total alone predicts at r = 0.21. On the 250 rows where both exist, WAR's r minus last season's r is -0.089 with a cluster-bootstrap interval of -0.204 to +0.035: neither distinguishably better nor worse. Once last season's wins are in the model, WAR adds nothing (t = 0.7 with two-way clustering, p = 0.48).</p>
-    <p>The reason is visible in the sensitivity rows. Adding the franchise effect back into the prediction lifts r to 0.216: the building carries as much signal forward as the man. Of the two components, the market premium persists year to year at r = 0.35 and the surprise at r = 0.06; the premium is the part the market had already priced, and it correlates 0.61 with same-season quarterback play. The thing that repeats is mostly not the coach.</p>
     <figure>
-      <img src="figures/coaching_war_survivorship.png" alt="Strip chart of wins above talent in a coach's first two seasons with a team, grouped by whether he was gone within two seasons, lasted three to four, or lasted five or more; group means -2.26, -0.42 and +0.91.">
-      <figcaption>Raw wins above talent per 17 games in years one and two of each spell begun 2012 or later, grouped by what happened afterwards. Means: -2.26 (n = 48 coach-seasons), -0.42 (n = 54), +0.91 (n = 42). Interim stints and spells still running with fewer than five seasons are excluded. Built by R/71.</figcaption>
+      <img src="figures/coaching_war_survivorship.png" alt="Wins above talent in a coach's first two seasons by how long he lasted, with simulated nulls with and without a coaching trait.">
+      <figcaption>The survivorship test, and the simulated firing rule that explains most of it. Built by R/71.</figcaption>
     </figure>
-    <p>The strongest positive finding is the survivorship chart: coaches who went on to five or more seasons were already winning above their talent in years one and two, by about three and a half wins per season against those gone within two. But as the skeptic section explains, a world where owners simply fire on wins produces most of that gap on its own, and the test that would separate firing from skill has no power at this sample. Tenure is consistent with being earned; it is not shown to be.</p>
-    <p class="finding"><b>How to read the board, then.</b> The ranking is a fair description of who won above the resources the model can see, and the famous names sit where a fan would put them. It is not a measurement of how many wins a coach would carry to his next job, because the data cannot tell a coach from his building and cannot tell a coach from his quarterback. A coach whose WAR is +1.0 is roughly 88 to 92% likely to be better than an average sitting coach, and that is the strongest sentence the numbers support.</p>
   </section>
 
   <footer>
-    Data: nflverse schedules and closing spreads 1999-2025; OverTheCap contracts via nflreadr 2012-2025; nflfastR play by play for quarterback EPA; Madden launch ratings 2017-2025 as a check only. Panel: 451 coach-seasons, 2012-2025, 106 head coaches, 50 with at least four seasons of at least eight games. Script: <code>R/71_coaching_war.R</code>. Every number on this page is in <code>data/derived/coaching_war.csv</code>, <code>coaching_war_validation.csv</code>, <code>coaching_war_survivorship.csv</code> or <code>coaching_war_sensitivity.csv</code>.
+    Data: nflverse schedules and closing spreads 1999-2025; OverTheCap contracts via nflreadr 2012-2025; Madden ratings 2017-2025 as a sensitivity. Scripts: <code>R/71_coaching_war.R</code> (the model, with the full skeptic log in its header), <code>R/73_war_active.R</code>, <code>R/74_war_clean.R</code>, <code>R/75_war_stints.R</code>. Every number on this page is in <code>data/derived/coaching_war*.csv</code>.
   </footer>
 </main>
 <script>
@@ -317,7 +260,6 @@
   heads.forEach((h, i) => h.addEventListener('click', () => sortBy(i)));
 })();
 </script>
-
 <script>
 (function(){
   var A = new Set(["Mike LaFleur", "Kevin Stefanski", "Jesse Minter", "Joe Brady", "Dave Canales", "Ben Johnson", "Zac Taylor", "Todd Monken", "Brian Schottenheimer", "Sean Payton", "Dan Campbell", "Matt LaFleur", "DeMeco Ryans", "Shane Steichen", "Liam Coen", "Andy Reid", "Sean McVay", "Jim Harbaugh", "Klint Kubiak", "Jeff Hafley", "Kevin O'Connell", "Mike Vrabel", "Kellen Moore", "John Harbaugh", "Aaron Glenn", "Nick Sirianni", "Mike McCarthy", "Mike Macdonald", "Kyle Shanahan", "Todd Bowles", "Robert Saleh", "Dan Quinn"]);
