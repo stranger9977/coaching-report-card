@@ -110,6 +110,7 @@
   <div class="prose">
     <p style="font-size:14.5px;color:var(--ink-3);border:1px solid var(--line);border-radius:10px;padding:12px 16px;background:var(--card)"><strong style="color:var(--ink)">Finding the new stuff.</strong> The board grows downward by date, newest at the top. Jump to a day:
     <a href="#war-22">Aug 22 Coaching WAR</a> (the leaderboard, the skeptic log, the honest verdict) ·
+    <a href="#pa-22">Aug 22 play-action follow-ups</a> (the bump is noise, no all-years, Johnson 2nd and 4th) ·
     <a href="#markov-22">Aug 22 Markov chains</a> (sequencing as a chain, the signature-package streaks in EPA and win probability, the Niners film reel) ·
     <a href="#groupchat-20">Aug 20 group chat</a> (the Macdonald outlier chart, sim pressure, the tight-end claims) ·
     <a href="#afternoon-19">Aug 19 afternoon texts</a> (guess-the-play, the 25-plays-like-250 composite, the rotation double-check, the one-game film card, the tip explained, menu vs wardrobe, the pistol memory) ·
@@ -147,6 +148,35 @@
         <figcaption>The leaderboard with the uncertainty left on. Built by R/71.</figcaption>
       </figure>
       <p class="row"><span class="lab">The one-sentence version for the video:</span> the data can tell you who won above their resources; it cannot yet prove the man, rather than the pairing of man, quarterback and building, is the reason. Full method, the skeptic log, and the sortable table: <a href="war.html">the Coaching WAR tab</a>.</p>
+    </div>
+
+    <div class="tgroup">
+      <h3 id="pa-22">Play-action follow-ups, 22 August</h3>
+      <p class="grouphint">Michael on the two play-action charts: "Why do you think this ticks up in the middle in a significant way", "Maybe for this stuff we use all years", "I wonder where Ben Johnson ranks on PA for early downs - also it's hilarious if PA is still more effective on third and long lol". Three answers, one limit.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">The mid-game bump is noise, and play action cannot go back further than 2022-23</span><span class="pill block">Inside the noise</span></div>
+      <p class="row found"><span class="lab">The bump.</span> With 95% intervals on each bin, the 5-6 run bin (+0.18 on 1,804 fakes) sits inside the band of its neighbours, and a test that the fake's lift differs at all across run counts gives p = 0.57. The fake pays about the same from the first snap to the twelfth run. The middle bins look higher because they have a third as many fakes as the 11+ bin and wider intervals.</p>
+      <p class="row found"><span class="lab">All years.</span> Not possible for play action. The only play-action flags in any public source are SumerSports and FTN charting, both 2022-23 onward; nflfastR has no fake flag. The window stays at four seasons and the intervals are the honest fix.</p>
+      <figure>
+        <img src="figures/pa_bite_runs_ci.png" alt="What a play fake adds by how many runs came earlier in the game, with 95% bands; the curve is flat within noise.">
+        <figcaption>The bite chart with its uncertainty on. Built by R/72.</figcaption>
+      </figure>
+      <p class="row found"><span class="lab">Third and long.</span> The +0.08 there rests on 107 fakes in four seasons and an interval from -0.25 to +0.42. It is not evidence that defenders still bite on 3rd and long; it is evidence that nobody fakes there often enough to know. What clears zero: 1st and 10 (+0.12 on 10,906 fakes) and 3rd and short (+0.17 on 719).</p>
+      <figure>
+        <img src="figures/pa_when_bite_ci.png" alt="What a play fake adds by down and distance, with 95% intervals; only 1st and 10 and 3rd and short clear zero.">
+        <figcaption>Down and distance with intervals. Built by R/72.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="t">Ben Johnson on early-down play action: 2nd in how often, 4th in how well</span><span class="pill ship">42% of early-down dropbacks</span></div>
+      <p class="row found"><span class="lab">Among 35 callers with 600+ early-down dropbacks, 2022-23 through 2025-26.</span> Johnson fakes on 42.1% of his 1st and 2nd down dropbacks, 2nd only to Mike McDaniel (44.2%), against a league rate of 33.5%. His fakes earn +0.26 points per dropback, 4th, against a league +0.09. Lift over his own non-fake dropbacks is +0.19, 9th. McVay is the other caller in the high-rate, high-payoff corner (40%, +0.23). O'Connell fakes almost as often (41%) and earns almost nothing from it (+0.02). The earlier finding on the Bears card holds: Johnson's play action is both heavy and good, which is rarer than either alone.</p>
+      <figure>
+        <img src="figures/pa_early_callers.png" alt="Callers plotted by early-down play-action rate against points per play-action dropback, Ben Johnson highlighted in the high-rate, high-payoff corner.">
+        <figcaption>Rate across, payoff up, league dotted. Built by R/72; data/derived/pa_early_callers.csv.</figcaption>
+      </figure>
     </div>
 
     <div class="tgroup">
