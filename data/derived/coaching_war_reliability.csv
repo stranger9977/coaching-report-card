@@ -1,13 +1,13 @@
 split,n,r,r_sb,lo,hi,measures
-odd_even_seasons_blup,49,0.0849644533075379,0.15662163501951,-0.140133348312579,0.299739629633093,"coach reliability: independent seasons, shrunk coach effects (the G5 reliability gate is judged on this row)"
-odd_even_seasons_raw,49,0.101863250143099,0.184892726261395,-0.111570267693879,0.312990995998078,"coach reliability: independent seasons, raw means"
-odd_even_games,76,0.421385543942213,0.592922231041552,0.203441575356264,0.605353447365074,"within-season consistency of team wins above payroll (halves share roster, QB, injuries and franchise); NOT coach reliability"
-odd_even_games_team_season,435,0.315925010296362,0.480156555767888,0.235074177443765,0.396614174178125,same games split at the team-season level with the coach ignored
-odd_even_games_net_of_franchise,76,0.287951115206546,0.447146031874615,0.0480082054179869,0.50779305760067,games split at the coach level with the fitted franchise effect removed
-year_to_year_wat17,325,0.202489845263036,,0.0958081990579458,0.304572554055251,see split name
-year_to_year_premium17,325,0.352187752555924,,0.253092843043284,0.443969179302361,see split name
+odd_even_seasons_blup,49,0.0883567013527615,0.16236717473773,-0.151760196849992,0.305857331398771,"coach reliability: independent seasons, shrunk coach effects (the G5 reliability gate is judged on this row)"
+odd_even_seasons_raw,49,0.108324725223377,0.195474706569493,-0.139340595586597,0.333238553404832,"coach reliability: independent seasons, raw means"
+odd_even_games,76,0.393678401574757,0.564948701407625,0.168915304268271,0.59073954215689,"within-season consistency of team wins above payroll (halves share roster, QB, injuries and franchise); NOT coach reliability"
+odd_even_games_team_season,435,0.299058401324316,0.460423335886121,0.218114484422335,0.379491820687175,same games split at the team-season level with the coach ignored
+odd_even_games_net_of_franchise,76,0.280473898452459,0.438078275225182,0.0560307119793534,0.504106868958082,games split at the coach level with the fitted franchise effect removed
+year_to_year_wat17,325,0.152094167343324,,0.0440304891054074,0.256639869485313,see split name
+year_to_year_premium17,325,0.276532600200286,,0.172943294034959,0.374071058057302,see split name
 year_to_year_wae17,325,0.0638111382465828,,-0.0452955464926569,0.171413395614338,see split name
 year_to_year_wae17_1999,654,-0.0283680470182153,,-0.104806411638387,0.0484035298210877,see split name
-across_team,26,-0.0128312191123352,,-0.39820400542354,0.376391459721996,see split name
+across_team,26,-0.011093173021795,,-0.396740333756531,0.377882512709413,see split name
 across_team_market_only_1999,52,0.0945263861565101,,-0.18309715825155,0.358186817086904,see split name
-market_learning,80,0.128613735665793,,-0.0937524752219237,0.33875780682343,see split name
+market_learning,80,0.0937613225393321,,-0.128604957523236,0.307150625040806,see split name

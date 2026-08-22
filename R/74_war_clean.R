@@ -16,10 +16,10 @@ p <- ggplot(w, aes(y = coach_f)) +
   geom_text(aes(x = hi + 0.08, label = lab), hjust = 0, size = 3, colour = "grey30") +
   scale_x_continuous(labels = label_number(style_positive = "plus"), expand = expansion(mult = c(0.05, 0.55))) +
   labs(title = "Coaching WAR, top 25: the familiar names lead, and every interval crosses zero",
-       subtitle = paste0("Wins per season a head coach delivered above a first-season hire, after the payroll he was handed, last season's quarterback and\n",
-                         "the franchise he works in. 2012-2025, head coaches with 4+ seasons. Bar is the 95% interval. Dotted line is replacement level."),
+       subtitle = paste0("Wins per season a head coach delivered above a first-season hire, after payroll, Madden roster ratings (2017 on),\n",
+                         "last season's quarterback and the franchise he works in. 2012-2025, head coaches with 4+ seasons. Bar is the 95% interval. Dotted line is replacement level."),
        x = "WAR per season", y = NULL,
-       caption = fig_caption("nflverse schedules and closing spreads; OverTheCap contracts via nflreadr 2012-2025",
+       caption = fig_caption("nflverse schedules and closing spreads; OverTheCap contracts via nflreadr 2012-2025; Madden launch ratings 2017-2025",
          "\nThe annotated version, with every sensitivity in the label, is coaching_war_leaderboard.png. Built by R/74 from R/71's table.")) +
   theme_coach(grid = "none")
 save_fig("docs/figures/coaching_war_leaderboard_clean.png", p, w = 11, h = 9.5)

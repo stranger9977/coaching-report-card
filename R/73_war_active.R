@@ -43,12 +43,12 @@ pl <- ggplot(p, aes(y = coach_f)) +
   scale_colour_manual(values = c(`TRUE` = "#2B8CBE", `FALSE` = "grey60"), guide = "none") +
   scale_x_continuous(labels = label_number(style_positive = "plus"), expand = expansion(mult = c(0.05, 0.6))) +
   labs(title = "Active head coaches by Coaching WAR: veterans lead, nobody clears replacement, half the league is too new",
-       subtitle = paste0("The 2026 week-1 head coaches on the main board's scale: wins per season above a first-season hire, after payroll, last season's\n",
-                         "quarterback and franchise, 2012-2025, with 95% intervals. Blue: 4+ seasons in the window. Grey: under 4 seasons, mostly the prior.\n",
+       subtitle = paste0("The 2026 week-1 head coaches on the main board's scale: wins per season above a first-season hire, after payroll, Madden roster\n",
+                         "ratings (2017 on), last season's quarterback and franchise, 2012-2025, with 95% intervals. Blue: 4+ seasons in the window. Grey: under 4 seasons, mostly the prior.\n",
                          "No head-coaching season in the window, not shown: ", paste(sprintf("%s (%s)", missing$coach[1:3], missing$team[1:3]), collapse = ", "), ",\n",
                          paste(sprintf("%s (%s)", missing$coach[-(1:3)], missing$team[-(1:3)]), collapse = ", "), "."),
        x = "WAR per season", y = NULL,
-       caption = fig_caption("nflverse schedules and closing spreads; OverTheCap contracts via nflreadr 2012-2025; 2026 head coaches from the playcaller file",
+       caption = fig_caption("nflverse schedules and closing spreads; OverTheCap contracts via nflreadr 2012-2025; Madden ratings 2017-2025; 2026 head coaches from the playcaller file",
          "\nNumbers are R/71's, not refit. Built by R/73.")) +
   theme_coach(grid = "none") +
   theme(plot.subtitle = element_text(lineheight = 1.12))

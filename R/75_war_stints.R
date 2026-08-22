@@ -56,12 +56,12 @@ p <- ggplot(a, aes(y = coach_f)) +
             position = position_dodge(width = 0.7), show.legend = FALSE) +
   scale_colour_manual(values = c(`TRUE` = "#2B8CBE", `FALSE` = "#D55E00"), labels = c(`TRUE` = "current team", `FALSE` = "earlier team"), name = NULL) +
   scale_x_continuous(labels = label_number(style_positive = "plus"), expand = expansion(mult = c(0.05, 0.7))) +
-  labs(title = "Active head coaches by stint: what each coach-team pairing won above its payroll and quarterback",
+  labs(title = "Active head coaches by stint: what each coach-team pairing won above its payroll, roster ratings and quarterback",
        subtitle = paste0("One row per coach, one dot per team he has led in the window. Wins above talent per 17 games, shrunk toward zero with the model's own\n",
                          "prior (about 4 seasons' worth), with 95% intervals. Orange is an earlier team, blue the current one. Ordered by the main board.\n",
                          "The franchise term is not subtracted here: inside one stint the coach and the building cannot be told apart."),
        x = "wins above talent per season, this stint (shrunk)", y = NULL,
-       caption = fig_caption("nflverse schedules and closing spreads; OverTheCap contracts via nflreadr 2012-2025; 2026 head coaches from the playcaller file",
+       caption = fig_caption("nflverse schedules and closing spreads; OverTheCap contracts via nflreadr 2012-2025; Madden ratings 2017-2025; 2026 head coaches from the playcaller file",
          "\nRaw value in each label is the unshrunk average. Coaches with no head-coaching season in the window are not shown. Built by R/75 from R/71's season file.")) +
   theme_coach(grid = "none") +
   theme(legend.position = "top", legend.justification = "left")

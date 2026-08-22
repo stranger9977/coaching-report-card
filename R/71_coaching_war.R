@@ -484,7 +484,15 @@ cat(sprintf("Rows where the market coach is not contract_talent's head_coach (se
 if (nrow(mism)) print(mism[, .(season, team, coach, head_coach, games)])
 panel[, season_f := factor(season)]
 
-talent_fit <- lm(mkt17 ~ contract_z + qb_z + qbp_z + season_f, data = panel, weights = w)
+# MADDEN IN THE MAIN FIT (user request, 22 Aug). Madden launch ratings exist
+# 2017 on, so they enter through an interaction with a 2017+ indicator: zero
+# before 2017, the within-season z-score after. Pre-2017 rows keep the
+# payroll-and-quarterback control only. This was the "talent_plus_madden_2017"
+# sensitivity; it is now the main measure, and the payroll-only fit is the
+# sensitivity (war_talent_contract_qbepa).
+panel[, madden_z17 := fifelse(is.na(madden_z), 0, madden_z)][, post17 := as.integer(season >= 2017)]
+talent_fit <- lm(mkt17 ~ contract_z + qb_z + qbp_z + madden_z17:post17 + season_f, data = panel, weights = w)
+cat(sprintf("Main talent fit with Madden 2017+: Madden %+.3f wins/SD; R2 %.3f\n", coef(talent_fit)["madden_z17:post17"], summary(talent_fit)$r.squared))
 panel[, talent17 := fitted(talent_fit)]
 panel[, premium17 := mkt17 - talent17]
 panel[, wat17 := act17 - talent17]
@@ -496,7 +504,7 @@ if (max(abs(panel$premium17 + panel$wae17 - panel$wat17)) > 1e-9)
 wae_season <- panel[, .(m = wmean(wae17, w)), by = season]
 if (max(abs(wae_season$m)) > 0.25) stop("season mean of wae17 not near zero")
 tf <- summary(talent_fit)
-cat(sprintf("\ntalent_fit: lm(mkt17 ~ contract_z + qb_z + qbp_z + season), n = %d, R2 = %.3f\n",
+cat(sprintf("\ntalent_fit: lm(mkt17 ~ contract_z + qb_z + qbp_z + madden_z17:post17 + season), n = %d, R2 = %.3f\n",
             nrow(panel), tf$r.squared))
 cat(sprintf("  wins per SD: contract %+.2f, QB cap share %+.2f, lagged QB EPA %+.2f\n",
             coef(talent_fit)["contract_z"], coef(talent_fit)["qb_z"], coef(talent_fit)["qbp_z"]))
@@ -1172,7 +1180,7 @@ run_oos <- function() {
   out <- list()
   for (t in OOS_FROM:LAST) {
     tr <- panel[season < t]; te <- panel[season == t]
-    tf_tr <- lm(mkt17 ~ contract_z + qb_z + qbp_z, data = tr, weights = w)  # no season factor: t is unseen
+    tf_tr <- lm(mkt17 ~ contract_z + qb_z + qbp_z + madden_z17:post17, data = tr, weights = w)  # no season factor: t is unseen
     tr[, talent17_tr := fitted(tf_tr)]; tr[, wat17 := act17 - talent17_tr]
     te[, talent17_tr := predict(tf_tr, newdata = te)]
     te[, `:=`(realised_wat = act17 - talent17_tr, realised_wae = wae17,
@@ -1322,7 +1330,7 @@ oos_strict_mkt <- rbindlist(lapply(OOS_FROM:LAST, function(t) {
   d <- merge(panel[season <= t], m2, by = c("coach", "season", "team"))
   d[, mkt17 := mkt17_t]
   tr <- d[season < t]; te <- d[season == t]
-  tf <- lm(mkt17 ~ contract_z + qb_z + qbp_z, data = tr, weights = w)
+  tf <- lm(mkt17 ~ contract_z + qb_z + qbp_z + madden_z17:post17, data = tr, weights = w)
   tr[, wat17 := act17 - fitted(tf)]; te[, realised_wat := act17 - predict(tf, newdata = te)]
   m <- fit_m(F_WAT, tr); bc <- blups(m); bt <- blups(m, "team"); bs <- blups(m, "season")
   tr[, rpc := wat17 - (fixef(m)[1] + bt$blup[match(team, bt$grp)] + bs$blup[match(season, bs$grp)])]
