@@ -68,12 +68,13 @@ tab <- rbindlist(lapply(names(CUR), function(cc) {
   x[, adj := get(cc) - mean(get(cc)), by = .(dd, kb, pos_b)]          # league at the same spot AND streak depth
   rbindlist(lapply(CALLERS, function(cl) {
     y <- x[off_caller == cl$who]
-    rbind(y[, .(n = .N, v = mean(adj), se = sd(adj) / sqrt(.N), who = cl$lab, view = "all of his plays", cur = cc), by = pos_b],
-          y[pers == cl$pkg, .(n = .N, v = mean(adj), se = sd(adj) / sqrt(.N), who = cl$lab,
+    lab2 <- sprintf("%s, %s personnel", cl$lab, cl$pkg)
+    rbind(y[, .(n = .N, v = mean(adj), se = sd(adj) / sqrt(.N), who = lab2, view = "all of his plays", cur = cc), by = pos_b],
+          y[pers == cl$pkg, .(n = .N, v = mean(adj), se = sd(adj) / sqrt(.N), who = lab2,
                               view = "his signature package", cur = cc), by = pos_b])
   }))
 }))
-tab[, who := factor(who, levels = c("McVay", "Ben Johnson", "Shanahan"))]
+tab[, who := factor(who, levels = c("McVay, 13 personnel", "Ben Johnson, 12 personnel", "Shanahan, 21 personnel"))]
 tab[, cur_f := factor(cur, levels = names(CUR), labels = unlist(CUR))]
 write_csv(as.data.frame(tab), "data/derived/sequencing_currencies.csv")
 cat("third-look value by currency, signature packages:\n")
@@ -86,8 +87,8 @@ p1 <- ggplot(tab[view == "his signature package"], aes(pos_b, v, group = who, co
   geom_ribbon(aes(ymin = v - se, ymax = v + se, fill = who), alpha = 0.10, colour = NA) +
   geom_line(linewidth = 1.1) + geom_point(size = 2.4) +
   facet_wrap(~ cur_f, scales = "free_y") +
-  scale_colour_manual(values = c("McVay" = "#2B8CBE", "Ben Johnson" = "#1B7837", "Shanahan" = "#D55E00"), name = NULL) +
-  scale_fill_manual(values = c("McVay" = "#2B8CBE", "Ben Johnson" = "#1B7837", "Shanahan" = "#D55E00"), guide = "none") +
+  scale_colour_manual(values = c("McVay, 13 personnel" = "#2B8CBE", "Ben Johnson, 12 personnel" = "#1B7837", "Shanahan, 21 personnel" = "#D55E00"), name = NULL) +
+  scale_fill_manual(values = c("McVay, 13 personnel" = "#2B8CBE", "Ben Johnson, 12 personnel" = "#1B7837", "Shanahan, 21 personnel" = "#D55E00"), guide = "none") +
   labs(title = "The third look is not just an EPA artefact: the same shape shows up in success rate, first downs and yards",
        subtitle = paste0("Each caller in his signature package (21, 13 and 12 personnel), by how many consecutive snaps that group has been on the field inside\n",
                          "one drive, against the league at the same down, distance, drive position and streak depth. Four currencies, same plays, same baseline.\n",

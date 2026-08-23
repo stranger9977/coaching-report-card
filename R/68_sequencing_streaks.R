@@ -71,13 +71,15 @@ CALLERS <- list(
   list(who = "Ben Johnson",   lab = "Ben Johnson", pkg = "12"))
 line <- function(x, col, grp, view) x[!is.na(get(col)), .(n = .N, adj = mean(get(col)), se = sd(get(col)) / sqrt(.N),
                                                           who = grp, view = view), by = pos_b]
-build <- function(col) rbindlist(lapply(CALLERS, function(cl) rbind(
-  line(d[off_caller == cl$who], col, cl$lab, "all of his plays"),
-  line(d[off_caller == cl$who & offensive_personnel_basic == cl$pkg], col,
-       cl$lab, sprintf("his signature package")))))
+build <- function(col) rbindlist(lapply(CALLERS, function(cl) {
+  lab2 <- sprintf("%s, %s personnel", cl$lab, cl$pkg)
+  rbind(line(d[off_caller == cl$who], col, lab2, "every play he called"),
+        line(d[off_caller == cl$who & offensive_personnel_basic == cl$pkg], col, lab2,
+             "only his signature package"))}))
 t_epa <- build("adj_epa"); t_wpa <- build("adj_wpa")
-t_epa[, who := factor(who, levels = c("McVay", "Ben Johnson", "Shanahan"))]
-t_wpa[, who := factor(who, levels = c("McVay", "Ben Johnson", "Shanahan"))]
+LV <- c("McVay, 13 personnel", "Ben Johnson, 12 personnel", "Shanahan, 21 personnel")
+t_epa[, who := factor(who, levels = LV)]
+t_wpa[, who := factor(who, levels = LV)]
 write_csv(as.data.frame(rbind(t_epa[, metric := "epa"], t_wpa[, metric := "wpa_pct_points"])), "data/derived/sequencing_streaks.csv")
 cat("\nWPA pct points, all plays:\n"); print(dcast(t_wpa[view == "all of his plays"], who ~ pos_b, value.var = "adj")[, lapply(.SD, function(x) if (is.numeric(x)) round(x, 2) else x)])
 cat("WPA pct points, signature:\n"); print(dcast(t_wpa[view != "all of his plays"], who ~ pos_b, value.var = "adj")[, lapply(.SD, function(x) if (is.numeric(x)) round(x, 2) else x)])
@@ -87,8 +89,7 @@ cat("snaps, all plays:\n"); print(dcast(t_epa[view == "all of his plays"], who ~
 cat("snaps, signature:\n"); print(dcast(t_epa[view != "all of his plays"], who ~ pos_b, value.var = "n"))
 
 draw <- function(t, is_epa, file) {
-  t[, view := factor(view, levels = c("all of his plays", "his signature package"))]
-  levels(t$view)[2] <- "his signature package (21 / 13 / 12 personnel)"
+  t[, view := factor(view, levels = c("every play he called", "only his signature package"))]
   allv <- t[view == levels(t$view)[1]]
   better <- allv[, .(ahead = mean(adj > 0), mean_adj = mean(adj)), by = who]
   fmt <- if (is_epa) "%+.2f" else "%+.1f"
@@ -100,15 +101,15 @@ draw <- function(t, is_epa, file) {
     geom_text(data = t[n < 60], aes(label = sprintf("\n\n%d snaps", n)), vjust = 0.4, size = 2.4,
               colour = "grey50", show.legend = FALSE) +
     facet_wrap(~ view) +
-    scale_colour_manual(values = c("McVay" = "#2B8CBE", "Ben Johnson" = "#1B7837", "Shanahan" = "#D55E00"), name = NULL) +
-    scale_fill_manual(values = c("McVay" = "#2B8CBE", "Ben Johnson" = "#1B7837", "Shanahan" = "#D55E00"), guide = "none") +
+    scale_colour_manual(values = c("McVay, 13 personnel" = "#2B8CBE", "Ben Johnson, 12 personnel" = "#1B7837", "Shanahan, 21 personnel" = "#D55E00"), name = NULL) +
+    scale_fill_manual(values = c("McVay, 13 personnel" = "#2B8CBE", "Ben Johnson, 12 personnel" = "#1B7837", "Shanahan, 21 personnel" = "#D55E00"), guide = "none") +
     scale_y_continuous(labels = label_number(style_positive = "plus", accuracy = if (is_epa) 0.1 else 0.5)) +
     labs(title = if (is_epa) "In general all three are ahead of the league at most streak depths; the third-look spike lives in the package"
                  else "Same picture in win probability: ahead in general, the third-look spike only inside the signature package",
          subtitle = paste0(if (is_epa) "EPA per play" else "Win probability added per play, in percentage points",
                            " minus the league average for the same down and distance, the same position in the drive AND the same streak\n",
                            "depth, by how many consecutive snaps the same personnel group has been on the field inside one drive. The league is zero by\n",
-                           "construction: whatever everyone gets from being deep in a live drive is already subtracted. Left: every play. Right: the signature package."),
+                           "construction: whatever everyone gets from being deep in a live drive is already subtracted. Left: every play he called. Right: only the\npersonnel group named in the legend."),
          x = "consecutive snaps with the same personnel group on the field, same drive",
          y = if (is_epa) "EPA per play vs the league, same situation and streak depth"
              else "win probability added vs the league, same situation (pct points)",
