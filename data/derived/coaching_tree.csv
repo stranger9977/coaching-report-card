@@ -1,166 +1,142 @@
 mentor,hc_seasons,first_hc,hc_branches,coord_branches,branches,tree_points,branch_names,expected_branches,tree_resid
-John Harbaugh,19,2008,6,3,9,21,"Chuck Pagano*, Dean Pees, Don Martindale, Gary Kubiak*, Greg Roman, Jim Caldwell*, Mike Macdonald*, Rex Ryan*, Todd Monken*",10.657636903197732,10.342363096802268
-John Fox,16,2002,5,1,6,16,"Adam Gase*, Dan Henning, Dennis Allen*, Jack Del Rio*, Mike McCoy*, Vic Fangio*",8.134682180755325,7.865317819244675
-Marvin Lewis,16,2003,4,3,7,15,"Chuck Bresnahan, Hue Jackson*, Jay Gruden*, Leslie Frazier*, Mike Zimmer*, Paul Guenther, Teryl Austin",8.134682180755325,6.865317819244675
-Bill Belichick,24,2000,4,2,6,14,"Brian Flores*, Charlie Weis, Dean Pees, Eric Mangini*, Josh McDaniels*, Romeo Crennel*",16.71840354169593,-2.718403541695931
-Bill Parcells,5,1999,4,2,6,14,"Bill Belichick*, Charlie Weis, Maurice Carthon, Mike Zimmer*, Sean Payton*, Tony Sparano*",3.0211065721730304,10.97889342782697
-Pete Carroll,16,1999,3,5,8,14,"Brian Schottenheimer*, Dan Quinn*, Darrell Bevell, Gus Bradley*, Jeremy Bates, Patrick Graham, Shane Waldron, Steve Sidwell",8.134682180755325,5.865317819244675
-Bill Cowher,8,1999,3,3,6,12,"Dick LeBeau, Jim Haslett*, Ken Whisenhunt*, Kevin Gilbride, Mike Mularkey*, Tim Lewis",3.9580964783426658,8.041903521657334
-Jack Del Rio,12,2003,2,5,7,11,"Bill Musgrave, Dirk Koetter*, Gregg Williams, Ken Norton, Mel Tucker, Mike Smith*, Todd Downing",5.674315543929902,5.325684456070098
-Mike Shanahan,14,1999,2,5,7,11,"Gary Kubiak*, Greg Robinson, Jeremy Bates, Kyle Shanahan*, Larry Coyer, Ray Rhodes, Rick Dennison",6.794023369343788,4.205976630656212
-Mike Zimmer,8,2014,3,2,5,11,"John DeFilippo, Kevin Stefanski*, Klint Kubiak*, Norv Turner, Pat Shurmur*",3.9580964783426658,7.041903521657334
-Brian Billick,9,1999,3,0,3,9,"Marvin Lewis*, Mike Nolan*, Rex Ryan*",4.331049552770933,4.668950447229067
-Nick Sirianni,6,2021,3,0,3,9,"Jonathan Gannon*, Kellen Moore*, Shane Steichen*",3.305771433283026,5.6942285667169745
-Norv Turner,10,1999,2,3,5,9,"Greg Manusky, Mike Nolan*, Ray Rhodes, Rob Ryan, Ron Rivera*",4.739144265733423,4.260855734266577
-Ron Rivera,13,2011,3,0,3,9,"Rob Chudzinski*, Sean McDermott*, Steve Wilks*",6.208979981485724,2.791020018514276
-Tom Coughlin,16,1999,2,3,5,9,"Ben McAdoo, Bill Sheridan, Bobby Petrino*, Dom Capers*, Steve Spagnuolo",8.134682180755325,0.8653178192446749
-Eric Mangini,5,2006,2,2,4,8,"Bob Sutton, Brian Daboll*, Brian Schottenheimer*, Rob Ryan",3.0211065721730304,4.97889342782697
-Jeff Fisher,17,1999,2,2,4,8,"Brian Schottenheimer*, Gregg Williams, Jim Schwartz*, Les Steckel",8.901175555894042,-0.9011755558940422
-Jim Mora,7,1999,2,2,4,8,"Ed Donatell, Greg Knapp, Gus Bradley*, Vic Fangio*",3.617258944046352,4.382741055953648
-Marty Schottenheimer,6,2001,2,2,4,8,"Cam Cameron*, Jimmy Raye, Kurt Schottenheimer, Wade Phillips*",3.305771433283026,4.6942285667169745
-Mike Vrabel,8,2018,2,2,4,8,"Arthur Smith*, Dean Pees, Matt LaFleur*, Shane Bowen",3.9580964783426658,4.041903521657334
-Nick Saban,2,2005,2,2,4,8,"Dom Capers, Mike Mularkey*, Richard Smith, Scott Linehan*",2.3059278545551702,5.69407214544483
-Rex Ryan,8,2009,2,2,4,8,"Brian Schottenheimer*, Greg Roman, Marty Mornhinweg, Mike Pettine*",3.9580964783426658,4.041903521657334
-Todd Bowles,9,2015,2,2,4,8,"Chan Gailey, Dave Canales*, John Morton, Liam Coen*",4.331049552770933,3.668950447229067
-Dave Wannstedt,5,2000,2,1,3,7,"Chan Gailey*, Jim Bates, Norv Turner*",3.0211065721730304,3.9788934278269696
-Doug Marrone,6,2013,2,1,3,7,"Jim Schwartz, Mike Pettine*, Nathaniel Hackett*",3.305771433283026,3.694228566716974
-Herm Edwards,8,2001,1,4,5,7,"Chan Gailey*, Donnie Henderson, Gunther Cunningham, Mike Heimerdinger, Ted Cottrell",3.9580964783426658,3.0419035216573342
-Kyle Shanahan,10,2017,2,1,3,7,"DeMeco Ryans*, Robert Saleh*, Steve Wilks",4.739144265733423,2.2608557342665767
-Lovie Smith,12,2004,1,4,5,7,"Bob Babich, Dirk Koetter, Leslie Frazier, Rod Marinelli, Ron Rivera*",5.674315543929902,1.325684456070098
-Mike Nolan,4,2005,2,1,3,7,"Mike Martz, Mike McCarthy*, Norv Turner*",2.760954622734698,4.2390453772653025
-Mike Smith,7,2008,2,1,3,7,"Dirk Koetter*, Mike Mularkey*, Mike Nolan",3.617258944046352,3.382741055953648
-Steve Mariucci,7,1999,2,1,3,7,"Dick Jauron*, Greg Knapp, Marty Mornhinweg*",3.617258944046352,3.382741055953648
-Dan Campbell,6,2021,2,0,2,6,"Aaron Glenn*, Ben Johnson*",3.305771433283026,2.694228566716974
-Jim Fassel,5,1999,2,0,2,6,"John Fox*, Sean Payton*",3.0211065721730304,2.9788934278269696
-Jim Harbaugh,7,2011,2,0,2,6,"Jesse Minter*, Vic Fangio*",3.617258944046352,2.382741055953648
-Ken Whisenhunt,8,2007,1,3,4,6,"Billy Davis, Clancy Pendergast, Ray Horton, Todd Haley*",3.9580964783426658,2.0419035216573342
-Mike McCarthy,19,2006,2,0,2,6,"Dan Quinn*, Kellen Moore*",10.657636903197732,-4.657636903197732
-Sean McVay,10,2017,2,0,2,6,"Brandon Staley*, Raheem Morris*",4.739144265733423,1.2608557342665767
-Steve Spagnuolo,3,2009,2,0,2,6,"Josh McDaniels*, Pat Shurmur*",2.5232047419356998,3.4767952580643002
-Brad Childress,5,2006,1,2,3,5,"Darrell Bevell, Leslie Frazier, Mike Tomlin*",3.0211065721730304,1.9788934278269696
-Chuck Pagano,6,2012,1,2,3,5,"Bruce Arians*, Greg Manusky, Pep Hamilton",3.305771433283026,1.694228566716974
-Gary Kubiak,10,2006,1,2,3,5,"Kyle Shanahan*, Richard Smith, Wade Phillips",4.739144265733423,0.2608557342665767
-Mike Pettine,2,2014,1,2,3,5,"Jim O'Neil, John DeFilippo, Kyle Shanahan*",2.3059278545551702,2.6940721454448298
-Mike Tomlin,19,2007,1,2,3,5,"Bruce Arians*, Dick LeBeau, Todd Haley",10.657636903197732,-5.657636903197732
-Romeo Crennel,5,2005,1,2,3,5,"Brian Daboll*, Mel Tucker, Rob Chudzinski",3.0211065721730304,1.9788934278269696
-Adam Gase,5,2016,1,1,2,4,"Matt Burke, Vance Joseph*",3.0211065721730304,0.9788934278269696
-Al Groh,1,2000,1,1,2,4,"Dan Henning, Mike Nolan*",2.1073610008889694,1.8926389991110306
-Anthony Lynn,4,2017,1,1,2,4,"Gus Bradley, Shane Steichen*",2.760954622734698,1.239045377265302
-Bill Callahan,2,2002,1,1,2,4,"Chuck Bresnahan, Marc Trestman*",2.3059278545551702,1.6940721454448298
-Bill O'Brien,7,2014,1,1,2,4,"Mike Vrabel*, Tim Kelly",3.617258944046352,0.38274105595364816
-Bruce Arians,8,2013,1,1,2,4,"James Bettcher, Todd Bowles*",3.9580964783426658,0.04190352165733424
-Butch Davis,4,2001,1,1,2,4,"Bruce Arians*, Terry Robiskie",2.760954622734698,1.239045377265302
-Chris Palmer,2,1999,1,1,2,4,"Bob Slowik, Romeo Crennel*",2.3059278545551702,1.6940721454448298
-Dennis Allen,6,2012,1,1,2,4,"Greg Olson, Klint Kubiak*",3.305771433283026,0.6942285667169741
-Dom Capers,4,2002,1,1,2,4,"Chris Palmer, Vic Fangio*",2.760954622734698,1.239045377265302
-Jason Garrett,9,2011,1,1,2,4,"Kellen Moore*, Rob Ryan",4.331049552770933,-0.3310495527709332
-Jay Gruden,6,2014,1,1,2,4,"Joe Barry, Sean McVay*",3.305771433283026,0.6942285667169741
-Jon Gruden,14,1999,0,4,4,4,"Chuck Bresnahan, Gus Bradley, Monte Kiffin, Willie Shaw",6.794023369343788,-2.7940233693437877
-Matt Nagy,4,2018,1,1,2,4,"Sean Desai, Vic Fangio*",2.760954622734698,1.239045377265302
-Mike Riley,3,1999,1,1,2,4,"Geep Chryst, Norv Turner*",2.5232047419356998,1.4767952580643002
-Mike Tice,4,2002,1,1,2,4,"Scott Linehan*, Ted Cottrell",2.760954622734698,1.239045377265302
-Robert Saleh,5,2021,1,1,2,4,"Jeff Ulbrich, Mike LaFleur*",3.0211065721730304,0.9788934278269696
-Steve Spurrier,2,2002,1,1,2,4,"George Edwards, Marvin Lewis*",2.3059278545551702,1.6940721454448298
-Tony Dungy,10,1999,0,4,4,4,"Clyde Christensen, Mike Shula, Monte Kiffin, Ron Meeks",4.739144265733423,-0.7391442657334233
-Tony Sparano,4,2008,1,1,2,4,"Brian Daboll*, Mike Nolan",2.760954622734698,1.239045377265302
-Andy Reid,28,1999,1,0,1,3,Sean McDermott*,23.96745445832589,-20.96745445832589
-Bobby Petrino,1,2007,1,0,1,3,Mike Zimmer*,2.1073610008889694,0.8926389991110306
-Brandon Staley,3,2021,1,0,1,3,Kellen Moore*,2.5232047419356998,0.47679525806430023
-Dan Quinn,9,2015,1,0,1,3,Kyle Shanahan*,4.331049552770933,-1.3310495527709332
-Dan Reeves,5,1999,1,0,1,3,Wade Phillips*,3.0211065721730304,-0.021106572173030358
-Dave Campo,3,2000,1,0,1,3,Mike Zimmer*,2.5232047419356998,0.47679525806430023
-Dennis Green,6,1999,0,3,3,3,"Clancy Pendergast, Foge Fazio, Sherman Lewis",3.305771433283026,-0.3057714332830259
-Dick Jauron,9,1999,0,3,3,3,"Alex Van Pelt, Greg Blache, Perry Fewell",4.331049552770933,-1.3310495527709332
-Dick Vermeil,6,1999,0,3,3,3,"Al Saunders, Gunther Cunningham, Mike Martz",3.305771433283026,-0.3057714332830259
-Dirk Koetter,3,2016,1,0,1,3,Todd Monken*,2.5232047419356998,0.47679525806430023
-Frank Reich,6,2018,1,0,1,3,Matt Eberflus*,3.305771433283026,-0.3057714332830259
-Gregg Williams,3,2001,0,3,3,3,"Jerry Gray, Kevin Gilbride, Mike Sheppard",2.5232047419356998,0.47679525806430023
-Jim Haslett,6,2000,1,0,1,3,Mike McCarthy*,3.305771433283026,-0.3057714332830259
-Josh McDaniels,4,2009,0,3,3,3,"Don Martindale, Mike Nolan, Patrick Graham",2.760954622734698,0.23904537726530206
-Matt LaFleur,8,2019,1,0,1,3,Jeff Hafley*,3.9580964783426658,-0.9580964783426658
-Matt Rhule,3,2020,1,0,1,3,Joe Brady*,2.5232047419356998,0.47679525806430023
-Mike Macdonald,3,2024,1,0,1,3,Klint Kubiak*,2.5232047419356998,0.47679525806430023
-Mike Martz,6,2000,1,0,1,3,Lovie Smith*,3.305771433283026,-0.3057714332830259
-Mike McCoy,4,2013,1,0,1,3,Frank Reich*,2.760954622734698,0.23904537726530206
-Mike Sherman,6,2000,0,3,3,3,"Bob Slowik, Ed Donatell, Jim Bates",3.305771433283026,-0.3057714332830259
-Sean McDermott,9,2017,1,0,1,3,Brian Daboll*,4.331049552770933,-1.3310495527709332
-Tom Cable,2,2009,1,0,1,3,Hue Jackson*,2.3059278545551702,0.6940721454448298
-Vince Tobin,2,1999,1,0,1,3,Marc Trestman*,2.3059278545551702,0.6940721454448298
-Dennis Erickson,2,2003,0,2,2,2,"Greg Knapp, Ted Tollner",2.3059278545551702,-0.30592785455517024
-George Seifert,3,1999,0,2,2,2,"Bill Musgrave, John Marshall",2.5232047419356998,-0.5232047419356998
-Gunther Cunningham,2,1999,0,2,2,2,"Jimmy Raye, Kurt Schottenheimer",2.3059278545551702,-0.30592785455517024
-Jim Caldwell,7,2009,0,2,2,2,"Joe Lombardi, Teryl Austin",3.617258944046352,-1.6172589440463518
-Leslie Frazier,3,2011,0,2,2,2,"Alan Williams, Bill Musgrave",2.5232047419356998,-0.5232047419356998
-Mike Mularkey,5,2004,0,2,2,2,"Jerry Gray, Mel Tucker",3.0211065721730304,-1.0211065721730304
-Raheem Morris,5,2009,0,2,2,2,"Greg Olson, Zac Robinson",3.0211065721730304,-1.0211065721730304
-Ray Rhodes,1,1999,0,2,2,2,"Emmitt Thomas, Sherman Lewis",2.1073610008889694,-0.10736100088896938
-Rob Chudzinski,1,2013,0,2,2,2,"Norv Turner, Ray Horton",2.1073610008889694,-0.10736100088896938
-Rod Marinelli,3,2006,0,2,2,2,"Joe Barry, Mike Martz",2.5232047419356998,-0.5232047419356998
-Sean Payton,19,2006,0,2,2,2,"Dennis Allen, Gregg Williams",10.657636903197732,-8.657636903197732
-Vance Joseph,2,2017,0,2,2,2,"Joe Woods, Mike McCoy",2.3059278545551702,-0.30592785455517024
-Wade Phillips,6,1999,0,2,2,2,"Jason Garrett, Ted Cottrell",3.305771433283026,-1.305771433283026
-Aaron Kromer,1,2012,0,1,1,1,Steve Spagnuolo,2.1073610008889694,-1.1073610008889694
-Antonio Pierce,1,2024,0,1,1,1,Patrick Graham,2.1073610008889694,-1.1073610008889694
-Art Shell,1,2006,0,1,1,1,Rob Ryan,2.1073610008889694,-1.1073610008889694
-Arthur Smith,3,2021,0,1,1,1,Ryan Nielsen,2.5232047419356998,-1.5232047419356998
-Ben McAdoo,2,2016,0,1,1,1,Steve Spagnuolo,2.3059278545551702,-1.3059278545551702
-Brian Callahan,2,2024,0,1,1,1,Dennard Wilson,2.3059278545551702,-1.3059278545551702
-Brian Flores,3,2019,0,1,1,1,Patrick Graham,2.5232047419356998,-1.5232047419356998
-Bruce Coslet,2,1999,0,1,1,1,Dick LeBeau,2.3059278545551702,-1.3059278545551702
-Cam Cameron,1,2007,0,1,1,1,Dom Capers,2.1073610008889694,-1.1073610008889694
-Chan Gailey,4,1999,0,1,1,1,Dave Campo,2.760954622734698,-1.760954622734698
-Dave McGinnis,3,2001,0,1,1,1,Larry Marmie,2.5232047419356998,-1.5232047419356998
-David Culley,1,2021,0,1,1,1,Tim Kelly,2.1073610008889694,-1.1073610008889694
-DeMeco Ryans,4,2023,0,1,1,1,Bobby Slowik,2.760954622734698,-1.760954622734698
-Doug Pederson,8,2016,0,1,1,1,Jim Schwartz,3.9580964783426658,-2.9580964783426658
-Freddie Kitchens,1,2019,0,1,1,1,Steve Wilks,2.1073610008889694,-1.1073610008889694
-Hue Jackson,4,2011,0,1,1,1,Gregg Williams,2.760954622734698,-1.760954622734698
-Jim Schwartz,5,2009,0,1,1,1,Scott Linehan,3.0211065721730304,-2.0211065721730304
-Joe Gibbs,4,2004,0,1,1,1,Gregg Williams,2.760954622734698,-1.760954622734698
-Joe Judge,2,2020,0,1,1,1,Patrick Graham,2.3059278545551702,-1.3059278545551702
-Joe Philbin,4,2012,0,1,1,1,Bill Lazor,2.760954622734698,-1.760954622734698
-Jonathan Gannon,3,2023,0,1,1,1,Drew Petzing,2.5232047419356998,-1.5232047419356998
-Kliff Kingsbury,4,2019,0,1,1,1,Vance Joseph,2.760954622734698,-1.760954622734698
-Lane Kiffin,2,2007,0,1,1,1,Rob Ryan,2.3059278545551702,-1.3059278545551702
-Marty Mornhinweg,2,2001,0,1,1,1,Maurice Carthon,2.3059278545551702,-1.3059278545551702
-Matt Eberflus,3,2022,0,1,1,1,Luke Getsy,2.5232047419356998,-1.5232047419356998
-Matt Patricia,3,2018,0,1,1,1,Darrell Bevell,2.5232047419356998,-1.5232047419356998
-Mike Holmgren,10,1999,0,1,1,1,John Marshall,4.739144265733423,-3.7391442657334233
-Mike McDaniel,4,2022,0,1,1,1,Vic Fangio,2.760954622734698,-1.760954622734698
-Mike Munchak,3,2011,0,1,1,1,Dowell Loggains,2.5232047419356998,-1.5232047419356998
-Mike Singletary,2,2009,0,1,1,1,Greg Manusky,2.3059278545551702,-1.3059278545551702
-Nathaniel Hackett,1,2022,0,1,1,1,Ejiro Evero,2.1073610008889694,-1.1073610008889694
-Scott Linehan,3,2006,0,1,1,1,Jim Haslett,2.5232047419356998,-1.5232047419356998
-Todd Haley,3,2009,0,1,1,1,Romeo Crennel,2.5232047419356998,-1.5232047419356998
-Zac Taylor,8,2019,0,1,1,1,Lou Anarumo,3.9580964783426658,-2.9580964783426658
-Aaron Glenn,2,2025,0,0,0,0,,2.3059278545551702,-2.3059278545551702
-Ben Johnson,2,2025,0,0,0,0,,2.3059278545551702,-2.3059278545551702
-Bobby Ross,2,1999,0,0,0,0,,2.3059278545551702,-2.3059278545551702
-Brian Daboll,4,2022,0,0,0,0,,2.760954622734698,-2.760954622734698
-Brian Schottenheimer,2,2025,0,0,0,0,,2.3059278545551702,-2.3059278545551702
-Chip Kelly,4,2013,0,0,0,0,,2.760954622734698,-2.760954622734698
-Dave Canales,3,2024,0,0,0,0,,2.5232047419356998,-2.5232047419356998
-Dick LeBeau,2,2001,0,0,0,0,,2.3059278545551702,-2.3059278545551702
-Greg Schiano,2,2012,0,0,0,0,,2.3059278545551702,-2.3059278545551702
-Gus Bradley,4,2013,0,0,0,0,,2.760954622734698,-2.760954622734698
-Jeff Hafley,1,2026,0,0,0,0,,2.1073610008889694,-2.1073610008889694
-Jerod Mayo,1,2024,0,0,0,0,,2.1073610008889694,-2.1073610008889694
-Jesse Minter,1,2026,0,0,0,0,,2.1073610008889694,-2.1073610008889694
-Jim Tomsula,1,2015,0,0,0,0,,2.1073610008889694,-2.1073610008889694
-Jim Zorn,2,2008,0,0,0,0,,2.3059278545551702,-2.3059278545551702
-Jimmy Johnson,1,1999,0,0,0,0,,2.1073610008889694,-2.1073610008889694
-Joe Brady,1,2026,0,0,0,0,,2.1073610008889694,-2.1073610008889694
-Kellen Moore,2,2025,0,0,0,0,,2.3059278545551702,-2.3059278545551702
-Kevin O'Connell,5,2022,0,0,0,0,,3.0211065721730304,-3.0211065721730304
-Kevin Stefanski,7,2020,0,0,0,0,,3.617258944046352,-3.617258944046352
-Klint Kubiak,1,2026,0,0,0,0,,2.1073610008889694,-2.1073610008889694
-Liam Coen,2,2025,0,0,0,0,,2.3059278545551702,-2.3059278545551702
-Marc Trestman,2,2013,0,0,0,0,,2.3059278545551702,-2.3059278545551702
-Mike Ditka,1,1999,0,0,0,0,,2.1073610008889694,-2.1073610008889694
-Mike LaFleur,1,2026,0,0,0,0,,2.1073610008889694,-2.1073610008889694
-Pat Shurmur,4,2011,0,0,0,0,,2.760954622734698,-2.760954622734698
-Shane Steichen,4,2023,0,0,0,0,,2.760954622734698,-2.760954622734698
-Steve Wilks,1,2018,0,0,0,0,,2.1073610008889694,-2.1073610008889694
-Todd Monken,1,2026,0,0,0,0,,2.1073610008889694,-2.1073610008889694
-Urban Meyer,1,2021,0,0,0,0,,2.1073610008889694,-2.1073610008889694
-Vic Fangio,3,2019,0,0,0,0,,2.5232047419356998,-2.5232047419356998
+John Fox,11,2002,7,27,34,48,"Adam Gase*, Ben McDaniels, Bo Hardegree, Brandon Staley*, Brian Callahan*, Clint Hurtt, Cory Undlin, Curtis Modkins, Dan Henning, Danny Crossman, Dave Ragone, Dennis Allen*, Don Breaux, Dowell Loggains, Ed Donatell, Eric Studesville, Frank Smith, Geep Chryst, Jack Del Rio*, Jay Rodgers, Jeff Rodgers, Jeremiah Washburn, Jim Bob Cooter, Keith Burns, Ken Flajole, Mike Groh, Mike McCoy*, Mike Sullivan, Richard Hightower, Richard Smith, Scott O'Brien, Sean Desai, Tyke Tolbert, Vic Fangio*",20.704524038913796,27.295475961086204
+Jon Gruden,11,2000,7,21,28,42,"Aaron Kromer, Bill Callahan, Bill Muir, Brian Callahan*, Derrick Ansley, Ejiro Evero, Frank Smith, Fred Pagac, Garrett Giemont, Greg Olson, Gus Bradley*, Jay Gruden*, Jeremy Bates, Jimmy Lake, Joe Barry, Joe Woods, John Morton, Kyle Shanahan*, Larry Coyer, Mike Tomlin*, Monte Kiffin, Nathaniel Hackett, Nick Holz, Paul Guenther, Raheem Morris*, Rich Bisaccia, Sean McVay*, Todd Wash",20.704524038913796,21.295475961086204
+John Harbaugh,16,2009,7,19,26,40,"Al Saunders, Andy Bischoff, Anthony Weaver, Brian Duker, Chuck Pagano*, David Culley*, Dennard Wilson, Don Martindale, Gary Kubiak*, Greg Roman, Hue Jackson*, Jay Harbaugh, Jesse Minter, Jim Caldwell*, Jim Hostler, Joe Cullen, John Matsko, Juan Castillo, Leslie Frazier, Marwan Maalouf, Mike Macdonald*, Rick Dennison, Steve Spagnuolo, Ted Monachino, Teryl Austin, Vic Fangio*",33.590667818643816,6.409332181356184
+Brian Billick,8,2000,8,10,18,34,"Chris Foerster, Dennis Thurman, Donnie Henderson, Greg Roman, Jack Del Rio*, Jedd Fisch, Jim Colletto, John Fassel, Marvin Lewis*, Matt Cavanaugh, Mike Johnson, Mike Nolan*, Mike Pettine*, Mike Singletary*, Mike Smith*, Rex Ryan*, Russ Purnell, Vic Fangio*",15.487211137593068,18.512788862406932
+Gary Kubiak,10,2006,6,15,21,33,"Brian Callahan*, Eric Studesville, Frank Pollack, Joe DeCamillis, Joe Marciano, Joe Woods, John Benton, Jon Hoke, Klint Kubiak, Kyle Shanahan*, Matt LaFleur*, Mike McDaniel*, Mike Sherman, Mike Sullivan, Richard Hightower, Richard Smith, Rick Dennison, Robert Saleh*, Tyke Tolbert, Vance Joseph*, Wade Phillips",18.79466433933718,14.205335660662818
+Andy Reid,23,2000,8,8,16,32,"Bobby April, Brock Olivo, David Culley*, Dick Jauron, Doug Pederson*, John Harbaugh*, Juan Castillo, Kevin O'Dea, Leslie Frazier*, Marty Mornhinweg, Mike Caldwell, Mike Kafka, Pat Shurmur*, Ron Rivera*, Sean McDermott*, Todd Bowles*",66.13530790431886,-34.135307904318864
+Bill Belichick,17,2000,4,19,23,31,"Bo Hardegree, Brad Seely, Brendan Daly, Brian Daboll*, Brian Flores*, Bubba Ventrone, Chad O'Shea, Charlie Weis, Cory Undlin, Dean Pees, Eric Mangini*, George Godsey, Harold Nash, Jeff Davidson, John Hufnagel, Josh Boyer, Josh McDaniels*, Markus Paul, Mick Lombardi, Nick Caley, Patrick Graham, Rob Ryan, Romeo Crennel",37.00405480924943,-6.004054809249432
+Jack Del Rio,11,2003,3,21,24,30,"Anthony Lynn*, Bill Musgrave, Bob Ligashesky, Brad Seely, Brian VanGorder, Cory Undlin, Craig Aukerman, Dirk Koetter*, Jake Peetz, Joe DeCamillis, Ken Norton Jr., Mark Duffner, Mel Tucker, Mike Shula, Mike Smith*, Mike Sullivan, Nate Kaczor, Nick Holz, Rob Boras, Robert Prince, Ted Monachino, Todd Downing, Todd Monken, Tracy Smith",20.704524038913796,9.295475961086204
+Sean McVay,8,2017,5,14,19,29,"Andy Dickerson, Brandon Staley*, Ejiro Evero, Jake Peetz, Jeremy Springer, Jimmy Lake, Joe Barry, John Fassel, Jonathan Cooley, Kevin O'Connell*, Liam Coen, Matt Daniels, Matt LaFleur*, Raheem Morris*, Shane Waldron, Thomas Brown, Wes Phillips, Zac Robinson, Zac Taylor*",15.487211137593068,13.512788862406932
+Tom Coughlin,12,2000,5,14,19,29,"Al Holcomb, Andre Curtis, Ben McAdoo, Bill Sheridan, Bobby Petrino*, Chris Palmer, Dom Capers*, John Bonamego, John DeFilippo, Lane Kiffin*, Larry Izzo, Markus Paul, Matt Rhule*, Mike Priefer, Mike Sullivan, Steve Spagnuolo, Thomas McGaughey, Tom Quinn, Tony Sparano*",22.808458184631622,6.191541815368378
+Rex Ryan,7,2009,3,19,22,28,"Aaron Kromer, Andy Dickerson, Anthony Lynn*, Anthony Weaver, Ben Kotwica, Bill Callahan, Bob Sutton, Brian Schottenheimer, Brian Smith, Danny Crossman, Dennis Thurman, Greg Roman, Jason Vrable, Jim O'Neil, John DeFilippo, Kevin O'Dea, Marty Mornhinweg, Matt Cavanaugh, Mike Pettine*, Mike Smith*, Sanjay Lal, Thomas McGaughey",14.058615128579241,13.941384871420759
+Mike Nolan,3,2005,5,12,17,27,"Adam Gase*, Al Everest, Ben McAdoo*, Bill Davis, Dave Fipp, George Warhop, Greg Manusky, Jason Tarver, Jeff Rodgers, Jim Hostler, Mike Martz, Mike McCarthy*, Norv Turner*, Pep Hamilton, Shane Day, Ted Tollner, Vance Joseph*",9.545964880044925,17.454035119955073
+Norv Turner,6,2000,3,18,21,27,"Aaron Kromer, Don Martindale, Greg Manusky, Greg Williams, Jason Arapoff, Jason Michael, Joe Barry, John Morton, Kirby Wilson, Mike Sullivan, Mike Trgovac, Ray Rhodes, Rich Bisaccia, Rich Olson, Rob Chudzinski*, Rob Ryan, Ron Rivera*, Shane Steichen*, Steve Sarkisian, Steven Wilks, Terry Robiskie",12.761797949132488,14.238202050867512
+Eric Mangini,4,2006,3,17,20,26,"Andy Dickerson, Ben Kotwica, Bill Callahan, Bob Sutton, Brad Seely, Brian Daboll*, Brian Schottenheimer, Brian Smith, Dan Quinn*, George Warhop, Jason Michael, Jerome Henderson, Jimmy Raye, Keith O'Quinn, Kevin O'Dea, Markus Paul, Matt Eberflus*, Rob Ryan, Tom Myslinski, Tracy Smith",10.515998358100354,15.484001641899646
+Steve Mariucci,6,2000,4,12,16,24,"Adam Gase*, Bruce DeHaven, Dan Quinn*, Dick Jauron*, Greg Knapp, Greg Olson, Jason Tarver, Joe Barry, Kevin O'Dea, Kurt Schottenheimer, Marty Mornhinweg*, Phil Snow, Ray Horton, Richard Smith, Sean Kugler, Ted Tollner",12.761797949132488,11.238202050867512
+Tony Dungy,6,2000,5,9,14,24,"Alan Williams, Chris Foerster, Clyde Christensen, Herman Edwards*, Jim Caldwell*, Joe Barry, Joe Marciano, Kevin O'Dea, Lovie Smith*, Mike Tomlin*, Monte Kiffin, Rod Marinelli*, Ron Meeks, Russ Purnell",12.761797949132488,11.238202050867512
+Kyle Shanahan,8,2017,3,14,17,23,"Aaron Hill, Adam Stenavich, Anthony Lynn, Bobby Slowik, Cory Undlin, DeMeco Ryans*, Jeff Hafley, Joe Woods, John Benton, Klint Kubiak, Michael Clay, Mike LaFleur, Mike McDaniel*, Mike Rutenberg, Richard Hightower, Robert Saleh*, Shane Day",15.487211137593068,7.512788862406932
+Mike Zimmer,7,2014,3,14,17,23,"Drew Petzing, Evan Marcus, Jeff Howard, Jerry Gray, Jonathan Gannon*, Karl Scott, Kevin Stefanski*, Kirby Wilson, Klint Kubiak, Mike Priefer, Nick Rallis, Norv Turner, Pat Shurmur*, Paul Guenther, Ryan Ficken, Scott Turner, Todd Downing",14.058615128579241,8.941384871420759
+Bill Parcells,1,2005,6,4,10,22,"Anthony Lynn*, Bruce DeHaven, Gary Gibbs, Kacy Rodgers, Mike Zimmer*, Paul Pasqualoni, Sean Payton*, Todd Bowles*, Todd Haley*, Tony Sparano*",7.866082146509773,14.133917853490228
+Dan Quinn,7,2015,3,13,16,22,"Aden Durde, Ben Kotwica, Jeff Ulbrich, Jerome Henderson, Justin Outten, Keith Armstrong, Keith Carter, Kyle Shanahan*, Marquand Manuel, Matt LaFleur*, Mike LaFleur, Mike McDaniel*, Raheem Morris, Rich Scangarello, Richard Smith, Terry Robiskie",14.058615128579241,7.941384871420759
+Ken Whisenhunt,5,2007,4,10,14,22,"Arthur Smith*, Billy Davis, Clancy Pendergast, Deshea Townsend, Frank Reich*, Freddie Kitchens*, Giff Smith, Kevin Patullo, Kevin Spencer, Mike Sullivan, Nate Kaczor, Ray Horton, Teryl Austin, Todd Haley*",11.584603846463017,10.415396153536983
+Lovie Smith,11,2004,2,16,18,22,"Bob Babich, Charles London, Chris Tabor, Dave Toub, Dirk Koetter, Eric Washington, Harold Goodwin, Jeremy Bates, Joe Cullen, Leslie Frazier, Perry Fewell, Rob Boras, Rod Marinelli, Ron Rivera*, Shane Day, Steve Wilks*, Steven Wilks, Terry Shea",20.704524038913796,1.295475961086204
+Mike Shanahan,4,2010,5,7,12,22,"Aubrey Pleasant, Bobby Slowik, Chris Foerster, Chris Morgan, Danny Smith, Keith Burns, Kyle Shanahan*, Matt LaFleur*, Mike McDaniel*, Raheem Morris*, Richard Hightower, Sean McVay*",10.515998358100354,11.484001641899646
+Jay Gruden,6,2014,3,12,15,21,"Aubrey Pleasant, Ben Kotwica, Bradford Banta, Brian Angelichio, Chris Foerster, Dave Ragone, Jake Peetz, Joe Barry, Kevin O'Connell*, Nate Kaczor, Raheem Morris*, Sean McVay*, Shane Day, Shane Waldron, Wes Phillips",12.761797949132488,8.238202050867512
+Josh McDaniels,4,2009,3,12,15,21,"Adam Gase*, Ben McDaniels, Bob Ligashesky, Brian Callahan*, Craig Aukerman, Don Martindale, Ed Donatell, Eric Studesville, Jason Simmons, Jay Rodgers, Keith Burns, Mike McCoy*, Mike Nolan, Mike Priefer, Rick Dennison",10.515998358100354,10.484001641899646
+Ron Rivera,13,2011,3,11,14,20,"Al Holcomb, Bobby Babich, Chase Blackburn, Chris Harris, Drew Terrell, Heath Farwell, Jake Peetz, Ken Dorsey, Mike Shula, Rob Chudzinski*, Scott Turner, Sean McDermott*, Steve Wilks*, Thomas McGaughey",25.12618806316601,-5.126188063166008
+Al Groh,1,2000,5,4,9,19,"Bill Parcells*, Bob Sutton, Dan Henning, Ken Whisenhunt*, Maurice Carthon, Mike Nolan*, Mike Sweatman, Todd Bowles*, Todd Haley*",7.866082146509773,11.133917853490228
+Mike Pettine,2,2014,3,10,13,19,"Aaron Glenn, Anthony Weaver, Bobby Babich, Brian Angelichio, Chris Tabor, Dowell Loggains, Jeff Hafley, John DeFilippo, Kevin O'Connell*, Kyle Shanahan*, Mike McDaniel*, Richard Hightower, Shawn Mennenga",8.665410775845004,10.334589224154996
+Mike McCoy,3,2013,4,6,10,18,"Chris Shula, Craig Aukerman, Frank Reich*, Greg Williams, Jason Michael, Joe Barry, Ken Whisenhunt*, Mike Nolan, Nick Sirianni*, Shane Steichen*",9.545964880044925,8.454035119955075
+Sean Payton,13,2006,2,12,14,18,"Aaron Glenn, Aaron Kromer, Andre Curtis, Blake Williams, Christian Parker, Dan Campbell*, Doug Marrone*, Frank Smith, Gregg Williams, Joe Brady, John Bonamego, Mike Mallory, Mike Nolan, Ryan Nielsen",25.12618806316601,-7.126188063166008
+Chuck Pagano,5,2012,1,14,15,17,"Brant Boyer, Brian Schottenheimer, Bruce Arians*, Clyde Christensen, Greg Manusky, Greg Williams, Harold Goodwin, James Bettcher, Jim Hostler, Joe Philbin, Marwan Maalouf, Maurice Drayton, Pep Hamilton, Sanjay Lal, Tom McMahon",11.584603846463017,5.4153961535369834
+Joe Philbin,4,2012,2,11,13,17,"Ben Johnson, Bill Lazor, Dan Campbell*, Darren Rizzi, Dave Fipp, George Edwards, John Benton, Kacy Rodgers, Lou Anarumo, Mark Duffner, Marwan Maalouf, Terrell Williams, Zac Taylor*",10.515998358100354,6.484001641899646
+Mike McCarthy,13,2006,2,11,13,17,"Aden Durde, Alex Van Pelt, Ben McAdoo*, Brian Angelichio, Chad Morton, Dan Quinn*, Jason Simmons, Joe Whitt Jr., Kellen Moore, Kurt Schottenheimer, Luke Getsy, Matt Daniels, Tom Clements",25.12618806316601,-8.126188063166008
+Nick Saban,2,2005,4,5,9,17,"Dan Quinn*, Dom Capers, George Edwards, Hudson Houck, Jason Garrett*, Keith Armstrong, Mike Mularkey*, Richard Smith, Scott Linehan*",8.665410775845004,8.334589224154996
+Dave Wannstedt,5,2000,3,7,10,16,"Bob Sanders, Brad Roll, Chan Gailey*, Chris Foerster, Jim Bates, Keith Armstrong, Marc Trestman*, Mike Shula, Mike Westhoff, Norv Turner*",11.584603846463017,4.4153961535369834
+Doug Marrone,6,2013,1,13,14,16,"Anthony Weaver, Ben McAdoo, Danny Crossman, Jason Vrable, Jim Hostler, Jim O'Neil, Jim Schwartz, Joe DeCamillis, John DeFilippo, Mike Mallory, Mike Pettine*, Mike Rutenberg, Nathaniel Hackett, Todd Downing",12.761797949132488,3.2382020508675122
+Herman Edwards,6,2001,2,10,12,16,"Bill Muir, Bob Sutton, Chan Gailey*, Curtis Modkins, Doug Marrone*, Jim Hostler, Jimmy Raye, Kevin Patullo, Markus Paul, Mike Priefer, Pep Hamilton, Ted Cottrell",12.761797949132488,3.2382020508675122
+Jim Caldwell,4,2010,2,10,12,16,"Alan Williams, Brian Callahan*, Clyde Christensen, Curtis Modkins, Frank Reich*, Harold Nash, Jeremiah Washburn, Jim Bob Cooter, Joe Lombardi, John Bonamego, Robert Prince, Teryl Austin",10.515998358100354,5.484001641899646
+Marvin Lewis,10,2008,4,4,8,16,"Bill Lazor, Bob Bratkowski, Hue Jackson*, Jay Gruden*, Matt Burke, Mike Zimmer*, Paul Guenther, Vance Joseph*",18.79466433933718,-2.7946643393371815
+Adam Gase,4,2017,0,15,15,15,"Ben Johnson, Bo Hardegree, Daronte Jones, Darren Rizzi, Dennard Wilson, Frank Pollack, Jeremiah Washburn, Jim Bob Cooter, Josh Grizzard, Lou Anarumo, Marwan Maalouf, Matt Burke, Renaldo Hill, Shane Day, Terrell Williams",10.515998358100354,4.484001641899646
+Dick Jauron,7,2000,1,12,13,15,"Alex Van Pelt, Bobby April, Dale Lindsey, Eric Studesville, Greg Blache, Greg Olson, Keith Armstrong, Mike Sweatman, Nathaniel Hackett, Perry Fewell, Sean Kugler, Todd Haley*, Tyke Tolbert",14.058615128579241,0.9413848714207589
+Mike Mularkey,3,2005,1,12,13,15,"Arthur Smith*, Bobby April, Craig Aukerman, Eric Studesville, Greg Olson, Jake Peetz, Jerry Gray, John Bonamego, Mark Duffner, Mel Tucker, Mike Miller, Tom Clements, Tyke Tolbert",9.545964880044925,5.4540351199550745
+Bill Cowher,4,2002,3,5,8,14,"Bruce Arians*, Ken Whisenhunt*, Kevin Spencer, Mike Miller, Mike Mularkey*, Ray Horton, Tim Lewis, Tom Clements",10.515998358100354,3.4840016418996456
+Bobby Petrino,1,2007,3,5,8,14,"Bill Musgrave, Evan Marcus, Hue Jackson*, Jerry Rosburg, Joe Whitt Jr., Jonathan Gannon*, Mike Zimmer*, Tom McMahon",7.866082146509773,6.133917853490227
+Frank Reich,5,2018,3,5,8,14,"Alan Williams, Frank Ross, Jonathan Gannon*, Kevin Patullo, Marcus Brady, Matt Eberflus*, Nick Sirianni*, Press Taylor",11.584603846463017,2.4153961535369834
+Matt Nagy,4,2018,2,8,10,14,"Brandon Staley*, Charles London, Chris Tabor, Dave Ragone, Deshea Townsend, Ed Donatell, Jay Rodgers, Juan Castillo, Sean Desai, Vic Fangio*",10.515998358100354,3.4840016418996456
+Anthony Lynn,4,2017,2,7,9,13,"Chris Harris, Eric Henderson, Giff Smith, Gus Bradley, Marquice Williams, Nick Sirianni*, Pep Hamilton, Richard Smith, Shane Steichen*",10.515998358100354,2.4840016418996456
+Brad Childress,5,2006,2,7,9,13,"Brendan Daly, Brian Murphy, Darrell Bevell, Eric Bieniemy, Joe Woods, Kevin Stefanski*, Leslie Frazier, Mike Tomlin*, Ryan Ficken",11.584603846463017,1.4153961535369834
+Jason Garrett,9,2011,1,10,11,13,"Ben Bloom, Frank Pollack, Jerome Henderson, Joe DeCamillis, Kellen Moore, Matt Eberflus*, Rich Bisaccia, Rob Ryan, Rod Marinelli, Sanjay Lal, Wes Phillips",17.060976961578312,-4.060976961578312
+Mike Vrabel,6,2018,2,7,9,13,"Arthur Smith*, Chase Blackburn, Dean Pees, John Streicher, Keith Carter, Matt LaFleur*, Shane Bowen, Terrell Williams, Todd Downing",12.761797949132488,0.23820205086751223
+Rob Chudzinski,1,2013,1,10,11,13,"Aubrey Pleasant, Bobby Babich, Chris Tabor, George Warhop, Joe Cullen, Mike Sullivan, Norv Turner, Ray Horton, Scott Turner, Shane Steichen*, Shawn Mennenga",7.866082146509773,5.133917853490227
+Todd Bowles,6,2015,1,10,11,13,"Brad Idzik, Chan Gailey, Dave Canales*, Dennard Wilson, Jason Vrable, John Morton, Kevin Patullo, Mick Lombardi, Mike Caldwell, Rick Dennison, Stump Mitchell",12.761797949132488,0.23820205086751223
+Bill O'Brien,6,2014,1,9,10,12,"Anthony Weaver, Charles London, John Butler, Larry Izzo, Mike Vrabel*, Paul Pasqualoni, Shane Bowen, T. J. Yates, Tim Kelly, Tracy Smith",12.761797949132488,-0.7617979491324878
+Doug Pederson,7,2017,1,9,10,12,"Cory Undlin, Dave Fipp, Deshea Townsend, Frank Reich*, Jim Bob Cooter, John DeFilippo, Marquand Manuel, Matt Burke, Mike Caldwell, Nick Holz",14.058615128579241,-2.058615128579241
+Marty Schottenheimer,5,2002,2,6,8,12,"Brian Schottenheimer, Cam Cameron*, Greg Manusky, Hudson Houck, Jimmy Raye, John Butler, Rob Chudzinski*, Wade Phillips",11.584603846463017,0.41539615353698345
+Bill Callahan,2,2002,2,5,7,11,"Aaron Kromer, Bob Casullo, Fred Pagac, Garrett Giemont, Jim Harbaugh*, John Morton, Marc Trestman*",8.665410775845004,2.334589224154996
+Bruce Arians,8,2013,2,5,7,11,"Byron Leftwich, Freddie Kitchens*, James Bettcher, Larry Foote, Mike Caldwell, Stump Mitchell, Todd Bowles*",15.487211137593068,-4.487211137593068
+Dom Capers,4,2002,2,5,7,11,"Chris Palmer, Greg Roman, Jedd Fisch, Joe Marciano, Jon Hoke, Robert Saleh*, Vic Fangio*",10.515998358100354,0.48400164189964556
+Leslie Frazier,3,2011,1,8,9,11,"Alan Williams, Bill Musgrave, Brendan Daly, Jeff Howard, Joe Woods, Kevin Stefanski*, Klint Kubiak, Mike Priefer, Ryan Ficken",9.545964880044925,1.4540351199550745
+Mike Munchak,2,2012,2,5,7,11,"Arthur Smith*, Dave Ragone, Dowell Loggains, Gregg Williams, Jerry Gray, Jonathan Gannon*, Nate Kaczor",8.665410775845004,2.334589224154996
+Mike Smith,6,2009,2,5,7,11,"Bill Musgrave, Bob Bratkowski, Dirk Koetter*, Keith Armstrong, Mike Mularkey*, Mike Nolan, Terry Robiskie",12.761797949132488,-1.7617979491324878
+Mike Tomlin,15,2008,1,8,9,11,"Amos Jones, Bob Ligashesky, Brian Flores, Bruce Arians*, Harold Goodwin, Kirby Wilson, Ray Horton, Sean Kugler, Todd Haley",30.492143910143533,-19.492143910143533
+Sean McDermott,8,2017,2,5,7,11,"Brian Daboll*, Danny Crossman, David Culley*, Heath Farwell, Juan Castillo, Rick Dennison, Shea Tierney",15.487211137593068,-4.487211137593068
+Jim Harbaugh,5,2011,1,7,8,10,"Brad Seely, Ed Donatell, Ejiro Evero, John Morton, Mick Lombardi, Ronald Curry, Tracy Smith, Vic Fangio*",11.584603846463017,-1.5846038464630166
+Jim Mora Jr.,1,2006,1,7,8,10,"Bill Musgrave, Ed Donatell, Greg Knapp, Joe DeCamillis, Joe Lombardi, Robert Prince, Steve Hoffman, Tom Cable*",7.866082146509773,2.1339178534902272
+Nick Sirianni,4,2021,2,4,6,10,"Alex Tanney, Dennard Wilson, Jonathan Gannon*, Marcus Brady, Nick Rallis, Shane Steichen*",10.515998358100354,-0.5159983581003544
+Pat Shurmur,4,2011,0,10,10,10,"Billy Davis, Chris Tabor, Deshea Townsend, George Warhop, Jerome Henderson, Lou Anarumo, Shawn Mennenga, Thomas McGaughey, Tom Quinn, Tyke Tolbert",10.515998358100354,-0.5159983581003544
+Rod Marinelli,3,2006,1,7,8,10,"Adam Gase*, Bradford Banta, Jimmy Lake, Joe Barry, Joe Cullen, Mike Martz, Phil Snow, Sean Kugler",9.545964880044925,0.4540351199550745
+Steve Spagnuolo,3,2009,2,4,6,10,"Andre Curtis, Brendan Daly, Derius Swinton, Josh McDaniels*, Pat Shurmur*, Tom McMahon",9.545964880044925,0.4540351199550745
+Tony Sparano,2,2008,1,7,8,10,"Darren Rizzi, Evan Marcus, George Edwards, John Bonamego, Kacy Rodgers, Paul Pasqualoni, Steve Hoffman, Todd Bowles*",8.665410775845004,1.3345892241549961
+Cam Cameron,1,2007,1,6,7,9,"Dom Capers, George Edwards, Hudson Houck, Keith Armstrong, Mike Mularkey*, Steve Hoffman, Terry Robiskie",7.866082146509773,1.1339178534902272
+Chip Kelly,3,2013,1,6,7,9,"Bill Lazor, Bill Musgrave, Brian Smith, Cory Undlin, Dave Fipp, Pat Shurmur*, Press Taylor",9.545964880044925,-0.5459648800449255
+Gus Bradley,3,2013,1,6,7,9,"Greg Olson, Mark Duffner, Matthew Smiley, Mike Mallory, Mike Rutenberg, Nathaniel Hackett, Robert Saleh*",9.545964880044925,-0.5459648800449255
+Jim E. Mora,2,2000,2,3,5,9,"Bruce Arians*, John Hufnagel, John Pagano, Kevin Spencer, Vic Fangio*",8.665410775845004,0.33458922415499615
+Jim Schwartz,4,2010,0,9,9,9,"Bradford Banta, Curtis Modkins, Danny Crossman, Jeremiah Washburn, John Bonamego, Matt Burke, Scott Linehan, Tim Walton, Todd Downing",10.515998358100354,-1.5159983581003544
+Marc Trestman,2,2013,0,9,9,9,"Aaron Kromer, Andy Bischoff, Chris Harris, Clint Hurtt, Joe DeCamillis, Matt Cavanaugh, Mike Groh, Paul Pasqualoni, Sean Desai",8.665410775845004,0.33458922415499615
+Mike Singletary,2,2009,1,6,7,9,"Al Everest, Dave Fipp, Greg Manusky, Jason Michael, Jason Tarver, Shane Day, Vance Joseph*",8.665410775845004,0.33458922415499615
+Steve Spurrier,1,2002,2,3,5,9,"George Edwards, Hue Jackson*, Marvin Lewis*, Mike Stock, Paul Guenther",7.866082146509773,1.1339178534902272
+Vic Fangio,3,2019,1,6,7,9,"Brandon Staley*, Christian Parker, Curtis Modkins, Ed Donatell, Justin Rascati, Renaldo Hill, Tom McMahon",9.545964880044925,-0.5459648800449255
+Dave Campo,1,2002,1,5,6,8,"Bill Bates, Clancy Pendergast, Gary Gibbs, Joe Avezzano, Mike Zimmer*, Steve Hoffman",7.866082146509773,0.13391785349022722
+Dennis Allen,6,2012,0,8,8,8,"Frank Pollack, Greg Knapp, Greg Olson, John DeFilippo, Keith Burns, Nick Holz, Steve Hoffman, Terrell Williams",12.761797949132488,-4.761797949132488
+George Seifert,2,2000,1,5,6,8,"Bill Musgrave, Don Breaux, Greg Roman, John Marshall, Mike McCoy*, Scott O'Brien",8.665410775845004,-0.6654107758450039
+Jim Fassel,3,2000,2,2,4,8,"Eric Studesville, John Fox*, Larry Mac Duff, Sean Payton*",9.545964880044925,-1.5459648800449255
+Jim Haslett,6,2000,1,5,6,8,"Al Everest, Evan Marcus, Jim Hostler, Mike McCarthy*, Rock Gullickson, Ron Zook",12.761797949132488,-4.761797949132488
+Vance Joseph,2,2017,0,8,8,8,"Curtis Modkins, Eric Studesville, Greg Williams, Joe Woods, Klint Kubiak, Mike McCoy, Tom McMahon, Tyke Tolbert",8.665410775845004,-0.6654107758450039
+Chris Palmer,1,2000,1,4,5,7,"John Hufnagel, Keith Butler, Pete Carmichael, Romeo Crennel, Tony Sparano*",7.866082146509773,-0.8660821465097728
+Dennis Erickson,1,2003,1,4,5,7,"Dan Quinn*, Greg Knapp, Jason Tarver, Jeff Rodgers, Ted Tollner",7.866082146509773,-0.8660821465097728
+Gunther Cunningham,1,2000,0,7,7,7,"Jim Hostler, Jimmy Raye, Keith Rowen, Kurt Schottenheimer, Mike Stock, Tom Clements, Willie Shaw",7.866082146509773,-0.8660821465097728
+Lane Kiffin,1,2008,0,7,7,7,"Brian Schneider, Don Martindale, Greg Knapp, John DeFilippo, John Fassel, Rob Ryan, Sanjay Lal",7.866082146509773,-0.8660821465097728
+Matt LaFleur,6,2019,0,7,7,7,"Aubrey Pleasant, Christian Parker, Jason Simmons, Joe Barry, Justin Outten, Luke Getsy, Nathaniel Hackett",12.761797949132488,-5.761797949132488
+Mike Riley,2,2000,1,4,5,7,"Geep Chryst, Jimmy Raye, John Butler, Mike Johnson, Norv Turner*",8.665410775845004,-1.6654107758450039
+Tom Cable,2,2009,1,4,5,7,"Chris Morgan, Hue Jackson*, John Fassel, Rich Scangarello, Sanjay Lal",8.665410775845004,-1.6654107758450039
+Brandon Staley,3,2021,0,6,6,6,"Derrick Ansley, Frank Smith, Giff Smith, Joe Lombardi, Kellen Moore, Renaldo Hill",9.545964880044925,-3.5459648800449255
+Chan Gailey,3,2010,0,6,6,6,"Bruce DeHaven, Curtis Modkins, Dave Wannstedt, George Edwards, Giff Smith, Kevin Patullo",9.545964880044925,-3.5459648800449255
+Freddie Kitchens,1,2019,0,6,6,6,"Al Holcomb, Jeff Blasko, Joe Whitt Jr., Steve Wilks, Todd Monken, Tosh Lupoi",7.866082146509773,-1.8660821465097728
+Hue Jackson,4,2011,0,6,6,6,"Bob Ligashesky, Chris Tabor, Gregg Williams, John Fassel, Sanjay Lal, Shawn Mennenga",10.515998358100354,-4.515998358100354
+Jim Tomsula,1,2015,0,6,6,6,"Brian Johnson, Ejiro Evero, Mick Lombardi, Richard Hightower, Ronald Curry, Thomas McGaughey",7.866082146509773,-1.8660821465097728
+Joe Gibbs,3,2004,0,6,6,6,"Bill Lazor, Bill Musgrave, Danny Smith, Gregg Williams, Jerry Gray, Mike Rutenberg",9.545964880044925,-3.5459648800449255
+Matt Patricia,2,2018,0,6,6,6,"Darrell Bevell, Harold Nash, Jim Bob Cooter, John Bonamego, Marquice Williams, Robert Prince",8.665410775845004,-2.665410775845004
+Zac Taylor,6,2019,1,3,4,6,"Alex Van Pelt, Brian Callahan*, Colt Anderson, Daronte Jones",12.761797949132488,-6.761797949132488
+Dick Vermeil,5,2001,0,5,5,5,"Al Saunders, Chad O'Shea, Fred Pagac, Keith Rowen, Thomas McGaughey",11.584603846463017,-6.5846038464630166
+Greg Schiano,2,2012,0,5,5,5,"Ben McDaniels, Bob Ligashesky, Brian Angelichio, Jeff Hafley, Mike Sullivan",8.665410775845004,-3.665410775845004
+Gregg Williams,1,2001,0,5,5,5,"Danny Smith, Jerry Gray, Mike Sheppard, Rusty Jones, Steve Jackson",7.866082146509773,-2.8660821465097728
+Jeff Fisher,1,2012,0,5,5,5,"Andy Dickerson, Blake Williams, Brian Schottenheimer, Dennard Wilson, John Fassel",7.866082146509773,-2.8660821465097728
+Marty Mornhinweg,2,2001,0,5,5,5,"John Marshall, Kevin O'Dea, Kurt Schottenheimer, Ray Horton, Sean Kugler",8.665410775845004,-3.665410775845004
+Matt Rhule,2,2020,0,5,5,5,"Brian Angelichio, Chase Blackburn, Jake Peetz, Jason Simmons, Joe Brady",8.665410775845004,-3.665410775845004
+Mike Holmgren,3,2002,0,5,5,5,"John Marshall, Ken Flajole, Pete Rodriguez, Stump Mitchell, Teryl Austin",9.545964880044925,-4.5459648800449255
+Raheem Morris,5,2009,0,5,5,5,"Alex Van Pelt, Ejiro Evero, Greg Olson, Joe Barry, Todd Wash",11.584603846463017,-6.5846038464630166
+Todd Haley,3,2009,1,2,3,5,"Nick Sirianni*, Romeo Crennel, Steve Hoffman",9.545964880044925,-4.5459648800449255
+Urban Meyer,1,2021,0,5,5,5,"Brian Schneider, Brian Schottenheimer, Darrell Bevell, Nick Sorensen, Sanjay Lal",7.866082146509773,-2.8660821465097728
+Ben McAdoo,1,2017,0,4,4,4,"Markus Paul, Patrick Graham, Steve Spagnuolo, Tom Quinn",7.866082146509773,-3.8660821465097728
+Bobby Ross,1,2000,0,4,4,4,"Danny Smith, Gary Moeller, Jerry Sullivan, Ron Hughes",7.866082146509773,-3.8660821465097728
+Brian Flores,3,2019,0,4,4,4,"Anthony Campanile, Chad O'Shea, Josh Grizzard, Patrick Graham",9.545964880044925,-5.5459648800449255
+Dan Campbell,4,2021,0,4,4,4,"Anthony Lynn, Aubrey Pleasant, Brian Duker, John Morton",10.515998358100354,-6.515998358100354
+Dennis Green,1,2005,0,4,4,4,"Clancy Pendergast, Frank Bush, Kevin O'Dea, Kirby Wilson",7.866082146509773,-3.8660821465097728
+Joe Judge,2,2020,0,4,4,4,"Patrick Graham, Thomas McGaughey, Tom Quinn, Tyke Tolbert",8.665410775845004,-4.665410775845004
+Kevin Stefanski,3,2020,0,4,4,4,"Alex Van Pelt, Drew Petzing, Joe Woods, Ryan Cordell",9.545964880044925,-5.5459648800449255
+Kliff Kingsbury,4,2019,0,4,4,4,"Derius Swinton, Greg Williams, Matt Burke, Vance Joseph",10.515998358100354,-6.515998358100354
+Mike Sherman,2,2000,0,4,4,4,"Billy Davis, Bob Slowik, Darrell Bevell, Ed Donatell",8.665410775845004,-4.665410775845004
+Mike Tice,4,2002,1,1,2,4,"Scott Linehan*, Ted Cottrell",10.515998358100354,-6.515998358100354
+Robert Saleh,4,2021,0,4,4,4,"Jeff Ulbrich, Michael Ghobrial, Mike LaFleur, Mike Rutenberg",10.515998358100354,-6.515998358100354
+Scott Linehan,1,2006,0,4,4,4,"Bob Ligashesky, Greg Olson, Jim Haslett, Todd Downing",7.866082146509773,-3.8660821465097728
+Arthur Smith,3,2021,0,3,3,3,"Charles London, Jon Hoke, Ryan Nielsen",9.545964880044925,-6.5459648800449255
+Dave McGinnis,3,2001,0,3,3,3,"Geep Chryst, George Warhop, Tyke Tolbert",9.545964880044925,-6.5459648800449255
+David Culley,1,2021,0,3,3,3,"Andy Bischoff, Robert Prince, Tim Kelly",7.866082146509773,-4.866082146509773
+Dirk Koetter,2,2017,0,3,3,3,"Jon Hoke, Nate Kaczor, Todd Monken",8.665410775845004,-5.665410775845004
+Mike Martz,1,2000,0,3,3,3,"Al Saunders, John Matsko, Ken Zampese",7.866082146509773,-4.866082146509773
+Mike McDaniel,3,2022,0,3,3,3,"Anthony Campanile, Josh Grizzard, Vic Fangio",9.545964880044925,-6.5459648800449255
+Steve Wilks,1,2018,0,3,3,3,"Al Holcomb, Byron Leftwich, Larry Foote",7.866082146509773,-4.866082146509773
+Brian Daboll,3,2022,0,2,2,2,"Andy Bischoff, Thomas McGaughey",9.545964880044925,-7.5459648800449255
+Herm Edwards,1,2006,0,2,2,2,"John Matsko, Mike Priefer",7.866082146509773,-5.866082146509773
+Kevin O'Connell,3,2022,0,2,2,2,"Ben Kotwica, Justin Rascati",9.545964880044925,-7.5459648800449255
+Matt Eberflus,2,2022,0,1,1,1,Luke Getsy,8.665410775845004,-7.665410775845004
+Antonio Pierce,1,2024,0,0,0,0,,7.866082146509773,-7.866082146509773
+Brian Callahan,1,2024,0,0,0,0,,7.866082146509773,-7.866082146509773
+Dave Canales,1,2024,0,0,0,0,,7.866082146509773,-7.866082146509773
+DeMeco Ryans,2,2023,0,0,0,0,,8.665410775845004,-8.665410775845004
+Jerod Mayo,1,2024,0,0,0,0,,7.866082146509773,-7.866082146509773
+Jonathan Gannon,3,2023,0,0,0,0,,9.545964880044925,-9.545964880044925
+Mike Macdonald,1,2024,0,0,0,0,,7.866082146509773,-7.866082146509773
+Shane Steichen,2,2023,0,0,0,0,,8.665410775845004,-8.665410775845004

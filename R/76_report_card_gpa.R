@@ -150,9 +150,10 @@ print(rc[job_status == "his last club moved on from him", .(coach, team, gpa_bef
 rc[, gpa_raw := gpa]
 rc[!is.na(gpa), gpa := gpa * 4 / max(gpa, na.rm = TRUE)]
 cat(sprintf("scaled the class so the top is 4.0: raw top %.2f -> 4.00\n", max(rc$gpa_raw, na.rm = TRUE)))
-# the coaching tree, as a badge and not a grade: raw size correlates 0.24 with a
-# coach's career wins above talent but 0.04 once tenure is netted out, and
-# branches produced predict his own next seasons at p = 0.49
+# the coaching tree, rebuilt on real staff titles from Wikipedia (py/fetch_staffs.py)
+# rather than the playcaller file, which could not see a coordinator working for a
+# head coach who called his own plays. Still a badge and not a grade: it does not
+# predict, and net of tenure it points the wrong way.
 tr <- fread("data/derived/coaching_tree.csv")[, .(coach = mentor, branches, tree_net = tree_resid, branch_names)]
 rc <- merge(rc, tr, by = "coach", all.x = TRUE)
 rc[is.na(branches), branches := 0L]

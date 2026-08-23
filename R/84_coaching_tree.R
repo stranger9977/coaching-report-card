@@ -5,12 +5,11 @@
 # have branched off that coach kind of like a seniority award of sorts like a
 # signal that their philosophy is being widely adopted across the league?"
 #
-# WHAT COUNTS AS A BRANCH. The playcaller file names three men per team-season:
-# head coach, offensive play-caller, defensive play-caller. So a branch is a
-# coordinator who called plays for a head coach and later became a head coach
-# somewhere else. That undercounts real trees, which run through position
-# coaches the file does not name, and it cannot see a coordinator who was hired
-# away and failed to reach a head job. It is the tree the data can see.
+# WHAT COUNTS AS A BRANCH. Anyone on a head coach's staff, at any title, who
+# later ran his own team or coordinated somewhere else. Head coach counts 3,
+# coordinator elsewhere counts 1. Staffs come from Wikipedia season articles by
+# way of py/fetch_staffs.py, which reads the whole staff list by title, so a
+# head coach who calls his own plays no longer appears to have no coordinators.
 #
 # THE HONEST PROBLEM, tested rather than waved at: a tree grows with time in
 # the chair. A coach with fourteen seasons has had more coordinators than one
@@ -29,33 +28,37 @@ suppressMessages({ library(data.table); library(readr); library(ggplot2); librar
 source("R/lib/theme_coach.R")
 NFLA <- "/Users/nick/stranger9977/nfl-analysis/data"
 
-pc <- fread(file.path(NFLA, "playcallers.csv"),
-            select = c("season", "week", "team", "head_coach", "off_play_caller", "def_play_caller"))
-for (k in c("head_coach", "off_play_caller", "def_play_caller")) pc[, (k) := trimws(get(k))]
-ts <- unique(pc[, .(season, team, head_coach, off_play_caller, def_play_caller)])[, .SD[1], by = .(season, team)]
+pc <- fread(file.path(NFLA, "playcallers.csv"), select = c("season", "week", "team", "head_coach"))
+pc[, head_coach := trimws(head_coach)]
 
-# every head-coaching spell, so we know when a man first ran his own team
-hcs <- unique(ts[, .(season, team, coach = head_coach)])
-setorder(hcs, coach, season)
-first_hc <- hcs[, .(first_hc = min(season), hc_seasons = uniqueN(season), teams = uniqueN(team)), by = coach]
+# REAL STAFFS, not play-callers. py/fetch_staffs.py pulls the Staff section of
+# every "YYYY Team season" article on Wikipedia, which lists the whole staff by
+# TITLE: head coach, coordinators and position coaches. That fixes the flaw that
+# killed the first version of this metric, where a head coach who called his own
+# plays appeared to have no coordinators at all: the playcaller file names the
+# man who calls, so McVay was listed as his own OC and Matt LaFleur, Kevin
+# O'Connell and Liam Coen were invisible.
+st <- fread("data/raw/wiki_staffs.csv")
+tm <- unique(fread("/Users/nick/stranger9977/nfl-analysis/data/games.csv",
+                   select = c("season", "home_team")))
+st[, role_l := tolower(role)]
+st[, is_hc := role_l == "head coach"]
+st[, is_coord := grepl("coordinator", role_l) & !grepl("assistant|quality|intern", role_l)]
+mentors <- st[is_hc == TRUE, .(season, team_name, mentor = name)]
+cat(sprintf("staff rows %d, %d team-seasons, %d with a head coach named\n",
+            nrow(st), uniqueN(st[, .(season, team_name)]), nrow(unique(mentors[, .(season, team_name)]))))
 
-# a staff pairing: a coordinator who called plays under a head coach
-staff <- rbind(ts[off_play_caller != head_coach, .(season, team, mentor = head_coach, pupil = off_play_caller)],
-               ts[def_play_caller != head_coach, .(season, team, mentor = head_coach, pupil = def_play_caller)])
-staff <- unique(staff[pupil != "" & mentor != ""])
-under <- staff[, .(under_from = min(season), under_to = max(season), under_team = team[1]), by = .(mentor, pupil)]
+# anyone on his staff who was not him
+staff <- merge(st[, .(season, team_name, pupil = name, role, is_hc, is_coord)],
+               mentors, by = c("season", "team_name"))
+staff <- staff[pupil != mentor & pupil != ""]
+under <- staff[, .(under_to = max(season), under_team = team_name[1]), by = .(mentor, pupil)]
 
-# every later job a pupil held: head coach anywhere, or coordinator at another club
-coord_jobs <- unique(rbind(ts[off_play_caller != head_coach, .(person = off_play_caller, season, team, role = "coordinator")],
-                           ts[def_play_caller != head_coach, .(person = def_play_caller, season, team, role = "coordinator")]))
-hc_jobs <- unique(hcs[, .(person = coach, season, team, role = "head coach")])
-jobs <- rbind(coord_jobs, hc_jobs)[person != ""]
-
-# a branch is a later job, at another club, after he worked for the mentor.
-# head coach counts 3, a coordinator job elsewhere counts 1: the bonus is for
-# running his own team, the point is for the philosophy travelling at all.
+# every later job: head coach anywhere, or coordinator at another club
+jobs <- rbind(st[is_hc == TRUE, .(person = name, season, team_name, role = "head coach")],
+              st[is_coord == TRUE, .(person = name, season, team_name, role = "coordinator")])
 br <- merge(under, jobs, by.x = "pupil", by.y = "person", allow.cartesian = TRUE)
-br <- br[season > under_to & team != under_team]
+br <- br[season > under_to & team_name != under_team]
 br <- br[, .(role = fifelse(any(role == "head coach"), "head coach", "coordinator"),
              first_year = min(season)), by = .(mentor, pupil)]
 branch <- br
@@ -64,10 +67,11 @@ tree <- br[, .(hc_branches = sum(role == "head coach"), coord_branches = sum(rol
                tree_points = 3 * sum(role == "head coach") + sum(role == "coordinator"),
                branch_names = paste(sort(unique(fifelse(role == "head coach", paste0(pupil, "*"), pupil))), collapse = ", ")),
            by = mentor]
+first_hc <- st[is_hc == TRUE, .(first_hc = min(season), hc_seasons = uniqueN(season)), by = .(coach = name)]
 tree <- merge(first_hc[, .(mentor = coach, hc_seasons, first_hc)], tree, by = "mentor", all.x = TRUE)
 for (k in c("hc_branches", "coord_branches", "branches", "tree_points")) tree[is.na(get(k)), (k) := 0L]
 tree[is.na(branch_names), branch_names := ""]
-cat(sprintf("%d head coaches; %d have produced at least one head coach, %d at least one coordinator elsewhere\n",
+cat(sprintf("%d head coaches; %d produced a head coach, %d produced a coordinator elsewhere\n",
             nrow(tree), tree[hc_branches > 0, .N], tree[coord_branches > 0, .N]))
 cat("\nbiggest trees by points (head coach = 3, coordinator elsewhere = 1):\n")
 print(tree[order(-tree_points)][1:14, .(mentor, hc_seasons, hc = hc_branches, coord = coord_branches, points = tree_points)])
