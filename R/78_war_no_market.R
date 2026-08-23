@@ -69,24 +69,25 @@ nm <- merge(b, s[, .(seasons = uniqueN(season), games = sum(games), teams = uniq
                      first_season = min(season), last_season = max(season)), by = coach], by = "coach")
 nm[, war_no_market := (effect_pd - rep_line) * slope]
 nm <- merge(nm, w[, .(coach, war_market = war_per_season, rank_market = rank, eligible)], by = "coach", all.x = TRUE)
-nm <- nm[eligible == TRUE & !is.na(rank_market)]
+nm[is.na(eligible), eligible := FALSE]
 setorder(nm, -war_no_market)
-nm[, rank_no_market := seq_len(.N)]
+nm[eligible == TRUE & !is.na(rank_market), rank_no_market := seq_len(.N)]
 nm[, move := rank_market - rank_no_market]
 
 pc <- fread("/Users/nick/stranger9977/nfl-analysis/data/playcallers.csv")
 act <- unique(pc[season == 2026 & week == 1, trimws(head_coach)])
 nm[, still_hc := coach %in% act]
+nmE <- nm[eligible == TRUE & !is.na(rank_no_market)]
 write_csv(as.data.frame(nm[, .(rank_no_market, coach, teams, team_list, seasons, games, war_no_market, effect_pd,
-                               rank_market, war_market, move, still_hc)]), "data/derived/coaching_war_no_market.csv")
+                               rank_market, war_market, move, still_hc, eligible)]), "data/derived/coaching_war_no_market.csv")
 cat("\nthe board:\n")
-print(nm[, .(rank_no_market, coach, seasons, war = round(war_no_market, 2), pts_g = round(effect_pd, 2),
+print(nmE[, .(rank_no_market, coach, seasons, war = round(war_no_market, 2), pts_g = round(effect_pd, 2),
              was = rank_market, move, hc26 = still_hc)][1:20])
 cat(sprintf("\nrank correlation with the market board: %.2f; with a head coach in 2026 in the top 10: %d of 10\n",
-            cor(nm$rank_no_market, nm$rank_market, method = "spearman"), nm[rank_no_market <= 10, sum(still_hc)]))
+            cor(nmE$rank_no_market, nmE$rank_market, method = "spearman"), nmE[rank_no_market <= 10, sum(still_hc)]))
 
 # ---------------------------------------------------------------- fig 1: the board
-top <- nm[1:25]
+top <- nmE[1:25]
 top[, lab := sprintf("%+.2f   %d seasons%s", war_no_market, seasons, fifelse(still_hc, "", ", not a head coach in 2026"))]
 p1 <- ggplot(top, aes(x = war_no_market, y = reorder(coach, war_no_market))) +
   geom_vline(xintercept = 0, colour = "grey60", linetype = "22") +
@@ -99,7 +100,7 @@ p1 <- ggplot(top, aes(x = war_no_market, y = reorder(coach, war_no_market))) +
   labs(title = "Coaching WAR without the betting market, and without credit for the quarterback",
        subtitle = paste0("Wins per season above a first-season hire, from point differential per game with payroll, Madden roster ratings, the quarterback's pay,\n",
                          "his play LAST season and his play THIS season all controlled. No betting line anywhere, so no coach is paid for his own reputation.\n",
-                         "The cost: a coach who develops his quarterback gets nothing for it here. Top 25 of ", nrow(nm), " head coaches with 4+ seasons, 2012-2025."),
+                         "The cost: a coach who develops his quarterback gets nothing for it here. Top 25 of ", nrow(nmE), " head coaches with 4+ seasons, 2012-2025."),
        x = "wins per season above replacement", y = NULL,
        caption = fig_caption("nflverse schedules; OverTheCap contracts via nflreadr 2012-2025; Madden launch ratings 2017-2025; SumerSports quarterback EPA",
          sprintf("\nPoints converted to wins at %.2f wins per point per game. Replacement is what a week-1 first-season hire delivered, interims excluded. Built by R/78.", slope))) +
@@ -141,7 +142,7 @@ save_fig("docs/figures/war_market_reputation.png", p2, w = 12, h = 7)
 sn <- fread("data/derived/coaching_war_sensitivity.csv")[eligible == TRUE & !is.na(rank_main)]
 cons <- sn[, .(coach, r_qb = rank_war_talent_same_season_qb, r_pd = rank_pd_effect_ppg, r_mkt = rank_main,
                v_qb = war_talent_same_season_qb, v_pd = pd_effect_ppg)]
-cons <- merge(cons, nm[, .(coach, r_comb = rank_no_market, war_no_market, still_hc, seasons)], by = "coach")
+cons <- merge(cons, nmE[, .(coach, r_comb = rank_no_market, war_no_market, still_hc, seasons)], by = "coach")
 cons[, mean_rank := (r_qb + r_pd) / 2]
 setorder(cons, mean_rank)
 cons[, rank_cons := seq_len(.N)]
@@ -149,7 +150,7 @@ write_csv(as.data.frame(cons), "data/derived/coaching_war_consensus.csv")
 cat("\nCONSENSUS board (mean rank of the two market-free-ish boards):\n")
 print(cons[1:15, .(rank_cons, coach, seasons, mean_rank, r_qb, r_pd, r_comb, was_market = r_mkt, hc26 = still_hc)])
 cat(sprintf("top 10 who are still head coaches: %d of 10; market board managed %d of 10\n",
-            cons[rank_cons <= 10, sum(still_hc)], nm[rank_market <= 10, sum(still_hc)]))
+            cons[rank_cons <= 10, sum(still_hc)], nmE[rank_market <= 10, sum(still_hc)]))
 
 tc <- cons[1:20]
 tc[, lab := sprintf("%s%s", coach, fifelse(still_hc, "", "  (not a head coach in 2026)"))]

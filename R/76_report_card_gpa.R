@@ -26,10 +26,14 @@
 #   Defense          same file, adj_def. Higher is better.
 #   Beats the spread R/71 coaching_war.csv, surprise_per_season: wins beyond
 #                    the closing line, shrunk. Higher is better.
-#   Results above    the consensus of the three WAR boards (market-anchored,
-#   resources        same-season-QB-controlled, market-free point
-#                    differential): mean rank across the three. Lower rank is
-#                    better.
+#   Results above    the consensus of the two WAR boards that do not credit a
+#   resources        coach with the betting market's opinion of him: the
+#                    same-season-QB-controlled board and the market-free point
+#                    differential board. Mean rank across the two, lower is
+#                    better. The market-anchored board is deliberately NOT in
+#                    here: 58% of its top coach's number was the market rating
+#                    his team above its roster, which is partly its opinion of
+#                    the coach.
 #
 # Tiers by GPA: Dean's list 3.3+, Honor roll 2.7 to 3.3, Passing 2.0 to 2.7,
 # Probation under 2.0.
@@ -48,7 +52,7 @@ di <- fread("data/derived/discipline.csv")[role == "head_coach", .(coach = entit
 ta <- fread("data/factory/talent_adjusted.csv")[, .(coach, offense = adj, defense = adj_def)]
 rc <- w[, .(coach, seasons, war = war_per_season, spread = surprise_per_season)]
 rc <- merge(rc, sn[, .(coach, r_mkt = rank_main, r_qb = rank_war_talent_same_season_qb, r_pd = rank_pd_effect_ppg)], by = "coach", all.x = TRUE)
-rc[, results := -rowMeans(cbind(r_mkt, r_qb, r_pd), na.rm = TRUE)]   # higher is better
+rc[, results := -rowMeans(cbind(r_qb, r_pd), na.rm = TRUE)]   # the two boards that do not pay a coach for his reputation
 for (x in list(dv, tp, di, ta)) rc <- merge(rc, x, by = "coach", all.x = TRUE)
 
 LINES <- c(fourth = "Fourth downs", two_pt = "Going for two", penalties = "Penalties", offense = "Offense above talent",
