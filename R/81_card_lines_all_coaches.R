@@ -106,6 +106,32 @@ two <- tw[, .(coach, two_pt = fifelse(!is.na(chart_n) & chart_n >= 10, chart_era
 cat(sprintf("two point: %d coaches, %d of the 2026 field (%d on the chart definition)\n",
             nrow(two), sum(two$coach %in% ACTIVE), two[coach %in% ACTIVE & two_basis == "chart situations", .N]))
 
+# per-season two-point rate: attempts per touchdown, against the league that season
+tw2 <- rbindlist(lapply(YRS, function(y)
+  fread(file.path(NFLA, sprintf("play_by_play_%d.csv.gz", y)),
+        select = c("season", "posteam", "two_point_attempt", "touchdown", "td_team", "season_type"), showProgress = FALSE)))
+tw2 <- tw2[season_type == "REG" & !is.na(posteam)]
+t2 <- tw2[, .(att = sum(two_point_attempt, na.rm = TRUE), tds = sum(touchdown == 1 & td_team == posteam, na.rm = TRUE)),
+          by = .(season, team = posteam)]
+t2[, rate2 := att / pmax(tds, 1)]
+t2 <- merge(t2, hc, by = c("season", "team"))
+t2 <- merge(t2, t2[, .(lg2 = weighted.mean(rate2, tds)), by = season], by = "season")
+t2[, two_s := rate2 - lg2]
+
+# ---------------------------------------------------------------- per-season file
+# the same lines at coach-season level, for the out-of-sample test in R/82
+ps4 <- g4[, .(coach, season, fourth_s = -(cost_pg - lg))]
+psp <- tp[, .(coach, season, penalties_s = -(rate - lg), plays_pen = plays)]
+pso <- ts[, .(coach, season, offense_s = off_adj, defense_s = def_adj, off_plays, def_plays)]
+psw <- fread("data/derived/coaching_war_seasons.csv")[in_main_window == TRUE,
+        .(coach, season, wat17, act17, wae17, games)]
+ps <- Reduce(function(a, b) merge(a, b, by = c("coach", "season"), all = TRUE),
+             list(psw, ps4, psp, pso, t2[, .(coach, season, two_s, tds)]))
+ps <- ps[!is.na(act17)]
+write_csv(as.data.frame(ps), "data/derived/card_lines_seasons.csv")
+cat(sprintf("\nper-season file: %d coach-seasons, %d coaches, seasons %d-%d\n",
+            nrow(ps), uniqueN(ps$coach), min(ps$season), max(ps$season)))
+
 out <- Reduce(function(a, b) merge(a, b, by = "coach", all = TRUE), list(fourth, penalties, od, two))
 write_csv(as.data.frame(out), "data/derived/card_lines.csv")
 cat("\ncoverage for the 2026 field:\n")

@@ -1,0 +1,8 @@
+line_key,line_lab,weight,source
+fourth,Fourth downs,0.17524747120353423,"ridge, decision fit"
+two_pt,Going for two,0,"ridge, decision fit"
+penalties,Penalties,0,"ridge, decision fit"
+offense,Offense above talent,0.37161520634346834,"ridge, decision fit"
+defense,Defense above talent,0.16742303673871173,"ridge, decision fit"
+spread,Beats the spread,0.14285714285714285,held at the average
+results,Results above resources,0.14285714285714285,held at the average

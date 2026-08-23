@@ -15,11 +15,11 @@
 # the top and ranks them into tiers by overall grade or gives them a gpa out
 # of 4.0".
 #
-# Seven lines, every one an existing validated number from this repo, each
-# graded by percentile among the coaches on the card (A = top fifth, B, C, D,
-# F = bottom fifth). Nothing is hand-weighted: the GPA is the plain mean of
-# the letter points (A 4, B 3, C 2, D 1, F 0) over the lines a coach has. A
-# coach needs at least four lines to get a GPA; missing lines read "Inc".
+# Seven lines, each graded by percentile among the coaches on the card (A =
+# top fifth, B, C, D, F = bottom fifth). The GPA is a WEIGHTED average of the
+# letter points (A 4, B 3, C 2, D 1, F 0), with weights from R/82's ridge fit
+# on next-season wins rather than a flat average. A coach needs at least four
+# lines to get a GPA; missing lines read "?" and their weight drops out.
 #
 #   Fourth downs     R/81: win-probability cost of his fourth-down choices vs
 #                    the league in his own seasons, 2018-2025. Lower is better.
@@ -98,10 +98,22 @@ grade <- function(x) {
   fifelse(is.na(x), NA_character_, fifelse(p > 0.8, "A", fifelse(p > 0.6, "B", fifelse(p > 0.4, "C", fifelse(p > 0.2, "D", "F")))))
 }
 pts <- c(A = 4, B = 3, C = 2, D = 1, F = 0)
+# weights from R/82's ridge fit instead of a flat average: each line is worth
+# what it is worth at predicting the next season, not what an editor decided
+WT <- fread("data/derived/card_weights_final.csv")
+wvec <- setNames(WT$weight, WT$line_key)
+cat("weights in use:\n"); print(WT[order(-weight)])
 for (k in names(LINES)) rc[, (paste0("g_", k)) := grade(get(k))]
 gcols <- paste0("g_", names(LINES))
 rc[, n_lines := rowSums(!is.na(as.matrix(.SD))), .SDcols = gcols]
-rc[, gpa := rowMeans(apply(as.matrix(.SD), 2, function(g) unname(pts[g])), na.rm = TRUE), .SDcols = gcols]
+pmat <- apply(as.matrix(rc[, ..gcols]), 2, function(g) unname(pts[g]))
+colnames(pmat) <- names(LINES)
+wrow <- wvec[names(LINES)]
+rc[, gpa := {
+  num <- rowSums(sweep(pmat, 2, wrow, "*"), na.rm = TRUE)
+  den <- rowSums(sweep(!is.na(pmat), 2, wrow, "*"), na.rm = TRUE)
+  fifelse(den > 0, num / den, NA_real_)
+}]
 rc[n_lines < 4, gpa := NA_real_]
 # tiers are set within the class, like a curve: the top of a class makes the
 # dean's list even in a year when nobody is historically great
@@ -154,8 +166,8 @@ p <- ggplot(g, aes(x = gpa, y = reorder(coach_team, gpa), colour = tier)) +
   labs(title = sprintf("The 2026 report card: %s make the dean's list, %d on probation",
                        paste(sub("^\\S+ ", "", g[tier == "Dean's list"]$coach), collapse = ", "), sum(g$tier == "Probation")),
        subtitle = paste0("GPA out of 4.0 over seven lines: fourth-down decisions, going for two when the chart says to, penalties, offense and defense above\n",
-                         "talent, beating the spread, and results above resources (the market-free board). Each is a letter by percentile against the other coaches\n",
-                         "on this card, so the class is graded on its own curve. Letters in the label are in that order, a dash is a line we cannot grade him on.\n",
+                         "talent, beating the spread, and results above resources. Each is a letter by percentile against the other coaches on this card, and the GPA\n",
+                         sprintf("weights them by what a ridge fit says each is worth at predicting the next season: offense %.0f%%, fourth downs %.0f%%, defense %.0f%%, the two\nresults lines %.0f%% each, and nothing for two-point or penalties, which did not predict. Letters in the label are in line order.\n", 100*wvec["offense"], 100*wvec["fourth"], 100*wvec["defense"], 100*wvec["spread"]),
                          sprintf("Shape is class year. Dean's list is the top 15%% of the class, probation the bottom fifth: the cuts fall at %.2f, %.2f and %.2f this year.", cut_dean, cut_hon, cut_pass)),
        x = "GPA", y = NULL,
        caption = fig_caption("nflverse, SumerSports and OverTheCap via the scripts named in R/76's header, 2012-2025 (fourth downs 2018-2025)",
