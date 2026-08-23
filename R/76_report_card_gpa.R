@@ -21,17 +21,14 @@
 # the letter points (A 4, B 3, C 2, D 1, F 0) over the lines a coach has. A
 # coach needs at least four lines to get a GPA; missing lines read "Inc".
 #
-#   Fourth downs     R/factory/95 decision_value.csv, era_shrunk: win-probability
-#                    cost of fourth-down choices vs the league in his own
-#                    seasons, 2018-2025. Lower is better.
-#   Going for two    R/22 two_point.csv, chart_era_shrunk: how often he goes
-#                    for two when the chart says to, vs era. Higher is better.
-#                    Needs 10+ chart situations.
-#   Penalties        R/39 discipline.csv, head_coach resid_shrunk: penalty rate
-#                    beyond the situation model. Lower is better.
-#   Offense          R/factory/97 talent_adjusted.csv, adj: offense EPA per
-#                    play above the talent controls. Higher is better.
-#   Defense          same file, adj_def. Higher is better.
+#   Fourth downs     R/81: win-probability cost of his fourth-down choices vs
+#                    the league in his own seasons, 2018-2025. Lower is better.
+#   Going for two    R/81: chart-following rate where he has 10+ chart spots,
+#                    otherwise his overall rate against his era.
+#   Penalties        R/81: own pre-snap and holding penalties per play vs the
+#                    league that season. Fewer is better.
+#   Offense          R/81: team offense EPA per play above the same talent
+#   Defense          controls the WAR model uses. Higher is better.
 #   Beats the spread R/71 coaching_war.csv, surprise_per_season: wins beyond
 #                    the closing line, shrunk. Higher is better.
 #   Results above    R/78's market-free WAR: point differential above payroll,
@@ -55,10 +52,14 @@ pcf <- fread("/Users/nick/stranger9977/nfl-analysis/data/playcallers.csv")
 ACTIVE <- unique(trimws(pcf[season == 2026 & week == 1]$head_coach))
 TEAM26 <- unique(pcf[season == 2026 & week == 1, .(coach = trimws(head_coach), team = team)])
 sn <- fread("data/derived/coaching_war_sensitivity.csv")
-dv <- fread("data/factory/decision_value.csv")[, .(coach, fourth = -era_shrunk)]
-tp <- fread("data/derived/two_point.csv")[!is.na(chart_n) & chart_n >= 10, .(coach, two_pt = chart_era_shrunk)]
-di <- fread("data/derived/discipline.csv")[role == "head_coach", .(coach = entity, penalties = -resid_shrunk)]
-ta <- fread("data/factory/talent_adjusted.csv")[, .(coach, offense = adj, defense = adj_def)]
+# R/81 rebuilds these five lines per coach-season with a one-season minimum, so
+# a first-year head coach is graded on the season he actually coached instead of
+# failing the career minimums the old files carried
+cl <- fread("data/derived/card_lines.csv")
+dv <- cl[, .(coach, fourth)]
+tp <- cl[, .(coach, two_pt)]
+di <- cl[, .(coach, penalties)]
+ta <- cl[, .(coach, offense, defense)]
 rc <- w[coach %in% ACTIVE, .(coach, seasons, war = war_per_season, spread = surprise_per_season)]
 rc <- merge(rc, nmk, by = "coach", all.x = TRUE)
 rc <- merge(rc, sn[, .(coach, r_qb = rank_war_talent_same_season_qb, r_pd = rank_pd_effect_ppg)], by = "coach", all.x = TRUE)
