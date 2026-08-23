@@ -8,10 +8,11 @@
 # HOW AVAILABILITY IS MEASURED. Payroll and Madden price the roster a team
 # assembled; neither knows that the roster spent October in street clothes. So
 # for every team-season:
-#   1. Intended starters are the eleven men with the most offensive snaps in
-#      weeks 1 to 4, and the eleven with the most defensive snaps, weighted by
-#      the snap share they held in that window. That is the team the coach
-#      thought he had.
+#   1. Intended starters are the eleven biggest snap-takers from the PREVIOUS
+#      season who are still on this year's roster, unioned with this season's
+#      weeks 1 to 4 leaders, snap-weighted. Using last season matters: a star
+#      hurt from week 1 never appears in his own team's early snaps, and
+#      Christian McCaffrey's 2024 is exactly that case.
 #   2. For every week from 5 on, availability is the share of that weighted
 #      group who took a snap. One is the whole intended lineup on the field;
 #      0.8 means a fifth of it, by snap weight, was missing.
@@ -140,26 +141,41 @@ write_csv(as.data.frame(res[order(-off_after)]), "data/derived/availability_effe
 res[, lab := fifelse(coach %in% c("Kyle Shanahan", "Sean McVay", "Andy Reid", "Matt LaFleur", "Sean Payton",
                                   "Nick Sirianni", "Mike McCarthy", "Kevin O'Connell") |
                      abs(off_gain) > quantile(abs(off_gain), 0.9), coach, "")]
-p <- ggplot(res, aes(avail, off_before)) +
+p <- ggplot(res, aes(avail, off_after)) +
   geom_hline(yintercept = 0, colour = "grey70") +
   geom_vline(xintercept = mean(ts$avail_off), colour = "grey85", linetype = "22") +
-  geom_segment(aes(xend = avail, yend = off_after), colour = "grey70",
-               arrow = arrow(length = unit(0.14, "cm"), type = "closed")) +
-  geom_point(aes(colour = coach == "Kyle Shanahan"), size = 2.6) +
-  geom_text_repel(aes(label = lab), size = 3.1, segment.colour = "grey75", max.overlaps = 30) +
+  geom_point(aes(colour = coach == "Kyle Shanahan"), size = 2.8) +
+  geom_text_repel(aes(label = lab, colour = coach == "Kyle Shanahan"), size = 3.1,
+                  segment.colour = "grey75", max.overlaps = 30, show.legend = FALSE) +
   scale_colour_manual(values = c(`TRUE` = "#D55E00", `FALSE` = "grey55"), guide = "none") +
   scale_x_continuous(labels = label_percent(accuracy = 1)) +
   scale_y_continuous(labels = label_number(accuracy = 0.01, style_positive = "plus")) +
-  labs(title = sprintf("Availability is worth real points, and it does not rescue Shanahan: %s of his intended lineup played, against a league %s",
-                       percent(res[coach == "Kyle Shanahan"]$avail, accuracy = 0.1), percent(mean(ts$avail_off), accuracy = 0.1)),
-       subtitle = paste0("Across: the share of a coach's intended offensive lineup, the eleven men who took the most snaps in weeks 1 to 4 weighted by\n",
-                         "those snaps, who were on the field in the weeks that followed. Up: his offense's EPA per play above what payroll, the quarterback\n",
-                         "and Madden ratings predict. The arrow is where he moves once availability joins those controls. Dotted line is the league.\n",
-                         "Shanahan is a season-to-season story rather than a career one: 2020 and 2024 cost him, 2023 handed him the healthiest lineup in football."),
-       x = "share of the intended offensive lineup available, weeks 5 on", y = "offense above what the roster predicted",
-       caption = fig_caption("nflverse snap counts and play-by-play 2012-2025; OverTheCap contracts; Madden launch ratings 2017-2025",
-         sprintf("\nAvailability is worth %+.3f EPA per play per unit in the fit (t = %.1f). Snap counts cannot tell an injury from a benching, and a man who plays hurt counts\nas present, so this is availability rather than health. Built by R/87.",
-                 co["avail_off", 1], co["avail_off", 3]))) +
+  labs(title = "Shanahan is second in offense above roster, and injuries are not the reason",
+       subtitle = paste0("Across: the share of a coach's intended offensive lineup on the field, weeks 5 on. Up: offense EPA per play above what payroll,\n",
+                         "the quarterback, Madden ratings and availability predict. Dotted line is the league."),
+       x = "share of the intended lineup available", y = "offense above what the roster predicted",
+       caption = fig_caption("nflverse snap counts, rosters and play-by-play 2013-2025; OverTheCap contracts; Madden 2017-2025",
+         sprintf("\nAvailability is worth %+.3f EPA per play per unit (t = %.1f). Adding it moves Shanahan by %+.3f. Snap counts cannot tell an injury from a benching. Built by R/87.",
+                 co["avail_off", 1], co["avail_off", 3], res[coach == "Kyle Shanahan"]$off_gain))) +
   theme_coach(grid = "y")
-save_fig("docs/figures/availability_effect.png", p, w = 11.5, h = 7.5)
+save_fig("docs/figures/availability_effect.png", p, w = 12.5, h = 7.5)
+
+# ---------------------------------------------------------------- Shanahan by season
+sh <- av2[coach == "Kyle Shanahan", .(season, avail_off, lg_off, gap = avail_off - lg_off)]
+setorder(sh, season)
+sh[, lab := sprintf("%+.1f", 100 * gap)]
+p2 <- ggplot(sh, aes(factor(season), gap)) +
+  geom_hline(yintercept = 0, colour = "grey55") +
+  geom_col(aes(fill = gap > 0), width = 0.62) +
+  geom_text(aes(label = lab, vjust = fifelse(gap > 0, -0.5, 1.35)), size = 3.2, fontface = "bold", colour = "grey25") +
+  scale_fill_manual(values = c(`TRUE` = "#1B7837", `FALSE` = "#D55E00"), guide = "none") +
+  scale_y_continuous(labels = function(x) paste0(round(100 * x), " pts"), expand = expansion(mult = c(0.16, 0.16))) +
+  labs(title = "The injury story is one or two seasons, not a career: Shanahan's lineup availability against the league",
+       subtitle = "Points of percentage above or below the league, share of his intended lineup on the field from week 5 on. 2024 is the season the argument is about: McCaffrey played four games.",
+       x = NULL, y = "availability vs the league",
+       caption = fig_caption("nflverse snap counts and rosters, 2017-2025",
+         sprintf("\nCareer average %s against a league %s. Ten points of availability is worth about %.03f EPA per play. Built by R/87.",
+                 percent(mean(sh$avail_off), accuracy = 0.1), percent(mean(sh$lg_off), accuracy = 0.1), 0.1 * co["avail_off", 1]))) +
+  theme_coach(grid = "y")
+save_fig("docs/figures/shanahan_availability.png", p2, w = 11, h = 5.5)
 cat("\nOut: availability.csv, availability_effect.png\n")

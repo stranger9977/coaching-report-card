@@ -154,6 +154,33 @@ cat(sprintf("\nplay-calling line: binary coefficient %+.3f replaced with the coo
 cat("\nweights the card will use:\n"); print(weights[order(-weight), .(line_lab, weight = round(weight, 3), source)])
 write_csv(as.data.frame(merge(W, weights[, .(line = paste0("prior_", line), weight)], by = "line", all.x = TRUE)),
           "data/derived/card_weights.csv")
+# THE COACHING TREE, weighted by editorial decision rather than by the fit.
+# Stated plainly: the tree does not earn this. Net of how long a man has been a
+# head coach it correlates -0.13 with his own wins above talent, and branches
+# already produced are worth -0.20 wins a season to him. It is on the card at
+# TREE_W because producing coaches is part of what the industry means by a good
+# coach, not because this data found it predictive.
+# the new-job line, on the same per-standard-deviation scale as the ridge
+# coefficients: the retread gap is 0.86 wins between two groups, and the
+# indicator's own spread turns that into a per-SD effect
+rg2 <- fread("data/derived/retread_gap.csv")
+p_ret <- rg2$n_retread[1] / (rg2$n_retread[1] + rg2$n_first[1])
+job_sd <- sqrt(p_ret * (1 - p_ret))
+job_coef2 <- abs(rg2$estimate_wins[1]) * job_sd
+cat(sprintf("\nnew-job line: retread gap %+.2f wins (p = %.2f) x indicator SD %.2f = coefficient %+.3f\n",
+            rg2$estimate_wins[1], rg2$p[1], job_sd, job_coef2))
+pos <- weights[weight > 0]
+JOB_W <- job_coef2 / (sum(dec$coef[dec$coef > 0]) + job_coef2)
+weights[, weight := weight * (1 - JOB_W)]
+weights <- rbind(weights, data.table(line = "job", weight = JOB_W, source = "retread gap, point estimate",
+                                     line_key = "job", line_lab = "How he got this job"), fill = TRUE)
+TREE_W <- 0.08
+weights[, weight := weight * (1 - TREE_W)]
+weights <- rbind(weights, data.table(line = "tree", weight = TREE_W,
+                                     source = "editorial, not from the fit", line_key = "tree",
+                                     line_lab = "Coaching tree"), fill = TRUE)
+cat(sprintf("\ncoaching tree added at %.0f%% by editorial decision; its own coefficient is negative\n", 100 * TREE_W))
+print(weights[order(-weight), .(line_lab, weight = round(weight, 3), source)])
 write_csv(as.data.frame(weights[, .(line_key, line_lab, weight, source)]), "data/derived/card_weights_final.csv")
 
 # ---------------------------------------------------------------- figure

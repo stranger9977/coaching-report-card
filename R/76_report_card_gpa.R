@@ -92,6 +92,13 @@ rc[, calls := coach %in% CALLERS]
 jc <- fread("data/derived/job_change_2026.csv")[, .(coach, job_status = status)]
 rc <- merge(rc, jc, by = "coach", all.x = TRUE)
 rg <- fread("data/derived/retread_gap.csv")
+# how he got this job, as a graded line rather than a flat deduction: kept by
+# his own club, a first-time hire with no record either way, or a man whose last
+# club moved on from him
+rc[, g_job := fcase(job_status == "same team as last season", "B",
+                    job_status == "first head-coaching job", "C",
+                    job_status == "his last club moved on from him", "F",
+                    default = "C")]
 rc[, g_caller := NA_character_]
 rc[pc_side == "offense", g_caller := gr_side(pc_epa, "offense")]
 rc[pc_side == "defense", g_caller := gr_side(pc_epa, "defense")]
@@ -118,30 +125,28 @@ wvec <- setNames(WT$weight, WT$line_key)
 cat("weights in use:\n"); print(WT[order(-weight)])
 for (k in names(LINES)) rc[, (paste0("g_", k)) := grade(get(k))]
 gcols <- paste0("g_", names(LINES))
+tr <- fread("data/derived/coaching_tree.csv")[, .(coach = mentor, branches, tree_points, hc_branches, coord_branches, tree_net = tree_resid, branch_names)]
+rc <- merge(rc, tr, by = "coach", all.x = TRUE)
+rc[is.na(branches), branches := 0L]
+rc[is.na(tree_points), tree_points := 0]
+# graded on the curve like every other line, but only for men with enough time
+# in the chair to have produced anyone: a first or second-year head coach is not
+# marked down for a tree he has not had the chance to grow
+rc[, g_tree := NA_character_]
+rc[seasons >= 3, g_tree := grade(tree_points)]
+
 rc[, n_lines := rowSums(!is.na(as.matrix(.SD))), .SDcols = gcols]
-rc[, n_lines := n_lines + as.integer(!is.na(g_caller))]
-gcols2 <- c(gcols, "g_caller")
+rc[, n_lines := n_lines + as.integer(!is.na(g_caller)) + as.integer(!is.na(g_tree)) + as.integer(!is.na(g_job))]
+gcols2 <- c(gcols, "g_caller", "g_tree", "g_job")
 pmat <- apply(as.matrix(rc[, ..gcols2]), 2, function(g) unname(pts[g]))
-colnames(pmat) <- c(names(LINES), "calls")
-wrow <- wvec[c(names(LINES), "calls")]
+colnames(pmat) <- c(names(LINES), "calls", "tree", "job")
+wrow <- wvec[c(names(LINES), "calls", "tree", "job")]
 rc[, gpa := {
   num <- rowSums(sweep(pmat, 2, wrow, "*"), na.rm = TRUE)
   den <- rowSums(sweep(!is.na(pmat), 2, wrow, "*"), na.rm = TRUE)
   fifelse(den > 0, num / den, NA_real_)
 }]
 rc[n_lines < 4, gpa := NA_real_]
-# THE NEW-JOB DEDUCTION. A coach whose club moved on from him starts the new job
-# 0.86 wins above talent behind a first-time hire (p = 0.22, 34 against 66). It
-# is charged to the four coaches it applies to rather than weighted into
-# everybody's GPA, and it is sized by how many grade points a win is worth on
-# this card: the slope of GPA on career wins above talent among the graded.
-sl <- rc[!is.na(gpa) & !is.na(war_no_market), coef(lm(gpa ~ war_no_market))[2]]
-DEDUCT <- round(abs(rg$estimate_wins[1]) * unname(sl), 2)
-rc[, gpa_before := gpa]
-rc[job_status == "his last club moved on from him" & !is.na(gpa), gpa := gpa - DEDUCT]
-cat(sprintf("\nnew-job deduction: %.2f wins x %.2f grade points per win = %.2f, charged to %d coaches\n",
-            abs(rg$estimate_wins[1]), sl, DEDUCT, rc[job_status == "his last club moved on from him" & !is.na(gpa), .N]))
-print(rc[job_status == "his last club moved on from him", .(coach, team, gpa_before = round(gpa_before, 2), gpa = round(gpa, 2))])
 # tiers are set within the class, like a curve: the top of a class makes the
 # dean's list even in a year when nobody is historically great
 # scale the class so the best coach in it sits at 4.0: the GPA is a ranking of
@@ -154,10 +159,7 @@ cat(sprintf("scaled the class so the top is 4.0: raw top %.2f -> 4.00\n", max(rc
 # rather than the playcaller file, which could not see a coordinator working for a
 # head coach who called his own plays. Still a badge and not a grade: it does not
 # predict, and net of tenure it points the wrong way.
-tr <- fread("data/derived/coaching_tree.csv")[, .(coach = mentor, branches, tree_points, hc_branches, coord_branches, tree_net = tree_resid, branch_names)]
-rc <- merge(rc, tr, by = "coach", all.x = TRUE)
-rc[is.na(branches), branches := 0L]
-rc[is.na(tree_points), tree_points := 0]
+
 rc[, pct := frank(-gpa, na.last = "keep") / sum(!is.na(gpa))]
 rc[, tier := fifelse(is.na(gpa), "Incomplete",
              fifelse(pct <= 0.15, "Dean's list",
@@ -185,7 +187,7 @@ rc <- merge(rc, logos, by = "team", all.x = TRUE)
 setorder(rc, -gpa, na.last = TRUE)
 rc[!is.na(gpa), gpa_rank := seq_len(.N)]
 out <- rc[, c("gpa_rank", "coach", "team", "team_name", "logo", "seasons", "class", "gpa", "tier", "n_lines", gcols,
-              "g_caller", "pc_side", "pc_epa", "pc_seasons", "pc_coord_seasons", "job_status", "gpa_before", "gpa_raw", "branches", "tree_points", "hc_branches", "coord_branches", "tree_net", "branch_names", names(LINES), "r_qb", "r_pd"), with = FALSE]
+              "g_caller", "pc_side", "pc_epa", "pc_seasons", "pc_coord_seasons", "job_status", "g_job", "gpa_raw", "branches", "tree_points", "g_tree", "hc_branches", "coord_branches", "tree_net", "branch_names", names(LINES), "r_qb", "r_pd"), with = FALSE]
 write_csv(as.data.frame(out), "data/derived/report_card_gpa.csv")
 
 # ---------------------------------------------------------------- figure: tiers
