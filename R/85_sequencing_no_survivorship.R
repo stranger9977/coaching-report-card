@@ -65,7 +65,8 @@ CAL <- list(list(w = "Kyle Shanahan", lab = "Shanahan", pkg = "21"),
             list(w = "Ben Johnson", lab = "Ben Johnson", pkg = "12"))
 res <- rbindlist(lapply(CAL, function(c1) {
   x <- fd[off_caller == c1$w & pers == c1$pkg]
-  x[, .(n = .N, v = mean(adj), se = sd(adj) / sqrt(.N), who = c1$lab), by = look]
+  x[, .(n = .N, v = mean(adj), se = sd(adj) / sqrt(.N),
+        who = sprintf("%s, %s personnel", c1$lab, c1$pkg)), by = look]
 }))
 setorder(res, who, look)
 cat("\nFIRST AND TEN ONLY, signature package, against the league in the same field position, score state and quarter:\n")
@@ -93,22 +94,27 @@ write_csv(as.data.frame(rbind(res[, .(test = "first and ten only", who, look = a
           "data/derived/sequencing_no_survivorship.csv")
 
 # ---------------------------------------------------------------- figure
-res[, who := factor(who, levels = c("Shanahan", "McVay", "Ben Johnson"))]
+res[, who := factor(who, levels = c("Shanahan, 21 personnel", "McVay, 13 personnel", "Ben Johnson, 12 personnel"))]
+dg <- position_dodge(width = 0.32)
 p <- ggplot(res, aes(look, v, group = who, colour = who)) +
   geom_hline(yintercept = 0, colour = "grey60") +
-  geom_ribbon(aes(ymin = v - se, ymax = v + se, fill = who), alpha = 0.12, colour = NA) +
-  geom_line(linewidth = 1.2) + geom_point(size = 3) +
-  geom_text(aes(label = sprintf("%+.2f", v)), vjust = -1.1, size = 3.1, fontface = "bold", show.legend = FALSE) +
-  geom_text(aes(label = sprintf("\n\n%d snaps", n)), size = 2.6, colour = "grey50", show.legend = FALSE) +
-  scale_colour_manual(values = c("Shanahan" = "#D55E00", "McVay" = "#2B8CBE", "Ben Johnson" = "#1B7837"), name = NULL) +
-  scale_fill_manual(values = c("Shanahan" = "#D55E00", "McVay" = "#2B8CBE", "Ben Johnson" = "#1B7837"), guide = "none") +
+  geom_linerange(aes(ymin = v - se, ymax = v + se), position = dg, linewidth = 3, alpha = 0.18) +
+  geom_line(linewidth = 1.2, position = dg) + geom_point(size = 3, position = dg) +
+  geom_text(aes(label = sprintf("%+.2f", v)), vjust = -1.2, size = 3.1, fontface = "bold",
+            position = dg, show.legend = FALSE) +
+  geom_text(aes(label = sprintf("%d", n)), vjust = 2.1, size = 2.5, colour = "grey55",
+            position = dg, show.legend = FALSE) +
+  scale_colour_manual(values = c("Shanahan, 21 personnel" = "#D55E00", "McVay, 13 personnel" = "#2B8CBE", "Ben Johnson, 12 personnel" = "#1B7837"), name = NULL) +
+  scale_fill_manual(values = c("Shanahan, 21 personnel" = "#D55E00", "McVay, 13 personnel" = "#2B8CBE", "Ben Johnson, 12 personnel" = "#1B7837"), guide = "none") +
   scale_y_continuous(labels = label_number(style_positive = "plus")) +
-  labs(title = sprintf("Survivorship cannot explain it: on first and ten only, Shanahan's third look in 21 personnel is still %+.2f",
-                       res[who == "Shanahan" & look == "third or later"]$v),
+  labs(title = sprintf("On first and ten only, McVay's third look in 13 personnel holds at %+.2f; Shanahan's 21 fades to %+.2f",
+                       res[grepl("McVay", who) & look == "third or later"]$v,
+                       res[grepl("Shanahan", who) & look == "third or later"]$v),
        subtitle = paste0("Every snap here is a first and ten, so the offense has just earned a fresh set of downs whether this is the first snap of the personnel\n",
                          "group or the third. That removes the reason third-look snaps looked good in the first place, which is that they come from drives that\n",
                          "were already working. Each play is measured against the league in the same field position, score state and quarter."),
-       x = "how many snaps this personnel group has been on the field, this drive", y = "EPA per play vs the league in the same spot",
+       x = "how many snaps this personnel group has been on the field, this drive (small number is the snap count)",
+       y = "EPA per play vs the league in the same spot",
        caption = fig_caption("SumerSports play charting, 2022-23 through 2025-26 regular seasons, garbage time excluded",
          sprintf("\nThe stricter version pairs each third-look first-and-ten with a first-look first-and-ten by the same caller in the same season, field position, score state\nand quarter: Shanahan %+.2f, McVay %+.2f, Ben Johnson %+.2f. Band is one standard error. Built by R/85.",
                  mt[who == "Kyle Shanahan"]$diff, mt[who == "Sean McVay"]$diff, mt[who == "Ben Johnson"]$diff))) +

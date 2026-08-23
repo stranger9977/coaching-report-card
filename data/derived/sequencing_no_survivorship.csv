@@ -1,13 +1,13 @@
 test,who,look,n,v,se
-first and ten only,Ben Johnson,first snap in this group,451,0.11258089198482552,0.048738037530616486
-first and ten only,Ben Johnson,second,90,0.2478075348729984,0.12417594091547908
-first and ten only,Ben Johnson,third or later,39,-0.22487912792101886,0.19562955586296127
-first and ten only,McVay,first snap in this group,88,0.08138656323278574,0.07472686156669896
-first and ten only,McVay,second,16,0.5036721393695651,0.2599790034943743
-first and ten only,McVay,third or later,33,0.4531034497034833,0.1552646373547717
-first and ten only,Shanahan,first snap in this group,537,0.0578361011446647,0.05616079353691668
-first and ten only,Shanahan,second,116,0.08254228049512777,0.08896032917628582
-first and ten only,Shanahan,third or later,116,0.12560376472950785,0.08140441802226916
+first and ten only,"Ben Johnson, 12 personnel",first snap in this group,451,0.11258089198482552,0.048738037530616486
+first and ten only,"Ben Johnson, 12 personnel",second,90,0.2478075348729984,0.12417594091547908
+first and ten only,"Ben Johnson, 12 personnel",third or later,39,-0.22487912792101886,0.19562955586296127
+first and ten only,"McVay, 13 personnel",first snap in this group,88,0.08138656323278574,0.07472686156669896
+first and ten only,"McVay, 13 personnel",second,16,0.5036721393695651,0.2599790034943743
+first and ten only,"McVay, 13 personnel",third or later,33,0.4531034497034833,0.1552646373547717
+first and ten only,"Shanahan, 21 personnel",first snap in this group,537,0.0578361011446647,0.05616079353691668
+first and ten only,"Shanahan, 21 personnel",second,116,0.08254228049512777,0.08896032917628582
+first and ten only,"Shanahan, 21 personnel",third or later,116,0.12560376472950785,0.08140441802226916
 exact matching,Kyle Shanahan,third minus first,104,0.1787305544374808,0.14763186179991394
 exact matching,Sean McVay,third minus first,27,0.2958607576234,0.2155300315674641
 exact matching,Ben Johnson,third minus first,35,-0.4294190043077399,0.35006530243543327
