@@ -126,6 +126,17 @@
       <img src="figures/sequenced_vs_not.png" alt="Per caller, EPA when the look stayed minus when it changed, for personnel group and for play family, with error bars; every caller sits within noise of zero.">
       <figcaption>Stayed minus changed, per caller, two definitions of "the look." Grey bars are two standard errors. Built by R/69.</figcaption>
     </figure>
+    <p class="finding"><b>Is it survivorship?</b> This is the version to trust. Every snap in the test below is a <b>first and ten</b>, so the offense has just earned a fresh set of downs whether this is the first snap of the personnel group or the third. That removes the reason third-look snaps looked good in the first place. Against the league in the same field position, score state and quarter:</p>
+    <ul class="prose" style="max-width:760px;margin:0 auto 18px">
+      <li><b>Shanahan, 21 personnel: +0.13</b> on the third look or later, down from +0.28 and no longer clear of noise (z = 1.5). Pairing each third-look snap with a first-look snap in the same season, field position, score state and quarter gives +0.18 (z = 1.2). The direction survives; the certainty does not.</li>
+      <li><b>McVay, 13 personnel: +0.45, z = 2.9.</b> The only one that clears. Matched, +0.30. This is the sequencing finding that holds up.</li>
+      <li><b>Ben Johnson, 12 personnel: -0.23.</b> Negative in every version, which fits a caller whose next play is close to a coin flip.</li>
+      <li><b>League-wide the effect is tiny but real:</b> on identical first-and-tens, a third-look snap is worth +0.003 EPA against -0.032 on a first look, across 51,753 snaps.</li>
+    </ul>
+    <figure>
+      <img src="figures/sequencing_first_down_only.png" alt="On first-and-ten only, EPA versus the league by how many consecutive snaps the personnel group has been on the field, for Shanahan, McVay and Ben Johnson.">
+      <figcaption>The survivorship-proof cut: first and ten only, so the drive being alive cannot separate the groups. Built by R/85.</figcaption>
+    </figure>
     <p class="finding"><b>Is it only an EPA artefact?</b> No. Run the same streak curve in four currencies and Shanahan's third snap of 21 personnel is worth +0.28 points, <b>7 points of success rate, 14 points of first-down rate</b> and a yard and a quarter, all against the league at the same spot. McVay's third look is positive in all four too (+0.24 points, +6.6 first-down rate, +2.6 yards). Ben Johnson's dip on the third snap of 12 personnel is just as consistent, and negative. The currency was not the problem: where the shape exists it exists in everything, and where it does not, nothing rescues it.</p>
     <figure>
       <img src="figures/sequencing_currencies.png" alt="The look-then-strike curve for three callers in four currencies: EPA, success rate, first-down rate and yards per play.">
