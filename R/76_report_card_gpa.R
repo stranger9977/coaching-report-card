@@ -144,6 +144,18 @@ cat(sprintf("\nnew-job deduction: %.2f wins x %.2f grade points per win = %.2f, 
 print(rc[job_status == "his last club moved on from him", .(coach, team, gpa_before = round(gpa_before, 2), gpa = round(gpa, 2))])
 # tiers are set within the class, like a curve: the top of a class makes the
 # dean's list even in a year when nobody is historically great
+# scale the class so the best coach in it sits at 4.0: the GPA is a ranking of
+# this year's field, and a 3.2 top score invites the question of who the missing
+# 0.8 belongs to. The raw weighted score is kept in the file as gpa_raw.
+rc[, gpa_raw := gpa]
+rc[!is.na(gpa), gpa := gpa * 4 / max(gpa, na.rm = TRUE)]
+cat(sprintf("scaled the class so the top is 4.0: raw top %.2f -> 4.00\n", max(rc$gpa_raw, na.rm = TRUE)))
+# the coaching tree, as a badge and not a grade: raw size correlates 0.24 with a
+# coach's career wins above talent but 0.04 once tenure is netted out, and
+# branches produced predict his own next seasons at p = 0.49
+tr <- fread("data/derived/coaching_tree.csv")[, .(coach = mentor, branches, tree_net = tree_resid, branch_names)]
+rc <- merge(rc, tr, by = "coach", all.x = TRUE)
+rc[is.na(branches), branches := 0L]
 rc[, pct := frank(-gpa, na.last = "keep") / sum(!is.na(gpa))]
 rc[, tier := fifelse(is.na(gpa), "Incomplete",
              fifelse(pct <= 0.15, "Dean's list",
@@ -171,7 +183,7 @@ rc <- merge(rc, logos, by = "team", all.x = TRUE)
 setorder(rc, -gpa, na.last = TRUE)
 rc[!is.na(gpa), gpa_rank := seq_len(.N)]
 out <- rc[, c("gpa_rank", "coach", "team", "team_name", "logo", "seasons", "class", "gpa", "tier", "n_lines", gcols,
-              "g_caller", "pc_side", "pc_epa", "pc_seasons", "pc_coord_seasons", "job_status", "gpa_before", names(LINES), "r_qb", "r_pd"), with = FALSE]
+              "g_caller", "pc_side", "pc_epa", "pc_seasons", "pc_coord_seasons", "job_status", "gpa_before", "gpa_raw", "branches", "tree_net", "branch_names", names(LINES), "r_qb", "r_pd"), with = FALSE]
 write_csv(as.data.frame(out), "data/derived/report_card_gpa.csv")
 
 # ---------------------------------------------------------------- figure: tiers
