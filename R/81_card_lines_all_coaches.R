@@ -41,6 +41,9 @@ YRS <- 2012:2025
 
 pc <- fread(file.path(NFLA, "playcallers.csv"), select = c("season", "week", "team", "head_coach"))
 pc[, head_coach := trimws(head_coach)]
+pc2 <- fread(file.path(NFLA, "playcallers.csv"), select = c("season", "week", "team", "head_coach", "off_play_caller", "def_play_caller"))
+pc2[, `:=`(head_coach = trimws(head_coach), off_play_caller = trimws(off_play_caller), def_play_caller = trimws(def_play_caller))]
+pc2 <- pc2[season %in% YRS]
 hc <- unique(pc[season %in% YRS, .(season, team, coach = head_coach)])           # coach of record per team-season
 hc <- hc[, .SD[1], by = .(season, team)]
 ACTIVE <- unique(pc[season == 2026 & week == 1]$head_coach)
@@ -87,17 +90,42 @@ ep <- ep[season_type == "REG" & play_type %in% c("pass", "run") & !is.na(epa)]
 o <- ep[, .(off_plays = .N, off_epa = mean(epa)), by = .(season, team = posteam)]
 dd <- ep[, .(def_plays = .N, def_epa = -mean(epa)), by = .(season, team = defteam)]
 ts <- merge(o, dd, by = c("season", "team"))
-pan <- fread("data/derived/coaching_war_seasons.csv")[, .(season, team, contract_z, qb_z, qbp_z, madden_z, games)]
+pan <- fread("data/derived/coaching_war_seasons.csv")[, .(season, team, contract_z, qb_z, qbp_z, madden_z, games,
+                                                            qb_na, qbp_na)]
 ts <- merge(ts, unique(pan, by = c("season", "team")), by = c("season", "team"))
 ts[, madden_z17 := fifelse(is.na(madden_z), 0, madden_z)][, post17 := as.integer(season >= 2017)]
 ts[, season_f := factor(season)]
 ts <- ts[!is.na(contract_z) & !is.na(qb_z) & !is.na(qbp_z)]
-fo <- lm(off_epa ~ contract_z + qb_z + qbp_z + madden_z17:post17 + season_f, ts, weights = off_plays)
-fdf <- lm(def_epa ~ contract_z + qb_z + qbp_z + madden_z17:post17 + season_f, ts, weights = def_plays)
+# qbp_na marks a starter with no charted play from the season before: a rookie
+# or a first-year starter. Without it the fit expects last season's production
+# from a quarterback who has none, and charges the coach for the gap.
+ts[, `:=`(new_qb = as.integer(qbp_na %in% c(TRUE, "TRUE")), qb_unk = as.integer(qb_na %in% c(TRUE, "TRUE")))]
+cat(sprintf("team-seasons with a first-year starter: %d of %d\n", sum(ts$new_qb), nrow(ts)))
+fo <- lm(off_epa ~ contract_z + qb_z + qbp_z + new_qb + qb_unk + madden_z17:post17 + season_f, ts, weights = off_plays)
+fdf <- lm(def_epa ~ contract_z + qb_z + qbp_z + new_qb + qb_unk + madden_z17:post17 + season_f, ts, weights = def_plays)
+cat(sprintf("first-year-starter effect on offense: %+.4f EPA per play (t = %.1f)\n",
+            coef(fo)["new_qb"], summary(fo)$coefficients["new_qb", 3]))
 ts[, `:=`(off_adj = off_epa - fitted(fo), def_adj = def_epa - fitted(fdf))]
 ts <- merge(ts, hc, by = c("season", "team"))
 od <- ts[, .(offense = weighted.mean(off_adj, off_plays), defense = weighted.mean(def_adj, def_plays), n_od = .N), by = coach]
 cat(sprintf("offense/defense above talent: %d coaches, %d of the 2026 field\n", nrow(od), sum(od$coach %in% ACTIVE)))
+
+# ------------------------------------------- 3b. play-calling above talent
+# the same residuals, attributed to whoever called the plays rather than to the
+# head coach, so a coordinator's record is measured the way a head coach's is
+pcall <- unique(pc2[, .(season, team, off_play_caller, def_play_caller, head_coach)])
+tsc <- merge(ts[, .(season, team, off_adj, def_adj, off_plays, def_plays)], pcall, by = c("season", "team"))
+co <- tsc[off_play_caller != "", .(caller = off_play_caller, season, adj = off_adj, plays = off_plays,
+                                   side = "offense", as_hc = as.integer(off_play_caller == head_coach))]
+cd <- tsc[def_play_caller != "", .(caller = def_play_caller, season, adj = def_adj, plays = def_plays,
+                                   side = "defense", as_hc = as.integer(def_play_caller == head_coach))]
+cal <- rbind(co, cd)
+caller_adj <- cal[, .(caller_adj = weighted.mean(adj, plays), plays = sum(plays), seasons = .N,
+                      seasons_as_coord = sum(as_hc == 0)), by = .(caller, side)][plays >= 1000]
+caller_adj <- caller_adj[order(-plays), .SD[1], by = caller]      # his main side of the ball
+write_csv(as.data.frame(caller_adj), "data/derived/caller_above_talent.csv")
+cat(sprintf("play-calling above talent: %d callers with 1,000+ plays, %d of the 2026 field\n",
+            nrow(caller_adj), sum(caller_adj$caller %in% ACTIVE)))
 
 # ---------------------------------------------------------------- 4. two point
 tw <- fread("data/derived/two_point.csv")

@@ -74,17 +74,13 @@ pcall <- fread("/Users/nick/stranger9977/nfl-analysis/data/playcallers.csv")
 pcall[, `:=`(head_coach = trimws(head_coach), off_play_caller = trimws(off_play_caller), def_play_caller = trimws(def_play_caller))]
 CALLERS <- unique(pcall[season == 2026 & week == 1 &
                         (head_coach == off_play_caller | head_coach == def_play_caller)]$head_coach)
-cc <- fread("data/derived/caller_classes.csv")
-off <- cc[side == "Offense: EPA per play", .(coach = caller, pc_off = epa, pc_off_n = plays, pc_off_seasons = seasons)]
-dfc <- cc[side != "Offense: EPA per play", .(coach = caller, pc_def = epa, pc_def_n = plays, pc_def_seasons = seasons)]
-rc <- merge(rc, off, by = "coach", all.x = TRUE); rc <- merge(rc, dfc, by = "coach", all.x = TRUE)
-rc[, pc_side := fifelse(is.na(pc_off) & is.na(pc_def), NA_character_,
-                fifelse(is.na(pc_def) | (!is.na(pc_off) & pc_off_n >= pc_def_n), "offense", "defense"))]
-rc[, pc_epa := fifelse(pc_side == "offense", pc_off, pc_def)]
-rc[, pc_seasons := fifelse(pc_side == "offense", pc_off_seasons, pc_def_seasons)]
-# graded against every caller on that side of the ball, 2012-2025
-gr_side <- function(v, side) {
-  pool <- cc[side == side]$epa
+# play-calling ABOVE TALENT from R/81, not raw EPA: a caller with a franchise
+# quarterback no longer outranks one without, which is what made this line weak
+ca <- fread("data/derived/caller_above_talent.csv")
+rc <- merge(rc, ca[, .(coach = caller, pc_epa = caller_adj, pc_side = side, pc_seasons = seasons,
+                       pc_coord_seasons = seasons_as_coord)], by = "coach", all.x = TRUE)
+gr_side <- function(v, sd_) {
+  pool <- ca[side == sd_]$caller_adj
   p <- sapply(v, function(x) if (is.na(x)) NA_real_ else mean(pool <= x, na.rm = TRUE))
   fifelse(is.na(p), NA_character_, fifelse(p > 0.8, "A", fifelse(p > 0.6, "B", fifelse(p > 0.4, "C", fifelse(p > 0.2, "D", "F")))))
 }
@@ -92,8 +88,8 @@ gr_side <- function(v, side) {
 # says calling is worth about a tenth of a win per season, so the line counts
 rc[, calls := coach %in% CALLERS]
 rc[, g_caller := NA_character_]
-rc[pc_side == "offense", g_caller := gr_side(pc_epa, "Offense: EPA per play")]
-rc[pc_side == "defense", g_caller := gr_side(pc_epa, "Defense: EPA per play allowed, flipped")]
+rc[pc_side == "offense", g_caller := gr_side(pc_epa, "offense")]
+rc[pc_side == "defense", g_caller := gr_side(pc_epa, "defense")]
 # does not call plays this season: a D on this line, which costs about a quarter
 # of a grade point at its weight, rather than a free pass
 rc[calls == FALSE & seasons > 0, `:=`(g_caller = "D", pc_side = "none")]
@@ -158,7 +154,7 @@ rc <- merge(rc, logos, by = "team", all.x = TRUE)
 setorder(rc, -gpa, na.last = TRUE)
 rc[!is.na(gpa), gpa_rank := seq_len(.N)]
 out <- rc[, c("gpa_rank", "coach", "team", "team_name", "logo", "seasons", "class", "gpa", "tier", "n_lines", gcols,
-              "g_caller", "pc_side", "pc_epa", "pc_seasons", names(LINES), "r_qb", "r_pd"), with = FALSE]
+              "g_caller", "pc_side", "pc_epa", "pc_seasons", "pc_coord_seasons", names(LINES), "r_qb", "r_pd"), with = FALSE]
 write_csv(as.data.frame(out), "data/derived/report_card_gpa.csv")
 
 # ---------------------------------------------------------------- figure: tiers

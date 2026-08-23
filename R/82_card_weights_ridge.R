@@ -100,8 +100,39 @@ print(dcast(W, line_lab ~ fit, value.var = "coef")[, lapply(.SD, function(x) if 
 cat(sprintf("\nout-of-time r: all seven %.3f, decisions only %.3f (reported for the record, not the point)\n",
             w7$oos_r[1], w5$oos_r[1]))
 
+# ------------------------------------------------- does the coordinator record carry over
+# The question behind "as a caller should be important": for a coach who calls
+# his own plays, the offense line IS his play-calling, so the two are the same
+# measurement twice. The non-redundant version is the record he built BEFORE he
+# was a head coach, which is the only calling evidence a first-time hire has.
+ca <- fread("data/derived/caller_above_talent.csv")
+coord <- ca[seasons_as_coord >= 2, .(coach = caller, coord_adj = caller_adj, side, seasons_as_coord)]
+first3 <- ps[, .SD[order(season)][1:3], by = coach][!is.na(act17)]
+hcw <- first3[, .(hc_wins = mean(act17), hc_wat = mean(wat17, na.rm = TRUE), n = .N), by = coach][n >= 2]
+carry <- merge(hcw, coord, by = "coach")
+cat(sprintf("\ncoordinator record vs head-coaching start: %d coaches with 2+ coordinator seasons and 2+ head-coaching seasons\n", nrow(carry)))
+cat(sprintf("  correlation with wins per 17 in his first seasons: %.2f; with wins above talent: %.2f\n",
+            cor(carry$coord_adj, carry$hc_wins), cor(carry$coord_adj, carry$hc_wat, use = "complete.obs")))
+lmc <- summary(lm(hc_wins ~ coord_adj, carry))$coefficients
+cat(sprintf("  a coordinator one standard deviation better is worth %+.2f wins per 17 as a head coach (t = %.1f, p = %.3f)\n",
+            lmc["coord_adj", 1] * sd(carry$coord_adj), lmc["coord_adj", 3], lmc["coord_adj", 4]))
+add_val <- data.table(test = "coordinator record carries to head coaching",
+                      r = cor(carry$coord_adj, carry$hc_wins), n = nrow(carry),
+                      wins_per_sd = lmc["coord_adj", 1] * sd(carry$coord_adj), p = lmc["coord_adj", 4])
+write_csv(as.data.frame(add_val), "data/derived/caller_carryover.csv")
+
 # ---------------------------------------------------------------- the card's weights
 dec <- w5[, .(line = sub("^prior_", "", line), coef)]
+# THE PLAY-CALLING LINE. The binary "does he call plays" earns +0.13 wins per
+# standard deviation in the fit above. But the card's play-calling line is not
+# binary: it grades how WELL he called, and the right coefficient for that is
+# what a coordinator's record above talent is worth when he becomes a head
+# coach, which is +0.30 wins per standard deviation on 47 coaches. That is the
+# point estimate; its p-value is 0.37, so this is the one weight on the card
+# resting on a number the data cannot pin down. It is used because grading how
+# well a man called plays and then weighting it as if the question were only
+# whether he called them understates the line.
+dec[line == "calls_s", coef := lmc["coord_adj", 1] * sd(carry$coord_adj)]
 dec[, w := pmax(coef, 0)]
 if (sum(dec$w) == 0) stop("no decision line earned a positive weight")
 dec[, w := w / sum(w)]
@@ -112,6 +143,8 @@ weights[, line_key := c("fourth", "two_pt", "penalties", "offense", "defense", "
   match(line, c("fourth_s", "two_s", "penalties_s", "offense_s", "defense_s", "calls_s", "wae17", "wat17"))]]
 weights[, weight := weight / sum(weight)]
 weights[, line_lab := LINES[match(line, names(LINES))]]
+cat(sprintf("\nplay-calling line: binary coefficient %+.3f replaced with the coordinator carry-over estimate %+.3f (p = %.2f)\n",
+            w5[line == "prior_calls_s"]$coef, lmc["coord_adj", 1] * sd(carry$coord_adj), lmc["coord_adj", 4]))
 cat("\nweights the card will use:\n"); print(weights[order(-weight), .(line_lab, weight = round(weight, 3), source)])
 write_csv(as.data.frame(merge(W, weights[, .(line = paste0("prior_", line), weight)], by = "line", all.x = TRUE)),
           "data/derived/card_weights.csv")
