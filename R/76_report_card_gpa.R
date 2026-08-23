@@ -53,6 +53,7 @@ w  <- fread("data/derived/coaching_war.csv")
 nmk <- fread("data/derived/coaching_war_no_market.csv")[, .(coach, war_no_market)]
 pcf <- fread("/Users/nick/stranger9977/nfl-analysis/data/playcallers.csv")
 ACTIVE <- unique(trimws(pcf[season == 2026 & week == 1]$head_coach))
+TEAM26 <- unique(pcf[season == 2026 & week == 1, .(coach = trimws(head_coach), team = team)])
 sn <- fread("data/derived/coaching_war_sensitivity.csv")
 dv <- fread("data/factory/decision_value.csv")[, .(coach, fourth = -era_shrunk)]
 tp <- fread("data/derived/two_point.csv")[!is.na(chart_n) & chart_n >= 10, .(coach, two_pt = chart_era_shrunk)]
@@ -79,6 +80,7 @@ rc[n_lines < 4, gpa := NA_real_]
 rc[, tier := fifelse(is.na(gpa), "Incomplete", fifelse(gpa >= 3.3, "Dean's list", fifelse(gpa >= 2.7, "Honor roll", fifelse(gpa >= 2.0, "Passing", "Probation"))))]
 rc[, class := fifelse(seasons >= 5, "Upperclassman", fifelse(seasons >= 3, "Sophomore", "Freshman"))]
 rc[, active := coach %in% ACTIVE]
+rc <- merge(rc, TEAM26, by = "coach", all.x = TRUE)
 cat(sprintf("graded against %d coaches in the era; %d of the %d active head coaches have a row\n",
             nrow(rc), sum(rc$active), length(ACTIVE)))
 rc <- rc[active == TRUE]
@@ -87,11 +89,11 @@ rc[!is.na(gpa), gpa_rank := seq_len(.N)]
 cat(sprintf("%d active coaches on the card, %d with a GPA (4+ lines)\n", nrow(rc), sum(!is.na(rc$gpa))))
 cat("tiers:\n"); print(rc[, .N, by = tier])
 cat("\nthe card:\n")
-print(rc[, c("gpa_rank", "coach", "seasons", "class", gcols, "gpa", "tier"), with = FALSE][, lapply(.SD, function(x) if (is.numeric(x)) round(x, 2) else x)], nrows = 60)
+print(rc[, c("gpa_rank", "coach", "team", "seasons", "class", gcols, "gpa", "tier"), with = FALSE][, lapply(.SD, function(x) if (is.numeric(x)) round(x, 2) else x)], nrows = 60)
 cat("\nline coverage:\n"); print(rc[, lapply(.SD, function(g) sum(!is.na(g))), .SDcols = gcols])
 cat(sprintf("\nGPA vs WAR rank correlation: %.2f\n", cor(rc$gpa, rc$war, use = "complete", method = "spearman")))
 
-out <- rc[, c("gpa_rank", "coach", "seasons", "class", "gpa", "tier", "n_lines", gcols, names(LINES), "r_qb", "r_pd"), with = FALSE]
+out <- rc[, c("gpa_rank", "coach", "team", "seasons", "class", "gpa", "tier", "n_lines", gcols, names(LINES), "r_qb", "r_pd"), with = FALSE]
 write_csv(as.data.frame(out), "data/derived/report_card_gpa.csv")
 
 # ---------------------------------------------------------------- figure: tiers
@@ -100,9 +102,10 @@ g[, tier := factor(tier, levels = c("Dean's list", "Honor roll", "Passing", "Pro
 g[, lab := sprintf("%s  %.2f", coach, gpa)]
 g[, y := -seq_len(.N)]
 tier_cols <- c("Dean's list" = "#1B7837", "Honor roll" = "#2B8CBE", "Passing" = "grey45", "Probation" = "#C0504D")
-p <- ggplot(g, aes(x = gpa, y = reorder(coach, gpa), colour = tier)) +
+g[, coach_team := sprintf("%s  %s", coach, team)]
+p <- ggplot(g, aes(x = gpa, y = reorder(coach_team, gpa), colour = tier)) +
   geom_vline(xintercept = c(2.0, 2.7, 3.3), colour = "grey85", linetype = "22") +
-  geom_segment(aes(x = 0, xend = gpa, yend = reorder(coach, gpa)), colour = "grey88", linewidth = 0.6) +
+  geom_segment(aes(x = 0, xend = gpa, yend = reorder(coach_team, gpa)), colour = "grey88", linewidth = 0.6) +
   geom_point(aes(shape = class), size = 3) +
   scale_shape_manual(values = c(Freshman = 17, Sophomore = 15, Upperclassman = 16), name = NULL) +
   geom_text(aes(label = sprintf("%.2f  (%s)", gpa, apply(as.matrix(g[, ..gcols]), 1, function(r) paste(ifelse(is.na(r), "-", r), collapse = "")))),

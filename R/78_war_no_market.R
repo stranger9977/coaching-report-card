@@ -142,7 +142,9 @@ save_fig("docs/figures/war_market_reputation.png", p2, w = 12, h = 7)
 sn <- fread("data/derived/coaching_war_sensitivity.csv")[eligible == TRUE & !is.na(rank_main)]
 cons <- sn[, .(coach, r_qb = rank_war_talent_same_season_qb, r_pd = rank_pd_effect_ppg, r_mkt = rank_main,
                v_qb = war_talent_same_season_qb, v_pd = pd_effect_ppg)]
-cons <- merge(cons, nmE[, .(coach, r_comb = rank_no_market, war_no_market, still_hc, seasons)], by = "coach")
+cons <- merge(cons, nmE[, .(coach, r_comb = rank_no_market, war_no_market, still_hc, seasons, team_list)], by = "coach")
+act26 <- unique(pc[season == 2026 & week == 1, .(coach = trimws(head_coach), team26 = team)])
+cons <- merge(cons, act26, by = "coach", all.x = TRUE)
 cons[, mean_rank := (r_qb + r_pd) / 2]
 setorder(cons, mean_rank)
 cons[, rank_cons := seq_len(.N)]
@@ -153,7 +155,7 @@ cat(sprintf("top 10 who are still head coaches: %d of 10; market board managed %
             cons[rank_cons <= 10, sum(still_hc)], nmE[rank_market <= 10, sum(still_hc)]))
 
 tc <- cons[1:20]
-tc[, lab := sprintf("%s%s", coach, fifelse(still_hc, "", "  (not a head coach in 2026)"))]
+tc[, lab := fifelse(still_hc, sprintf("%s  %s", coach, team26), sprintf("%s  (%s, not coaching in 2026)", coach, team_list))]
 lng <- melt(tc, id.vars = c("coach", "lab", "rank_cons", "mean_rank"), measure.vars = c("r_qb", "r_pd"),
             variable.name = "board", value.name = "r")
 lng[, board := factor(board, levels = c("r_qb", "r_pd"),
