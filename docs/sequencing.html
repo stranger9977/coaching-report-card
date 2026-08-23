@@ -126,6 +126,16 @@
       <img src="figures/sequenced_vs_not.png" alt="Per caller, EPA when the look stayed minus when it changed, for personnel group and for play family, with error bars; every caller sits within noise of zero.">
       <figcaption>Stayed minus changed, per caller, two definitions of "the look." Grey bars are two standard errors. Built by R/69.</figcaption>
     </figure>
+    <p class="finding"><b>Is it only an EPA artefact?</b> No. Run the same streak curve in four currencies and Shanahan's third snap of 21 personnel is worth +0.28 points, <b>7 points of success rate, 14 points of first-down rate</b> and a yard and a quarter, all against the league at the same spot. McVay's third look is positive in all four too (+0.24 points, +6.6 first-down rate, +2.6 yards). Ben Johnson's dip on the third snap of 12 personnel is just as consistent, and negative. The currency was not the problem: where the shape exists it exists in everything, and where it does not, nothing rescues it.</p>
+    <figure>
+      <img src="figures/sequencing_currencies.png" alt="The look-then-strike curve for three callers in four currencies: EPA, success rate, first-down rate and yards per play.">
+      <figcaption>The same plays and the same baseline, scored four ways. Built by R/79.</figcaption>
+    </figure>
+    <p class="finding"><b>Do sequenced drives last longer?</b> Barely, and they do not score more. Comparing drives that held one personnel group for their first three snaps against drives that changed, inside cells of starting field position, score state and quarter: <b>+0.10 plays and +0.44 yards</b> per drive, with points per drive moving the other way (-0.02) and the share of drives that score up 0.4 points of percentage. On 20,143 drives that is a real but tiny difference in length and nothing at all in points. The honest limit: holding a look for three snaps is partly a result, not only a choice, because a first down on snap two makes holding easier.</p>
+    <figure>
+      <img src="figures/sequenced_drives.png" alt="Plays, yards and points per drive for drives that held one personnel group for three snaps versus drives that changed.">
+      <figcaption>Held versus changed, raw means with 95% intervals. Built by R/79.</figcaption>
+    </figure>
     <p class="finding"><b>The earlier version.</b> The chart that went out on Thursday (R/64) counted streaks across a whole game and adjusted for down and distance only. Its numbers are close to these, which is the reassuring part: Shanahan's 21 peaked at +0.28 there and +0.28 here. The film reel for that card, nine straight snaps of 21 personnel against Chicago with eight different plays, is on the <a href="index.html#markov-22">board</a>.</p>
   </section>
 
@@ -227,6 +237,18 @@
 
   <!-- ============================================================ findings -->
   <section>
+    <div class="step">The simple board</div>
+    <h2 class="center">Play-callers by class</h2>
+    <p class="big">No model, no controls: EPA per play, one row per caller, split by how many seasons he has been calling plays. Freshmen have one or two, sophomores three or four, upperclassmen five or more.</p>
+    <p class="finding">Upperclassmen, offense: Matt LaFleur +0.079, Andy Reid +0.079, Josh McDaniels +0.072, Joe Brady +0.071, Sean Payton +0.061, Greg Roman +0.049, Kyle Shanahan +0.048, Sean McVay +0.045. Defense, flipped so up is good: Belichick, Wade Phillips, Dan Quinn, then Fangio. Among sophomores the top offensive names are Ben Johnson and Todd Monken; among freshmen, Liam Coen and Steve Sarkisian.</p>
+    <p class="finding"><b>Three flaws worth saying out loud before anyone quotes this.</b> Nothing here is adjusted, so a caller with a franchise quarterback outranks one without, every time. Upperclassmen are survivors: a caller only reaches five seasons if the results were good, which is why the 5-plus class averages +0.00 on offense while the freshmen average -0.01 and the sophomores -0.02. And the call is credited to one name per team-season, so a coordinator who shares it gets all of it.</p>
+    <figure>
+      <img src="figures/caller_classes.png" alt="Offensive and defensive play-callers plotted by EPA per play, split into freshmen, sophomores and upperclassmen.">
+      <figcaption>Every caller with 1,500+ plays, 2012-2025, by class. Built by R/80; data/derived/caller_classes.csv.</figcaption>
+    </figure>
+  </section>
+
+  <section>
     <div class="step">Part 3: what the chain says about the NFL</div>
     <h2 class="center">Sequencing is real, tiny, and worth nothing</h2>
     <p class="big">Eight play families as the states. Every same-drive pair of plays, four seasons, 32 callers. Five questions, each tested against a shuffled version of itself so thin cells cannot fake a signal.</p>
@@ -292,7 +314,7 @@
   </section>
 
   <footer>
-    Data: SumerSports play charting, 2022-23 through 2025-26 regular seasons, garbage time excluded. Transitions are consecutive called plays inside the same drive. The interactive chains use raw transition matrices (not situation-adjusted), which is why they show a little more memory than the adjusted numbers in the charts. Scripts: <code>R/68_sequencing_streaks.R</code>, <code>R/69_drive_memory.R</code>, <code>R/70_personnel_chain.R</code> (Part 1 and the chain extensions), <code>R/66_markov_sequencing.R</code> (Parts 2 and 3).
+    Data: SumerSports play charting, 2022-23 through 2025-26 regular seasons, garbage time excluded. Transitions are consecutive called plays inside the same drive. The interactive chains use raw transition matrices (not situation-adjusted), which is why they show a little more memory than the adjusted numbers in the charts. Scripts: <code>R/68_sequencing_streaks.R</code>, <code>R/79_sequencing_currencies.R</code> (currencies and drives), <code>R/80_caller_classes.R</code> (the class board), <code>R/69_drive_memory.R</code>, <code>R/70_personnel_chain.R</code>, <code>R/66_markov_sequencing.R</code>.
   </footer>
 </main>
 

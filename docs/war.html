@@ -184,8 +184,23 @@
 
   <section>
     <div class="step">WAR, three ways</div>
-    <h2 class="center">Same fifty coaches, three ways to score them</h2>
-    <p class="finding">The market-anchored board credits a coach with whatever the betting line rated his team above its roster, and with beating that line. It cannot avoid crediting him for a quarterback who outplays his pay. The middle board removes the quarterback's play in the same season, so a coach gets nothing for his quarterback, and the whole scale collapses: the top is +0.38, not +0.92. The right board uses no market at all, point differential above the same talent controls. Belichick, Arians, Jim Harbaugh and Vrabel are top-10 on all three. McDermott, McVay, Payton and Tomlin are top-10 on two; McDermott falls to 17th and McVay to 13th once Allen and Stafford are taken out.</p>
+    <h2 class="center">Taking the market's opinion of the coach back out</h2>
+    <p class="finding"><b>The market board was paying coaches for their own reputation, so it is no longer the headline.</b> It splits into two halves: what the betting line rated the team above its roster, and what the team did beyond that line. The first half is where the market's opinion of the coach lives. It was 58% of Sean McDermott's number, 85% of Sean McVay's and 92% of Bill Belichick's. That board ranked McDermott first, and Buffalo replaced him for 2026; four of its top ten are not head coaches this season.</p>
+    <figure>
+      <img src="figures/war_market_reputation.png" alt="The old market-anchored board split into the part the market credited the team above its roster and the part where the team beat the line.">
+      <figcaption>The old headline split into reputation and results. Built by R/78.</figcaption>
+    </figure>
+    <p class="finding"><b>What replaces it.</b> The two boards that do not pay a coach for his reputation: one that also removes the quarterback's play in the same season (a coach gets nothing for his passer, and the whole scale collapses to +0.38 at the top), and one that drops the betting line entirely and scores point differential above payroll, roster ratings and the quarterback's pay. Neither is the truth on its own: the first cannot credit a coach for developing a quarterback, the second cannot see anything that does not show up in points. Where they agree is the safest thing this data says: <b>Arians, Belichick and Jim Harbaugh</b>, then Vrabel and McVay. McDermott lands 7th.</p>
+    <figure>
+      <img src="figures/war_consensus.png" alt="Each coach's rank on the two market-free boards joined by a line, with the average rank on the left.">
+      <figcaption>The two honest boards, joined per coach. A short line means they agree. Built by R/78; data/derived/coaching_war_consensus.csv.</figcaption>
+    </figure>
+    <p class="finding"><b>And both objections in one model.</b> Point differential, no market, with the quarterback's same-season play in the controls: Belichick +1.10, Jim Harbaugh +0.98, Arians +0.97, John Harbaugh +0.88. Its own failure mode is visible too, and worth stating: taking the quarterback out entirely lifts coaches whose teams played better than their passers, which is how Jeff Fisher lands 6th and Doug Marrone 15th on that version.</p>
+    <figure>
+      <img src="figures/war_no_market.png" alt="Coaching WAR with no betting market and the quarterback's same-season play controlled, top 25.">
+      <figcaption>Both objections at once. Coaches no longer head coaching in 2026 are greyed. Built by R/78.</figcaption>
+    </figure>
+    <p class="finding">The three boards side by side, with the market version kept for comparison:</p>
     <figure>
       <img src="figures/coaching_war_three_boards.png" alt="Three panels showing the top 15 coaches on the market-anchored board, the same-season-QB-controlled board and the market-free point-differential board, with agreement coloured.">
       <figcaption>Top 15 on each board; colour marks how many boards a coach is top-10 on. Built by R/77; data/derived/coaching_war_three_boards.csv.</figcaption>
@@ -322,7 +337,7 @@
   </section>
 
   <footer>
-    Data: nflverse schedules and closing spreads 1999-2025; OverTheCap contracts via nflreadr 2012-2025; Madden launch ratings 2017-2025 in the talent control. Scripts: <code>R/76_report_card_gpa.R</code> (the card), <code>R/77_war_three_boards.R</code>, <code>R/71_coaching_war.R</code> (the WAR model, with the full skeptic log in its header), <code>R/73</code> to <code>R/75</code>. Every number on this page is in <code>data/derived/coaching_war*.csv</code>.
+    Data: nflverse schedules and closing spreads 1999-2025; OverTheCap contracts via nflreadr 2012-2025; Madden launch ratings 2017-2025 in the talent control. Scripts: <code>R/76_report_card_gpa.R</code> (the card), <code>R/77_war_three_boards.R</code>, <code>R/78_war_no_market.R</code>, <code>R/71_coaching_war.R</code> (the WAR model, with the full skeptic log in its header), <code>R/73</code> to <code>R/75</code>. Every number on this page is in <code>data/derived/coaching_war*.csv</code>.
   </footer>
 </main>
 <script>
