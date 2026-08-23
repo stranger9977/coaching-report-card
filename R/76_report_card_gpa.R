@@ -154,9 +154,10 @@ cat(sprintf("scaled the class so the top is 4.0: raw top %.2f -> 4.00\n", max(rc
 # rather than the playcaller file, which could not see a coordinator working for a
 # head coach who called his own plays. Still a badge and not a grade: it does not
 # predict, and net of tenure it points the wrong way.
-tr <- fread("data/derived/coaching_tree.csv")[, .(coach = mentor, branches, tree_net = tree_resid, branch_names)]
+tr <- fread("data/derived/coaching_tree.csv")[, .(coach = mentor, branches, tree_points, hc_branches, coord_branches, tree_net = tree_resid, branch_names)]
 rc <- merge(rc, tr, by = "coach", all.x = TRUE)
 rc[is.na(branches), branches := 0L]
+rc[is.na(tree_points), tree_points := 0]
 rc[, pct := frank(-gpa, na.last = "keep") / sum(!is.na(gpa))]
 rc[, tier := fifelse(is.na(gpa), "Incomplete",
              fifelse(pct <= 0.15, "Dean's list",
@@ -184,7 +185,7 @@ rc <- merge(rc, logos, by = "team", all.x = TRUE)
 setorder(rc, -gpa, na.last = TRUE)
 rc[!is.na(gpa), gpa_rank := seq_len(.N)]
 out <- rc[, c("gpa_rank", "coach", "team", "team_name", "logo", "seasons", "class", "gpa", "tier", "n_lines", gcols,
-              "g_caller", "pc_side", "pc_epa", "pc_seasons", "pc_coord_seasons", "job_status", "gpa_before", "gpa_raw", "branches", "tree_net", "branch_names", names(LINES), "r_qb", "r_pd"), with = FALSE]
+              "g_caller", "pc_side", "pc_epa", "pc_seasons", "pc_coord_seasons", "job_status", "gpa_before", "gpa_raw", "branches", "tree_points", "hc_branches", "coord_branches", "tree_net", "branch_names", names(LINES), "r_qb", "r_pd"), with = FALSE]
 write_csv(as.data.frame(out), "data/derived/report_card_gpa.csv")
 
 # ---------------------------------------------------------------- figure: tiers
