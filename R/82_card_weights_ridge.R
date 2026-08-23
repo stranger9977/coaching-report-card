@@ -169,10 +169,15 @@ job_sd <- sqrt(p_ret * (1 - p_ret))
 job_coef2 <- abs(rg2$estimate_wins[1]) * job_sd
 cat(sprintf("\nnew-job line: retread gap %+.2f wins (p = %.2f) x indicator SD %.2f = coefficient %+.3f\n",
             rg2$estimate_wins[1], rg2$p[1], job_sd, job_coef2))
-pos <- weights[weight > 0]
-JOB_W <- job_coef2 / (sum(dec$coef[dec$coef > 0]) + job_coef2)
+# The honest per-standard-deviation conversion puts this line at 23%, tied with
+# offense, on a gap whose p-value is 0.22 and which separates four coaches from
+# the other 28. That is more than the evidence carries, so it is set at 10% by
+# decision, and the derived figure is printed above so the choice is visible.
+JOB_W <- 0.10
+cat(sprintf("new-job line: derived weight would be %.0f%%, set to %.0f%% by decision (p = %.2f)\n",
+            100 * job_coef2 / (sum(dec$coef[dec$coef > 0]) + job_coef2), 100 * JOB_W, rg2$p[1]))
 weights[, weight := weight * (1 - JOB_W)]
-weights <- rbind(weights, data.table(line = "job", weight = JOB_W, source = "retread gap, point estimate",
+weights <- rbind(weights, data.table(line = "job", weight = JOB_W, source = "retread gap, held at 10%",
                                      line_key = "job", line_lab = "How he got this job"), fill = TRUE)
 TREE_W <- 0.08
 weights[, weight := weight * (1 - TREE_W)]
