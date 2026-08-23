@@ -12,7 +12,9 @@
 # fails all four while his season sits in the raw data.
 #
 # So each line is rebuilt here from source, per coach-season, then averaged
-# over whatever seasons a coach has:
+# over whatever seasons a coach has, with recent seasons weighted more: each
+# season carries 0.5^(age/3), a half-life R/83 picked from a grid, so a coach
+# who changed teams is graded mostly on the work he did lately.
 #
 #   Fourth downs   nfl4th decision model in data/derived/fourth_down_probs.rds
 #                  (2018-2025). Cost of a choice = the best of go, field goal
@@ -38,6 +40,8 @@
 suppressMessages({ library(data.table); library(readr); library(lme4) })
 NFLA <- "/Users/nick/stranger9977/nfl-analysis/data"
 YRS <- 2012:2025
+HALFLIFE <- 3   # seasons; picked by R/83 from a grid, see recency_halflife.csv
+rw <- function(season) 0.5 ^ ((2025 - season) / HALFLIFE)
 
 pc <- fread(file.path(NFLA, "playcallers.csv"), select = c("season", "week", "team", "head_coach"))
 pc[, head_coach := trimws(head_coach)]
@@ -62,7 +66,7 @@ g4 <- d4[, .(cost = sum(cost), games = uniqueN(game_id)), by = .(coach, season)]
 g4[, cost_pg := cost / games]
 lg4 <- g4[, .(lg = weighted.mean(cost_pg, games)), by = season]
 g4 <- merge(g4, lg4, by = "season")
-fourth <- g4[, .(fourth = -weighted.mean(cost_pg - lg, games), n_fourth = .N), by = coach]  # lower cost is better
+fourth <- g4[, .(fourth = -weighted.mean(cost_pg - lg, games * rw(season)), n_fourth = .N), by = coach]  # lower cost is better
 cat(sprintf("fourth downs: %d coaches, %d of the 2026 field\n", nrow(fourth), sum(fourth$coach %in% ACTIVE)))
 
 # ---------------------------------------------------------------- 2. penalties
@@ -79,7 +83,7 @@ tp <- pen[, .(plays = .N, pens = sum(own_pen, na.rm = TRUE)), by = .(season, tea
 tp[, rate := pens / plays]
 tp <- merge(tp, hc, by = c("season", "team"))
 tp <- merge(tp, tp[, .(lg = weighted.mean(rate, plays)), by = season], by = "season")
-penalties <- tp[, .(penalties = -weighted.mean(rate - lg, plays), n_pen = .N), by = coach]   # fewer is better
+penalties <- tp[, .(penalties = -weighted.mean(rate - lg, plays * rw(season)), n_pen = .N), by = coach]   # fewer is better
 cat(sprintf("penalties: %d coaches, %d of the 2026 field\n", nrow(penalties), sum(penalties$coach %in% ACTIVE)))
 
 # ---------------------------------------------------------------- 3. offense and defense above talent
@@ -107,7 +111,7 @@ cat(sprintf("first-year-starter effect on offense: %+.4f EPA per play (t = %.1f)
             coef(fo)["new_qb"], summary(fo)$coefficients["new_qb", 3]))
 ts[, `:=`(off_adj = off_epa - fitted(fo), def_adj = def_epa - fitted(fdf))]
 ts <- merge(ts, hc, by = c("season", "team"))
-od <- ts[, .(offense = weighted.mean(off_adj, off_plays), defense = weighted.mean(def_adj, def_plays), n_od = .N), by = coach]
+od <- ts[, .(offense = weighted.mean(off_adj, off_plays * rw(season)), defense = weighted.mean(def_adj, def_plays * rw(season)), n_od = .N), by = coach]
 cat(sprintf("offense/defense above talent: %d coaches, %d of the 2026 field\n", nrow(od), sum(od$coach %in% ACTIVE)))
 
 # ------------------------------------------- 3b. play-calling above talent
@@ -120,7 +124,7 @@ co <- tsc[off_play_caller != "", .(caller = off_play_caller, season, adj = off_a
 cd <- tsc[def_play_caller != "", .(caller = def_play_caller, season, adj = def_adj, plays = def_plays,
                                    side = "defense", as_hc = as.integer(def_play_caller == head_coach))]
 cal <- rbind(co, cd)
-caller_adj <- cal[, .(caller_adj = weighted.mean(adj, plays), plays = sum(plays), seasons = .N,
+caller_adj <- cal[, .(caller_adj = weighted.mean(adj, plays * rw(season)), plays = sum(plays), seasons = .N,
                       seasons_as_coord = sum(as_hc == 0)), by = .(caller, side)][plays >= 1000]
 caller_adj <- caller_adj[order(-plays), .SD[1], by = caller]      # his main side of the ball
 write_csv(as.data.frame(caller_adj), "data/derived/caller_above_talent.csv")

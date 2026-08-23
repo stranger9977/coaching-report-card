@@ -139,6 +139,12 @@ dec[, w := w / sum(w)]
 res_w <- mean(dec$w)                                   # results lines get the average decision weight
 weights <- rbind(dec[, .(line, weight = w, source = "ridge, decision fit")],
                  data.table(line = c("wae17", "wat17"), weight = res_w, source = "held at the average"))
+rg <- fread("data/derived/retread_gap.csv")
+# the new-job line: a coach whose club moved on from him starts 0.86 wins above
+# talent behind a first-time hire (p = 0.22, 34 against 66). Same treatment as
+# the play-calling line: the point estimate is used and its noise is stated.
+job_coef <- abs(rg$per_sd[1]) * sd(d7$act17)
+cat(sprintf("\nnew-job line: retread gap %+.2f wins (p = %.2f) -> coefficient %+.3f\n", rg$estimate_wins[1], rg$p[1], job_coef))
 weights[, line_key := c("fourth", "two_pt", "penalties", "offense", "defense", "calls", "spread", "results")[
   match(line, c("fourth_s", "two_s", "penalties_s", "offense_s", "defense_s", "calls_s", "wae17", "wat17"))]]
 weights[, weight := weight / sum(weight)]

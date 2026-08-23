@@ -1,9 +1,9 @@
 line_key,line_lab,weight,source
-fourth,Fourth downs,0.15233482457957565,"ridge, decision fit"
+fourth,Fourth downs,0.16722216319271987,"ridge, decision fit"
 two_pt,Going for two,0,"ridge, decision fit"
 penalties,Penalties,0,"ridge, decision fit"
-offense,Offense above talent,0.30571766058870936,"ridge, decision fit"
-defense,Defense above talent,0.12980516052430446,"ridge, decision fit"
-calls,Calls his own plays,0.16214235430741056,"ridge, decision fit"
-spread,Beats the spread,0.125,held at the average
-results,Results above resources,0.125,held at the average
+offense,Offense above talent,0.33559475760683033,"ridge, decision fit"
+defense,Defense above talent,0.14249072591483278,"ridge, decision fit"
+calls,Calls his own plays,0.10469235328561692,"ridge, decision fit"
+spread,Beats the spread,0.12499999999999999,held at the average
+results,Results above resources,0.12499999999999999,held at the average

@@ -87,6 +87,11 @@ gr_side <- function(v, sd_) {
 # a head coach who does not call plays is penalised, not excused: the ridge fit
 # says calling is worth about a tenth of a win per season, so the line counts
 rc[, calls := coach %in% CALLERS]
+# a coach whose last club moved on from him starts the new job carrying that:
+# retreads average 0.86 wins above talent below first-time hires in year one
+jc <- fread("data/derived/job_change_2026.csv")[, .(coach, job_status = status)]
+rc <- merge(rc, jc, by = "coach", all.x = TRUE)
+rg <- fread("data/derived/retread_gap.csv")
 rc[, g_caller := NA_character_]
 rc[pc_side == "offense", g_caller := gr_side(pc_epa, "offense")]
 rc[pc_side == "defense", g_caller := gr_side(pc_epa, "defense")]
@@ -125,6 +130,18 @@ rc[, gpa := {
   fifelse(den > 0, num / den, NA_real_)
 }]
 rc[n_lines < 4, gpa := NA_real_]
+# THE NEW-JOB DEDUCTION. A coach whose club moved on from him starts the new job
+# 0.86 wins above talent behind a first-time hire (p = 0.22, 34 against 66). It
+# is charged to the four coaches it applies to rather than weighted into
+# everybody's GPA, and it is sized by how many grade points a win is worth on
+# this card: the slope of GPA on career wins above talent among the graded.
+sl <- rc[!is.na(gpa) & !is.na(war_no_market), coef(lm(gpa ~ war_no_market))[2]]
+DEDUCT <- round(abs(rg$estimate_wins[1]) * unname(sl), 2)
+rc[, gpa_before := gpa]
+rc[job_status == "his last club moved on from him" & !is.na(gpa), gpa := gpa - DEDUCT]
+cat(sprintf("\nnew-job deduction: %.2f wins x %.2f grade points per win = %.2f, charged to %d coaches\n",
+            abs(rg$estimate_wins[1]), sl, DEDUCT, rc[job_status == "his last club moved on from him" & !is.na(gpa), .N]))
+print(rc[job_status == "his last club moved on from him", .(coach, team, gpa_before = round(gpa_before, 2), gpa = round(gpa, 2))])
 # tiers are set within the class, like a curve: the top of a class makes the
 # dean's list even in a year when nobody is historically great
 rc[, pct := frank(-gpa, na.last = "keep") / sum(!is.na(gpa))]
@@ -154,7 +171,7 @@ rc <- merge(rc, logos, by = "team", all.x = TRUE)
 setorder(rc, -gpa, na.last = TRUE)
 rc[!is.na(gpa), gpa_rank := seq_len(.N)]
 out <- rc[, c("gpa_rank", "coach", "team", "team_name", "logo", "seasons", "class", "gpa", "tier", "n_lines", gcols,
-              "g_caller", "pc_side", "pc_epa", "pc_seasons", "pc_coord_seasons", names(LINES), "r_qb", "r_pd"), with = FALSE]
+              "g_caller", "pc_side", "pc_epa", "pc_seasons", "pc_coord_seasons", "job_status", "gpa_before", names(LINES), "r_qb", "r_pd"), with = FALSE]
 write_csv(as.data.frame(out), "data/derived/report_card_gpa.csv")
 
 # ---------------------------------------------------------------- figure: tiers
