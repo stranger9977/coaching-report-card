@@ -19,7 +19,7 @@
 # fold never trains on the year it predicts.
 #
 # TWO FITS, because two of the lines are results rather than decisions:
-#   all seven   the honest predictive answer, where past results carry most
+#   all lines   the honest predictive answer, where past results carry most
 #               of the weight, as past results always do
 #   decisions   fourth downs, two-point, penalties, offense, defense only,
 #               which is what a decision-making report card should weigh
@@ -39,10 +39,19 @@ source("R/lib/theme_coach.R")
 set.seed(82)
 
 ps <- fread("data/derived/card_lines_seasons.csv")
+# does the head coach call his own plays? tested, not assumed
+pcf <- fread("/Users/nick/stranger9977/nfl-analysis/data/playcallers.csv")
+pcf[, `:=`(head_coach = trimws(head_coach), off_play_caller = trimws(off_play_caller), def_play_caller = trimws(def_play_caller))]
+callf <- unique(pcf[, .(season, team, coach = head_coach,
+                        calls = as.integer(head_coach == off_play_caller | head_coach == def_play_caller))])
+callf <- callf[, .(calls_s = max(calls)), by = .(coach, season)]
+ps <- merge(ps, callf, by = c("coach", "season"), all.x = TRUE)
+ps[is.na(calls_s), calls_s := 0L]
 setorder(ps, coach, season)
 LINES <- c(fourth_s = "Fourth downs", two_s = "Going for two", penalties_s = "Penalties",
            offense_s = "Offense above talent", defense_s = "Defense above talent",
-           wae17 = "Beats the spread", wat17 = "Results above resources")
+           wae17 = "Beats the spread", wat17 = "Results above resources",
+           calls_s = "Calls his own plays")
 # career to date, through the previous season, with an expanding mean
 for (k in names(LINES)) {
   ps[, (paste0("prior_", k)) := {
@@ -79,9 +88,11 @@ fit_ridge <- function(dat, feats, label) {
   r <- cor(pred, y, use = "complete.obs")
   data.table(fit = label, line = names(co), coef = as.numeric(co), oos_r = r, n = nrow(dat))
 }
-w7 <- fit_ridge(d7, FEAT, "all seven lines")
-DEC <- paste0("prior_", c("fourth_s", "two_s", "penalties_s", "offense_s", "defense_s"))
+w7 <- fit_ridge(d7, FEAT, "all lines")
+DEC <- paste0("prior_", c("fourth_s", "two_s", "penalties_s", "offense_s", "defense_s", "calls_s"))
 w5 <- fit_ridge(d7, DEC, "decision lines only")
+cat(sprintf("\ncoaches who call their own plays: %.0f%% of coach-seasons; their mean wins per 17 %.2f vs %.2f for the rest\n",
+            100*mean(d7$calls_s), d7[calls_s==1, mean(act17)], d7[calls_s==0, mean(act17)]))
 W <- rbind(w7, w5)
 W[, line_lab := LINES[sub("^prior_", "", line)]]
 cat("\nridge coefficients, wins per 17 per standard deviation of each line:\n")
@@ -97,8 +108,8 @@ dec[, w := w / sum(w)]
 res_w <- mean(dec$w)                                   # results lines get the average decision weight
 weights <- rbind(dec[, .(line, weight = w, source = "ridge, decision fit")],
                  data.table(line = c("wae17", "wat17"), weight = res_w, source = "held at the average"))
-weights[, line_key := c("fourth", "two_pt", "penalties", "offense", "defense", "spread", "results")[
-  match(line, c("fourth_s", "two_s", "penalties_s", "offense_s", "defense_s", "wae17", "wat17"))]]
+weights[, line_key := c("fourth", "two_pt", "penalties", "offense", "defense", "calls", "spread", "results")[
+  match(line, c("fourth_s", "two_s", "penalties_s", "offense_s", "defense_s", "calls_s", "wae17", "wat17"))]]
 weights[, weight := weight / sum(weight)]
 weights[, line_lab := LINES[match(line, names(LINES))]]
 cat("\nweights the card will use:\n"); print(weights[order(-weight), .(line_lab, weight = round(weight, 3), source)])
@@ -107,18 +118,18 @@ write_csv(as.data.frame(merge(W, weights[, .(line = paste0("prior_", line), weig
 write_csv(as.data.frame(weights[, .(line_key, line_lab, weight, source)]), "data/derived/card_weights_final.csv")
 
 # ---------------------------------------------------------------- figure
-W[, fit := factor(fit, levels = c("all seven lines", "decision lines only"))]
+W[, fit := factor(fit, levels = c("all lines", "decision lines only"))]
 p <- ggplot(W, aes(x = coef, y = reorder(line_lab, coef), colour = fit)) +
   geom_vline(xintercept = 0, colour = "grey60") +
   geom_point(size = 3.2, position = position_dodge(width = 0.5)) +
   geom_text(aes(label = sprintf("%+.2f", coef)), position = position_dodge(width = 0.5),
             hjust = -0.25, size = 2.9, show.legend = FALSE) +
-  scale_colour_manual(values = c("all seven lines" = "grey55", "decision lines only" = "#2B8CBE"), name = NULL) +
+  scale_colour_manual(values = c("all lines" = "grey55", "decision lines only" = "#2B8CBE"), name = NULL) +
   scale_x_continuous(expand = expansion(mult = c(0.08, 0.25))) +
   labs(title = "What a ridge fit pays for: wins next season per standard deviation of each report-card line",
        subtitle = paste0("Every line measured as the coach's career average BEFORE the season being predicted, so nothing from the season in question is on the\n",
                          "right-hand side. Ridge because the lines move together; lambda by cross-validation blocked on season. Grey: all seven lines together,\n",
-                         "where past results carry the weight, as past results always do. Blue: the five decision lines on their own, which is what the card weighs."),
+                         "where past results carry the weight, as past results always do. Blue: the decision lines on their own, which is what the card weighs."),
        x = "wins per 17 games per standard deviation", y = NULL,
        caption = fig_caption("nflverse play-by-play and schedules, nfl4th, OverTheCap and Madden via R/81, 2012-2025 (fourth downs 2018-2025)",
          sprintf("\nFit on %d coach-seasons with at least one prior season. Out-of-time correlation with next-season wins: %.2f for all seven, %.2f for decisions only.\nThe weights are the point here, not the fit. A line whose coefficient is not positive gets no weight on the card rather than an inverted one. Built by R/82.",

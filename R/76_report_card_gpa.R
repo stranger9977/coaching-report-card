@@ -15,7 +15,7 @@
 # the top and ranks them into tiers by overall grade or gives them a gpa out
 # of 4.0".
 #
-# Seven lines, each graded by percentile among the coaches on the card (A =
+# Eight lines, each graded by percentile among the coaches on the card (A =
 # top fifth, B, C, D, F = bottom fifth). The GPA is a WEIGHTED average of the
 # letter points (A 4, B 3, C 2, D 1, F 0), with weights from R/82's ridge fit
 # on next-season wins rather than a flat average. A coach needs at least four
@@ -70,6 +70,10 @@ rc <- merge(TEAM26, rc, by = "coach", all.x = TRUE)
 rc[is.na(seasons), seasons := 0L]
 cat(sprintf("the class of 2026: %d coaches, %d with a head-coaching record\n", nrow(rc), sum(rc$seasons > 0)))
 
+pcall <- fread("/Users/nick/stranger9977/nfl-analysis/data/playcallers.csv")
+pcall[, `:=`(head_coach = trimws(head_coach), off_play_caller = trimws(off_play_caller), def_play_caller = trimws(def_play_caller))]
+CALLERS <- unique(pcall[season == 2026 & week == 1 &
+                        (head_coach == off_play_caller | head_coach == def_play_caller)]$head_coach)
 cc <- fread("data/derived/caller_classes.csv")
 off <- cc[side == "Offense: EPA per play", .(coach = caller, pc_off = epa, pc_off_n = plays, pc_off_seasons = seasons)]
 dfc <- cc[side != "Offense: EPA per play", .(coach = caller, pc_def = epa, pc_def_n = plays, pc_def_seasons = seasons)]
@@ -84,9 +88,17 @@ gr_side <- function(v, side) {
   p <- sapply(v, function(x) if (is.na(x)) NA_real_ else mean(pool <= x, na.rm = TRUE))
   fifelse(is.na(p), NA_character_, fifelse(p > 0.8, "A", fifelse(p > 0.6, "B", fifelse(p > 0.4, "C", fifelse(p > 0.2, "D", "F")))))
 }
+# a head coach who does not call plays is penalised, not excused: the ridge fit
+# says calling is worth about a tenth of a win per season, so the line counts
+rc[, calls := coach %in% CALLERS]
 rc[, g_caller := NA_character_]
 rc[pc_side == "offense", g_caller := gr_side(pc_epa, "Offense: EPA per play")]
 rc[pc_side == "defense", g_caller := gr_side(pc_epa, "Defense: EPA per play allowed, flipped")]
+# does not call plays this season: a D on this line, which costs about a quarter
+# of a grade point at its weight, rather than a free pass
+rc[calls == FALSE & seasons > 0, `:=`(g_caller = "D", pc_side = "none")]
+cat(sprintf("\n%d of the 2026 head coaches call their own plays; %d do not and take a D on that line\n",
+            sum(rc$calls), rc[calls == FALSE & seasons > 0, .N]))
 
 
 LINES <- c(fourth = "Fourth downs", two_pt = "Going for two", penalties = "Penalties", offense = "Offense above talent",
@@ -106,9 +118,11 @@ cat("weights in use:\n"); print(WT[order(-weight)])
 for (k in names(LINES)) rc[, (paste0("g_", k)) := grade(get(k))]
 gcols <- paste0("g_", names(LINES))
 rc[, n_lines := rowSums(!is.na(as.matrix(.SD))), .SDcols = gcols]
-pmat <- apply(as.matrix(rc[, ..gcols]), 2, function(g) unname(pts[g]))
-colnames(pmat) <- names(LINES)
-wrow <- wvec[names(LINES)]
+rc[, n_lines := n_lines + as.integer(!is.na(g_caller))]
+gcols2 <- c(gcols, "g_caller")
+pmat <- apply(as.matrix(rc[, ..gcols2]), 2, function(g) unname(pts[g]))
+colnames(pmat) <- c(names(LINES), "calls")
+wrow <- wvec[c(names(LINES), "calls")]
 rc[, gpa := {
   num <- rowSums(sweep(pmat, 2, wrow, "*"), na.rm = TRUE)
   den <- rowSums(sweep(!is.na(pmat), 2, wrow, "*"), na.rm = TRUE)
