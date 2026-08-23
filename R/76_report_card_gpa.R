@@ -150,15 +150,15 @@ p <- ggplot(g, aes(x = gpa, y = reorder(coach_team, gpa), colour = tier)) +
             hjust = 0, nudge_x = 0.07, size = 2.8, colour = "grey30") +
   scale_colour_manual(values = tier_cols, name = NULL) +
   scale_x_continuous(limits = c(0, 5.6), breaks = 0:4) +
-  labs(title = sprintf("The report card, 2026 head coaches: %s on the dean's list, %d on the honor roll, %d on probation",
-                       paste(g[tier == "Dean's list"]$coach, collapse = ", "), sum(g$tier == "Honor roll"), sum(g$tier == "Probation")),
+  labs(title = sprintf("The 2026 report card: %s make the dean's list, %d on probation",
+                       paste(sub("^\\S+ ", "", g[tier == "Dean's list"]$coach), collapse = ", "), sum(g$tier == "Probation")),
        subtitle = paste0("GPA out of 4.0 over seven lines: fourth-down decisions, going for two when the chart says to, penalties, offense and defense above\n",
-                         "talent, beating the spread, and results above resources (the market-free board). Each is a letter by percentile against every coach of the\n",
-                         "era, not only the ones still working, so a grade means the same thing every year. Letters in the label are in that order, a dash is an\n",
-                         sprintf("incomplete. Shape is class year. Tiers are a curve inside this class: dean's list is the top 15%%, then honor roll, passing, and the\nbottom fifth on probation, so the cuts fall at %.2f, %.2f and %.2f this year.", cut_dean, cut_hon, cut_pass)),
+                         "talent, beating the spread, and results above resources (the market-free board). Each is a letter by percentile against the other coaches\n",
+                         "on this card, so the class is graded on its own curve. Letters in the label are in that order, a dash is a line we cannot grade him on.\n",
+                         sprintf("Shape is class year. Dean's list is the top 15%% of the class, probation the bottom fifth: the cuts fall at %.2f, %.2f and %.2f this year.", cut_dean, cut_hon, cut_pass)),
        x = "GPA", y = NULL,
        caption = fig_caption("nflverse, SumerSports and OverTheCap via the scripts named in R/76's header, 2012-2025 (fourth downs 2018-2025)",
-         "\nA GPA needs at least four of the seven lines; a coach with fewer is left off. Class year is seasons as a head coach since 2012: freshman 1-2, sophomore 3-4,\nupperclassman 5+. Built by R/76.")) +
+         "\nA GPA needs at least four of the seven lines, so first-year head coaches are not plotted; they are graded on their play-calling record on the page instead.\nClass year is seasons as a head coach since 2012: freshman 1-2, sophomore 3-4, upperclassman 5+. Built by R/76.")) +
   theme_coach(grid = "none") +
   theme(legend.position = "top", legend.justification = "left")
 save_fig("docs/figures/report_card_tiers.png", p, w = 12, h = 3 + nrow(g) * 0.26)
