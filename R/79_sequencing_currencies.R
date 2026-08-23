@@ -51,7 +51,8 @@ POSL <- c("1st snap\nof the look", "2nd", "3rd", "4th-5th", "6th+")
 d[, pos_b := factor(fifelse(pos == 1, POSL[1], fifelse(pos == 2, "2nd", fifelse(pos == 3, "3rd", fifelse(pos <= 5, "4th-5th", "6th+")))), levels = POSL)]
 d[, kb := fifelse(k == 1, "1", fifelse(k == 2, "2", fifelse(k == 3, "3", fifelse(k <= 5, "4-5", "6+"))))]
 d[, dd := fifelse(down == 1, "1", fifelse(down == 2 & distance <= 3, "2s", fifelse(down == 2 & distance <= 7, "2m",
-         fifelse(down == 2, "2l", fifelse(down == 3 & distance <= 3, "3s", fifelse(down == 3 & distance <= 7, "3m", "3l"))))))]
+         fifelse(down == 2, "2l", fifelse(down == 3 & distance <= 3, "3s", fifelse(down == 3 & distance <= 7, "3m",
+         fifelse(down == 3, "3l", "4th down")))))))]
 # yards gained from the change in distance to the goal line inside a drive
 d[, next_ytg := shift(yards_to_goal_line, -1), by = drive_id]
 d[, gain := fifelse(is.na(next_ytg), NA_real_, yards_to_goal_line - next_ytg)]

@@ -32,7 +32,8 @@ d[, new_grp := offensive_personnel_basic != shift(offensive_personnel_basic, fil
 d[, streak_id := cumsum(new_grp), by = gm]
 d[, pos := seq_len(.N), by = .(gm, streak_id)]
 d[, dd := fifelse(down == 1, "1", fifelse(down == 2 & distance <= 3, "2s", fifelse(down == 2 & distance <= 7, "2m",
-         fifelse(down == 2, "2l", fifelse(down == 3 & distance <= 3, "3s", fifelse(down == 3 & distance <= 7, "3m", "3l"))))))]
+         fifelse(down == 2, "2l", fifelse(down == 3 & distance <= 3, "3s", fifelse(down == 3 & distance <= 7, "3m",
+         fifelse(down == 3, "3l", "4th down")))))))]
 d <- attach_wpa(d)
 d[, adj_epa := expected_points_added - mean(expected_points_added, na.rm = TRUE), by = dd]
 d[, adj_wpa := 100 * (wpa - mean(wpa, na.rm = TRUE)), by = dd]   # percentage points of win probability
