@@ -9,11 +9,14 @@
 # assembled; neither knows that the roster spent October in street clothes. So
 # for every team-season:
 #   1. Intended starters are the eleven biggest snap-takers from the PREVIOUS
-#      season who are still on this year's roster, unioned with this season's
-#      weeks 1 to 4 leaders, snap-weighted. Using last season matters: a star
-#      hurt from week 1 never appears in his own team's early snaps, and
-#      Christian McCaffrey's 2024 is exactly that case.
-#   2. For every week from 5 on, availability is the share of that weighted
+#      season who are still on this year's roster, snap-weighted. Last season
+#      only, on purpose: if this season's snaps helped define the lineup, a man
+#      would qualify by playing and the measure would be partly circular, and a
+#      star hurt from week 1 would never appear at all. McCaffrey's 2024 is
+#      exactly that case.
+#      The cost of that choice: rookies and new signings are not in a team's
+#      baseline, so their absence does not count against it.
+#   2. For every week of the season, availability is the share of that weighted
 #      group who took a snap. One is the whole intended lineup on the field;
 #      0.8 means a fifth of it, by snap weight, was missing.
 #   3. A team-season's availability is the average across those weeks.
@@ -56,16 +59,12 @@ avail_side <- function(snapcol, label) {
   setorder(prior, season, team, -share)
   prior11 <- prior[, head(.SD, 11), by = .(season, team)][, .(season = season + 1L, team, player, w_prior = share)]
   prior11 <- merge(prior11, unique(ros[, .(season, team, player)]), by = c("season", "team", "player"))   # still on the roster this year
-  # this season's early leaders
-  early <- x[week <= 4, .(s = sum(s)), by = .(season, team, player)]
-  early[, share := s / sum(s), by = .(season, team)]
-  setorder(early, season, team, -share)
-  early11 <- early[, head(.SD, 11), by = .(season, team)][, .(season, team, player, w_early = share)]
-  starters <- merge(prior11, early11, by = c("season", "team", "player"), all = TRUE)
-  starters[is.na(w_prior), w_prior := 0][is.na(w_early), w_early := 0]
-  starters[, w := pmax(w_prior, w_early)]
+  # the baseline is last season only, never this season, so a player cannot
+  # define himself as a starter by playing. That also means every week counts,
+  # including the first month, where injuries happen too.
+  starters <- copy(prior11); setnames(starters, "w_prior", "w")
   starters[, w := w / sum(w), by = .(season, team)]
-  late <- x[week >= 5, .(season, team, week, player, played = 1L)]
+  late <- x[, .(season, team, week, player, played = 1L)]
   grid <- unique(late[, .(season, team, week)])
   grid <- merge(grid, starters[, .(season, team, player, w)], by = c("season", "team"), allow.cartesian = TRUE)
   grid <- merge(grid, late, by = c("season", "team", "week", "player"), all.x = TRUE)
@@ -138,20 +137,20 @@ cat("\nShanahan:\n"); print(res[grepl("Shanahan", coach), .(coach, seasons, avai
 write_csv(as.data.frame(res[order(-off_after)]), "data/derived/availability_effect.csv")
 
 # ---------------------------------------------------------------- figure
-res[, lab := fifelse(coach %in% c("Kyle Shanahan", "Sean McVay", "Andy Reid", "Matt LaFleur", "Sean Payton",
+res[, lab := fifelse(coach %in% c("Kyle Shanahan", "John Fox", "Sean McVay", "Andy Reid", "Matt LaFleur", "Sean Payton",
                                   "Nick Sirianni", "Mike McCarthy", "Kevin O'Connell") |
                      abs(off_gain) > quantile(abs(off_gain), 0.9), coach, "")]
 p <- ggplot(res, aes(avail, off_after)) +
   geom_hline(yintercept = 0, colour = "grey70") +
   geom_vline(xintercept = mean(ts$avail_off), colour = "grey85", linetype = "22") +
-  geom_point(aes(colour = coach == "Kyle Shanahan"), size = 2.8) +
-  geom_text_repel(aes(label = lab, colour = coach == "Kyle Shanahan"), size = 3.1,
+  geom_point(aes(colour = coach %in% c("Kyle Shanahan", "John Fox")), size = 2.8) +
+  geom_text_repel(aes(label = lab, colour = coach %in% c("Kyle Shanahan", "John Fox")), size = 3.1,
                   segment.colour = "grey75", max.overlaps = 30, show.legend = FALSE) +
   scale_colour_manual(values = c(`TRUE` = "#D55E00", `FALSE` = "grey55"), guide = "none") +
   scale_x_continuous(labels = label_percent(accuracy = 1)) +
   scale_y_continuous(labels = label_number(accuracy = 0.01, style_positive = "plus")) +
-  labs(title = "Shanahan is second in offense above roster, and injuries are not the reason",
-       subtitle = paste0("Across: the share of a coach's intended offensive lineup on the field, weeks 5 on. Up: offense EPA per play above what payroll,\n",
+  labs(title = "Offense above what the roster predicted, once availability is controlled",
+       subtitle = paste0("Across: the share of a coach's intended offensive lineup on the field, every week. Up: offense EPA per play above what payroll,\n",
                          "the quarterback, Madden ratings and availability predict. Dotted line is the league."),
        x = "share of the intended lineup available", y = "offense above what the roster predicted",
        caption = fig_caption("nflverse snap counts, rosters and play-by-play 2013-2025; OverTheCap contracts; Madden 2017-2025",
